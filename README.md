@@ -129,7 +129,7 @@ một bản sao; sửa `template/assets/` không ảnh hưởng tới site đang
 Giao diện đã nối xong dữ liệu: mỗi dòng xe ra đúng nội dung của nó, tin tức và
 trang tĩnh lấy từ admin, form lái thử lưu được lead.
 
-Test: **233 test · 211 đạt · 22 skip · 0 hỏng.** Các test skip đều khẳng định
+Test: **236 test · 214 đạt · 22 skip · 0 hỏng.** Các test skip đều khẳng định
 markup của giao diện VinFast cũ; hành vi tương ứng đã phủ lại bằng
 `tests/Feature/LexusFrontendTest.php`.
 
