@@ -112,7 +112,16 @@ chỉ cần DNS A `@`/`www` → `192.0.2.1` Proxied + Redirect Rule 301
 `concat("https://es350h-lexusthanglong.com", http.request.uri.path)`.
 Sau mỗi lần sửa cấu hình, Cloudflare → Caching → **Purge Everything**.
 
-## 4. Queue worker (mail báo lead)
+## 4. Queue worker (mail báo lead + viết bài Gemini)
+
+**Viết bài bằng Gemini** (Admin → Bài viết → "Sinh bài viết bằng Gemini") chạy
+trong queue: một bài có nghiên cứu từ khoá mất 1–3 phút, lúc Gemini quá tải có
+thể 5–6 phút — quá giới hạn 100 giây của Cloudflare nên không chạy trong request.
+Trang soạn bài tự hỏi lại kết quả 4 giây/lần và điền bài khi xong. Cần trong `.env`:
+`GEMINI_API_KEY`, `GEMINI_MAX_OUTPUT_TOKENS=16384`, `GEMINI_TIMEOUT=240`.
+`GEMINI_GOOGLE_SEARCH=true` (cần bật Billing ở Google AI Studio) cho phép Gemini
+xem các trang đang xếp hạng khi nghiên cứu từ khoá. Nên chạy **2 tiến trình**
+worker (Supervisor numprocs=2) để mail báo lead không phải chờ bài viết xong.
 
 Mail thông báo khách để lại số và webhook chạy nền (`QUEUE_CONNECTION=database`).
 Thiếu worker thì lead vẫn lưu, nhưng **không có mail báo**. Người nhận mail khai ở
@@ -128,7 +137,8 @@ command=php /var/www/lexus/artisan queue:work --sleep=3 --tries=3 --max-time=360
 autostart=true
 autorestart=true
 user=www-data
-numprocs=1
+numprocs=2
+process_name=%(program_name)s_%(process_num)02d
 redirect_stderr=true
 stdout_logfile=/var/www/lexus/storage/logs/queue.log
 ```

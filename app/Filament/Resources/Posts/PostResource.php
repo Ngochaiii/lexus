@@ -8,7 +8,7 @@ use App\Filament\Resources\Posts\Pages\CreatePost;
 use App\Filament\Resources\Posts\Pages\EditPost;
 use App\Filament\Resources\Posts\Pages\ListPosts;
 use App\Filament\Schemas\SeoSection;
-use App\Services\GeminiArticleWriter;
+use App\Jobs\GenerateArticleWithGemini;
 use App\Support\Catalog;
 use App\Support\Url;
 use BackedEnum;
@@ -18,6 +18,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -28,14 +29,15 @@ use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Components\View;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
-use Throwable;
 
 class PostResource extends Resource
 {
@@ -138,8 +140,8 @@ class PostResource extends Resource
                 ->schema([
                     Textarea::make('ai_instructions')
                         ->label('Yêu cầu thêm cho Gemini')
-                        ->placeholder('Ví dụ: nhấn mạnh ưu đãi tháng này, hướng tới khách mua xe gia đình, bài khoảng 1.000 từ…')
-                        ->helperText('Không bắt buộc. Tiêu đề và ảnh bìa ở phía trên là dữ liệu chính để AI viết bài.')
+                        ->placeholder('Ví dụ: nhắm khách gia đình ở Hà Nội; so sánh thêm với NX 350h; nhấn mạnh trả góp…')
+                        ->helperText('Không bắt buộc. Gemini tự nghiên cứu từ khoá theo tiêu đề và tự lấy giá, lăn bánh, thông số, link nội bộ thật từ website — không cần dán giá vào đây.')
                         ->rows(3)
                         ->dehydrated(false)
                         ->columnSpanFull(),
@@ -150,10 +152,11 @@ class PostResource extends Resource
                             ->icon(Heroicon::OutlinedSparkles)
                             ->color('info')
                             ->requiresConfirmation(fn (Get $schemaGet): bool => filled($schemaGet('article_body')))
+                            ->disabled(fn (Get $schemaGet): bool => filled($schemaGet('ai_job')))
                             ->modalHeading('Tạo lại nội dung bằng Gemini?')
                             ->modalDescription('Nội dung, tóm tắt và các trường SEO hiện tại sẽ được thay bằng bản Gemini tạo mới.')
                             ->modalSubmitActionLabel('Tạo lại bài')
-                            ->action(function (Get $schemaGet, Set $schemaSet, GeminiArticleWriter $writer): void {
+                            ->action(function (Get $schemaGet, Set $schemaSet): void {
                                 $title = trim((string) $schemaGet('title'));
                                 $cover = $schemaGet('cover');
                                 $cover = is_array($cover) ? collect($cover)->first(fn (mixed $item): bool => filled($item)) : $cover;
@@ -173,37 +176,28 @@ class PostResource extends Resource
                                     return;
                                 }
 
-                                try {
-                                    $article = $writer->generate(
-                                        $title,
-                                        (string) $cover,
-                                        $schemaGet('ai_instructions'),
-                                    );
-                                } catch (Throwable $exception) {
-                                    Notification::make()
-                                        ->title('Chưa tạo được bài viết')
-                                        ->body($exception->getMessage())
-                                        ->danger()
-                                        ->persistent()
-                                        ->send();
-
-                                    return;
-                                }
-
-                                $schemaSet('excerpt', $article['excerpt']);
-                                $schemaSet('article_body', $article['article_html']);
-                                $schemaSet('seo.title', $article['seo_title']);
-                                $schemaSet('seo.description', $article['meta_description']);
-                                $schemaSet('seo.keywords', implode(', ', $article['keywords']));
+                                // Chạy nền: bài dài + nghiên cứu từ khoá mất 1–3 phút, quá giới
+                                // hạn 100 giây của Cloudflare. Trang tự hỏi lại kết quả
+                                // (PollsGeminiArticle) và điền bài vào form khi xong.
+                                $key = (string) Str::uuid();
+                                Cache::put(GenerateArticleWithGemini::cacheKey($key), ['status' => 'running'], now()->addHours(6));
+                                GenerateArticleWithGemini::dispatch($key, $title, (string) $cover, $schemaGet('ai_instructions'));
+                                $schemaSet('ai_job', $key);
 
                                 Notification::make()
-                                    ->title('Gemini đã viết xong bài')
-                                    ->body('Hãy đọc lại thông tin thực tế trước khi chuyển trạng thái sang Đã đăng.')
-                                    ->success()
+                                    ->title('Gemini bắt đầu viết bài')
+                                    ->body('Nghiên cứu từ khoá → viết bài → FAQ → thẻ SEO. Thường mất 1–3 phút; bài tự điền vào form khi xong.')
+                                    ->info()
                                     ->send();
                             }),
                     ])
                         ->key('geminiArticleActions')
+                        ->columnSpanFull(),
+
+                    Hidden::make('ai_job')->dehydrated(false),
+
+                    View::make('filament.gemini-poll')
+                        ->visible(fn (Get $get): bool => filled($get('ai_job')))
                         ->columnSpanFull(),
 
                     Textarea::make('seo.keywords')
@@ -220,6 +214,13 @@ class PostResource extends Resource
                             ['h2', 'h3', 'bulletList', 'orderedList', 'blockquote', 'table'],
                             ['undo', 'redo'],
                         ])
+                        ->columnSpanFull(),
+
+                    Textarea::make('faq_text')
+                        ->label('Hỏi đáp (FAQ) cuối bài')
+                        ->helperText('Mỗi câu hai dòng "Hỏi: …" và "Đáp: …", cách nhau một dòng trống. Hiện cuối bài và sinh dữ liệu FAQ cho Google/AI. Để trống nếu không cần.')
+                        ->placeholder("Hỏi: Giá lăn bánh Lexus RX 350h Premium bao nhiêu?\nĐáp: Khoảng 3,77 tỷ đồng tại Hà Nội…")
+                        ->rows(8)
                         ->columnSpanFull(),
                 ]),
 

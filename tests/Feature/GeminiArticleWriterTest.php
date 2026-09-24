@@ -39,7 +39,7 @@ class GeminiArticleWriterTest extends TestCase
 
     public function test_gui_tieu_de_anh_va_nhan_json_seo_tu_gemini(): void
     {
-        $articleHtml = '<p>'.str_repeat('Nội dung hữu ích về xe điện VinFast Bắc Giang. ', 20).'</p>';
+        $articleHtml = '<p>'.str_repeat('Giá lăn bánh Lexus RX 350h tại Hà Nội. ', 20).'</p>';
 
         Http::fake([
             'generativelanguage.googleapis.com/*' => Http::response([
@@ -47,16 +47,21 @@ class GeminiArticleWriterTest extends TestCase
                     'content' => [
                         'parts' => [[
                             'text' => json_encode([
+                                'primary_keyword' => 'giá lăn bánh lexus rx 350h',
+                                'search_intent' => 'Tìm tổng chi phí mua RX 350h tại Hà Nội.',
+                                'secondary_keywords' => ['lexus rx 350h premium', 'lăn bánh hà nội'],
                                 'excerpt' => 'Tóm tắt bài viết hấp dẫn.',
                                 'article_html' => $articleHtml,
-                                'seo_title' => 'VinFast VF 3 2026 tại Bắc Giang',
-                                'meta_description' => 'Khám phá VinFast VF 3, chi phí sử dụng và kinh nghiệm lựa chọn xe điện phù hợp cho khách hàng tại Bắc Giang.',
+                                'seo_title' => 'Giá lăn bánh Lexus RX 350h tại Hà Nội',
+                                'meta_description' => 'Giá lăn bánh Lexus RX 350h tại Hà Nội từ khoảng 3,77 tỷ: giá niêm yết, trước bạ 12%, biển số và cách nhận báo giá chi tiết.',
+                                'slug' => 'Giá lăn bánh Lexus RX 350h Hà Nội',
+                                'faq' => [['question' => 'Lăn bánh RX 350h bao nhiêu?', 'answer' => 'Khoảng 3,77 tỷ đồng tại Hà Nội.']],
                                 'keywords' => [
-                                    'VinFast VF 3',
-                                    'xe điện VinFast',
-                                    'VinFast Bắc Giang',
-                                    'giá xe VinFast',
-                                    'kinh nghiệm mua xe điện',
+                                    'giá lăn bánh lexus rx 350h',
+                                    'lexus rx 350h',
+                                    'lexus rx 2026',
+                                    'lệ phí trước bạ',
+                                    'mua lexus hà nội',
                                 ],
                             ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
                         ]],
@@ -65,15 +70,20 @@ class GeminiArticleWriterTest extends TestCase
             ]),
         ]);
 
+        $rx = \App\Models\Product::create(['name' => 'Lexus RX', 'slug' => 'rx', 'status' => 'published', 'published_at' => now()]);
+        $rx->variants()->create(['name' => 'RX 350h Premium', 'price' => 3_350_000_000]);
+
         $result = app(GeminiArticleWriter::class)->generate(
-            'VinFast VF 3 có phù hợp đi phố?',
+            'Giá lăn bánh Lexus RX 350h tại Hà Nội tháng 10/2026',
             $this->imagePath,
             'Viết cho người mua xe lần đầu.',
         );
 
-        $this->assertSame('VinFast VF 3 2026 tại Bắc Giang', $result['seo_title']);
-        $this->assertCount(5, $result['keywords']);
-        $this->assertStringContainsString('xe điện VinFast', $result['article_html']);
+        $this->assertSame('Giá lăn bánh Lexus RX 350h tại Hà Nội', $result['seo_title']);
+        $this->assertSame('giá lăn bánh lexus rx 350h', $result['primary_keyword']);
+        $this->assertSame('gia-lan-banh-lexus-rx-350h-ha-noi', $result['slug']);
+        $this->assertCount(1, $result['faq']);
+        $this->assertContains('lăn bánh hà nội', $result['keywords'], 'từ khoá phụ được gộp vào danh sách');
 
         Http::assertSent(function (Request $request): bool {
             $data = $request->data();
@@ -83,8 +93,14 @@ class GeminiArticleWriterTest extends TestCase
                 && data_get($data, 'contents.0.parts.0.inlineData.mimeType') === 'image/jpeg'
                 && filled(data_get($data, 'contents.0.parts.0.inlineData.data'))
                 && array_key_exists('googleSearch', data_get($data, 'tools.0', []))
-                && data_get($data, 'generationConfig.maxOutputTokens') === 8192
-                && data_get($data, 'generationConfig.responseFormat.text.mimeType') === 'APPLICATION_JSON';
+                && data_get($data, 'generationConfig.maxOutputTokens') === 16384
+                && data_get($data, 'generationConfig.responseFormat.text.mimeType') === 'APPLICATION_JSON'
+                // Giá thật + lăn bánh tính sẵn nằm trong câu lệnh; không còn sót chữ VinFast.
+                && str_contains($prompt = (string) data_get($data, 'contents.0.parts.1.text'), 'HỒ SƠ DỮ LIỆU THẬT')
+                && str_contains($prompt, '3.350.000.000 đ')
+                && str_contains($prompt, '3.766.000.000 đ')
+                && str_contains($prompt, '/san-pham/rx')
+                && ! str_contains($prompt, 'VinFast');
         });
     }
 
@@ -106,7 +122,7 @@ class GeminiArticleWriterTest extends TestCase
     public function test_free_tier_khong_gui_google_search_nhung_van_yeu_cau_tu_khoa_seo(): void
     {
         config(['services.gemini.google_search' => false]);
-        $articleHtml = '<p>'.str_repeat('Nội dung hữu ích về xe điện VinFast. ', 20).'</p>';
+        $articleHtml = '<p>'.str_repeat('Nội dung hữu ích về xe Lexus. ', 20).'</p>';
 
         Http::fake([
             'generativelanguage.googleapis.com/*' => Http::response([
@@ -115,9 +131,9 @@ class GeminiArticleWriterTest extends TestCase
                         'text' => json_encode([
                             'excerpt' => 'Tóm tắt bài viết.',
                             'article_html' => $articleHtml,
-                            'seo_title' => 'Tiêu đề SEO VinFast',
-                            'meta_description' => 'Nội dung mô tả SEO hữu ích về xe điện VinFast dành cho khách hàng đang tìm hiểu và lựa chọn xe phù hợp.',
-                            'keywords' => ['xe điện', 'VinFast', 'VinFast Bắc Giang'],
+                            'seo_title' => 'Tiêu đề SEO Lexus',
+                            'meta_description' => 'Nội dung mô tả SEO hữu ích về xe Lexus dành cho khách hàng đang tìm hiểu và lựa chọn phiên bản phù hợp tại Hà Nội.',
+                            'keywords' => ['xe lexus', 'lexus hà nội', 'giá xe lexus'],
                         ], JSON_UNESCAPED_UNICODE),
                     ]]],
                 ]],
@@ -130,7 +146,8 @@ class GeminiArticleWriterTest extends TestCase
             $data = $request->data();
 
             return ! array_key_exists('tools', $data)
-                && str_contains((string) data_get($data, 'contents.0.parts.1.text'), 'cụm từ khóa sát chủ đề');
+                && str_contains((string) data_get($data, 'contents.0.parts.1.text'), 'NGHIÊN CỨU TỪ KHOÁ')
+                && str_contains((string) data_get($data, 'contents.0.parts.1.text'), 'Không có công cụ tìm kiếm');
         });
     }
 
@@ -172,7 +189,7 @@ class GeminiArticleWriterTest extends TestCase
                             'article_html' => $articleHtml,
                             'seo_title' => 'SEO title từ model dự phòng',
                             'meta_description' => 'Meta description hợp lệ khi model chính đã dùng hết 20 request miễn phí trong ngày và hệ thống chuyển sang model khác.',
-                            'keywords' => ['xe điện', 'VinFast', 'kinh nghiệm mua xe'],
+                            'keywords' => ['xe lexus', 'lexus hà nội', 'kinh nghiệm mua xe'],
                         ], JSON_UNESCAPED_UNICODE),
                     ]]],
                 ]],
@@ -202,7 +219,7 @@ class GeminiArticleWriterTest extends TestCase
                             'article_html' => $articleHtml,
                             'seo_title' => 'SEO title đợt hai model dự phòng',
                             'meta_description' => 'Meta description hợp lệ khi model chính hết quota còn model dự phòng quá tải ở đợt một và thành công ở đợt hai.',
-                            'keywords' => ['xe điện', 'VinFast', 'kinh nghiệm mua xe'],
+                            'keywords' => ['xe lexus', 'lexus hà nội', 'kinh nghiệm mua xe'],
                         ], JSON_UNESCAPED_UNICODE),
                     ]]],
                 ]],
@@ -238,7 +255,7 @@ class GeminiArticleWriterTest extends TestCase
                             'article_html' => $articleHtml,
                             'seo_title' => 'SEO title sau retry',
                             'meta_description' => 'Meta description hợp lệ sau khi hệ thống tự thử lại request Gemini bị quá tải và nhận đủ dữ liệu thành công.',
-                            'keywords' => ['xe điện', 'VinFast', 'kinh nghiệm mua xe'],
+                            'keywords' => ['xe lexus', 'lexus hà nội', 'kinh nghiệm mua xe'],
                         ], JSON_UNESCAPED_UNICODE),
                     ]]],
                 ]],
@@ -277,7 +294,7 @@ class GeminiArticleWriterTest extends TestCase
                             'article_html' => $articleHtml,
                             'seo_title' => 'SEO title sau đợt hai',
                             'meta_description' => 'Meta description hợp lệ sau khi hệ thống nghỉ vài giây rồi thử lại toàn bộ danh sách model Gemini một lần nữa.',
-                            'keywords' => ['xe điện', 'VinFast', 'kinh nghiệm mua xe'],
+                            'keywords' => ['xe lexus', 'lexus hà nội', 'kinh nghiệm mua xe'],
                         ], JSON_UNESCAPED_UNICODE),
                     ]]],
                 ]],
@@ -364,7 +381,7 @@ class GeminiArticleWriterTest extends TestCase
             'password' => 'x',
         ]));
 
-        $articleHtml = '<p>'.str_repeat('Thông tin hữu ích cho người đang tìm hiểu xe điện. ', 20).'</p>';
+        $articleHtml = '<p>'.str_repeat('Thông tin hữu ích cho người đang tìm hiểu xe Lexus. ', 20).'</p>';
 
         Http::fake([
             'generativelanguage.googleapis.com/*' => Http::response([
@@ -374,8 +391,11 @@ class GeminiArticleWriterTest extends TestCase
                             'excerpt' => 'Tóm tắt do Gemini tạo.',
                             'article_html' => $articleHtml,
                             'seo_title' => 'SEO title do Gemini tạo',
-                            'meta_description' => 'Meta description do Gemini tạo cho bài viết xe điện VinFast tại đại lý Bắc Giang, cung cấp thông tin hữu ích cho khách hàng.',
-                            'keywords' => ['xe điện', 'VinFast', 'VinFast Bắc Giang', 'mua xe điện', 'kinh nghiệm chọn xe'],
+                            'meta_description' => 'Meta description do Gemini tạo cho bài viết xe Lexus tại Hà Nội, cung cấp thông tin hữu ích cho khách hàng đang chọn xe.',
+                            'primary_keyword' => 'kinh nghiệm chọn xe lexus',
+                            'slug' => 'kinh-nghiem-chon-xe-lexus-2026',
+                            'faq' => [['question' => 'Nên chọn RX hay NX?', 'answer' => 'Tùy nhu cầu không gian và ngân sách.']],
+                            'keywords' => ['xe lexus', 'lexus hà nội', 'giá xe lexus', 'mua xe lexus', 'kinh nghiệm chọn xe'],
                         ], JSON_UNESCAPED_UNICODE),
                     ]]],
                 ]],
@@ -384,8 +404,8 @@ class GeminiArticleWriterTest extends TestCase
 
         Livewire::test(CreatePost::class)
             ->fillForm([
-                'title' => 'Kinh nghiệm chọn xe điện',
-                'slug' => 'kinh-nghiem-chon-xe-dien',
+                'title' => 'Kinh nghiệm chọn xe Lexus',
+                'slug' => 'kinh-nghiem-chon-xe-lexus',
                 'cover' => [$this->imagePath],
                 'status' => 'draft',
             ])
@@ -393,11 +413,18 @@ class GeminiArticleWriterTest extends TestCase
                 TestAction::make('generateArticleWithGemini')
                     ->schemaComponent('geminiArticleActions'),
             )
+            ->assertNotified('Gemini bắt đầu viết bài')
+            // Queue trong test chạy đồng bộ → kết quả đã nằm trong cache; trang hỏi lại là điền.
+            ->call('pollGeminiArticle')
             ->assertFormSet([
                 'excerpt' => 'Tóm tắt do Gemini tạo.',
                 'article_body' => str_replace(' </p>', '</p>', RichText::clean($articleHtml)),
                 'seo.title' => 'SEO title do Gemini tạo',
-                'seo.keywords' => 'xe điện, VinFast, VinFast Bắc Giang, mua xe điện, kinh nghiệm chọn xe',
+                'seo.keywords' => 'kinh nghiệm chọn xe lexus, xe lexus, lexus hà nội, giá xe lexus, mua xe lexus, kinh nghiệm chọn xe',
+                // slug đang là bản tự sinh từ tiêu đề → đổi sang slug chứa từ khoá chính.
+                'slug' => 'kinh-nghiem-chon-xe-lexus-2026',
+                'faq_text' => "Hỏi: Nên chọn RX hay NX?\nĐáp: Tùy nhu cầu không gian và ngân sách.",
+                'ai_job' => null,
                 'status' => 'draft',
             ]);
     }
