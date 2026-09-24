@@ -1,0 +1,1158 @@
+{
+  "products": {
+    "rx": {
+      "attributes": {
+        "hero": {
+          "type": "image",
+          "src": "catalog/handover/rx/hero.webp",
+          "mobile_src": "catalog/handover/rx/hero-mobile.webp"
+        },
+        "sections": [
+          {
+            "type": "media",
+            "title": "Thiết kế ngoại thất",
+            "intro": "Dáng hình cuốn hút. Chuyển động đầy cảm hứng.",
+            "layout": "split",
+            "items": [
+              {
+                "image": "catalog/handover/rx/exterior-portrait.webp",
+                "label": "Ngoại thất Lexus RX"
+              }
+            ],
+            "body": "Tỷ lệ thân xe khỏe khoắn, đường nét sắc gọn và diện mạo giàu cá tính tạo nên dấu ấn RX trên từng hành trình."
+          },
+          {
+            "type": "media",
+            "title": "Không gian nội thất",
+            "intro": "Không gian hướng về người cầm lái.",
+            "layout": "split-alt",
+            "items": [
+              {
+                "image": "catalog/handover/rx/interior-portrait.webp",
+                "label": "Nội thất Lexus RX"
+              }
+            ],
+            "body": "Khám phá khoang lái, những bề mặt hoàn thiện và hàng ghế phía sau qua các góc ảnh thực tế của dòng RX."
+          },
+          {
+            "type": "media",
+            "title": "Thư viện ảnh",
+            "intro": "Khám phá từng chi tiết.",
+            "layout": "gallery",
+            "items": [
+              {
+                "image": "catalog/handover/rx/exterior-01.webp",
+                "label": "RX trên cung đường"
+              },
+              {
+                "image": "catalog/handover/rx/exterior-02.webp",
+                "label": "Góc nhìn phía sau RX"
+              },
+              {
+                "image": "catalog/handover/rx/exterior-03.webp",
+                "label": "Thiết kế đuôi xe RX"
+              },
+              {
+                "image": "catalog/handover/rx/exterior-04.webp",
+                "label": "Đường nét thân xe RX"
+              },
+              {
+                "image": "catalog/handover/rx/interior-01.webp",
+                "label": "Khoang lái RX"
+              },
+              {
+                "image": "catalog/handover/rx/interior-02.webp",
+                "label": "Ánh sáng khoang lái RX"
+              },
+              {
+                "image": "catalog/handover/rx/interior-03.webp",
+                "label": "Vật liệu nội thất RX"
+              },
+              {
+                "image": "catalog/handover/rx/interior-04.webp",
+                "label": "Hàng ghế sau RX"
+              }
+            ],
+            "body": ""
+          },
+          {
+            "type": "notice",
+            "title": "Thông tin hình ảnh",
+            "body": "Hình ảnh từ Lexus Thăng Long, giới thiệu nhiều cấu hình của dòng xe. Màu sắc, trang bị và bố trí nội thất thực tế tùy phiên bản."
+          }
+        ],
+        "price_from": 3350000000,
+        "highlights": [
+          {
+            "value": "SUV",
+            "unit": "",
+            "label": "Phong cách"
+          },
+          {
+            "value": "Hybrid",
+            "unit": "",
+            "label": "Truyền động"
+          },
+          {
+            "value": "5",
+            "unit": "chỗ",
+            "label": "Không gian"
+          },
+          {
+            "value": "Omotenashi",
+            "unit": "",
+            "label": "Trải nghiệm"
+          }
+        ],
+        "specs": [
+          {
+            "group": "Thông tin dòng xe",
+            "rows": [
+              {
+                "label": "Kiểu xe",
+                "value": "SUV 5 chỗ"
+              },
+              {
+                "label": "Phiên bản",
+                "value": "RX 350h Premium · RX 350h Luxury · RX 500h F Sport Performance"
+              },
+              {
+                "label": "Hệ truyền động",
+                "value": "Hybrid; cấu hình theo từng phiên bản"
+              }
+            ]
+          }
+        ]
+      },
+      "variants": [
+        {
+          "name": "RX 350h Premium",
+          "price": 3350000000,
+          "note": "Giá tham khảo từ Lexus Thăng Long; xác nhận báo giá khi tư vấn.",
+          "sort": 0,
+          "is_default": true
+        },
+        {
+          "name": "RX 350h Luxury",
+          "price": 4140000000,
+          "note": "Giá tham khảo từ Lexus Thăng Long; xác nhận báo giá khi tư vấn.",
+          "sort": 1,
+          "is_default": false
+        },
+        {
+          "name": "RX 500h F Sport Performance",
+          "price": 4940000000,
+          "note": "Giá tham khảo từ Lexus Thăng Long; xác nhận báo giá khi tư vấn.",
+          "sort": 2,
+          "is_default": false
+        }
+      ]
+    },
+    "es": {
+      "attributes": {
+        "hero": {
+          "type": "image",
+          "src": "catalog/handover/es/hero.webp",
+          "mobile_src": "catalog/handover/es/hero-mobile.webp"
+        },
+        "sections": [
+          {
+            "type": "media",
+            "title": "Thiết kế ngoại thất",
+            "intro": "Thanh lịch từ mọi góc nhìn.",
+            "layout": "split",
+            "items": [
+              {
+                "image": "catalog/handover/es/exterior-portrait.webp",
+                "label": "Ngoại thất Lexus ES"
+              }
+            ],
+            "body": "Thân xe thấp, đường nét liền mạch và những chi tiết ánh sáng tạo nên vẻ điềm tĩnh đặc trưng của sedan Lexus ES."
+          },
+          {
+            "type": "media",
+            "title": "Không gian nội thất",
+            "intro": "Khoảng riêng cho những phút thảnh thơi.",
+            "layout": "split-alt",
+            "items": [
+              {
+                "image": "catalog/handover/es/interior-portrait.webp",
+                "label": "Nội thất Lexus ES"
+              }
+            ],
+            "body": "Từ vị trí ngồi đến các chi tiết điều khiển, không gian ES gợi cảm giác thư thái và gần gũi trong mỗi chuyến đi."
+          },
+          {
+            "type": "media",
+            "title": "Thư viện ảnh",
+            "intro": "Khám phá từng chi tiết.",
+            "layout": "gallery",
+            "items": [
+              {
+                "image": "catalog/handover/es/exterior-01.webp",
+                "label": "Thiết kế ngoại thất ES"
+              },
+              {
+                "image": "catalog/handover/es/exterior-02.webp",
+                "label": "Góc nhìn phía sau ES"
+              },
+              {
+                "image": "catalog/handover/es/exterior-03.webp",
+                "label": "Cụm đèn trước ES"
+              },
+              {
+                "image": "catalog/handover/es/exterior-04.webp",
+                "label": "Góc nhìn ba phần tư ES"
+              },
+              {
+                "image": "catalog/handover/es/interior-01.webp",
+                "label": "Điều khiển điều hòa ES"
+              },
+              {
+                "image": "catalog/handover/es/interior-02.webp",
+                "label": "Khu vực sạc điện thoại ES"
+              },
+              {
+                "image": "catalog/handover/es/interior-03.webp",
+                "label": "Rèm cửa và chi tiết cửa ES"
+              }
+            ],
+            "body": ""
+          },
+          {
+            "type": "notice",
+            "title": "Thông tin hình ảnh",
+            "body": "Hình ảnh từ Lexus Thăng Long, giới thiệu nhiều cấu hình của dòng xe. Màu sắc, trang bị và bố trí nội thất thực tế tùy phiên bản."
+          }
+        ],
+        "price_from": 2360000000,
+        "highlights": [
+          {
+            "value": "Sedan",
+            "unit": "",
+            "label": "Phong cách"
+          },
+          {
+            "value": "Xăng / Hybrid",
+            "unit": "",
+            "label": "Truyền động"
+          },
+          {
+            "value": "5",
+            "unit": "chỗ",
+            "label": "Không gian"
+          }
+        ],
+        "specs": [
+          {
+            "group": "Lexus ES 300h · Kích thước",
+            "rows": [
+              {
+                "label": "Kích thước tổng thể",
+                "value": "4975 x 1865 x 1445 mm"
+              },
+              {
+                "label": "Chiều dài cơ sở",
+                "value": "2870 mm"
+              },
+              {
+                "label": "Trước",
+                "value": "1590 mm"
+              },
+              {
+                "label": "Sau",
+                "value": "1610 mm"
+              },
+              {
+                "label": "Khoảng sáng gầm xe",
+                "value": "158 mm"
+              },
+              {
+                "label": "Dung tích khoang hành lý",
+                "value": "454 L"
+              },
+              {
+                "label": "Dung tích bình nhiên liệu",
+                "value": "50 L"
+              }
+            ]
+          },
+          {
+            "group": "Lexus ES 300h · Động cơ & vận hành",
+            "rows": [
+              {
+                "label": "Mã động cơ",
+                "value": "A25A-FXS"
+              },
+              {
+                "label": "Tiêu chuẩn khí thải",
+                "value": "EURO5 with OBD"
+              },
+              {
+                "label": "Ngoài đô thị",
+                "value": "5.20 L/100km"
+              },
+              {
+                "label": "Trong đô thị",
+                "value": "4.55 L/100km"
+              },
+              {
+                "label": "Kết hợp",
+                "value": "4.96 L/100km"
+              },
+              {
+                "label": "Trước",
+                "value": "MacPherson Strut"
+              },
+              {
+                "label": "Sau",
+                "value": "Trailing Wishbone"
+              }
+            ]
+          }
+        ]
+      },
+      "variants": [
+        {
+          "name": "ES 250",
+          "price": 2360000000,
+          "note": "Giá tham khảo từ Lexus Thăng Long; xác nhận báo giá khi tư vấn.",
+          "sort": 0,
+          "is_default": true
+        },
+        {
+          "name": "ES 300h",
+          "price": 3140000000,
+          "note": "Giá tham khảo từ Lexus Thăng Long; xác nhận báo giá khi tư vấn.",
+          "sort": 1,
+          "is_default": false
+        }
+      ]
+    },
+    "lx": {
+      "attributes": {
+        "hero": {
+          "type": "image",
+          "src": "catalog/handover/lx/hero.webp",
+          "mobile_src": "catalog/handover/lx/hero-mobile.webp"
+        },
+        "sections": [
+          {
+            "type": "media",
+            "title": "Thiết kế ngoại thất",
+            "intro": "Vững chãi. Trong từng đường nét.",
+            "layout": "split",
+            "items": [
+              {
+                "image": "catalog/handover/lx/exterior-portrait.webp",
+                "label": "Ngoại thất Lexus LX"
+              }
+            ],
+            "body": "Dáng xe bề thế và diện mạo dứt khoát làm nên khí chất của Lexus LX, từ phố thị đến những cung đường rộng mở."
+          },
+          {
+            "type": "media",
+            "title": "Không gian nội thất",
+            "intro": "Chăm chút cho mọi vị trí ngồi.",
+            "layout": "split-alt",
+            "items": [
+              {
+                "image": "catalog/handover/lx/interior-portrait.webp",
+                "label": "Nội thất Lexus LX"
+              }
+            ],
+            "body": "Khám phá khoang lái và các cấu hình không gian của LX. Hàng ghế, vật liệu và trang bị thay đổi theo phiên bản Urban, F Sport hoặc VIP."
+          },
+          {
+            "type": "media",
+            "title": "Thư viện ảnh",
+            "intro": "Khám phá từng chi tiết.",
+            "layout": "gallery",
+            "items": [
+              {
+                "image": "catalog/handover/lx/exterior-01.webp",
+                "label": "Lexus LX 600 Urban"
+              },
+              {
+                "image": "catalog/handover/lx/exterior-02.webp",
+                "label": "Lexus LX trên địa hình"
+              },
+              {
+                "image": "catalog/handover/lx/exterior-03.webp",
+                "label": "LX trên cung đường núi"
+              },
+              {
+                "image": "catalog/handover/lx/exterior-04.webp",
+                "label": "Ngoại thất LX 600 F Sport"
+              },
+              {
+                "image": "catalog/handover/lx/interior-01.webp",
+                "label": "Khoang lái LX 600 Urban"
+              },
+              {
+                "image": "catalog/handover/lx/interior-02.webp",
+                "label": "Ghế trước LX 600 Urban"
+              },
+              {
+                "image": "catalog/handover/lx/interior-03.webp",
+                "label": "Hàng ghế sau LX VIP"
+              },
+              {
+                "image": "catalog/handover/lx/interior-04.webp",
+                "label": "Tiện nghi hành khách LX VIP"
+              }
+            ],
+            "body": ""
+          },
+          {
+            "type": "notice",
+            "title": "Thông tin hình ảnh",
+            "body": "Hình ảnh từ Lexus Thăng Long, giới thiệu nhiều cấu hình của dòng xe. Màu sắc, trang bị và bố trí nội thất thực tế tùy phiên bản."
+          }
+        ],
+        "price_from": 8590000000,
+        "highlights": [
+          {
+            "value": "SUV",
+            "unit": "",
+            "label": "Phong cách"
+          },
+          {
+            "value": "Xăng",
+            "unit": "",
+            "label": "Truyền động"
+          },
+          {
+            "value": "4 / 5 / 7",
+            "unit": "chỗ",
+            "label": "Không gian"
+          }
+        ],
+        "specs": [
+          {
+            "group": "LX 600 Urban · Kích thước",
+            "rows": [
+              {
+                "label": "Dài",
+                "value": "5100mm"
+              },
+              {
+                "label": "Rộng",
+                "value": "1990 mm"
+              },
+              {
+                "label": "Cao",
+                "value": "1865 mm"
+              },
+              {
+                "label": "Chiều dài cơ sở",
+                "value": "2850 mm"
+              },
+              {
+                "label": "Trước",
+                "value": "1675 mm"
+              },
+              {
+                "label": "Sau",
+                "value": "1680 mm"
+              },
+              {
+                "label": "Khoảng sáng gầm xe",
+                "value": "205mm"
+              }
+            ]
+          },
+          {
+            "group": "LX 600 Urban · Động cơ & vận hành",
+            "rows": [
+              {
+                "label": "Mã động cơ",
+                "value": "V35A-FTS"
+              },
+              {
+                "label": "Loại",
+                "value": "Động cơ 4 thì, 6 xi lanh xếp hình chữ V, tăng áp"
+              },
+              {
+                "label": "Dung tích",
+                "value": "3445 cm3"
+              },
+              {
+                "label": "Công suất cực đại",
+                "value": "(305kW) 409 hp/5200rpm"
+              },
+              {
+                "label": "Mô-men xoắn cực đại",
+                "value": "650 Nm/2000-3600rpm"
+              },
+              {
+                "label": "Tiêu chuẩn khí thải",
+                "value": "EURO5"
+              },
+              {
+                "label": "Hộp số",
+                "value": "10AT"
+              }
+            ]
+          }
+        ]
+      },
+      "variants": [
+        {
+          "name": "LX 600 Urban",
+          "price": 8590000000,
+          "note": "Giá tham khảo từ Lexus Thăng Long; xác nhận báo giá khi tư vấn.",
+          "sort": 0,
+          "is_default": true
+        },
+        {
+          "name": "LX 600 F Sport",
+          "price": 8840000000,
+          "note": "Giá tham khảo từ Lexus Thăng Long; xác nhận báo giá khi tư vấn.",
+          "sort": 1,
+          "is_default": false
+        },
+        {
+          "name": "LX 600 VIP",
+          "price": 9700000000,
+          "note": "Giá tham khảo từ Lexus Thăng Long; xác nhận báo giá khi tư vấn.",
+          "sort": 2,
+          "is_default": false
+        }
+      ]
+    },
+    "nx": {
+      "attributes": {
+        "hero": {
+          "type": "image",
+          "src": "catalog/handover/nx/hero.webp",
+          "mobile_src": "catalog/handover/nx/hero-mobile.webp"
+        },
+        "sections": [
+          {
+            "type": "media",
+            "title": "Thiết kế ngoại thất",
+            "intro": "Gọn gàng trong tỷ lệ. Táo bạo trong thiết kế.",
+            "layout": "split",
+            "items": [
+              {
+                "image": "catalog/handover/nx/exterior-portrait.webp",
+                "label": "Ngoại thất Lexus NX"
+              }
+            ],
+            "body": "Cụm đèn sắc nét và các bề mặt thân xe giàu chiều sâu tạo nên một Lexus NX hiện đại, phù hợp nhịp sống đô thị."
+          },
+          {
+            "type": "media",
+            "title": "Không gian nội thất",
+            "intro": "Kết nối người lái với hành trình.",
+            "layout": "split-alt",
+            "items": [
+              {
+                "image": "catalog/handover/nx/interior-portrait.webp",
+                "label": "Nội thất Lexus NX"
+              }
+            ],
+            "body": "Khoang lái tập trung quanh người điều khiển, kết hợp màn hình, vô lăng và những chi tiết chạm để mỗi thao tác trở nên tự nhiên hơn."
+          },
+          {
+            "type": "media",
+            "title": "Thư viện ảnh",
+            "intro": "Khám phá từng chi tiết.",
+            "layout": "gallery",
+            "items": [
+              {
+                "image": "catalog/handover/nx/exterior-01.webp",
+                "label": "Cụm đèn trước NX"
+              },
+              {
+                "image": "catalog/handover/nx/exterior-02.webp",
+                "label": "Lexus NX tại điểm dừng"
+              },
+              {
+                "image": "catalog/handover/nx/exterior-03.webp",
+                "label": "Diện mạo Lexus NX"
+              },
+              {
+                "image": "catalog/handover/nx/exterior-04.webp",
+                "label": "Thiết kế mâm xe NX"
+              },
+              {
+                "image": "catalog/handover/nx/interior-01.webp",
+                "label": "Màn hình trung tâm NX"
+              },
+              {
+                "image": "catalog/handover/nx/interior-02.webp",
+                "label": "Không gian hành khách NX"
+              },
+              {
+                "image": "catalog/handover/nx/interior-03.webp",
+                "label": "Ghế trước NX"
+              },
+              {
+                "image": "catalog/handover/nx/interior-04.webp",
+                "label": "Vô lăng Lexus NX"
+              }
+            ],
+            "body": ""
+          },
+          {
+            "type": "notice",
+            "title": "Thông tin hình ảnh",
+            "body": "Hình ảnh từ Lexus Thăng Long, giới thiệu nhiều cấu hình của dòng xe. Màu sắc, trang bị và bố trí nội thất thực tế tùy phiên bản."
+          }
+        ],
+        "price_from": 3030000000,
+        "highlights": [
+          {
+            "value": "SUV",
+            "unit": "",
+            "label": "Phong cách"
+          },
+          {
+            "value": "Xăng / Hybrid",
+            "unit": "",
+            "label": "Truyền động"
+          },
+          {
+            "value": "5",
+            "unit": "chỗ",
+            "label": "Không gian"
+          }
+        ],
+        "specs": [
+          {
+            "group": "NX 350h · Kích thước",
+            "rows": [
+              {
+                "label": "Dài",
+                "value": "4660 mm"
+              },
+              {
+                "label": "Rộng",
+                "value": "1865 mm"
+              },
+              {
+                "label": "Cao",
+                "value": "1670 mm"
+              },
+              {
+                "label": "Chiều dài cơ sở",
+                "value": "2690 mm"
+              },
+              {
+                "label": "Trước",
+                "value": "1610 mm"
+              },
+              {
+                "label": "Sau",
+                "value": "1635 mm"
+              },
+              {
+                "label": "Khoảng sáng gầm xe",
+                "value": "195 mm"
+              }
+            ]
+          },
+          {
+            "group": "NX 350h · Động cơ & vận hành",
+            "rows": [
+              {
+                "label": "Mã động cơ",
+                "value": "A25A-FXS"
+              },
+              {
+                "label": "Loại",
+                "value": "I4, 4 strokes"
+              },
+              {
+                "label": "Dung tích",
+                "value": "2487 cm3"
+              },
+              {
+                "label": "Công suất cực đại",
+                "value": "(140kw) 188hp/6000rpm"
+              },
+              {
+                "label": "Mô-men xoắn cực đại",
+                "value": "239Nm/4300-4500rpm"
+              },
+              {
+                "label": "Tiêu chuẩn khí thải",
+                "value": "EURO 6"
+              },
+              {
+                "label": "Hộp số",
+                "value": "CVT"
+              }
+            ]
+          }
+        ]
+      },
+      "variants": [
+        {
+          "name": "NX 350 F SPORT",
+          "price": 3030000000,
+          "note": "Giá tham khảo từ Lexus Thăng Long; xác nhận báo giá khi tư vấn.",
+          "sort": 0,
+          "is_default": true
+        },
+        {
+          "name": "NX 350h",
+          "price": 3270000000,
+          "note": "Giá tham khảo từ Lexus Thăng Long; xác nhận báo giá khi tư vấn.",
+          "sort": 1,
+          "is_default": false
+        }
+      ]
+    },
+    "lm": {
+      "attributes": {
+        "hero": {
+          "type": "image",
+          "src": "catalog/handover/lm/hero.webp",
+          "mobile_src": "catalog/handover/lm/hero-mobile.webp"
+        },
+        "sections": [
+          {
+            "type": "media",
+            "title": "Thiết kế ngoại thất",
+            "intro": "Một không gian riêng giữa nhịp phố.",
+            "layout": "split",
+            "items": [
+              {
+                "image": "catalog/handover/lm/exterior-portrait.webp",
+                "label": "Ngoại thất Lexus LM"
+              }
+            ],
+            "body": "Dáng xe thanh lịch và đường nét dứt khoát mở đầu trải nghiệm Lexus LM, nơi hành trình cũng là thời gian dành cho chính mình."
+          },
+          {
+            "type": "media",
+            "title": "Không gian nội thất",
+            "intro": "Sự riêng tư, theo cách của bạn.",
+            "layout": "split-alt",
+            "items": [
+              {
+                "image": "catalog/handover/lm/interior-portrait.webp",
+                "label": "Nội thất Lexus LM"
+              }
+            ],
+            "body": "Khám phá không gian hành khách của LM. Ảnh giới thiệu gồm cấu hình 4 và 6 chỗ; màn hình và bố trí ghế tùy phiên bản."
+          },
+          {
+            "type": "media",
+            "title": "Thư viện ảnh",
+            "intro": "Khám phá từng chi tiết.",
+            "layout": "gallery",
+            "items": [
+              {
+                "image": "catalog/handover/lm/exterior-01.webp",
+                "label": "Lexus LM trong phố"
+              },
+              {
+                "image": "catalog/handover/lm/exterior-02.webp",
+                "label": "Thiết kế thân xe LM"
+              },
+              {
+                "image": "catalog/handover/lm/exterior-03.webp",
+                "label": "Chi tiết trụ thân xe LM"
+              },
+              {
+                "image": "catalog/handover/lm/interior-01.webp",
+                "label": "Không gian hành khách LM"
+              },
+              {
+                "image": "catalog/handover/lm/interior-02.webp",
+                "label": "Màn hình khoang sau LM 4 chỗ"
+              },
+              {
+                "image": "catalog/handover/lm/interior-03.webp",
+                "label": "Hàng ghế thương gia LM 4 chỗ"
+              },
+              {
+                "image": "catalog/handover/lm/interior-04.webp",
+                "label": "Khoang lái Lexus LM"
+              }
+            ],
+            "body": ""
+          },
+          {
+            "type": "notice",
+            "title": "Thông tin hình ảnh",
+            "body": "Hình ảnh từ Lexus Thăng Long, giới thiệu nhiều cấu hình của dòng xe. Màu sắc, trang bị và bố trí nội thất thực tế tùy phiên bản."
+          }
+        ],
+        "price_from": 7210000000,
+        "highlights": [
+          {
+            "value": "MPV",
+            "unit": "",
+            "label": "Phong cách"
+          },
+          {
+            "value": "Hybrid",
+            "unit": "",
+            "label": "Truyền động"
+          },
+          {
+            "value": "4 / 6",
+            "unit": "chỗ",
+            "label": "Không gian"
+          }
+        ],
+        "specs": [
+          {
+            "group": "Lexus LM 500h 6 chỗ · Động cơ",
+            "rows": [
+              {
+                "label": "Động cơ",
+                "value": "Động cơ 2,4L I4 Turbo Tăng áp"
+              },
+              {
+                "label": "Dung tích",
+                "value": "2393 CC"
+              },
+              {
+                "label": "Công suất cực đại",
+                "value": "202 kW (275 HP) / 6,000 RPM"
+              },
+              {
+                "label": "Mô-men xoắn cực đại",
+                "value": "460 Nm / 2,000 - 3,000 RPM"
+              },
+              {
+                "label": "Tốc độ cực đại",
+                "value": "185 km/h"
+              },
+              {
+                "label": "Tăng tốc từ 0 - 100km/h",
+                "value": "6,9 giây"
+              },
+              {
+                "label": "Ngoài đô thị",
+                "value": "5,80 L/100km"
+              }
+            ]
+          },
+          {
+            "group": "Lexus LM 500h 6 chỗ · Khung gầm",
+            "rows": [
+              {
+                "label": "Loại hộp số",
+                "value": "Tự động 6 cấp"
+              },
+              {
+                "label": "Trước",
+                "value": "Phanh đĩa thông gió 2 xy-lanh"
+              },
+              {
+                "label": "Sau",
+                "value": "Phanh đĩa thông gió 1 xy-lanh"
+              },
+              {
+                "label": "Trước",
+                "value": "MacPherson"
+              },
+              {
+                "label": "Sau",
+                "value": "Tay đòn kép"
+              },
+              {
+                "label": "Hệ thống lái",
+                "value": "Trợ lực điện"
+              }
+            ]
+          }
+        ]
+      },
+      "variants": [
+        {
+          "name": "LM 500h (6 chỗ)",
+          "price": 7210000000,
+          "note": "Giá tham khảo từ Lexus Thăng Long; xác nhận báo giá khi tư vấn.",
+          "sort": 0,
+          "is_default": true
+        },
+        {
+          "name": "LM 500h (4 chỗ)",
+          "price": 8950000000,
+          "note": "Giá tham khảo từ Lexus Thăng Long; xác nhận báo giá khi tư vấn.",
+          "sort": 1,
+          "is_default": false
+        }
+      ],
+      "options": [
+        {
+          "name": "Bạc - Sonic Titanium",
+          "hex": "#C2C3C0",
+          "image": "catalog/handover/lm/color-01.webp",
+          "spin_frames": [],
+          "sort": 0
+        },
+        {
+          "name": "Trắng - Sonic Quartz",
+          "hex": "#F5F6FC",
+          "image": "catalog/handover/lm/color-02.webp",
+          "spin_frames": [],
+          "sort": 1
+        },
+        {
+          "name": "Đen - Graphite Black Glass Flake",
+          "hex": "#343437",
+          "image": "catalog/handover/lm/color-03.webp",
+          "spin_frames": [],
+          "sort": 2
+        },
+        {
+          "name": "Đỏ - Sonic Agate",
+          "hex": "#6A2B36",
+          "image": "catalog/handover/lm/color-04.webp",
+          "spin_frames": [],
+          "sort": 3
+        }
+      ]
+    }
+  },
+  "pages": {
+    "showroom": {
+      "sections": [
+        {
+          "type": "media",
+          "title": "Lexus Thăng Long",
+          "intro": "Điểm hẹn của sự tận tâm.",
+          "layout": "split",
+          "items": [
+            {
+              "image": "catalog/handover/showroom/cover.webp",
+              "label": "Mặt tiền showroom Lexus Thăng Long tại Hà Nội"
+            }
+          ],
+          "body": "Không gian trưng bày tại ngã tư Phạm Hùng – Dương Đình Nghệ, nơi bạn có thể trực tiếp khám phá xe và trao đổi cùng chuyên viên tư vấn.",
+          "cta_label": "Đặt lịch ghé thăm",
+          "cta_url": "/dang-ky-lai-thu"
+        },
+        {
+          "type": "media",
+          "title": "Không gian trải nghiệm",
+          "intro": "Đón tiếp bằng sự chu đáo.",
+          "layout": "cols-2",
+          "items": [
+            {
+              "image": "catalog/handover/showroom/photo-02.webp",
+              "label": "Khu vực trưng bày",
+              "desc": "Khám phá thiết kế và cảm nhận trực tiếp các dòng xe Lexus."
+            },
+            {
+              "image": "catalog/handover/showroom/photo-04.webp",
+              "label": "Không gian bàn giao",
+              "desc": "Một khởi đầu đáng nhớ cho hành trình cùng chiếc xe mới."
+            }
+          ],
+          "body": ""
+        },
+        {
+          "type": "media",
+          "title": "Omotenashi",
+          "intro": "Tận tâm trong từng cuộc gặp.",
+          "layout": "split-alt",
+          "items": [
+            {
+              "image": "catalog/handover/showroom/photo-03.webp",
+              "label": "Không gian tư vấn tại Lexus Thăng Long"
+            }
+          ],
+          "body": "Từ tìm hiểu xe đến lựa chọn phiên bản, mỗi cuộc trao đổi bắt đầu bằng nhu cầu và mong muốn của bạn.",
+          "cta_label": "Kết nối chuyên viên",
+          "cta_url": "/lien-he"
+        }
+      ],
+      "seo": {
+        "title": "Showroom Lexus Thăng Long | Không gian trải nghiệm",
+        "eyebrow": "LEXUS THĂNG LONG",
+        "excerpt": "Ghé thăm, cảm nhận và lựa chọn chiếc Lexus dành cho bạn."
+      }
+    },
+    "dich-vu": {
+      "sections": [
+        {
+          "type": "media",
+          "title": "Dịch vụ Lexus",
+          "intro": "Chăm sóc để an tâm đồng hành.",
+          "layout": "split",
+          "items": [
+            {
+              "image": "catalog/handover/showroom/photo-10.webp",
+              "label": "Kỹ thuật viên tại xưởng dịch vụ Lexus Thăng Long"
+            }
+          ],
+          "body": "Tìm hiểu quy trình tiếp nhận và chăm sóc xe tại Lexus Thăng Long. Chuyên viên sẽ hỗ trợ kết nối bộ phận dịch vụ theo nhu cầu của bạn.",
+          "cta_label": "Liên hệ tư vấn",
+          "cta_url": "/lien-he"
+        },
+        {
+          "type": "media",
+          "title": "Không gian dịch vụ",
+          "intro": "Chỉn chu trong từng công đoạn.",
+          "layout": "cols-2",
+          "items": [
+            {
+              "image": "catalog/handover/showroom/photo-05.webp",
+              "label": "Khu vực sơn và sửa chữa",
+              "desc": "Hình ảnh hệ thống sơn sấy tại xưởng Lexus Thăng Long."
+            },
+            {
+              "image": "catalog/handover/showroom/photo-07.webp",
+              "label": "Tư vấn trước khi thực hiện",
+              "desc": "Trao đổi tình trạng xe và nhu cầu chăm sóc cùng cố vấn dịch vụ."
+            }
+          ],
+          "body": ""
+        }
+      ],
+      "seo": {
+        "title": "Dịch vụ & chăm sóc xe | Lexus Thăng Long",
+        "excerpt": "Kết nối dịch vụ và tìm hiểu quy trình chăm sóc chiếc Lexus của bạn."
+      }
+    },
+    "lien-he": {
+      "sections": [
+        {
+          "type": "media",
+          "title": "Hẹn gặp tại Lexus Thăng Long",
+          "intro": "Bắt đầu bằng một cuộc trò chuyện.",
+          "layout": "split",
+          "items": [
+            {
+              "image": "catalog/handover/showroom/photo-02.webp",
+              "label": "Sảnh trưng bày Lexus Thăng Long"
+            }
+          ],
+          "body": "Trao đổi về dòng xe, lựa chọn phiên bản hoặc đặt lịch trải nghiệm cùng chuyên viên tư vấn.",
+          "cta_label": "Đăng ký lái thử",
+          "cta_url": "/dang-ky-lai-thu"
+        }
+      ],
+      "seo": {
+        "title": "Liên hệ tư vấn | Lexus Thăng Long",
+        "excerpt": "Một đầu mối đồng hành từ lựa chọn xe đến trải nghiệm thực tế."
+      }
+    },
+    "trang-chu": {
+      "sections": [
+        {
+          "type": "media",
+          "layout": "bleed",
+          "title": "The art of feeling more",
+          "intro": "Không chỉ đến nơi.\nMà là tận hưởng.",
+          "body": "Để những thanh âm lắng lại. Để mỗi khúc cua đánh thức cảm hứng. Và mỗi hành trình trở thành khoảng thời gian của riêng bạn.",
+          "cta_label": "Bước vào thế giới Lexus",
+          "cta_url": "/the-gioi-lexus",
+          "items": [
+            {
+              "image": "catalog/trang-chu/story.webp",
+              "label": "Lexus trên cung đường bên thiên nhiên"
+            }
+          ]
+        },
+        {
+          "type": "media",
+          "layout": "shortcuts",
+          "title": "Hành trình sở hữu",
+          "intro": "Chiếc Lexus của bạn, từ đây.",
+          "items": [
+            {
+              "label": "Bảng giá Lexus",
+              "desc": "Tìm lựa chọn phù hợp",
+              "url": "/bang-gia"
+            },
+            {
+              "label": "Giải pháp tài chính",
+              "desc": "Chủ động kế hoạch sở hữu",
+              "url": "/tai-chinh"
+            },
+            {
+              "label": "Trải nghiệm lái thử",
+              "desc": "Cảm nhận bằng mọi giác quan",
+              "url": "/dang-ky-lai-thu"
+            },
+            {
+              "label": "Tư vấn dành riêng",
+              "desc": "Kết nối cùng chuyên viên",
+              "url": "/bao-gia"
+            }
+          ]
+        },
+        {
+          "type": "media",
+          "layout": "split",
+          "title": "Omotenashi · tận tâm từ chi tiết",
+          "intro": "Được thấu hiểu.\nTrước cả khi bạn nói.",
+          "body": "Một không gian biết đón chào. Sự êm ái vừa đủ, những chất liệu chạm đến cảm xúc. Mọi chi tiết đều bắt đầu từ bạn.",
+          "cta_label": "Khám phá Omotenashi",
+          "cta_url": "/the-gioi-lexus#omotenashi",
+          "items": [
+            {
+              "image": "catalog/trang-chu/interior.webp",
+              "label": "Không gian nội thất Lexus và vật liệu tinh tế"
+            }
+          ]
+        },
+        {
+          "type": "media",
+          "layout": "split-alt",
+          "title": "Takumi · nghệ thuật chế tác",
+          "intro": "Sự tinh tế nằm ở\nnhững điều rất nhỏ.",
+          "body": "Từ đường chỉ khâu đến bề mặt vật liệu, sự chăm chút tạo nên một vẻ đẹp không cần phô trương.",
+          "cta_label": "Câu chuyện nghệ nhân",
+          "cta_url": "/the-gioi-lexus#takumi",
+          "items": [
+            {
+              "image": "catalog/trang-chu/detail.webp",
+              "label": "Chi tiết hoàn thiện và vật liệu trên Lexus"
+            }
+          ]
+        },
+        {
+          "type": "media",
+          "layout": "cols-2",
+          "title": "Đặc quyền sở hữu",
+          "intro": "Thêm cảm hứng. Trọn an tâm.",
+          "cta_label": "Khám phá đặc quyền",
+          "cta_url": "/uu-dai",
+          "items": [
+            {
+              "image": "catalog/handover/showroom/photo-03.webp",
+              "eyebrow": "Tư vấn sở hữu",
+              "label": "Một kế hoạch dành riêng cho bạn.",
+              "desc": "Trao đổi nhu cầu, lựa chọn phiên bản và kế hoạch sở hữu phù hợp.",
+              "url": "/tai-chinh"
+            },
+            {
+              "image": "catalog/handover/showroom/photo-10.webp",
+              "eyebrow": "Chăm sóc Lexus",
+              "label": "An tâm trên mỗi chặng đường.",
+              "desc": "Chăm sóc chu đáo từ buổi hẹn đầu tiên đến những hành trình về sau.",
+              "url": "/dich-vu"
+            }
+          ]
+        },
+        {
+          "type": "media",
+          "title": "Lexus Thăng Long",
+          "intro": "Một điểm hẹn. Nhiều trải nghiệm.",
+          "layout": "split",
+          "items": [
+            {
+              "image": "catalog/handover/showroom/cover.webp",
+              "label": "Mặt tiền showroom Lexus Thăng Long"
+            }
+          ],
+          "body": "Ghé thăm không gian trưng bày và gặp gỡ chuyên viên tư vấn để cảm nhận chiếc Lexus bạn đang tìm kiếm.",
+          "cta_label": "Khám phá showroom",
+          "cta_url": "/showroom"
+        }
+      ]
+    }
+  }
+}

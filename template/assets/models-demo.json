@@ -1,0 +1,42 @@
+[
+  {
+    "id": "rx",
+    "name": "RX",
+    "desc": "Tinh tế trong từng chuyển động",
+    "price": "3.430.000.000",
+    "type": "SUV · Hybrid",
+    "cat": "suv hybrid"
+  },
+  {
+    "id": "es",
+    "name": "ES",
+    "desc": "Thanh lịch, theo cách của bạn",
+    "price": "2.620.000.000",
+    "type": "Sedan · Hybrid",
+    "cat": "sedan hybrid"
+  },
+  {
+    "id": "lx",
+    "name": "LX",
+    "desc": "Bản lĩnh của một biểu tượng",
+    "price": "8.500.000.000",
+    "type": "SUV · Xăng",
+    "cat": "suv"
+  },
+  {
+    "id": "nx",
+    "name": "NX",
+    "desc": "Cảm hứng cho mỗi hành trình",
+    "price": "3.130.000.000",
+    "type": "SUV · Hybrid",
+    "cat": "suv hybrid"
+  },
+  {
+    "id": "lm",
+    "name": "LM",
+    "desc": "Không gian của riêng bạn",
+    "price": "7.290.000.000",
+    "type": "MPV · Hybrid",
+    "cat": "mpv hybrid"
+  }
+]

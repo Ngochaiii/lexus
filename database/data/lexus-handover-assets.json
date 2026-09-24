@@ -1,0 +1,703 @@
+[
+    {
+        "key": "rx/hero",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/rx/mlp/my23/masthead/masthead-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/rx.html",
+        "path": "catalog/handover/rx/hero.webp",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 111632
+    },
+    {
+        "key": "rx/hero-mobile",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/rx/mlp/my23/masthead/masthead-m.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/rx.html",
+        "path": "catalog/handover/rx/hero-mobile.webp",
+        "width": 1200,
+        "height": 1600,
+        "bytes": 136286
+    },
+    {
+        "key": "rx/exterior-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/rx/mlp/my23/gallery/performance/gallery-performance-01-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/rx.html",
+        "path": "catalog/handover/rx/exterior-01.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 116904
+    },
+    {
+        "key": "rx/exterior-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/rx/mlp/my23/gallery/performance/gallery-performance-02-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/rx.html",
+        "path": "catalog/handover/rx/exterior-02.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 87870
+    },
+    {
+        "key": "rx/exterior-03",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/rx/mlp/my23/gallery/design/gallery-design-01-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/rx.html",
+        "path": "catalog/handover/rx/exterior-03.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 99592
+    },
+    {
+        "key": "rx/exterior-04",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/rx/mlp/my23/gallery/design/gallery-design-02-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/rx.html",
+        "path": "catalog/handover/rx/exterior-04.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 133144
+    },
+    {
+        "key": "rx/interior-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/rx/mlp/my23/gallery/safety/gallery-safety-03-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/rx.html",
+        "path": "catalog/handover/rx/interior-01.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 142824
+    },
+    {
+        "key": "rx/interior-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/rx/mlp/my23/gallery/design/gallery-design-04-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/rx.html",
+        "path": "catalog/handover/rx/interior-02.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 117590
+    },
+    {
+        "key": "rx/interior-03",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/rx/mlp/my23/gallery/design/gallery-design-05-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/rx.html",
+        "path": "catalog/handover/rx/interior-03.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 105672
+    },
+    {
+        "key": "rx/interior-04",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/rx/mlp/my23/gallery/design/gallery-design-06-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/rx.html",
+        "path": "catalog/handover/rx/interior-04.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 154278
+    },
+    {
+        "key": "es/hero",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/sedan/es/mlp/my23/masthead/masthead-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/es.html",
+        "path": "catalog/handover/es/hero.webp",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 288082
+    },
+    {
+        "key": "es/hero-mobile",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/sedan/es/mlp/my23/masthead/masthead-m.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/es.html",
+        "path": "catalog/handover/es/hero-mobile.webp",
+        "width": 1200,
+        "height": 1600,
+        "bytes": 345278
+    },
+    {
+        "key": "es/exterior-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/sedan/es/mlp/my22/gallery/exterior/lexus-es-gallery-ext-01-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/es.html",
+        "path": "catalog/handover/es/exterior-01.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 276232
+    },
+    {
+        "key": "es/exterior-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/sedan/es/mlp/my23/gallery/exterior/lexus-es-gallery-ext-02-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/es.html",
+        "path": "catalog/handover/es/exterior-02.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 227162
+    },
+    {
+        "key": "es/exterior-03",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/sedan/es/mlp/my22/gallery/exterior/lexus-es-gallery-ext-03-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/es.html",
+        "path": "catalog/handover/es/exterior-03.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 98374
+    },
+    {
+        "key": "es/exterior-04",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/sedan/es/mlp/my22/gallery/exterior/lexus-es-gallery-ext-04-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/es.html",
+        "path": "catalog/handover/es/exterior-04.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 222142
+    },
+    {
+        "key": "es/interior-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/sedan/es/mlp/my22/gallery/interior/lexus-es-gallery-int-04-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/es.html",
+        "path": "catalog/handover/es/interior-01.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 124458
+    },
+    {
+        "key": "es/interior-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/sedan/es/mlp/my22/gallery/interior/lexus-es-gallery-int-06-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/es.html",
+        "path": "catalog/handover/es/interior-02.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 108808
+    },
+    {
+        "key": "es/interior-03",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/sedan/es/mlp/my22/gallery/interior/lexus-es-gallery-int-07-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/es.html",
+        "path": "catalog/handover/es/interior-03.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 334076
+    },
+    {
+        "key": "lx/hero",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/lx/mlp/my22/masthead/masthead-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lx.html",
+        "path": "catalog/handover/lx/hero.webp",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 80118
+    },
+    {
+        "key": "lx/hero-mobile",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/lx/mlp/my22/masthead/masthead-m.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lx.html",
+        "path": "catalog/handover/lx/hero-mobile.webp",
+        "width": 1200,
+        "height": 1600,
+        "bytes": 81304
+    },
+    {
+        "key": "lx/exterior-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/lx/my22/lx-600-urban/gallery/exterior/lx600-urban-gallery-ext-06-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lx.html",
+        "path": "catalog/handover/lx/exterior-01.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 119046
+    },
+    {
+        "key": "lx/exterior-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/lx/my22/lx-600-urban/gallery/exterior/lx-600-urban-ext-gallery-01-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lx.html",
+        "path": "catalog/handover/lx/exterior-02.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 185346
+    },
+    {
+        "key": "lx/exterior-03",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/lx/my22/lx-500d-active/gallery/exterior/lx-500d-active-ext-gallery-04-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lx.html",
+        "path": "catalog/handover/lx/exterior-03.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 132026
+    },
+    {
+        "key": "lx/exterior-04",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/lx/my22/lx-500d-fsport/gallery/exterior/lx-500d-fsport-ext-gallery-01-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lx.html",
+        "path": "catalog/handover/lx/exterior-04.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 127672
+    },
+    {
+        "key": "lx/interior-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/models/lx/right-hand/LX600-urban-1920x800-gallery.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lx.html",
+        "path": "catalog/handover/lx/interior-01.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 172694
+    },
+    {
+        "key": "lx/interior-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/lx/my22/lx-600-urban/gallery/interior/lx-600-urban-int-gallery-03-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lx.html",
+        "path": "catalog/handover/lx/interior-02.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 108752
+    },
+    {
+        "key": "lx/interior-03",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/lx/my22/lx-600-vip/gallery/interior/lx600-vip-gallery-int-07-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lx.html",
+        "path": "catalog/handover/lx/interior-03.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 176284
+    },
+    {
+        "key": "lx/interior-04",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/lx/my22/lx-600-vip/gallery/interior/lx-600-vip-int-gallery-02-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lx.html",
+        "path": "catalog/handover/lx/interior-04.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 78554
+    },
+    {
+        "key": "nx/hero",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/nx/mlp/my22/teaser/masthead-d-v2.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx.html",
+        "path": "catalog/handover/nx/hero.webp",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 172460
+    },
+    {
+        "key": "nx/hero-mobile",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/nx/mlp/my22/teaser/masthead-m-v2.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx.html",
+        "path": "catalog/handover/nx/hero-mobile.webp",
+        "width": 1200,
+        "height": 1600,
+        "bytes": 158882
+    },
+    {
+        "key": "nx/exterior-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/nx/mlp/my22/mlp/gallery/exterior/lexus-nx-gallery-ext-7-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx.html",
+        "path": "catalog/handover/nx/exterior-01.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 85870
+    },
+    {
+        "key": "nx/exterior-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/nx/mlp/my22/mlp/gallery/exterior/lexus-nx-gallery-ext-9-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx.html",
+        "path": "catalog/handover/nx/exterior-02.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 207060
+    },
+    {
+        "key": "nx/exterior-03",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/nx/mlp/my22/mlp/gallery/exterior/lexus-nx-gallery-ext-10-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx.html",
+        "path": "catalog/handover/nx/exterior-03.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 94168
+    },
+    {
+        "key": "nx/exterior-04",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/nx/mlp/my22/mlp/gallery/exterior/lexus-nx-gallery-ext-12-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx.html",
+        "path": "catalog/handover/nx/exterior-04.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 87030
+    },
+    {
+        "key": "nx/interior-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/nx/mlp/my22/mlp/gallery/interior/lexus-nx-gallery-int-2-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx.html",
+        "path": "catalog/handover/nx/interior-01.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 84234
+    },
+    {
+        "key": "nx/interior-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/nx/mlp/my22/mlp/gallery/interior/lexus-nx-gallery-int-3-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx.html",
+        "path": "catalog/handover/nx/interior-02.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 79164
+    },
+    {
+        "key": "nx/interior-03",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/nx/mlp/my22/mlp/gallery/interior/lexus-nx-gallery-int-4-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx.html",
+        "path": "catalog/handover/nx/interior-03.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 142484
+    },
+    {
+        "key": "nx/interior-04",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/nx/mlp/my22/mlp/gallery/interior/lexus-nx-gallery-int-6-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx.html",
+        "path": "catalog/handover/nx/interior-04.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 105582
+    },
+    {
+        "key": "lm/hero",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/mlp/masthead/my24-lexus-lm-masthead-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm.html",
+        "path": "catalog/handover/lm/hero.webp",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 137994
+    },
+    {
+        "key": "lm/hero-mobile",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/mlp/masthead/my24-lexus-lm-masthead-m.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm.html",
+        "path": "catalog/handover/lm/hero-mobile.webp",
+        "width": 1200,
+        "height": 1600,
+        "bytes": 131544
+    },
+    {
+        "key": "lm/exterior-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/mlp/gallery/my24-lexus-lm-gallery-ext-02-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm.html",
+        "path": "catalog/handover/lm/exterior-01.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 153282
+    },
+    {
+        "key": "lm/exterior-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/mlp/gallery/my24-lexus-lm-gallery-ext-03-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm.html",
+        "path": "catalog/handover/lm/exterior-02.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 207282
+    },
+    {
+        "key": "lm/exterior-03",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/mlp/gallery/my24-lexus-lm-gallery-ext-04-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm.html",
+        "path": "catalog/handover/lm/exterior-03.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 15722
+    },
+    {
+        "key": "lm/interior-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/mlp/gallery/my24-lexus-lm-gallery-int-05-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm.html",
+        "path": "catalog/handover/lm/interior-01.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 182100
+    },
+    {
+        "key": "lm/interior-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/mlp/gallery/my24-lexus-lm-gallery-int-06-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm.html",
+        "path": "catalog/handover/lm/interior-02.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 100878
+    },
+    {
+        "key": "lm/interior-03",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/mlp/gallery/my24-lexus-lm-gallery-int-07-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm.html",
+        "path": "catalog/handover/lm/interior-03.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 186260
+    },
+    {
+        "key": "lm/interior-04",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/mlp/gallery/my24-lexus-lm-gallery-int-08-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm.html",
+        "path": "catalog/handover/lm/interior-04.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 148194
+    },
+    {
+        "key": "showroom/cover",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/2023/dealer/lexus-thăng-long/đại-lý-lexus-chính-hãng/anh-dai-dien.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/discover-lexus/news-and-events/dai-ly-lexus-chinh-hang.html",
+        "path": "catalog/handover/showroom/cover.webp",
+        "width": 1500,
+        "height": 838,
+        "bytes": 198534
+    },
+    {
+        "key": "showroom/photo-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/2023/dealer/lexus-th%C4%83ng-long/%C4%91%E1%BA%A1i-l%C3%BD-lexus-ch%C3%ADnh-h%C3%A3ng/anh-1.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/discover-lexus/news-and-events/dai-ly-lexus-chinh-hang.html",
+        "path": "catalog/handover/showroom/photo-01.webp",
+        "width": 1335,
+        "height": 893,
+        "bytes": 201224
+    },
+    {
+        "key": "showroom/photo-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/2023/dealer/lexus-th%C4%83ng-long/%C4%91%E1%BA%A1i-l%C3%BD-lexus-ch%C3%ADnh-h%C3%A3ng/2.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/discover-lexus/news-and-events/dai-ly-lexus-chinh-hang.html",
+        "path": "catalog/handover/showroom/photo-02.webp",
+        "width": 1335,
+        "height": 893,
+        "bytes": 93500
+    },
+    {
+        "key": "showroom/photo-03",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/2023/dealer/lexus-th%C4%83ng-long/%C4%91%E1%BA%A1i-l%C3%BD-lexus-ch%C3%ADnh-h%C3%A3ng/%E1%BA%A3nh%20xo%C3%A1%20%C4%91%C3%A8n.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/discover-lexus/news-and-events/dai-ly-lexus-chinh-hang.html",
+        "path": "catalog/handover/showroom/photo-03.webp",
+        "width": 1335,
+        "height": 893,
+        "bytes": 112212
+    },
+    {
+        "key": "showroom/photo-04",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/2023/dealer/lexus-th%C4%83ng-long/%C4%91%E1%BA%A1i-l%C3%BD-lexus-ch%C3%ADnh-h%C3%A3ng/3.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/discover-lexus/news-and-events/dai-ly-lexus-chinh-hang.html",
+        "path": "catalog/handover/showroom/photo-04.webp",
+        "width": 1335,
+        "height": 893,
+        "bytes": 93604
+    },
+    {
+        "key": "showroom/photo-05",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/2023/dealer/lexus-th%C4%83ng-long/%C4%91%E1%BA%A1i-l%C3%BD-lexus-ch%C3%ADnh-h%C3%A3ng/4.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/discover-lexus/news-and-events/dai-ly-lexus-chinh-hang.html",
+        "path": "catalog/handover/showroom/photo-05.webp",
+        "width": 1335,
+        "height": 893,
+        "bytes": 77506
+    },
+    {
+        "key": "showroom/photo-06",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/2023/dealer/lexus-th%C4%83ng-long/%C4%91%E1%BA%A1i-l%C3%BD-lexus-ch%C3%ADnh-h%C3%A3ng/b%E1%BB%8F%20sung%201.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/discover-lexus/news-and-events/dai-ly-lexus-chinh-hang.html",
+        "path": "catalog/handover/showroom/photo-06.webp",
+        "width": 1335,
+        "height": 893,
+        "bytes": 64508
+    },
+    {
+        "key": "showroom/photo-07",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/2023/dealer/lexus-th%C4%83ng-long/%C4%91%E1%BA%A1i-l%C3%BD-lexus-ch%C3%ADnh-h%C3%A3ng/5.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/discover-lexus/news-and-events/dai-ly-lexus-chinh-hang.html",
+        "path": "catalog/handover/showroom/photo-07.webp",
+        "width": 1335,
+        "height": 893,
+        "bytes": 69566
+    },
+    {
+        "key": "showroom/photo-08",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/2023/dealer/lexus-th%C4%83ng-long/%C4%91%E1%BA%A1i-l%C3%BD-lexus-ch%C3%ADnh-h%C3%A3ng/6.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/discover-lexus/news-and-events/dai-ly-lexus-chinh-hang.html",
+        "path": "catalog/handover/showroom/photo-08.webp",
+        "width": 1335,
+        "height": 893,
+        "bytes": 91250
+    },
+    {
+        "key": "showroom/photo-09",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/2023/dealer/lexus-th%C4%83ng-long/%C4%91%E1%BA%A1i-l%C3%BD-lexus-ch%C3%ADnh-h%C3%A3ng/7.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/discover-lexus/news-and-events/dai-ly-lexus-chinh-hang.html",
+        "path": "catalog/handover/showroom/photo-09.webp",
+        "width": 1335,
+        "height": 893,
+        "bytes": 93538
+    },
+    {
+        "key": "showroom/photo-10",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/2023/dealer/lexus-th%C4%83ng-long/%C4%91%E1%BA%A1i-l%C3%BD-lexus-ch%C3%ADnh-h%C3%A3ng/8.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/discover-lexus/news-and-events/dai-ly-lexus-chinh-hang.html",
+        "path": "catalog/handover/showroom/photo-10.webp",
+        "width": 1335,
+        "height": 893,
+        "bytes": 81250
+    },
+    {
+        "key": "es/cabin-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/sedan/es/es-300h/my22/gallery/interior/lexus-es300h-gallery-int-02-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/es/es-300h.html",
+        "path": "catalog/handover/es/cabin-01.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 181564
+    },
+    {
+        "key": "es/cabin-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/sedan/es/es-300h/my22/gallery/interior/lexus-es300h-gallery-int-03-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/es/es-300h.html",
+        "path": "catalog/handover/es/cabin-02.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 34840
+    },
+    {
+        "key": "nx/cabin-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/models/nx/my-22/right-hand-drive/1920x800-gallery-11.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx/nx-350h.html",
+        "path": "catalog/handover/nx/cabin-01.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 133054
+    },
+    {
+        "key": "nx/cabin-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/nx/nx-350h/my22/gallery/interior/lexus-nx-350h-gallery-int-2-d.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx/nx-350h.html",
+        "path": "catalog/handover/nx/cabin-02.webp",
+        "width": 1920,
+        "height": 800,
+        "bytes": 76462
+    },
+    {
+        "key": "lm/color-01",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/exterior/lm-sonic-titanium-1200x455.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm/lm-500h-6-seater.html",
+        "path": "catalog/handover/lm/color-01.webp",
+        "color": "Bạc - Sonic Titanium",
+        "hex": "#C2C3C0",
+        "width": 1200,
+        "height": 455,
+        "bytes": 52666
+    },
+    {
+        "key": "lm/color-02",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/exterior/lm-sonic-quartz-1200x455.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm/lm-500h-6-seater.html",
+        "path": "catalog/handover/lm/color-02.webp",
+        "color": "Trắng - Sonic Quartz",
+        "hex": "#F5F6FC",
+        "width": 1200,
+        "height": 455,
+        "bytes": 50608
+    },
+    {
+        "key": "lm/color-03",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/exterior/lm-graphite-black-glass-flake-1200x455.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm/lm-500h-6-seater.html",
+        "path": "catalog/handover/lm/color-03.webp",
+        "color": "Đen - Graphite Black Glass Flake",
+        "hex": "#343437",
+        "width": 1200,
+        "height": 455,
+        "bytes": 50320
+    },
+    {
+        "key": "lm/color-04",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/exterior/lm-sonic-agate-1200x455.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm/lm-500h-6-seater.html",
+        "path": "catalog/handover/lm/color-04.webp",
+        "color": "Đỏ - Sonic Agate",
+        "hex": "#6A2B36",
+        "width": 1200,
+        "height": 455,
+        "bytes": 53932
+    },
+    {
+        "key": "rx/exterior-portrait",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/rx/mlp/my23/gallery/performance/gallery-performance-01-m.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/rx.html",
+        "path": "catalog/handover/rx/exterior-portrait.webp",
+        "width": 1920,
+        "height": 1920,
+        "bytes": 342486
+    },
+    {
+        "key": "rx/interior-portrait",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/rx/mlp/my23/gallery/safety/gallery-safety-03-m.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/rx.html",
+        "path": "catalog/handover/rx/interior-portrait.webp",
+        "width": 1920,
+        "height": 1920,
+        "bytes": 303340
+    },
+    {
+        "key": "es/exterior-portrait",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/sedan/es/mlp/my22/gallery/exterior/lexus-es-gallery-ext-04-m.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/es.html",
+        "path": "catalog/handover/es/exterior-portrait.webp",
+        "width": 1920,
+        "height": 1920,
+        "bytes": 368576
+    },
+    {
+        "key": "es/interior-portrait",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/sedan/es/mlp/my22/gallery/interior/lexus-es-gallery-int-07-m.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/es.html",
+        "path": "catalog/handover/es/interior-portrait.webp",
+        "width": 1920,
+        "height": 1920,
+        "bytes": 503366
+    },
+    {
+        "key": "lx/exterior-portrait",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/lx/my22/lx-600-urban/gallery/exterior/lx600-urban-gallery-ext-06-m.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lx.html",
+        "path": "catalog/handover/lx/exterior-portrait.webp",
+        "width": 1920,
+        "height": 1920,
+        "bytes": 177068
+    },
+    {
+        "key": "lx/interior-portrait",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/models/lx/right-hand/LX600-urban-1920x1920-gallery.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lx.html",
+        "path": "catalog/handover/lx/interior-portrait.webp",
+        "width": 1920,
+        "height": 1920,
+        "bytes": 255992
+    },
+    {
+        "key": "nx/exterior-portrait",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/suv/nx/mlp/my22/mlp/gallery/exterior/lexus-nx-gallery-ext-10-m.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx.html",
+        "path": "catalog/handover/nx/exterior-portrait.webp",
+        "width": 1920,
+        "height": 1920,
+        "bytes": 214818
+    },
+    {
+        "key": "nx/interior-portrait",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-vietnam/models/nx/my-22/right-hand-drive/1920x1920-gallery-11.png",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/nx.html",
+        "path": "catalog/handover/nx/interior-portrait.webp",
+        "width": 1920,
+        "height": 1920,
+        "bytes": 163612
+    },
+    {
+        "key": "lm/exterior-portrait",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/mlp/gallery/my24-lexus-lm-gallery-ext-03-m.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm.html",
+        "path": "catalog/handover/lm/exterior-portrait.webp",
+        "width": 1920,
+        "height": 1920,
+        "bytes": 493486
+    },
+    {
+        "key": "lm/interior-portrait",
+        "url": "https://lexusthanglong.com.vn/content/dam/lexus-v3-blueprint/models/mpv/lm/my24/mlp/gallery/my24-lexus-lm-gallery-int-07-m.jpg",
+        "source_page": "https://lexusthanglong.com.vn/vn/models/lm.html",
+        "path": "catalog/handover/lm/interior-portrait.webp",
+        "width": 1920,
+        "height": 1920,
+        "bytes": 383360
+    }
+]

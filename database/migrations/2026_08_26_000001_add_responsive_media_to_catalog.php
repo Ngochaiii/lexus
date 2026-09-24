@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('banners', function (Blueprint $table) {
+            $table->string('image_mobile')->nullable()->after('image');
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('brochure_url')->nullable()->after('price_from');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('banners', function (Blueprint $table) {
+            $table->dropColumn('image_mobile');
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('brochure_url');
+        });
+    }
+};

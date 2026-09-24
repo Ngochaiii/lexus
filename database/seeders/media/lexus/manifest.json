@@ -1,0 +1,972 @@
+{
+ "rx": {
+  "hero": {
+   "role": "hero",
+   "w": 1920,
+   "h": 1280,
+   "source": "rx/xanhduong.jpg"
+  },
+  "ngoai-that": {
+   "role": "ngoai-that",
+   "w": 1920,
+   "h": 1280,
+   "source": "rx/maudo.jpg"
+  },
+  "noi-that": {
+   "role": "noi-that",
+   "w": 1200,
+   "h": 900,
+   "source": "rx/chatlieughedasmooth.jpg"
+  },
+  "van-hanh": {
+   "role": "van-hanh",
+   "w": 1920,
+   "h": 1281,
+   "source": "rx/mauxam.webp"
+  },
+  "mau-trang": {
+   "role": "mau",
+   "w": 1200,
+   "h": 900,
+   "source": "rx/mautrang.jpg"
+  },
+  "mau-xam": {
+   "role": "mau",
+   "w": 1600,
+   "h": 1067,
+   "source": "rx/xam1.png"
+  },
+  "mau-do": {
+   "role": "mau",
+   "w": 1600,
+   "h": 1067,
+   "source": "rx/do1.webp"
+  },
+  "mau-xanh": {
+   "role": "mau",
+   "w": 1600,
+   "h": 1067,
+   "source": "rx/xanhr1.png"
+  },
+  "mau-dong": {
+   "role": "mau",
+   "w": 1600,
+   "h": 1067,
+   "source": "rx/cam1.jpg"
+  },
+  "mau-den": {
+   "role": "mau",
+   "w": 1600,
+   "h": 1067,
+   "source": "rx/den1.jpg"
+  },
+  "an-toan-pksb": {
+   "role": "an-toan",
+   "w": 400,
+   "h": 400,
+   "source": "rx/PKSB.webp"
+  },
+  "an-toan-lta": {
+   "role": "an-toan",
+   "w": 490,
+   "h": 357,
+   "source": "rx/LTA.webp"
+  },
+  "an-toan-bsm": {
+   "role": "an-toan",
+   "w": 500,
+   "h": 281,
+   "source": "rx/BSM.webp"
+  },
+  "an-toan-ahs": {
+   "role": "an-toan",
+   "w": 696,
+   "h": 416,
+   "source": "rx/AHS.jpg"
+  },
+  "an-toan-sea": {
+   "role": "an-toan",
+   "w": 800,
+   "h": 450,
+   "source": "rx/SEA.webp"
+  },
+  "an-toan-rrcc": {
+   "role": "an-toan",
+   "w": 400,
+   "h": 400,
+   "source": "rx/RRCC.webp"
+  },
+  "thu-vien-1": {
+   "role": "thu-vien",
+   "w": 1200,
+   "h": 675,
+   "source": "rx/anh-1.jpg"
+  },
+  "thu-vien-2": {
+   "role": "thu-vien",
+   "w": 1600,
+   "h": 1067,
+   "source": "rx/cam.png"
+  },
+  "thu-vien-3": {
+   "role": "thu-vien",
+   "w": 977,
+   "h": 757,
+   "source": "rx/cabin.PNG"
+  },
+  "thu-vien-4": {
+   "role": "thu-vien",
+   "w": 1232,
+   "h": 539,
+   "source": "rx/thanxe.PNG"
+  },
+  "thu-vien-5": {
+   "role": "thu-vien",
+   "w": 1500,
+   "h": 1000,
+   "source": "rx/trang1.jpg"
+  },
+  "thu-vien-6": {
+   "role": "thu-vien",
+   "w": 1200,
+   "h": 750,
+   "source": "rx/chatlieughedasemi.webp"
+  },
+  "thu-vien-7": {
+   "role": "thu-vien",
+   "w": 890,
+   "h": 448,
+   "source": "rx/ghexe.jpg"
+  },
+  "thu-vien-8": {
+   "role": "thu-vien",
+   "w": 1200,
+   "h": 800,
+   "source": "rx/anh-5.webp"
+  }
+ },
+ "lx": {
+  "hero": {
+   "role": "hero",
+   "w": 1920,
+   "h": 1280,
+   "source": "lx/mau-den.webp"
+  },
+  "ngoai-that": {
+   "role": "ngoai-that",
+   "w": 1920,
+   "h": 1280,
+   "source": "lx/mau-trang.webp"
+  },
+  "noi-that": {
+   "role": "noi-that",
+   "w": 788,
+   "h": 486,
+   "source": "lx/noi-that-1.jpg"
+  },
+  "van-hanh": {
+   "role": "van-hanh",
+   "w": 1280,
+   "h": 720,
+   "source": "lx/mau-do.jpg"
+  },
+  "mau-den": {
+   "role": "mau",
+   "w": 1600,
+   "h": 1067,
+   "source": "lx/mau-den1.webp"
+  },
+  "mau-trang": {
+   "role": "mau",
+   "w": 1600,
+   "h": 1067,
+   "source": "lx/mau-trang1.webp"
+  },
+  "mau-xam": {
+   "role": "mau",
+   "w": 1600,
+   "h": 822,
+   "source": "lx/mau-xam1.jpg"
+  },
+  "mau-xanh": {
+   "role": "mau",
+   "w": 1280,
+   "h": 720,
+   "source": "lx/mau-do.jpg"
+  },
+  "an-toan-pcs": {
+   "role": "an-toan",
+   "w": 252,
+   "h": 182,
+   "source": "lx/PCS.webp"
+  },
+  "an-toan-lta": {
+   "role": "an-toan",
+   "w": 339,
+   "h": 240,
+   "source": "lx/LTA.webp"
+  },
+  "an-toan-bsm": {
+   "role": "an-toan",
+   "w": 309,
+   "h": 220,
+   "source": "lx/BSM.webp"
+  },
+  "an-toan-pksb": {
+   "role": "an-toan",
+   "w": 554,
+   "h": 392,
+   "source": "lx/PKSB.png"
+  },
+  "an-toan-sea": {
+   "role": "an-toan",
+   "w": 535,
+   "h": 377,
+   "source": "lx/SEA.webp"
+  },
+  "an-toan-rrcc": {
+   "role": "an-toan",
+   "w": 339,
+   "h": 240,
+   "source": "lx/RRCC.webp"
+  },
+  "thu-vien-1": {
+   "role": "thu-vien",
+   "w": 1600,
+   "h": 1067,
+   "source": "lx/anh-main.webp"
+  },
+  "thu-vien-2": {
+   "role": "thu-vien",
+   "w": 1600,
+   "h": 822,
+   "source": "lx/mau-xam.jpg"
+  },
+  "thu-vien-3": {
+   "role": "thu-vien",
+   "w": 722,
+   "h": 452,
+   "source": "lx/vip-1.jpg"
+  },
+  "thu-vien-4": {
+   "role": "thu-vien",
+   "w": 561,
+   "h": 373,
+   "source": "lx/vip-ghe.jpg"
+  },
+  "thu-vien-5": {
+   "role": "thu-vien",
+   "w": 602,
+   "h": 464,
+   "source": "lx/vip-rse.jpg"
+  },
+  "thu-vien-6": {
+   "role": "thu-vien",
+   "w": 981,
+   "h": 397,
+   "source": "lx/ngoai-that-fsport.webp"
+  },
+  "thu-vien-7": {
+   "role": "thu-vien",
+   "w": 635,
+   "h": 381,
+   "source": "lx/noi-that-fsport.webp"
+  },
+  "thu-vien-8": {
+   "role": "thu-vien",
+   "w": 713,
+   "h": 484,
+   "source": "lx/khoang cabin.jpg"
+  }
+ },
+ "gx": {
+  "hero": {
+   "role": "hero",
+   "w": 2400,
+   "h": 1600,
+   "source": "gx/mau-xam.webp"
+  },
+  "ngoai-that": {
+   "role": "ngoai-that",
+   "w": 1920,
+   "h": 1281,
+   "source": "gx/mau-trang.jpg"
+  },
+  "noi-that": {
+   "role": "noi-that",
+   "w": 804,
+   "h": 443,
+   "source": "gx/noi-that-1.jpg"
+  },
+  "van-hanh": {
+   "role": "van-hanh",
+   "w": 2400,
+   "h": 1798,
+   "source": "gx/mau-trang1.jpg"
+  },
+  "mau-trang": {
+   "role": "mau",
+   "w": 1600,
+   "h": 1067,
+   "source": "gx/mau-trang.jpg"
+  },
+  "mau-xam": {
+   "role": "mau",
+   "w": 1600,
+   "h": 1067,
+   "source": "gx/mau-xam1.jpg"
+  },
+  "mau-den": {
+   "role": "mau",
+   "w": 1600,
+   "h": 1067,
+   "source": "gx/mau-den.webp"
+  },
+  "mau-xanh": {
+   "role": "mau",
+   "w": 1600,
+   "h": 1067,
+   "source": "gx/mau-xanh.jpg"
+  },
+  "an-toan-pcs": {
+   "role": "an-toan",
+   "w": 252,
+   "h": 182,
+   "source": "gx/PCS.webp"
+  },
+  "an-toan-ahs": {
+   "role": "an-toan",
+   "w": 251,
+   "h": 178,
+   "source": "gx/AHS.webp"
+  },
+  "an-toan-teammate": {
+   "role": "an-toan",
+   "w": 605,
+   "h": 346,
+   "source": "gx/teammate.webp"
+  },
+  "thu-vien-1": {
+   "role": "thu-vien",
+   "w": 1600,
+   "h": 1067,
+   "source": "gx/mau-den1.webp"
+  },
+  "thu-vien-2": {
+   "role": "thu-vien",
+   "w": 1600,
+   "h": 1067,
+   "source": "gx/mau-xanhla1.jpg"
+  },
+  "thu-vien-3": {
+   "role": "thu-vien",
+   "w": 1012,
+   "h": 624,
+   "source": "gx/intro.jpg"
+  },
+  "thu-vien-4": {
+   "role": "thu-vien",
+   "w": 667,
+   "h": 454,
+   "source": "gx/noi-that-7cho.webp"
+  },
+  "thu-vien-5": {
+   "role": "thu-vien",
+   "w": 647,
+   "h": 364,
+   "source": "gx/noi-that-overtrail.jpg"
+  },
+  "thu-vien-6": {
+   "role": "thu-vien",
+   "w": 856,
+   "h": 560,
+   "source": "gx/tong-quat.webp"
+  },
+  "thu-vien-7": {
+   "role": "thu-vien",
+   "w": 572,
+   "h": 453,
+   "source": "gx/mat-truoc.webp"
+  },
+  "thu-vien-8": {
+   "role": "thu-vien",
+   "w": 546,
+   "h": 366,
+   "source": "gx/mat-sau.jpg"
+  }
+ },
+ "nx": {
+  "hero": {
+   "role": "hero",
+   "w": 1920,
+   "h": 800,
+   "source": "tpl:nx.webp"
+  },
+  "ngoai-that": {
+   "role": "ngoai-that",
+   "w": 1200,
+   "h": 455,
+   "source": "nx/mau-den.jpg"
+  },
+  "noi-that": {
+   "role": "noi-that",
+   "w": 641,
+   "h": 392,
+   "source": "nx/cabin.jpg"
+  },
+  "mau-den": {
+   "role": "mau",
+   "w": 1200,
+   "h": 455,
+   "source": "nx/mau-den.jpg"
+  },
+  "mau-trang": {
+   "role": "mau",
+   "w": 452,
+   "h": 231,
+   "source": "nx/mau-trang.jpg"
+  },
+  "mau-xam": {
+   "role": "mau",
+   "w": 417,
+   "h": 228,
+   "source": "nx/mau-xam.jpg"
+  },
+  "mau-do": {
+   "role": "mau",
+   "w": 432,
+   "h": 230,
+   "source": "nx/mau-do.jpg"
+  },
+  "mau-xanh-duong": {
+   "role": "mau",
+   "w": 451,
+   "h": 229,
+   "source": "nx/mau-xanh-duong.jpg"
+  },
+  "mau-xanh-reu": {
+   "role": "mau",
+   "w": 447,
+   "h": 228,
+   "source": "nx/mau-xanh-reu.jpg"
+  },
+  "an-toan-pcs": {
+   "role": "an-toan",
+   "w": 252,
+   "h": 182,
+   "source": "nx/Hệ-thống-an-toàn-tiền-va-chạm-PCS.webp"
+  },
+  "an-toan-lta": {
+   "role": "an-toan",
+   "w": 339,
+   "h": 240,
+   "source": "nx/Hệ-thống-hỗ-trợ-theo-dõi-làn-đường-LTA.webp"
+  },
+  "an-toan-bsm": {
+   "role": "an-toan",
+   "w": 309,
+   "h": 220,
+   "source": "nx/Hệ-thống-cảnh-báo-điểm-mù-BSM.webp"
+  },
+  "an-toan-sea": {
+   "role": "an-toan",
+   "w": 543,
+   "h": 391,
+   "source": "nx/Hệ-thống-hỗ-trợ-rời-xe-an-toàn-SEA.webp"
+  },
+  "an-toan-pksb": {
+   "role": "an-toan",
+   "w": 554,
+   "h": 392,
+   "source": "nx/Hệ-thống-phanh-an-toàn-khi-đỗ-xe-_PKSB_.webp"
+  },
+  "an-toan-teammate": {
+   "role": "an-toan",
+   "w": 605,
+   "h": 346,
+   "source": "nx/TÍNH-NĂNG-HỖ-TRỢ-ĐỖ-XE-THÔNG-MINH-LEXUS-TEAMMATE.webp"
+  },
+  "thu-vien-1": {
+   "role": "thu-vien",
+   "w": 652,
+   "h": 367,
+   "source": "nx/anh-4.jpg"
+  },
+  "thu-vien-2": {
+   "role": "thu-vien",
+   "w": 548,
+   "h": 366,
+   "source": "nx/anh-1.jpg"
+  },
+  "thu-vien-3": {
+   "role": "thu-vien",
+   "w": 701,
+   "h": 439,
+   "source": "nx/than-xe.jpg"
+  },
+  "thu-vien-4": {
+   "role": "thu-vien",
+   "w": 577,
+   "h": 442,
+   "source": "nx/bang-dieu-khien.jpg"
+  },
+  "thu-vien-5": {
+   "role": "thu-vien",
+   "w": 491,
+   "h": 288,
+   "source": "nx/man-hinh.jpg"
+  },
+  "thu-vien-6": {
+   "role": "thu-vien",
+   "w": 555,
+   "h": 350,
+   "source": "nx/ghe-fsport.jpg"
+  },
+  "thu-vien-7": {
+   "role": "thu-vien",
+   "w": 568,
+   "h": 302,
+   "source": "nx/duoi-xe.jpg"
+  },
+  "thu-vien-8": {
+   "role": "thu-vien",
+   "w": 411,
+   "h": 307,
+   "source": "nx/Khoang hành lý.jpg"
+  }
+ },
+ "lm": {
+  "hero": {
+   "role": "hero",
+   "w": 1920,
+   "h": 800,
+   "source": "tpl:lm.webp"
+  },
+  "ngoai-that": {
+   "role": "ngoai-that",
+   "w": 1025,
+   "h": 667,
+   "source": "lm/intro.jpg"
+  },
+  "noi-that": {
+   "role": "noi-that",
+   "w": 986,
+   "h": 451,
+   "source": "lm/noi-that-4cho.jpg"
+  },
+  "mau-trang": {
+   "role": "mau",
+   "w": 321,
+   "h": 185,
+   "source": "lm/mau-trang.jpg"
+  },
+  "mau-den": {
+   "role": "mau",
+   "w": 325,
+   "h": 186,
+   "source": "lm/mau-den.jpg"
+  },
+  "mau-xam": {
+   "role": "mau",
+   "w": 490,
+   "h": 234,
+   "source": "lm/mau-xam.jpg"
+  },
+  "mau-do": {
+   "role": "mau",
+   "w": 310,
+   "h": 188,
+   "source": "lm/mau-do.jpg"
+  },
+  "an-toan-pcs": {
+   "role": "an-toan",
+   "w": 252,
+   "h": 182,
+   "source": "lm/pcs.jpg"
+  },
+  "an-toan-lta": {
+   "role": "an-toan",
+   "w": 339,
+   "h": 240,
+   "source": "lm/lta.jpg"
+  },
+  "an-toan-lda": {
+   "role": "an-toan",
+   "w": 605,
+   "h": 433,
+   "source": "lm/lda.jpg"
+  },
+  "an-toan-drcc": {
+   "role": "an-toan",
+   "w": 339,
+   "h": 240,
+   "source": "lm/drcc.jpg"
+  },
+  "an-toan-sea": {
+   "role": "an-toan",
+   "w": 543,
+   "h": 391,
+   "source": "lm/sea.jpg"
+  },
+  "an-toan-teammate": {
+   "role": "an-toan",
+   "w": 336,
+   "h": 239,
+   "source": "lm/teammate.jpg"
+  },
+  "thu-vien-1": {
+   "role": "thu-vien",
+   "w": 987,
+   "h": 454,
+   "source": "lm/noi-that-6-cho.jpg"
+  },
+  "thu-vien-2": {
+   "role": "thu-vien",
+   "w": 626,
+   "h": 515,
+   "source": "lm/noi-that-cabin.jpg"
+  },
+  "thu-vien-3": {
+   "role": "thu-vien",
+   "w": 487,
+   "h": 384,
+   "source": "lm/noi-that-hang-sau.jpg"
+  },
+  "thu-vien-4": {
+   "role": "thu-vien",
+   "w": 489,
+   "h": 388,
+   "source": "lm/noi-that-1.jpg"
+  },
+  "thu-vien-5": {
+   "role": "thu-vien",
+   "w": 483,
+   "h": 232,
+   "source": "lm/mat-truoc.jpg"
+  },
+  "thu-vien-6": {
+   "role": "thu-vien",
+   "w": 481,
+   "h": 231,
+   "source": "lm/mat-sau.jpg"
+  },
+  "thu-vien-7": {
+   "role": "thu-vien",
+   "w": 487,
+   "h": 233,
+   "source": "lm/mat-ben.jpg"
+  },
+  "thu-vien-8": {
+   "role": "thu-vien",
+   "w": 388,
+   "h": 291,
+   "source": "lm/anh-3.jpg"
+  }
+ },
+ "es": {
+  "hero": {
+   "role": "hero",
+   "w": 626,
+   "h": 318,
+   "source": "es/trang-1.jpg"
+  },
+  "ngoai-that": {
+   "role": "ngoai-that",
+   "w": 583,
+   "h": 421,
+   "source": "es/hong-xe.jpg"
+  },
+  "noi-that": {
+   "role": "noi-that",
+   "w": 517,
+   "h": 343,
+   "source": "es/cabin-tong-quan.jpg"
+  },
+  "mau-trang": {
+   "role": "mau",
+   "w": 531,
+   "h": 427,
+   "source": "es/mau-trang.jpg"
+  },
+  "mau-den": {
+   "role": "mau",
+   "w": 523,
+   "h": 415,
+   "source": "es/mau-den.jpg"
+  },
+  "mau-xam": {
+   "role": "mau",
+   "w": 532,
+   "h": 402,
+   "source": "es/mau-xam.jpg"
+  },
+  "mau-bac": {
+   "role": "mau",
+   "w": 531,
+   "h": 387,
+   "source": "es/mau-bac.jpg"
+  },
+  "mau-xanh-duong": {
+   "role": "mau",
+   "w": 549,
+   "h": 402,
+   "source": "es/mau-xanh-duong.jpg"
+  },
+  "mau-dong": {
+   "role": "mau",
+   "w": 549,
+   "h": 398,
+   "source": "es/mau-dong.jpg"
+  },
+  "an-toan-pcs": {
+   "role": "an-toan",
+   "w": 469,
+   "h": 363,
+   "source": "es/pcs.jpg"
+  },
+  "an-toan-lta": {
+   "role": "an-toan",
+   "w": 588,
+   "h": 330,
+   "source": "es/lta.jpg"
+  },
+  "an-toan-lda": {
+   "role": "an-toan",
+   "w": 504,
+   "h": 287,
+   "source": "es/lda.jpg"
+  },
+  "an-toan-drcc": {
+   "role": "an-toan",
+   "w": 523,
+   "h": 384,
+   "source": "es/drcc.jpg"
+  },
+  "an-toan-rsa": {
+   "role": "an-toan",
+   "w": 541,
+   "h": 303,
+   "source": "es/rsa.jpg"
+  },
+  "an-toan-pda": {
+   "role": "an-toan",
+   "w": 421,
+   "h": 258,
+   "source": "es/pda.jpg"
+  },
+  "thu-vien-1": {
+   "role": "thu-vien",
+   "w": 370,
+   "h": 309,
+   "source": "es/dau-xe.jpg"
+  },
+  "thu-vien-2": {
+   "role": "thu-vien",
+   "w": 379,
+   "h": 308,
+   "source": "es/duoi-xe.jpg"
+  },
+  "thu-vien-3": {
+   "role": "thu-vien",
+   "w": 452,
+   "h": 255,
+   "source": "es/hang-ghe-sau.jpg"
+  },
+  "thu-vien-4": {
+   "role": "thu-vien",
+   "w": 416,
+   "h": 285,
+   "source": "es/man-hinh-14.jpg"
+  },
+  "thu-vien-5": {
+   "role": "thu-vien",
+   "w": 501,
+   "h": 311,
+   "source": "es/hud.jpg"
+  },
+  "thu-vien-6": {
+   "role": "thu-vien",
+   "w": 461,
+   "h": 288,
+   "source": "es/guong-ky-thuat-so.jpg"
+  },
+  "thu-vien-7": {
+   "role": "thu-vien",
+   "w": 527,
+   "h": 263,
+   "source": "es/thao-tac.jpg"
+  },
+  "thu-vien-8": {
+   "role": "thu-vien",
+   "w": 414,
+   "h": 257,
+   "source": "es/noithat-nau.jpg"
+  }
+ },
+ "ls": {
+  "hero": {
+   "role": "hero",
+   "w": 763,
+   "h": 522,
+   "source": "ls/than-xe.jpg"
+  },
+  "ngoai-that": {
+   "role": "ngoai-that",
+   "w": 738,
+   "h": 340,
+   "source": "ls/30nam-1.jpg"
+  },
+  "noi-that": {
+   "role": "noi-that",
+   "w": 1028,
+   "h": 479,
+   "source": "ls/noi-that-hatde.jpg"
+  },
+  "mau-den": {
+   "role": "mau",
+   "w": 354,
+   "h": 165,
+   "source": "ls/mau-den.jpg"
+  },
+  "mau-trang": {
+   "role": "mau",
+   "w": 409,
+   "h": 171,
+   "source": "ls/mau-trang.jpg"
+  },
+  "mau-xam": {
+   "role": "mau",
+   "w": 393,
+   "h": 170,
+   "source": "ls/mau-xam.jpg"
+  },
+  "mau-do": {
+   "role": "mau",
+   "w": 441,
+   "h": 197,
+   "source": "ls/mau-do.jpg"
+  },
+  "mau-xanh": {
+   "role": "mau",
+   "w": 366,
+   "h": 173,
+   "source": "ls/mau-xanh.jpg"
+  },
+  "an-toan-pcs": {
+   "role": "an-toan",
+   "w": 252,
+   "h": 182,
+   "source": "ls/PCS.webp"
+  },
+  "an-toan-lta": {
+   "role": "an-toan",
+   "w": 339,
+   "h": 240,
+   "source": "ls/LTA.webp"
+  },
+  "an-toan-bsm": {
+   "role": "an-toan",
+   "w": 309,
+   "h": 220,
+   "source": "ls/BSM.webp"
+  },
+  "an-toan-ahb": {
+   "role": "an-toan",
+   "w": 402,
+   "h": 286,
+   "source": "ls/AHB.webp"
+  },
+  "an-toan-pksb": {
+   "role": "an-toan",
+   "w": 554,
+   "h": 392,
+   "source": "ls/PKSB.webp"
+  },
+  "an-toan-sea": {
+   "role": "an-toan",
+   "w": 535,
+   "h": 377,
+   "source": "ls/SEA.webp"
+  },
+  "thu-vien-1": {
+   "role": "thu-vien",
+   "w": 372,
+   "h": 283,
+   "source": "ls/dau-xe.jpg"
+  },
+  "thu-vien-2": {
+   "role": "thu-vien",
+   "w": 302,
+   "h": 206,
+   "source": "ls/duoi-xe.jpg"
+  },
+  "thu-vien-3": {
+   "role": "thu-vien",
+   "w": 452,
+   "h": 302,
+   "source": "ls/ghe-sau.jpg"
+  },
+  "thu-vien-4": {
+   "role": "thu-vien",
+   "w": 494,
+   "h": 262,
+   "source": "ls/man-hinh-giai-tri.jpg"
+  },
+  "thu-vien-5": {
+   "role": "thu-vien",
+   "w": 418,
+   "h": 287,
+   "source": "ls/tapli-cua.jpg"
+  },
+  "thu-vien-6": {
+   "role": "thu-vien",
+   "w": 316,
+   "h": 282,
+   "source": "ls/volang.jpg"
+  },
+  "thu-vien-7": {
+   "role": "thu-vien",
+   "w": 490,
+   "h": 391,
+   "source": "ls/can-so.jpg"
+  },
+  "thu-vien-8": {
+   "role": "thu-vien",
+   "w": 505,
+   "h": 302,
+   "source": "ls/noi-that-vangnau.jpg"
+  }
+ },
+ "co-so": {
+  "mat-tien": {
+   "role": "co-so",
+   "w": 1500,
+   "h": 838,
+   "source": "anhcanhan/IMG_7013.JPG"
+  },
+  "showroom": {
+   "role": "co-so",
+   "w": 2150,
+   "h": 1000,
+   "source": "anhcanhan/IMG_7015.JPG"
+  },
+  "khu-trung-bay": {
+   "role": "co-so",
+   "w": 2048,
+   "h": 1365,
+   "source": "anhcanhan/IMG_7016.JPG"
+  },
+  "xuong-dich-vu-es": {
+   "role": "co-so",
+   "w": 2400,
+   "h": 1600,
+   "source": "anhcanhan/IMG_7014.JPG"
+  },
+  "xuong-dich-vu-rx": {
+   "role": "co-so",
+   "w": 2400,
+   "h": 1601,
+   "source": "anhcanhan/IMG_7018.JPG"
+  }
+ }
+}

@@ -1,0 +1,30 @@
+/.phpunit.cache
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+auth.json
+npm-debug.log
+yarn-error.log
+/.idea
+/.vscode
+.DS_Store
+*.log
+
+# Asset Filament publish ra, tự sinh lại qua `filament:upgrade`
+/public/css/filament
+/public/js/filament
+/public/fonts/filament
+
+# Tài liệu nội bộ
+/doc
+
+# Script deploy riêng của máy, chứa IP server
+/deploy.sh
