@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\ChargingStationController;
 use App\Http\Controllers\Api\DealerController;
 use App\Http\Controllers\Api\FeeCalculatorController;
 use App\Http\Controllers\Api\FormController;
@@ -42,7 +41,3 @@ if (catalog_feature('dealers')) {
 if (catalog_feature('fee_calc')) {
     Route::post('fee-calculator', FeeCalculatorController::class)->name('catalog.fee-calculator');
 }
-
-Route::get('charging-stations', ChargingStationController::class)
-    ->middleware('throttle:30,1')
-    ->name('catalog.charging-stations');

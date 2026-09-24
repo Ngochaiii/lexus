@@ -12,7 +12,7 @@ return [
     | does not have ext-fileinfo. Paths saved in the database stay relative.
     |
     | On a release-based VPS, point MEDIA_ROOT at a persistent directory such
-    | as /var/www/cars/shared/media and expose it at MEDIA_URL with Nginx.
+    | as /www/wwwroot/<site>-media and expose it at MEDIA_URL with Nginx.
     |
     */
 
