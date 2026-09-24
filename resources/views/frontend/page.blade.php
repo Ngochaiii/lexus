@@ -62,9 +62,10 @@
     @includeWhen($sections->isNotEmpty(), 'frontend.partials.sections', [
         'sections' => $sections,
         'numbered' => false,
-        // Không có ảnh bìa và không có bảng giá → ảnh của mục đầu nằm ngay
-        // màn hình đầu (thường là LCP): tải ngay, không lazy.
-        'eagerFirst' => ! $cover && $page->slug !== 'bang-gia',
+        // Ảnh của mục đầu nằm ngay dưới phần mở đầu/ảnh bìa — trên mobile
+        // thường là ảnh lớn nhất màn hình đầu (LCP): tải ngay, không lazy.
+        // Trừ bảng giá: mục đầu nằm dưới cả bảng.
+        'eagerFirst' => $page->slug !== 'bang-gia',
     ])
 
     @if (in_array($page->slug, ['showroom', 'lien-he'], true))

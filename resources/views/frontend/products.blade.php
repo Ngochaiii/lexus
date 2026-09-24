@@ -102,7 +102,7 @@
                 <h2 class="studio-sr">{{ $listName }} — {{ $products->total() }} dòng xe</h2>
                 <div class="model-grid">
                     @foreach ($products as $product)
-                        @include('frontend.partials.product-card', ['product' => $product])
+                        @include('frontend.partials.product-card', ['product' => $product, 'eager' => $loop->first])
                     @endforeach
                 </div>
             @endif

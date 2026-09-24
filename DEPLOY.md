@@ -88,6 +88,30 @@ sinh động qua route. Đừng tạo lại file tĩnh (sẽ che route).
 
 Bật HTTPS: `certbot --nginx -d lexusthanglong.vn -d www.lexusthanglong.vn`.
 
+### Cài bằng aaPanel (đã chạy thật 24/09/2026 cho es350h-lexusthanglong.com)
+
+Ba chỗ aaPanel hay làm hỏng Laravel — kiểm tra đủ cả ba:
+
+1. **Running directory = `/public`** và **tắt Anti-XSS (open_basedir)**. Đổi
+   Running directory xong aaPanel tự tạo `public/.user.ini` giới hạn PHP chỉ
+   đọc được `public/` → Laravel không đọc được `vendor/` → lỗi 500, không có
+   `laravel.log`. Sửa: tắt công tắc, hoặc `chattr -i public/.user.ini; rm
+   public/.user.ini` rồi `/etc/init.d/php-fpm-83 reload`.
+2. **URL rewrite = `laravel5`**. Thiếu thì chỉ `/` chạy, mọi trang khác 404
+   của nginx. File: `/www/server/panel/vhost/rewrite/<domain>.conf`, nội dung
+   `location / { try_files $uri $uri/ /index.php$is_args$query_string; }`.
+3. **Khối cache js/css mặc định của aaPanel** (`location ~ .*\.(js|css)?$`)
+   không có `try_files` → `/livewire-xxxx/livewire.min.js` (Laravel sinh ra,
+   không phải file thật) bị 404 → trang đăng nhập admin hiện nhưng không bấm
+   được. Thay cả hai khối mặc định bằng hai khối `location ~* \.(css|js)$` và
+   `location ~* \.(webp|…)$` ở trên — **giữ dòng `try_files`**.
+
+Chạy sau Cloudflare: SSL **Full (strict)** + Origin Certificate dán vào tab
+SSL của site; tắt Rocket Loader. Domain phụ (lexus-es.com, thuhalexus.com)
+chỉ cần DNS A `@`/`www` → `192.0.2.1` Proxied + Redirect Rule 301
+`concat("https://es350h-lexusthanglong.com", http.request.uri.path)`.
+Sau mỗi lần sửa cấu hình, Cloudflare → Caching → **Purge Everything**.
+
 ## 4. Queue worker (mail báo lead)
 
 Mail thông báo khách để lại số và webhook chạy nền (`QUEUE_CONNECTION=database`).

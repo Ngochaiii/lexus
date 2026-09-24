@@ -21,13 +21,23 @@
         ? catalog_money($product->price_from)
         : (filled($product['price'] ?? null) ? $product['price'].' ₫' : null);
 
-    $img = ($isModel ? catalog_image(data_get($product->hero, 'src')) : ($product['image'] ?? null))
+    $heroSrc = $isModel ? data_get($product->hero, 'src') : null;
+    $img = ($isModel ? catalog_image($heroSrc) : ($product['image'] ?? null))
         ?: asset('assets/'.$slug.'.webp');
+
+    // $eager: thẻ đầu lưới nằm ngay màn hình đầu (ảnh LCP của trang danh sách).
+    $eager = $eager ?? false;
 @endphp
 <article class="model-card" data-category="{{ $cat }}" id="{{ $slug }}-card">
     <a class="model-image" href="{{ route('products.show', $slug) }}">
-        <img src="{{ $img }}" alt="{{ $name }}"
-             width="1600" height="1067" loading="lazy" decoding="async">
+        {{-- Ảnh trong kho → srcset: thẻ chỉ rộng 1/3 màn hình, không tải bản 1600px. --}}
+        @if (filled($heroSrc) && catalog_image($heroSrc))
+            <x-img :src="$heroSrc" :alt="$name" :eager="$eager"
+                   sizes="(max-width: 600px) 100vw, (max-width: 850px) 50vw, 33vw" />
+        @else
+            <img src="{{ $img }}" alt="{{ $name }}"
+                 width="1600" height="1067" loading="{{ $eager ? 'eager' : 'lazy' }}" decoding="async">
+        @endif
         @if (filled($label))
             <span class="model-label">{{ mb_strtoupper($label) }}</span>
         @endif

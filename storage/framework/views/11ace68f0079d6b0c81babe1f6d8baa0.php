@@ -12,13 +12,43 @@
         ? catalog_money($product->price_from)
         : (filled($product['price'] ?? null) ? $product['price'].' ₫' : null);
 
-    $img = ($isModel ? catalog_image(data_get($product->hero, 'src')) : ($product['image'] ?? null))
+    $heroSrc = $isModel ? data_get($product->hero, 'src') : null;
+    $img = ($isModel ? catalog_image($heroSrc) : ($product['image'] ?? null))
         ?: asset('assets/'.$slug.'.webp');
+
+    // $eager: thẻ đầu lưới nằm ngay màn hình đầu (ảnh LCP của trang danh sách).
+    $eager = $eager ?? false;
 ?>
 <article class="model-card" data-category="<?php echo e($cat); ?>" id="<?php echo e($slug); ?>-card">
     <a class="model-image" href="<?php echo e(route('products.show', $slug)); ?>">
-        <img src="<?php echo e($img); ?>" alt="<?php echo e($name); ?>"
-             width="1600" height="1067" loading="lazy" decoding="async">
+        
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(filled($heroSrc) && catalog_image($heroSrc)): ?>
+            <?php if (isset($component)) { $__componentOriginalef003b7812b51226fc3e3a60449cc92b = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalef003b7812b51226fc3e3a60449cc92b = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.img','data' => ['src' => $heroSrc,'alt' => $name,'eager' => $eager,'sizes' => '(max-width: 600px) 100vw, (max-width: 850px) 50vw, 33vw']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('img'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['src' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($heroSrc),'alt' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($name),'eager' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($eager),'sizes' => '(max-width: 600px) 100vw, (max-width: 850px) 50vw, 33vw']); ?>
+<?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::processComponentKey($component); ?>
+
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalef003b7812b51226fc3e3a60449cc92b)): ?>
+<?php $attributes = $__attributesOriginalef003b7812b51226fc3e3a60449cc92b; ?>
+<?php unset($__attributesOriginalef003b7812b51226fc3e3a60449cc92b); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalef003b7812b51226fc3e3a60449cc92b)): ?>
+<?php $component = $__componentOriginalef003b7812b51226fc3e3a60449cc92b; ?>
+<?php unset($__componentOriginalef003b7812b51226fc3e3a60449cc92b); ?>
+<?php endif; ?>
+        <?php else: ?>
+            <img src="<?php echo e($img); ?>" alt="<?php echo e($name); ?>"
+                 width="1600" height="1067" loading="<?php echo e($eager ? 'eager' : 'lazy'); ?>" decoding="async">
+        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(filled($label)): ?>
             <span class="model-label"><?php echo e(mb_strtoupper($label)); ?></span>
         <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
