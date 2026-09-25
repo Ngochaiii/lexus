@@ -30,6 +30,14 @@ class Url
         return rtrim(config('app.url'), '/').static::to($type, $slug);
     }
 
+    /** Trang riêng của một phiên bản: /san-pham/{xe}/{phien-ban}. */
+    public static function variant(string $productSlug, string $variantSlug, bool $absolute = false): string
+    {
+        $path = static::to('product', $productSlug).'/'.$variantSlug;
+
+        return $absolute ? rtrim(config('app.url'), '/').$path : $path;
+    }
+
     /** URL tuyệt đối của named route, luôn dùng domain APP_URL cho SEO. */
     public static function route(string $name, array $parameters = []): string
     {

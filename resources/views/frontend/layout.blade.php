@@ -10,7 +10,7 @@
 
     Riêng của bản Lexus:
       $overlay   true → header trong suốt đè lên hero, dùng logo bản trắng
-      $salesBar  true → thanh Báo giá / Gọi / Zalo dính đáy trên mobile
+      $salesBar  (mặc định true) → nút Gọi/Zalo nổi (desktop) + thanh Báo giá / Gọi / Zalo dính đáy (mobile)
       $popup     true → popup báo giá tự bật (chỉ trang chủ truyền)
 
     CSS là file tĩnh public/assets/style.css — không Vite, không build.
@@ -33,7 +33,9 @@
     );
 
     $overlay  = $overlay  ?? false;
-    $salesBar = $salesBar ?? false;
+    // Gọi / Zalo luôn trong tầm tay trên mọi trang — kênh ra khách chính của
+    // web tư vấn xe sang. Trang nào không muốn thì truyền 'salesBar' => false.
+    $salesBar = $salesBar ?? true;
     $popup    = $popup    ?? false;
 
     // Nhúng ?v=filemtime để cache vĩnh viễn vẫn an toàn khi sửa CSS.

@@ -18,7 +18,8 @@
     $title    = str_starts_with($variant->name, 'Lexus') ? $variant->name : 'Lexus '.$variant->name;
 @endphp
 <article class="model-card variant-card" data-category="{{ $cats }}">
-    <a class="model-image" href="{{ route('products.show', $product->slug) }}#versions">
+    @php $variantUrl = filled($variant->slug) ? \App\Support\Url::variant($product->slug, $variant->slug) : route('products.show', $product->slug).'#versions'; @endphp
+    <a class="model-image" href="{{ $variantUrl }}">
         @if ($img)
             <x-img :src="$variant->image ?: data_get($product->hero, 'src')" :alt="$title"
                    sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 25vw" />
@@ -33,12 +34,12 @@
         ngắn khác nhau — xem .variant-card trong style.css.
     --}}
     <div class="model-info">
-        <h3><span class="variant-card__brand">Lexus</span> <span class="variant-card__name">{{ \Illuminate\Support\Str::after($title, 'Lexus ') }}</span></h3>
+        <h3><a href="{{ $variantUrl }}"><span class="variant-card__brand">Lexus</span> <span class="variant-card__name">{{ \Illuminate\Support\Str::after($title, 'Lexus ') }}</span></a></h3>
         <p>{{ $variant->note }}</p>
         <div class="model-price"><small>Giá niêm yết</small><strong @class(['is-pending' => ! $variant->price])>{{ catalog_money($variant->price) ?: 'Đang cập nhật' }}</strong></div>
     </div>
     <div class="card-links">
-        <a href="{{ route('products.show', $product->slug) }}">Chi tiết {{ $product->name }} ↗</a>
+        <a href="{{ $variantUrl }}">Chi tiết phiên bản ↗</a>
         <a href="{{ route('quote', ['xe' => $product->slug, 'phien-ban' => $variant->getKey()]) }}"
            data-quote data-product="{{ $product->getKey() }}"
            data-variant="{{ $variant->getKey() }}" data-variant-name="{{ $variant->name }}">Nhận báo giá</a>

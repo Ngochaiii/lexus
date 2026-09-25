@@ -109,6 +109,14 @@ class SeoFilesController
                     $line .= ' Phiên bản: '.$p->variants->pluck('name')->implode(', ').' — giá đang cập nhật.';
                 }
                 $out[] = $line;
+
+                // Trang riêng từng phiên bản — AI trích đúng link khi được hỏi đích danh.
+                foreach ($p->variants->filter(fn ($v) => filled($v->slug)) as $v) {
+                    $road = \App\Support\OnRoadPrice::for($v);
+                    $out[] = '  - ['.$v->name.']('.Url::variant($p->slug, $v->slug, true).')'
+                        .(filled($v->price) ? ': '.catalog_money($v->price) : '')
+                        .($road ? ', lăn bánh '.$road['region'].' khoảng '.catalog_money_short($road['total']) : '').'.';
+                }
             }
         }
 

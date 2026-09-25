@@ -231,6 +231,16 @@ class ProductForm
                         MoneyInput::make('price', 'Giá'),
                         MoneyInput::make('price_original', 'Giá gạch'),
                         TextInput::make('note')->label('Ghi chú'),
+                        TextInput::make('slug')
+                            ->label('Đường dẫn trang phiên bản')
+                            ->helperText('Tự tạo từ tên nếu để trống (vd rx-350h-premium). Đã đăng thì không nên đổi — link cũ sẽ hỏng.')
+                            ->alphaDash()
+                            ->maxLength(120),
+                        Textarea::make('description')
+                            ->label('Giới thiệu riêng phiên bản')
+                            ->helperText('Không bắt buộc. 2–4 câu nói điểm riêng của bản này — hiện ở trang phiên bản, giúp trang không trùng nội dung trang dòng xe.')
+                            ->rows(3)
+                            ->columnSpanFull(),
 
                         /*
                          * Ảnh riêng của phiên bản. Khách phân biệt Eco với Plus

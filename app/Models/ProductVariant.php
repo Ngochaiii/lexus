@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class ProductVariant extends Model
 {
@@ -11,6 +12,21 @@ class ProductVariant extends Model
 
     protected static function booted(): void
     {
+        // slug cho trang riêng /san-pham/{xe}/{slug}: tự sinh từ tên, không
+        // trùng trong cùng dòng xe. Đã có slug thì giữ (link không đổi khi sửa giá).
+        static::saving(function (ProductVariant $variant): void {
+            if (filled($variant->slug) || blank($variant->name)) {
+                return;
+            }
+
+            $base = Str::slug($variant->name) ?: 'phien-ban';
+            $slug = $base;
+            for ($i = 2; static::query()->where('product_id', $variant->product_id)->where('slug', $slug)->whereKeyNot($variant->getKey())->exists(); $i++) {
+                $slug = $base.'-'.$i;
+            }
+            $variant->slug = $slug;
+        });
+
         static::saved(function (ProductVariant $variant): void {
             if (! $variant->is_default || ! $variant->product_id) {
                 return;

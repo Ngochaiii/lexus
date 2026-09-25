@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontend\PostController;
 use App\Http\Controllers\Frontend\PostIndexController;
 use App\Http\Controllers\Frontend\QuoteController;
 use App\Http\Controllers\Frontend\ProductController;
+use App\Http\Controllers\Frontend\VariantController;
 use App\Http\Controllers\Frontend\ProductIndexController;
 use App\Http\Controllers\SeoFilesController;
 use App\Http\Controllers\SitemapController;
@@ -70,6 +71,10 @@ $productPrefix = trim(Url::prefix('product'), '/');
 
 Route::get($productPrefix, ProductIndexController::class)->name('products.index');
 Route::get($productPrefix.'/{product:slug}', ProductController::class)->name('products.show');
+// Trang riêng từng phiên bản (/san-pham/rx/rx-350h-premium) — scopeBindings:
+// phiên bản phải thuộc đúng dòng xe trong URL, sai thì 404.
+Route::get($productPrefix.'/{product:slug}/{variant:slug}', VariantController::class)
+    ->scopeBindings()->name('variants.show');
 
 Route::get(trim(Url::prefix('category'), '/').'/{category:slug}', CategoryController::class)
     ->name('categories.show');

@@ -19,9 +19,36 @@ class Sitemap
 
         foreach ((array) config('catalog.seo.sitemap_includes', []) as $type) {
             $urls = [...$urls, ...$this->urlsFor($type)];
+
+            if ($type === 'product') {
+                $urls = [...$urls, ...$this->variantUrls()];
+            }
         }
 
         return $urls;
+    }
+
+    /**
+     * Trang riêng từng phiên bản (/san-pham/{xe}/{phien-ban}) của xe đang bán.
+     *
+     * @return array<int, array{loc: string, lastmod: ?string, images?: array<int, string>}>
+     */
+    protected function variantUrls(): array
+    {
+        if (! Route::has('variants.show')) {
+            return [];
+        }
+
+        return Catalog::query('product')->published()
+            ->with(['variants' => fn ($q) => $q->whereNotNull('slug')->orderBy('sort')])
+            ->orderBy('sort')->get()
+            ->flatMap(fn ($product) => $product->variants->map(fn ($variant): array => [
+                'loc' => Url::variant($product->slug, $variant->slug, true),
+                'lastmod' => $variant->updated_at?->toAtomString(),
+                'images' => collect([$variant->image ?: data_get($product, 'hero.src')])
+                    ->filter()->map(fn ($p) => Url::asset($p))->filter()->values()->all(),
+            ]))
+            ->values()->all();
     }
 
     /** @return array<int, array{loc: string, lastmod: null}> */

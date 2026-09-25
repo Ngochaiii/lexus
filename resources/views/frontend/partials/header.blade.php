@@ -64,11 +64,20 @@
         <a href="{{ route('home') }}#chuyen-vien">Người đồng hành</a>
     </nav>
 
+    @php $headerPhone = catalog_setting('advisor_phone') ?: catalog_setting('hotline'); @endphp
+    @if ($headerPhone)
+        {{-- Hotline luôn thấy ở đầu trang; bấm là gọi (mobile) hoặc mở ứng dụng gọi. --}}
+        <a class="header-phone" href="tel:{{ $headerPhone }}" aria-label="Gọi hotline {{ \App\Support\Phone::format($headerPhone) }}">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>
+            <span>{{ \App\Support\Phone::format($headerPhone) }}</span>
+        </a>
+    @endif
     <a class="header-cta" href="{{ route('booking') }}">ĐẶT LỊCH LÁI THỬ ↗</a>
 
     <details class="mobile-menu">
         <summary><span class="menu-open">MENU ☰</span><span class="menu-close">ĐÓNG ✕</span></summary>
         <nav aria-label="Điều hướng di động">
+            @if ($headerPhone)<a href="tel:{{ $headerPhone }}">Hotline {{ \App\Support\Phone::format($headerPhone) }}</a>@endif
             <a href="{{ route('home') }}#chuyen-vien">Người đồng hành</a>
             <a href="{{ route('products.index') }}">Dòng xe Lexus</a>
             <a href="{{ route('pages.show', 'bang-gia') }}">Bảng giá &amp; mua xe</a>

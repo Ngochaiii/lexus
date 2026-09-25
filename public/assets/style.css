@@ -335,3 +335,52 @@ html:has(.quote-dialog[open]){overflow:hidden}
 .post-cover--narrow,.post-cover--wide{max-width:var(--max);padding-inline:var(--pad)}
 /* Cột chữ: thẳng lề trái với tiêu đề và thân bài, rộng tối đa 820px. */
 .post-cover--narrow img{max-width:820px}
+
+/* Hotline ở header (partials/header). ≤1200px nằm cạnh nút MENU; ≤600px chỉ còn biểu tượng. */
+.header-phone{flex:none;display:inline-flex;align-items:center;gap:8px;font-size:16px;letter-spacing:.04em;white-space:nowrap;margin-left:auto;padding:10px 0}
+.header-phone svg{flex:none}
+.header-phone:hover span{text-decoration:underline}
+@media(max-width:1200px){.header-phone{margin-right:22px}}
+@media(max-width:600px){.header-phone{margin-right:14px;width:40px;height:40px;justify-content:center;border:1px solid currentColor;border-radius:50%;padding:0}.header-phone span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}}
+/* Nút Gọi / Zalo nổi góc dưới phải (partials/sales-bar) — màn hình >600px; mobile dùng thanh đáy.
+   Góc phải để không đè lên chữ căn lề trái. */
+.contact-float{position:fixed;right:22px;bottom:22px;z-index:45;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.contact-float__btn{position:relative;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 6px 18px #0003;transition:transform .2s}
+.contact-float__btn:hover{transform:scale(1.06)}
+.contact-float__call{background:var(--ink)}
+.contact-float__call:before{content:'';position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--accent);opacity:0;animation:contact-ring 2.4s ease-out infinite}
+.contact-float__zalo{background:#0068ff;font:600 13px/1 Arial,Helvetica,sans-serif;letter-spacing:.02em}
+.contact-float__label{position:absolute;right:66px;top:50%;transform:translate(6px,-50%);opacity:0;pointer-events:none;background:#fff;color:var(--ink);font-size:15px;white-space:nowrap;padding:7px 12px;box-shadow:0 4px 14px #0002;transition:opacity .2s,transform .2s}
+.contact-float__btn:hover .contact-float__label,.contact-float__btn:focus-visible .contact-float__label{opacity:1;transform:translate(0,-50%)}
+@keyframes contact-ring{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+@media(prefers-reduced-motion:reduce){.contact-float__call:before{animation:none}}
+@media(max-width:600px){.contact-float{display:none}}
+
+/* Trang phiên bản (frontend/variant): ảnh lớn trái, tên + giá + nút phải. */
+.variant-page-hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:56px;align-items:center;padding-block:48px 64px}
+.variant-page-hero__media{position:relative;overflow:hidden;background:#e9e8e5}
+.variant-page-hero__media img{width:100%;height:auto;aspect-ratio:1.4;object-fit:cover}
+.variant-page-hero__media .model-label{top:14px;left:14px;padding:4px 10px 3px;background:#ffffffe0;color:var(--ink);text-shadow:none;font-size:12px;letter-spacing:.16em;line-height:1.5}
+.variant-page-hero__copy .breadcrumb{margin-bottom:22px}
+.variant-page-hero__copy h1{font-size:clamp(36px,3.6vw,54px);line-height:1.12}
+.variant-page-hero__note{margin-top:14px;font-size:18px}
+.variant-page-hero__prices{margin:26px 0 8px}
+.variant-page-hero .actions{margin-top:22px}
+.variant-page-intro{max-width:880px;padding-block:8px 40px}
+.variant-page-intro p{font-size:20px;color:var(--ink)}
+.variant-cost th,.variant-compare tbody th{text-align:left;font-weight:500;background:none;text-transform:none;letter-spacing:0;font-size:18px;padding:20px}
+.variant-cost td{text-align:right;font-variant-numeric:tabular-nums}
+.variant-cost .is-total th,.variant-cost .is-total td{font-size:22px;font-weight:600;border-top:2px solid var(--ink)}
+.variant-compare .is-current{background:var(--stone)}
+.variant-compare small{display:inline-block;margin-left:8px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.variant-compare a{text-decoration:underline;text-underline-offset:3px}
+.variant-page-more p{max-width:760px}
+.variant-page-more a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+@media(max-width:900px){.variant-page-hero{grid-template-columns:1fr;gap:28px;padding-block:28px 44px}}
+@media(max-width:600px){.variant-cost th,.variant-cost td,.variant-compare tbody th{padding:16px 12px;font-size:17px}}
+.variant-card h3 a{color:inherit}
+.variant .variant-more{display:block;margin-top:12px;font-size:15px;text-align:center;text-decoration:underline;text-underline-offset:3px;color:var(--muted)}
+.variant h3 a{color:inherit}
+.data-table td a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+
+.variant-cost{min-width:0}

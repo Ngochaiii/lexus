@@ -135,7 +135,9 @@ class ArticleContext
     /** @param Collection<int, Product> $products */
     private static function internalLinks(Collection $products): string
     {
-        $links = $products->map(fn (Product $p) => '- '.$p->name.': '.route('products.show', $p->slug, false));
+        $links = $products->flatMap(fn (Product $p) => collect(['- '.$p->name.': '.route('products.show', $p->slug, false)])
+            ->merge($p->variants->filter(fn ($v) => filled($v->slug))
+                ->map(fn ($v) => '- '.$v->name.' (trang phiên bản: giá, lăn bánh, thông số): '.Url::variant($p->slug, $v->slug))));
 
         $pages = Page::query()->published()->whereIn('slug', ['bang-gia', 'tai-chinh', 'uu-dai', 'showroom', 'dich-vu', 'faq'])
             ->get(['slug', 'title'])->map(fn (Page $pg) => '- '.$pg->title.': '.route('pages.show', $pg->slug, false));

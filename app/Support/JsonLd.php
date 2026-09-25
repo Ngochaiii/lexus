@@ -74,6 +74,41 @@ class JsonLd
     }
 
     /**
+     * Một phiên bản (trang /san-pham/{xe}/{phien-ban}): Product con của dòng
+     * xe, một Offer đúng giá — Google hiện giá ngay trên kết quả tìm kiếm.
+     *
+     * @return array<string, mixed>
+     */
+    public static function forVariant(Model $product, Model $variant, ?string $description = null): array
+    {
+        $url = Url::variant($product->slug, $variant->slug, true);
+        $name = str_starts_with($variant->name, 'Lexus') ? $variant->name : 'Lexus '.$variant->name;
+
+        return array_filter([
+            '@context' => 'https://schema.org',
+            '@type' => 'Product',
+            '@id' => $url.'#product',
+            'name' => $name,
+            'description' => $description,
+            'url' => $url,
+            'image' => Url::asset($variant->image ?: data_get($product->hero, 'src')),
+            'brand' => ['@type' => 'Brand', 'name' => (string) config('catalog.seo.brand', 'Lexus')],
+            'model' => $variant->name,
+            'category' => $product->category?->name,
+            'isVariantOf' => ['@id' => Url::absolute('product', $product->slug).'#product'],
+            'offers' => filled($variant->price) ? [
+                '@type' => 'Offer',
+                'price' => (string) $variant->price,
+                'priceCurrency' => 'VND',
+                'url' => $url,
+                'availability' => 'https://schema.org/InStock',
+                'itemCondition' => 'https://schema.org/NewCondition',
+                'seller' => ['@id' => self::organizationId()],
+            ] : null,
+        ], fn ($v) => filled($v));
+    }
+
+    /**
      * Có phiên bản kèm giá → AggregateOffer (dải giá thấp–cao + từng phiên
      * bản). Không có → một Offer theo "giá từ", như trước.
      *
@@ -104,7 +139,8 @@ class JsonLd
                     'description' => $v->note,
                     'price' => (string) $v->price,
                     'priceCurrency' => 'VND',
-                    'url' => $url.'#versions',
+                    // Mỗi phiên bản có trang riêng — trỏ Offer về đó.
+                    'url' => filled($v->slug) ? Url::variant($product->slug, $v->slug, true) : $url.'#versions',
                     // Phiên bản "giá dự kiến" (xe chưa ra mắt) là đặt trước, không phải còn hàng.
                     'availability' => str_contains((string) $v->note, 'dự kiến')
                         ? 'https://schema.org/PreOrder'

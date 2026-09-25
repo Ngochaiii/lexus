@@ -140,7 +140,8 @@
                                            sizes="(max-width: 600px) 100vw, 33vw" />
                                 </div>
                             @endif
-                            <h3>{{ $variant->name }}</h3>
+                            @php $variantUrl = filled($variant->slug) ? \App\Support\Url::variant($product->slug, $variant->slug) : null; @endphp
+                            <h3>@if ($variantUrl)<a href="{{ $variantUrl }}">{{ $variant->name }}</a>@else{{ $variant->name }}@endif</h3>
                             @if (filled($variant->note))<p class="variant-note">{{ $variant->note }}</p>@endif
                             <dl class="variant-prices">
                                 <div class="is-list">
@@ -159,6 +160,7 @@
                             <a class="button" href="{{ route('quote', ['xe' => $product->slug, 'phien-ban' => $variant->id]) }}"
                                data-quote data-product="{{ $product->id }}"
                                data-variant="{{ $variant->id }}" data-variant-name="{{ $variant->name }}">Nhận báo giá chi tiết</a>
+                            @if ($variantUrl)<a class="variant-more" href="{{ $variantUrl }}">Giá lăn bánh & thông số {{ $variant->name }} ↗</a>@endif
                         </article>
                     @endforeach
                 </div>
