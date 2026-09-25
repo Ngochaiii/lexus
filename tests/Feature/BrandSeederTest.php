@@ -142,9 +142,25 @@ class BrandSeederTest extends TestCase
             }
         }
 
-        // NX có đủ hai phiên bản như nguồn.
-        $this->assertSame(['NX 350 F SPORT', 'NX 350h'],
-            Product::where('slug', 'nx')->sole()->variants()->orderBy('sort')->pluck('name')->all());
+        // Danh mục đang bán (25/9/2026): 6 dòng, 11 phiên bản; NX giữ dữ liệu nhưng ẩn.
+        $this->assertSame('draft', Product::where('slug', 'nx')->sole()->status);
+        $this->assertSame(11, \App\Models\ProductVariant::whereHas('product', fn ($q) => $q->published())->count());
+        $this->assertSame([2_360_000_000, 2_580_000_000],
+            Product::where('slug', 'es')->sole()->variants()->orderBy('sort')->pluck('price')->map(fn ($p) => (int) $p)->all());
+        $this->assertSame(['GX 550'], Product::where('slug', 'gx')->sole()->variants()->pluck('name')->all());
+        $this->assertSame(['LM 500h 6 chỗ'], Product::where('slug', 'lm')->sole()->variants()->pluck('name')->all());
+    }
+
+    public function test_seed_lai_giu_nguyen_id_phien_ban_de_lead_khong_mat_lien_ket(): void
+    {
+        $this->seed(\Database\Seeders\Brands\LexusSeeder::class);
+        $before = \App\Models\ProductVariant::pluck('id', 'name');
+
+        \App\Models\ProductVariant::where('name', 'RX 350h Premium')->update(['price' => 1]);
+        $this->seed(\Database\Seeders\Brands\LexusSeeder::class);
+
+        $this->assertEquals($before, \App\Models\ProductVariant::pluck('id', 'name'));
+        $this->assertSame(3_350_000_000, (int) \App\Models\ProductVariant::where('name', 'RX 350h Premium')->value('price'));
     }
 
     public function test_seed_ca_bo_chay_duoc_du_model_event_bi_tat(): void
@@ -157,8 +173,13 @@ class BrandSeederTest extends TestCase
         $menu = Menu::where('key', 'header')->sole();
         $children = MenuItem::whereNotNull('parent_id')->get();
 
-        // Bản Lexus có 7 dòng xe (VinFast có 6) — xem Brands\LexusSeeder.
-        $this->assertCount(7, $children);
+        // 6 dòng xe đang bán; NX ẩn (draft) nên không lên menu — xem Brands\LexusSeeder.
+        $this->assertCount(6, $children);
+
+        // Link của mẫu/bài đã bỏ chuyển hướng 301, không để khách gặp 404.
+        $this->get('/san-pham/nx')->assertRedirect('/san-pham')->assertStatus(301);
+        $this->get('/tin-tuc/lexus-gx-550m-gx-550-hay-lx-600')->assertRedirect('/tin-tuc/lexus-gx-550-hay-lx-600');
+        $this->get('/tin-tuc/lexus-gx-550-hay-lx-600')->assertOk();
         $this->assertSame([$menu->id], $children->pluck('menu_id')->unique()->all());
     }
 

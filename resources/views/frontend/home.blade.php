@@ -119,13 +119,12 @@
         <aside class="advisor-ribbon">
             <div class="container advisor-ribbon-inner">
                 <a class="advisor-identity" href="#chuyen-vien">
-                    <img class="advisor-avatar" src="{{ $portrait ?: asset('assets/personal/portrait-960.webp') }}"
+                    <img class="advisor-avatar" src="{{ $portrait ?: asset('assets/personal/avatar-320.webp') }}"
                          @unless ($portrait)
-                             srcset="{{ asset('assets/personal/portrait-320.webp') }} 320w,
-                                     {{ asset('assets/personal/portrait-640.webp') }} 640w,
-                                     {{ asset('assets/personal/portrait-960.webp') }} 960w"
+                             srcset="{{ asset('assets/personal/avatar-160.webp') }} 160w,
+                                     {{ asset('assets/personal/avatar-320.webp') }} 320w"
                          @endunless
-                         sizes="56px" width="960" height="960"
+                         sizes="56px" width="320" height="320"
                          alt="Chân dung {{ $advisor }}" loading="lazy" decoding="async">
                     <span><strong>{{ $advisor }}</strong><span>{{ $advisorRo }}</span></span>
                 </a>

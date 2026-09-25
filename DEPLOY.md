@@ -1,8 +1,8 @@
 # Triển khai lên VPS — Lexus Thăng Long
 
-Một lần `migrate --seed` + `catalog:images` là ra **bản đầy đủ**: 7 dòng xe,
-16 phiên bản (giá theo trang chủ Car-project), 36 màu có ảnh xoay 360°, ảnh
-chi tiết/mâm/nội thất, 11 trang tĩnh, 8 bài viết SEO/GEO, banner, menu, form
+Một lần `migrate --seed` + `catalog:images` là ra **bản đầy đủ**: 6 dòng xe,
+11 phiên bản (giá đại lý chốt 25/9/2026), ảnh xoay 360° cho mọi màu, ảnh
+chi tiết/mâm/nội thất, 11 trang tĩnh, 6 bài viết SEO/GEO, banner, menu, form
 thu lead. Toàn bộ ảnh nằm sẵn trong `database/seeders/media/` (~50 MB) — máy
 chủ **không** cần truy cập Car-project hay lexus.com.
 
@@ -90,7 +90,7 @@ Bật HTTPS: `certbot --nginx -d lexusthanglong.vn -d www.lexusthanglong.vn`.
 
 ### Cài bằng aaPanel (đã chạy thật 24/09/2026 cho es350h-lexusthanglong.com)
 
-Ba chỗ aaPanel hay làm hỏng Laravel — kiểm tra đủ cả ba:
+Bốn chỗ aaPanel hay làm hỏng Laravel — kiểm tra đủ cả bốn:
 
 1. **Running directory = `/public`** và **tắt Anti-XSS (open_basedir)**. Đổi
    Running directory xong aaPanel tự tạo `public/.user.ini` giới hạn PHP chỉ
@@ -105,6 +105,14 @@ Ba chỗ aaPanel hay làm hỏng Laravel — kiểm tra đủ cả ba:
    không phải file thật) bị 404 → trang đăng nhập admin hiện nhưng không bấm
    được. Thay cả hai khối mặc định bằng hai khối `location ~* \.(css|js)$` và
    `location ~* \.(webp|…)$` ở trên — **giữ dòng `try_files`**.
+
+4. **Queue worker**: aaPanel không tự tạo. Thiếu thì nút Gemini treo ở "đang
+   viết…" và không có mail báo lead. Cách chắc nhất là systemd (tự chạy lại khi
+   reboot), 2 tiến trình, user `www`:
+   `/etc/systemd/system/lexus-queue@.service` với
+   `ExecStart=/www/server/php/83/bin/php artisan queue:work --sleep=3 --tries=3 --max-time=3600`,
+   `WorkingDirectory=/www/wwwroot/es350`, `Restart=always` → `systemctl enable --now
+   lexus-queue@1 lexus-queue@2`. Sau mỗi `git pull`: `php artisan queue:restart`.
 
 Chạy sau Cloudflare: SSL **Full (strict)** + Origin Certificate dán vào tab
 SSL của site; tắt Rocket Loader. Domain phụ (lexus-es.com, thuhalexus.com)

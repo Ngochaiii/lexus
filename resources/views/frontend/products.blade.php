@@ -125,7 +125,7 @@
         <div class="split-copy">
             <div class="eyebrow">LEXUS ELECTRIFIED</div>
             <h2>Chuyển động hôm nay.<br>Cảm hứng ngày mai.</h2>
-            <p>RX, NX, ES, LM và LS đều có bản hybrid — không cần cắm sạc, êm và tiết kiệm trong phố. Ghé showroom để lái thử và so sánh trực tiếp.</p>
+            <p>ES, RX, LM và LS đều chạy hybrid — không cần cắm sạc, êm và tiết kiệm trong phố. Ghé showroom để lái thử và so sánh trực tiếp.</p>
             <a class="text-link" href="{{ route('pages.show', 'the-gioi-lexus') }}">Khám phá trải nghiệm</a>
         </div>
     </section>

@@ -90,7 +90,7 @@ abstract class BrandSeeder extends Seeder
                 'tagline' => $data['tagline'] ?? null,
                 'category_id' => $categories[$data['category'] ?? ''] ?? null,
                 'price_from' => $data['price_from'] ?? null,
-                'status' => 'published',
+                'status' => $data['status'] ?? 'published',
                 'published_at' => now(),
                 'sort' => $sort,
                 'hero' => $this->hero($data),
@@ -103,13 +103,19 @@ abstract class BrandSeeder extends Seeder
         );
     }
 
+    /**
+     * Cập nhật phiên bản TẠI CHỖ theo tên (không xoá–tạo lại): id phiên bản
+     * giữ nguyên nên lead đã gửi (leads.product_variant_id) vẫn trỏ đúng mẫu
+     * khi seed lại để đổi giá. Phiên bản không còn trong danh sách thì xoá
+     * (lead cũ giữ tên phiên bản trong data, cột id tự về null).
+     */
     protected function seedVariants(Model $product, array $data): void
     {
-        $product->variants()->delete();
+        $existing = $product->variants()->get()->keyBy('name');
+        $keep = [];
 
         foreach (array_values($data['variants'] ?? []) as $i => $variant) {
-            $product->variants()->create([
-                'name' => $variant['name'],
+            $attrs = [
                 'price' => $variant['price'] ?? null,
                 'price_original' => $variant['price_original'] ?? null,
                 'note' => $variant['note'] ?? null,
@@ -119,8 +125,14 @@ abstract class BrandSeeder extends Seeder
                 // xăng dầu bỏ trống thì calculator ở trang chi tiết tự ẩn.
                 'battery_kwh' => $variant['battery_kwh'] ?? null,
                 'range_km' => $variant['range_km'] ?? null,
-            ]);
+            ];
+
+            $model = $existing->get($variant['name']);
+            $model ? $model->update($attrs) : $model = $product->variants()->create(['name' => $variant['name']] + $attrs);
+            $keep[] = $model->getKey();
         }
+
+        $product->variants()->whereNotIn('id', $keep)->delete();
     }
 
     protected function seedColors(Model $product, array $data): void
@@ -325,7 +337,8 @@ abstract class BrandSeeder extends Seeder
         foreach ($this->products() as $sort => $data) {
             $product = Catalog::query('product')->where('slug', $data['slug'])->first();
 
-            if ($product) {
+            // Xe ẩn (status draft) không lên menu — link sẽ ra trang 404.
+            if ($product && $product->status === 'published') {
                 $parent->children()->create([
                     // Gán menu_id thẳng, KHÔNG dựa vào hook `saving` của MenuItem:
                     // DatabaseSeeder dùng WithoutModelEvents nên hook đó không chạy

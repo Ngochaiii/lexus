@@ -11,13 +11,12 @@
 @endphp
 <a class="advisor-mini" href="{{ route('home') }}#chuyen-vien">
     <img class="advisor-avatar"
-         src="{{ $photo ?: asset('assets/personal/portrait-960.webp') }}"
+         src="{{ $photo ?: asset('assets/personal/avatar-320.webp') }}"
          @unless ($photo)
-             srcset="{{ asset('assets/personal/portrait-320.webp') }} 320w,
-                     {{ asset('assets/personal/portrait-640.webp') }} 640w,
-                     {{ asset('assets/personal/portrait-960.webp') }} 960w"
+             srcset="{{ asset('assets/personal/avatar-160.webp') }} 160w,
+                     {{ asset('assets/personal/avatar-320.webp') }} 320w"
          @endunless
-         sizes="76px" width="960" height="960"
+         sizes="76px" width="320" height="320"
          alt="Chân dung {{ $advisor }}"
          loading="lazy" decoding="async">
     <span>

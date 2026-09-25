@@ -33,7 +33,7 @@ feature flag nên không lộ ra ở đâu.
 ## Triển khai VPS
 
 Xem **[DEPLOY.md](DEPLOY.md)** — một lần `migrate --seed` + `catalog:images`
-ra bản đầy đủ (7 xe, 16 phiên bản, ảnh 360°, 11 trang, 8 bài viết). Mẫu
+ra bản đầy đủ (6 dòng xe, 11 phiên bản, ảnh 360°, 11 trang, 6 bài viết). Mẫu
 `.env` cho máy chủ: `.env.production.example` (ADMIN_*, LEAD_NOTIFY_EMAILS).
 
 ## Chạy
@@ -80,7 +80,7 @@ ngoại thất 360° và phóng ảnh. Hướng dẫn nhập ảnh: `docs/vehicl
 | Seeder | Seed gì |
 |---|---|
 | `LexusSiteSeeder` | cài đặt, 3 form, 10 trang tĩnh đủ nội dung (thế giới Lexus, bảng giá, đặc quyền, tài chính, dịch vụ, showroom, liên hệ, hỏi đáp, quyền riêng tư, điều khoản), 8 bài viết SEO/GEO, menu, banner |
-| `Brands\LexusSeeder` | 7 dòng xe RX · ES · NX · LX · GX · LM · LS: giá từng phiên bản, màu có ảnh, thông số, FAQ |
+| `Brands\LexusSeeder` | 6 dòng xe đang bán RX · ES · LX · GX · LM · LS (NX ẩn): giá từng phiên bản, màu có ảnh, thông số, FAQ. Seed lại giữ nguyên id phiên bản |
 | `Brands\MauSeeder` | mẫu để copy khi thêm hãng khác |
 
 Ảnh seed nằm trong `database/seeders/media/lexus/`:
@@ -129,7 +129,7 @@ một bản sao; sửa `template/assets/` không ảnh hưởng tới site đang
 Giao diện đã nối xong dữ liệu: mỗi dòng xe ra đúng nội dung của nó, tin tức và
 trang tĩnh lấy từ admin, form lái thử lưu được lead.
 
-Test: **236 test · 214 đạt · 22 skip · 0 hỏng.** Các test skip đều khẳng định
+Test: **241 test · 219 đạt · 22 skip · 0 hỏng.** Các test skip đều khẳng định
 markup của giao diện VinFast cũ; hành vi tương ứng đã phủ lại bằng
 `tests/Feature/LexusFrontendTest.php`.
 

@@ -17,13 +17,14 @@ use Illuminate\Database\Eloquent\Model;
  * khác, ảnh có watermark bên thứ ba. Seeder copy vào kho media ở
  * catalog/lexus/{slug}/; chạy lại thì chỉ ghi đè khi nội dung ảnh đổi.
  *
- * GIÁ: theo TRANG CHỦ Car-project (chủ website chốt 24/9/2026 — trang chi
- *   tiết Car-project còn giá cũ): LM 500h 6 chỗ 7,21 tỷ; GX đặt tên GX 550M
- *   (6,40 tỷ) / GX 550 (6,45 tỷ); ES "đang cập nhật" → price null, trang hiện
- *   "Đang cập nhật". NX 350 F SPORT không có ở Car-project → 3,13 tỷ (giá
- *   hãng). Đổi giá: sửa trong admin, hoặc sửa ở đây rồi seed lại.
- * Phiên bản bị comment trong nguồn (NX 350h 2,34 tỷ trùng tên, LS 500 7,03
- * tỷ) không đưa lên.
+ * GIÁ & DANH MỤC: theo danh sách xe đang bán tại đại lý, chủ website chốt
+ *   25/9/2026 — 6 dòng, 11 phiên bản: ES 350h Premium 2,36 · Luxury 2,58 tỷ;
+ *   RX 3,35 / 4,14 / 4,94; LX 8,59 / 8,84 / 9,70; GX 550 6,20; LM 500h 6 chỗ
+ *   7,21; LS 500h 8,03 tỷ. Đã bỏ khỏi web: NX (giữ dữ liệu, status draft để
+ *   bật lại khi đại lý bán), GX 550M, LM 4 chỗ VIP, ES 500e. Link cũ của các
+ *   mẫu đã bỏ được chuyển hướng 301 (LexusSiteSeeder::redirects()).
+ *   Đổi giá: sửa trong admin, hoặc sửa ở đây rồi seed lại — seed lại giữ
+ *   nguyên id phiên bản (lead đã gửi vẫn trỏ đúng mẫu).
  *
  * THÔNG SỐ: chỉ đăng phiên bản có số liệu khớp đời xe hiện hành. ES thế hệ
  * mới chưa có bảng thông số tin cậy nên cố ý để trống — trang tự ẩn khối đó.
@@ -435,18 +436,18 @@ class LexusSeeder extends BrandSeeder
         return [
             'slug'       => 'es',
             'name'       => 'Lexus ES',
-            'tagline'    => 'Sedan thế hệ mới — hybrid hoặc thuần điện',
+            'tagline'    => 'Sedan hạng sang thế hệ mới, hybrid 350h',
             'category'   => 'sedan',
-            'price_from' => null,   // Car-project: "ĐANG CẬP NHẬT" — ES thế hệ mới chưa công bố giá
+            'price_from' => 2_360_000_000,   // giá đại lý 25/09/2026: 350h Premium 2,36 · Luxury 2,58 tỷ
             'highlights' => [
-                ['value' => '350h / 500e', 'unit' => '', 'label' => 'Hybrid hoặc thuần điện'],
+                ['value' => '350h', 'unit' => '', 'label' => 'Hybrid thế hệ mới'],
                 ['value' => '5', 'unit' => 'chỗ', 'label' => 'Sedan hạng sang'],
-                ['value' => '3', 'unit' => 'phiên bản', 'label' => 'Premium · Luxury · 500e'],
-                ['value' => 'Mới', 'unit' => '', 'label' => 'Thế hệ thứ 8 · giá đang cập nhật'],
+                ['value' => '2', 'unit' => 'phiên bản', 'label' => 'Premium · Luxury'],
+                ['value' => '2,36', 'unit' => 'tỷ', 'label' => 'Giá từ · thế hệ thứ 8'],
             ],
             'exterior' => [
-                'image' => 'ngoai-that',
-                'alt'   => 'Lexus ES thế hệ mới màu xanh nhìn từ phía sau',
+                'image' => 'the-he-moi-truoc',
+                'alt'   => 'Lexus ES thế hệ mới màu xanh thép nhìn chéo phía trước',
                 'title' => 'Thiết kế',
                 'intro' => 'Thế hệ thứ tám. Một đường mái liền mạch.',
                 'body'  => 'ES mới chuyển sang dáng fastback, mui xe dài và đuôi vuốt gọn. Mặt trước bỏ lưới '
@@ -454,8 +455,8 @@ class LexusSeeder extends BrandSeeder
                     .'của Lexus cho thời kỳ điện hóa.',
             ],
             'interior' => [
-                'image' => 'noi-that',
-                'alt'   => 'Khoang lái Lexus ES thế hệ mới',
+                'image' => 'the-he-moi-khoang-lai',
+                'alt'   => 'Khoang lái Lexus ES thế hệ mới với màn hình trung tâm cỡ lớn',
                 'title' => 'Nội thất',
                 'intro' => 'Rộng hơn, sáng hơn, ít nút bấm hơn.',
                 'body'  => 'Trục cơ sở dài hơn mang lại chỗ để chân hàng ghế sau rộng rãi — điều khách ES '
@@ -473,6 +474,13 @@ class LexusSeeder extends BrandSeeder
                     ['noi-that-trang', 'Nội thất trắng', 'Hiện đại'],
                     ['noi-that-nau', 'Nội thất nâu', 'Ấm áp'],
                     ['hang-ghe-sau', 'Hàng ghế sau', 'Rộng rãi, ghế công thái học'],
+                ],
+                'Thế hệ mới' => [
+                    ['moi-den-pha', 'Cụm đèn pha dạng lưỡi', 'Dải LED chữ L đặc trưng'],
+                    ['moi-mam', 'Mâm hợp kim đa chấu', 'Thiết kế khí động học'],
+                    ['moi-vo-lang', 'Vô-lăng và bảng táp-lô', 'Bố cục tối giản, hướng người lái'],
+                    ['moi-man-hinh', 'Màn hình trung tâm cỡ lớn', 'Bản đồ, âm thanh, điều hòa'],
+                    ['moi-ghe', 'Ghế trước bọc da', 'Có sưởi, làm mát'],
                 ],
                 'Tiện nghi' => [
                     ['man-hinh-14', 'Màn hình trung tâm 14 inch', 'Apple CarPlay, Android Auto không dây'],
@@ -493,6 +501,10 @@ class LexusSeeder extends BrandSeeder
                 ],
             ],
             'gallery' => [
+                'the-he-moi-truoc'    => 'thế hệ mới nhìn chéo phía trước',
+                'the-he-moi-sau'      => 'đuôi xe dáng fastback',
+                'the-he-moi-dau-xe'   => 'đầu xe chính diện',
+                'the-he-moi-tren-cao' => 'mái xe nhìn từ trên cao',
                 'thu-vien-7' => 'màn hình trung tâm',
                 'thu-vien-1' => 'mặt trước',
                 'thu-vien-3' => 'hàng ghế sau',
@@ -508,27 +520,24 @@ class LexusSeeder extends BrandSeeder
                 ['Đen', '#1C1D20', 'mau-den'],
             ],
             'variants' => [
-                ['name' => 'ES 350h Premium', 'image' => 'phien-ban/premium', 'price' => null, 'note' => 'Hybrid'],
-                ['name' => 'ES 350h Luxury', 'image' => '360/xam/04', 'price' => null, 'note' => 'Hybrid · trang bị Luxury'],
-                ['name' => 'ES 500e', 'image' => '360/xanh-duong/04', 'price' => null, 'note' => 'Thuần điện'],
+                ['name' => 'ES 350h Premium', 'image' => 'phien-ban/premium', 'price' => 2_360_000_000, 'note' => 'Hybrid thế hệ mới'],
+                ['name' => 'ES 350h Luxury', 'image' => '360/xam/04', 'price' => 2_580_000_000, 'note' => 'Hybrid · trang bị Luxury'],
             ],
             'faq' => [
                 'Giá xe Lexus ES 2026 bao nhiêu?' =>
-                    'Lexus ES thế hệ mới gồm 3 phiên bản ES 350h Premium, ES 350h Luxury và ES 500e (thuần điện). '
-                    .'Giá bán đang được cập nhật — để lại số điện thoại, chuyên viên báo giá ngay khi Lexus Việt Nam công bố.',
-                'ES 350h và ES 500e khác nhau thế nào?' =>
-                    'ES 350h là hybrid xăng – điện, không cần sạc, phù hợp đi cả phố lẫn đường dài. ES 500e chạy '
-                    .'hoàn toàn bằng điện, êm tuyệt đối và không phát thải, cần sạc tại nhà hoặc trạm sạc. '
-                    .'Ô tô điện chạy pin được áp lệ phí trước bạ lần đầu 0% đến hết năm 2030 (Nghị định 202/2026/NĐ-CP), '
-                    .'nên chênh lệch giá lăn bánh giữa ES 500e và ES 350h hẹp hơn nhiều so với giá niêm yết.',
+                    'Lexus ES thế hệ mới có 2 phiên bản hybrid: ES 350h Premium 2,36 tỷ đồng và ES 350h Luxury 2,58 tỷ đồng '
+                    .'(giá niêm yết, đã gồm VAT). Lăn bánh tại Hà Nội tạm tính khoảng 2,66 tỷ và 2,90 tỷ đồng.',
+                'ES 350h Premium và Luxury khác nhau thế nào?' =>
+                    'Hai bản cùng hệ truyền động hybrid 350h, không cần sạc. Bản Luxury bổ sung trang bị tiện nghi và '
+                    .'vật liệu nội thất cao cấp hơn, giá cao hơn 220 triệu đồng.',
                 'Vì sao Lexus ES được nhiều khách chọn?' =>
                     'ES là mẫu sedan phổ biến của Lexus tại Việt Nam nhờ khoang sau rộng, vận hành êm '
                     .'và chi phí sử dụng hợp lý của hệ truyền động hybrid.',
             ] + $this->commonFaq('Lexus ES'),
             'seo' => [
-                'title'       => 'Lexus ES 2026 thế hệ mới: 350h & 500e thuần điện | Lexus Thăng Long',
-                'description' => 'Lexus ES 2026 thế hệ mới tại Hà Nội: ES 350h Premium, 350h Luxury và ES 500e thuần điện — '
-                    .'giá đang cập nhật. Xem màu, trang bị an toàn và đăng ký lái thử tại Lexus Thăng Long.',
+                'title'       => 'Lexus ES 350h 2026: giá từ 2,36 tỷ, thế hệ mới | Lexus Thăng Long',
+                'description' => 'Giá Lexus ES 350h 2026 tại Hà Nội: Premium 2,36 tỷ, Luxury 2,58 tỷ. Sedan hybrid thế hệ mới, '
+                    .'màn hình lớn, an toàn LSS+. Xem màu và đăng ký lái thử tại Lexus Thăng Long.',
             ],
         ];
     }
@@ -537,6 +546,8 @@ class LexusSeeder extends BrandSeeder
     {
         return [
             'slug'       => 'nx',
+            // Đại lý tạm không bán NX (25/9/2026) — giữ dữ liệu, ẩn khỏi web.
+            'status'     => 'draft',
             'name'       => 'Lexus NX',
             'tagline'    => 'SUV đô thị: hybrid tiết kiệm hoặc F SPORT tăng áp',
             'category'   => 'suv',
@@ -817,7 +828,7 @@ class LexusSeeder extends BrandSeeder
             'name'       => 'Lexus GX',
             'tagline'    => 'SUV khung gầm rời, sinh ra cho đường dài',
             'category'   => 'suv',
-            'price_from' => 6_400_000_000,
+            'price_from' => 6_200_000_000,
             'highlights' => [
                 ['value' => '349', 'unit' => 'HP', 'label' => 'V6 3.5L tăng áp kép'],
                 ['value' => '650', 'unit' => 'Nm', 'label' => 'Mô-men xoắn cực đại'],
@@ -858,8 +869,7 @@ class LexusSeeder extends BrandSeeder
                 ],
                 'Nội thất' => [
                     ['ghe-flaxen', 'Da nâu Flaxen', 'GX 550'],
-                    ['ghe-den', 'Da đen Black', 'Mọi phiên bản'],
-                    ['ghe-overtrail', 'Da tổng hợp kháng bẩn', 'GX 550M'],
+                    ['ghe-den', 'Da đen Black', 'GX 550'],
                     ['cabin-7-cho', 'Cabin 7 chỗ', 'Hàng ghế thứ ba linh hoạt'],
                 ],
                 'Ốp trang trí' => [
@@ -888,8 +898,7 @@ class LexusSeeder extends BrandSeeder
                 ['Xanh rêu', '#3F4A3A', 'mau-xanh'],
             ],
             'variants' => [
-                ['name' => 'GX 550M', 'image' => 'phien-ban/overtrail', 'price' => 6_400_000_000, 'note' => 'Mâm địa hình chuyên dụng · ghế da tổng hợp kháng bẩn'],
-                ['name' => 'GX 550', 'image' => 'phien-ban/luxury', 'price' => 6_450_000_000, 'note' => 'Da nâu Flaxen · ốp gỗ nội thất'],
+                ['name' => 'GX 550', 'image' => 'phien-ban/luxury', 'price' => 6_200_000_000, 'note' => 'V6 3.5L tăng áp kép · 7 chỗ'],
             ],
             'specs' => [
                 'Động cơ' => [
@@ -912,18 +921,14 @@ class LexusSeeder extends BrandSeeder
             ],
             'faq' => [
                 'Giá xe Lexus GX 550 2026 bao nhiêu?' =>
-                    'Lexus GX 550 có 2 phiên bản: GX 550M 6,40 tỷ đồng và GX 550 6,45 tỷ đồng (giá niêm yết, đã gồm VAT).',
-                'GX 550M khác gì GX 550?' =>
-                    'Hai bản cùng động cơ V6 3.5L tăng áp kép 349 HP, 7 chỗ. GX 550M thiên về khám phá: mâm xe địa hình '
-                    .'chuyên dụng và ghế da tổng hợp kháng bẩn. GX 550 thiên về sang trọng: ghế da nâu Flaxen và ốp gỗ '
-                    .'nội thất. Chênh lệch giá 50 triệu đồng.',
+                    'Lexus GX 550 giá niêm yết 6,20 tỷ đồng (đã gồm VAT). Lăn bánh tại Hà Nội tạm tính khoảng 6,96 tỷ đồng.',
                 'GX và LX nên chọn xe nào?' =>
-                    'Cả hai chung khung gầm rời và động cơ V6 3.5L tăng áp kép. GX gọn hơn, giá thấp hơn khoảng 2 tỷ; '
+                    'Cả hai chung khung gầm rời và động cơ V6 3.5L tăng áp kép. GX gọn hơn, giá thấp hơn khoảng 2,4 tỷ; '
                     .'LX lớn hơn, sang trọng hơn và có bản VIP 4 chỗ.',
             ] + $this->commonFaq('Lexus GX'),
             'seo' => [
-                'title'       => 'Lexus GX 550 2026: giá từ 6,4 tỷ, thông số | Lexus Thăng Long',
-                'description' => 'Giá Lexus GX 550 2026 tại Hà Nội: GX 550M 6,4 tỷ, GX 550 6,45 tỷ. SUV khung gầm rời, '
+                'title'       => 'Lexus GX 550 2026: giá 6,2 tỷ, thông số | Lexus Thăng Long',
+                'description' => 'Giá Lexus GX 550 2026 tại Hà Nội: 6,2 tỷ đồng, lăn bánh khoảng 6,96 tỷ. SUV khung gầm rời, '
                     .'V6 tăng áp kép 349 HP, 7 chỗ. Xem ảnh thực tế và lái thử tại Lexus Thăng Long.',
             ],
         ];
@@ -941,22 +946,22 @@ class LexusSeeder extends BrandSeeder
                 ['value' => '366', 'unit' => 'HP', 'label' => 'Hybrid tăng áp 2.4L'],
                 ['value' => '6,8', 'unit' => 'giây', 'label' => '0–100 km/h'],
                 ['value' => 'AWD', 'unit' => '', 'label' => 'DIRECT4'],
-                ['value' => '4 · 6', 'unit' => 'chỗ', 'label' => 'Theo phiên bản'],
+                ['value' => '6', 'unit' => 'chỗ', 'label' => 'Hai ghế thương gia hàng giữa'],
             ],
             'exterior' => [
-                'image' => 'ngoai-that',
-                'alt'   => 'Khoang hành khách Lexus LM 4 chỗ với màn hình 48 inch',
+                'image' => 'chi-tiet/cabin',
+                'alt'   => 'Hai ghế thương gia hàng giữa Lexus LM 500h 6 chỗ',
                 'title' => 'Khoang hạng nhất',
-                'intro' => 'Màn hình 48 inch. Vách ngăn kính mờ.',
-                'body'  => 'Bản 4 chỗ tách hẳn khoang lái bằng vách ngăn có kính làm mờ bằng điện. Hai ghế '
-                    .'thương gia ngả gần như phẳng, có sưởi, làm mát, mát-xa; tủ lạnh và bàn làm việc gập.',
+                'intro' => 'Hai ghế thương gia. Một không gian riêng.',
+                'body'  => 'Hàng ghế giữa là hai ghế thương gia độc lập, ngả sâu, có sưởi, làm mát và mát-xa. '
+                    .'Cửa trượt điện rộng, sàn phẳng, trần cao — đưa đón đối tác hay cả gia đình đều thoải mái.',
             ],
             'interior' => [
                 'image' => 'noi-that',
                 'alt'   => 'Bố trí ghế Lexus LM 6 chỗ',
-                'title' => 'Hai cấu hình',
-                'intro' => '4 chỗ cho doanh nhân. 6 chỗ cho gia đình.',
-                'body'  => 'Bản 6 chỗ giữ hai ghế thương gia ở hàng giữa và thêm hàng ghế thứ ba gập linh hoạt. '
+                'title' => 'Sáu chỗ ngồi',
+                'intro' => 'Doanh nghiệp và gia đình.',
+                'body'  => 'LM 500h 6 chỗ giữ hai ghế thương gia ở hàng giữa và thêm hàng ghế thứ ba gập linh hoạt. '
                     .'Cửa trượt điện bằng nhôm, bậc lên xuống thấp để khách bước vào thoải mái.',
             ],
             'details' => [
@@ -970,7 +975,6 @@ class LexusSeeder extends BrandSeeder
                 ],
                 'Nội thất' => [
                     ['khoang-lai', 'Khoang lái', ''],
-                    ['khoang-sau', 'Khoang sau, màn hình 48 inch', 'LM 500h 4 chỗ VIP'],
                     ['cabin', 'Ghế thương gia hàng giữa', ''],
                 ],
             ],
@@ -1000,7 +1004,6 @@ class LexusSeeder extends BrandSeeder
             ],
             'variants' => [
                 ['name' => 'LM 500h 6 chỗ', 'image' => 'phien-ban/6-cho', 'price' => 7_210_000_000, 'note' => 'Doanh nghiệp & gia đình'],
-                ['name' => 'LM 500h 4 chỗ VIP', 'image' => 'phien-ban/4-cho', 'price' => 8_950_000_000, 'note' => 'Vách ngăn · màn hình 48 inch'],
             ],
             'specs' => [
                 'Động cơ' => [
@@ -1016,23 +1019,23 @@ class LexusSeeder extends BrandSeeder
                     'Chế độ lái'        => 'Normal · Eco · Sport · Rear Comfort · Custom',
                     'Chống ồn chủ động' => 'Có (ANC)',
                     'Lốp'               => '225/55R19',
-                    'Số chỗ ngồi'       => '4 (VIP) hoặc 6',
+                    'Số chỗ ngồi'       => '6',
                 ],
             ],
             'faq' => [
                 'Giá xe Lexus LM 500h 2026 bao nhiêu?' =>
-                    'Lexus LM 500h có 2 phiên bản: 6 chỗ 7,21 tỷ đồng và 4 chỗ VIP 8,95 tỷ đồng (giá niêm yết, đã gồm VAT).',
-                'Lexus LM 4 chỗ và 6 chỗ khác nhau thế nào?' =>
-                    'Bản 4 chỗ có vách ngăn với khoang lái, màn hình 48 inch và hai ghế thương gia — dành cho đưa đón '
-                    .'lãnh đạo. Bản 6 chỗ thêm hàng ghế thứ ba, phù hợp gia đình và doanh nghiệp.',
+                    'Lexus LM 500h 6 chỗ giá niêm yết 7,21 tỷ đồng (đã gồm VAT). Lăn bánh tại Hà Nội tạm tính khoảng 8,09 tỷ đồng.',
+                'Lexus LM 500h 6 chỗ phù hợp với ai?' =>
+                    'Hai ghế thương gia hàng giữa dành cho đưa đón đối tác, lãnh đạo; hàng ghế thứ ba gập linh hoạt '
+                    .'cho gia đình đông người. Một chiếc xe dùng được cả cho công việc lẫn cuối tuần.',
                 'Lexus LM có tiết kiệm nhiên liệu không?' =>
                     'LM 500h là xe hybrid: máy xăng 2.4L tăng áp kết hợp hai mô-tơ điện, tắt máy xăng khi đi chậm '
                     .'và tận dụng năng lượng phanh, nên tiết kiệm hơn đáng kể so với MPV cỡ lớn chạy xăng thuần.',
             ] + $this->commonFaq('Lexus LM'),
             'seo' => [
-                'title'       => 'Lexus LM 500h 2026: giá từ 7,21 tỷ, 4 & 6 chỗ | Lexus Thăng Long',
-                'description' => 'Giá Lexus LM 500h 2026 tại Hà Nội: 6 chỗ 7,21 tỷ, 4 chỗ VIP 8,95 tỷ. MPV hạng sang hybrid 366 HP, '
-                    .'màn hình 48 inch. Xem nội thất và đặt lịch trải nghiệm tại Lexus Thăng Long.',
+                'title'       => 'Lexus LM 500h 6 chỗ 2026: giá 7,21 tỷ | Lexus Thăng Long',
+                'description' => 'Giá Lexus LM 500h 6 chỗ 2026 tại Hà Nội: 7,21 tỷ, lăn bánh khoảng 8,09 tỷ. MPV hạng sang hybrid 366 HP, '
+                    .'ghế thương gia. Xem nội thất và đặt lịch trải nghiệm tại Lexus Thăng Long.',
             ],
         ];
     }
