@@ -34,15 +34,30 @@
         'crumbs'  => ['Tin tức' => route('posts.index')],
     ])
 
-    {{-- Ảnh bìa tràn ngang. Là LCP của trang nên không lazy. --}}
+    {{--
+        Ảnh bìa theo ô "Bề rộng ảnh bìa" trong admin (cover_width):
+          narrow (mặc định) — thẳng cột chữ 820px · wide — khung nội dung ·
+          full — tràn màn hình.
+        Giữ nguyên tỉ lệ ảnh, không cắt: ảnh bìa hay là banner có chữ.
+        Là LCP của trang nên không lazy; `sizes` khớp bề rộng thật để mobile
+        và cột hẹp không tải bản 1536px.
+    --}}
     @if ($cover = catalog_image($post->cover))
         @php
             $coverSize   = \App\Support\Media::dimensions($post->cover);
             $coverSrcset = \App\Support\Media::srcset($post->cover);
+            $coverWidth  = in_array($post->cover_width, ['wide', 'full'], true) ? $post->cover_width : 'narrow';
+            $coverSizes  = [
+                'narrow' => '(max-width: 860px) 100vw, 780px',
+                'wide'   => '(max-width: 1440px) 100vw, 1440px',
+                'full'   => '100vw',
+            ][$coverWidth];
         @endphp
-        <img src="{{ $cover }}" alt="{{ $post->title }}"
-             @if ($coverSrcset) srcset="{{ $coverSrcset }}" sizes="100vw" @endif
-             width="{{ $coverSize['w'] ?? 1600 }}" height="{{ $coverSize['h'] ?? 1067 }}" fetchpriority="high" decoding="async">
+        <figure class="post-cover post-cover--{{ $coverWidth }}">
+            <img src="{{ $cover }}" alt="{{ $post->title }}"
+                 @if ($coverSrcset) srcset="{{ $coverSrcset }}" sizes="{{ $coverSizes }}" @endif
+                 width="{{ $coverSize['w'] ?? 1600 }}" height="{{ $coverSize['h'] ?? 1067 }}" fetchpriority="high" decoding="async">
+        </figure>
     @endif
 
     {{-- Ai viết, cập nhật khi nào: người đọc và công cụ tìm kiếm/AI đều dựa

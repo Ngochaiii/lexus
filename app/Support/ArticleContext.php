@@ -95,7 +95,7 @@ class ArticleContext
 
             return '| '.$p->name.' | '.$v->name.' | '
                 .(Money::format($v->price) ?? 'Đang cập nhật (KHÔNG được tự đoán giá)').' | '
-                .($road ? Money::format($road['total']).' (≈ '.catalog_money_short($road['total']).')' : '—').' | '
+                .($road ? Money::format($road['total']).' (khoảng '.catalog_money_short($road['total']).')' : '—').' | '
                 .($v->note ?: '').' |';
         }));
 

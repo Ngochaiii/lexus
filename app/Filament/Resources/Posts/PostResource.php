@@ -121,9 +121,9 @@ class PostResource extends Resource
                         ->live()
                         ->placeholder('Cột chữ')
                         ->helperText(fn (Get $get) => match ($get('cover_width')) {
-                            'wide' => 'Khung ảnh 16:7 rộng 1456 px — khuyến nghị 2000 × 875 px.',
-                            'full' => 'Khung ảnh 16:7 tràn hết màn hình — khuyến nghị 2560 × 1120 px.',
-                            default => 'Ảnh bìa thẳng hàng với chữ, khung 16:7 rộng khoảng 1014 px — khuyến nghị 1600 × 700 px.',
+                            'wide' => 'Rộng bằng khung nội dung (~1440 px), giữ nguyên tỉ lệ ảnh — nên dùng ảnh ngang, rộng ≥ 2000 px.',
+                            'full' => 'Tràn hết màn hình, giữ nguyên tỉ lệ ảnh — chỉ hợp ảnh rất ngang (vd 16:7), rộng ≥ 2560 px.',
+                            default => 'Thẳng hàng với cột chữ (~780 px), giữ nguyên tỉ lệ, không cắt ảnh — hợp mọi ảnh, kể cả banner có chữ.',
                         }),
 
                     Textarea::make('excerpt')

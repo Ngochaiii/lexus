@@ -231,7 +231,7 @@ class GeminiArticleWriter
         4. Một danh sách từng bước hoặc gạch đầu dòng "lưu ý" thực tế.
         5. 3–6 link nội bộ bằng thẻ a, CHỈ dùng đường dẫn trong mục LINK NỘI BỘ, anchor text mô tả nội dung (vd "bảng giá xe Lexus", "xem màu và thông số Lexus RX"), không dùng "tại đây"/"click". Bắt buộc có link tới trang xe liên quan và /bao-gia.
         6. Đoạn kết 2–3 câu: tóm lại lời khuyên + mời nhận báo giá lăn bánh chi tiết hoặc lái thử tại showroom (nêu địa chỉ và hotline từ hồ sơ), giọng nhẹ nhàng, không thúc ép.
-        Văn phong: người thật (chuyên viên {$advisor}) chia sẻ kinh nghiệm, câu ngắn, số liệu cụ thể, xưng "bạn". Từ khoá chính xuất hiện tự nhiên 3–5 lần; tuyệt đối không nhồi từ khoá. Khi chèn từ khoá vào câu/đề mục vẫn viết hoa đúng tên riêng (Lexus, RX 350h, Hà Nội) — từ khoá viết thường chỉ để nghiên cứu. Chữ số viết kiểu Việt Nam: đủ số "3.766.000.000 đ" hoặc rút gọn tối đa 2 chữ số thập phân "3,77 tỷ" (không viết "3,766 tỷ").
+        Văn phong: người thật (chuyên viên {$advisor}) chia sẻ kinh nghiệm, câu ngắn, số liệu cụ thể, xưng "bạn". Từ khoá chính xuất hiện tự nhiên 3–5 lần; tuyệt đối không nhồi từ khoá. Khi chèn từ khoá vào câu/đề mục vẫn viết hoa đúng tên riêng (Lexus, RX 350h, Hà Nội) — từ khoá viết thường chỉ để nghiên cứu. Chữ số viết kiểu Việt Nam: đủ số "3.766.000.000 đ" hoặc rút gọn tối đa 2 chữ số thập phân "3,77 tỷ" (không viết "3,766 tỷ"). Viết chữ "khoảng" thay cho ký hiệu ≈ hoặc ~ (font website không hiển thị đúng các ký hiệu này).
 
         # BƯỚC 3 — THẺ SEO
         - seo_title: tối đa 60 ký tự, BẮT ĐẦU bằng từ khoá chính, có yếu tố gợi nhấp (con số, năm, "chi tiết từng phiên bản"); không cần thêm tên website.
@@ -351,6 +351,17 @@ class GeminiArticleWriter
 
         $article = RichText::clean((string) ($result['article_html'] ?? ''));
         $article = preg_replace('/<\/?h1\b[^>]*>/i', '', $article) ?? $article;
+        // Phòng khi Gemini vẫn dùng ký hiệu: "≈ 3,77 tỷ" → "khoảng 3,77 tỷ".
+        $approx = fn (string $t): string => preg_replace(['/\(\s*[≈~]\s*/u', '/\s*[≈~]\s*/u'], ['(khoảng ', ' khoảng '], $t) ?? $t;
+        $article = $approx($article);
+        foreach (['excerpt', 'meta_description', 'seo_title'] as $field) {
+            if (is_string($result[$field] ?? null)) {
+                $result[$field] = trim($approx($result[$field]));
+            }
+        }
+        if (is_array($result['faq'] ?? null)) {
+            $result['faq'] = array_map(fn ($q) => is_array($q) ? array_map(fn ($v) => is_string($v) ? $approx($v) : $v, $q) : $q, $result['faq']);
+        }
 
         $primary = trim((string) ($result['primary_keyword'] ?? ''));
         $keywords = collect([$primary, ...($result['keywords'] ?? []), ...($result['secondary_keywords'] ?? [])])
