@@ -6,7 +6,7 @@
     các bản cùng dòng, thông số của bản này, hỏi đáp riêng. Nút báo giá gửi
     kèm phiên bản → lead ghi đúng mẫu.
 
-    Biến từ VariantController: $product · $variant · $siblings · $onRoad · $specs · $faq
+    Biến từ VariantController: $product · $variant · $sections · $siblings · $onRoad · $specs · $faq
 --}}
 @php
     $site      = catalog_setting('site_name', config('app.name'));
@@ -180,6 +180,11 @@
         </div>
     @endif
 
+    {{-- Thiết kế, nội thất, vận hành, chi tiết, an toàn, thư viện — của dòng xe. --}}
+    @if (! empty($sections))
+        @include('frontend.partials.sections', ['sections' => $sections])
+    @endif
+
     @if (filled($specs))
         <section class="container section" id="thong-so">
             <div class="section-heading">
@@ -209,7 +214,8 @@
 
     {{-- ══ 4 · Hỏi đáp riêng phiên bản ══ --}}
     @if ($faq)
-        @include('frontend.partials.sections', ['sections' => [$faq], 'numbered' => false])
+        {{-- Khoá mảng = số thứ tự sau các mục trên → id="muc-N" không trùng. --}}
+        @include('frontend.partials.sections', ['sections' => [count($sections) => $faq], 'numbered' => false])
     @endif
 
     <section class="container section variant-page-more">

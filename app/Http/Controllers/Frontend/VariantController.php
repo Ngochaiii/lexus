@@ -32,9 +32,17 @@ class VariantController extends Controller
         $siblings = $product->variants->reject(fn ($v) => $v->is($variant))->values();
         $onRoad = OnRoadPrice::for($variant);
 
+        // Các mục ảnh của dòng xe (Thiết kế, Nội thất, Vận hành, Chi tiết, An toàn,
+        // Thư viện) — khách bấm vào một phiên bản vẫn xem đủ xe. Bỏ mục hỏi đáp
+        // của dòng xe: trang phiên bản có hỏi đáp riêng (một FAQPage duy nhất).
+        $sections = collect($product->renderableSections())
+            ->reject(fn (array $section) => ($section['type'] ?? null) === 'faq')
+            ->values()->all();
+
         return view('frontend.variant', [
             'product' => $product,
             'variant' => $variant,
+            'sections' => $sections,
             'siblings' => $siblings,
             'onRoad' => $onRoad,
             'specs' => $this->specsFor($product, $variant),

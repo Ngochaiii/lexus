@@ -51,6 +51,20 @@ class VariantPageTest extends TestCase
         $this->assertStringContainsString('data-variant-name="RX 350h Premium"', $html, 'nút báo giá gửi kèm phiên bản');
     }
 
+    public function test_trang_phien_ban_co_du_cac_muc_anh_cua_dong_xe(): void
+    {
+        $this->rx->update(['sections' => [
+            ['type' => 'text', 'title' => 'Nội thất', 'intro' => 'Khoang lái Tazuna', 'body' => 'Ghế da bán aniline.'],
+            ['type' => 'faq', 'title' => 'Hỏi đáp', 'rows' => [['label' => 'Câu hỏi của dòng xe?', 'value' => 'Trả lời.']]],
+        ]]);
+
+        $html = $this->get('/san-pham/rx/rx-350h-premium')->assertOk()->getContent();
+
+        $this->assertStringContainsString('Khoang lái Tazuna', $html, 'khách xem phiên bản vẫn thấy đủ nội thất, ngoại thất');
+        $this->assertStringNotContainsString('Câu hỏi của dòng xe?', $html, 'dùng hỏi đáp riêng của phiên bản');
+        $this->assertSame(1, substr_count($html, '"@type":"FAQPage"'));
+    }
+
     public function test_sai_dong_xe_hoac_xe_an_thi_404(): void
     {
         $es = Product::create(['name' => 'Lexus ES', 'slug' => 'es', 'status' => 'published', 'published_at' => now()]);
