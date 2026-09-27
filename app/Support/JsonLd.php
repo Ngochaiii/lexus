@@ -101,7 +101,7 @@ class JsonLd
                 'price' => (string) $variant->price,
                 'priceCurrency' => 'VND',
                 'url' => $url,
-                'availability' => 'https://schema.org/InStock',
+                'availability' => Availability::schema($variant),
                 'itemCondition' => 'https://schema.org/NewCondition',
                 'seller' => ['@id' => self::organizationId()],
             ] : null,
@@ -141,10 +141,8 @@ class JsonLd
                     'priceCurrency' => 'VND',
                     // Mỗi phiên bản có trang riêng — trỏ Offer về đó.
                     'url' => filled($v->slug) ? Url::variant($product->slug, $v->slug, true) : $url.'#versions',
-                    // Phiên bản "giá dự kiến" (xe chưa ra mắt) là đặt trước, không phải còn hàng.
-                    'availability' => str_contains((string) $v->note, 'dự kiến')
-                        ? 'https://schema.org/PreOrder'
-                        : 'https://schema.org/InStock',
+                    // Tình trạng xe nhập trong admin; không nhập thì đoán theo ghi chú "dự kiến".
+                    'availability' => Availability::schema($v),
                     'itemCondition' => 'https://schema.org/NewCondition',
                 ]))->all(),
             ];

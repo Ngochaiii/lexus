@@ -231,6 +231,15 @@ class ProductForm
                         MoneyInput::make('price', 'Giá'),
                         MoneyInput::make('price_original', 'Giá gạch'),
                         TextInput::make('note')->label('Ghi chú'),
+                        Select::make('availability')
+                            ->label('Tình trạng xe')
+                            ->options(\App\Support\Availability::OPTIONS)
+                            ->placeholder('Không hiện nhãn')
+                            ->helperText('Hiện nhãn trên thẻ xe và báo cho Google. Cập nhật khi xe về / hết xe.'),
+                        TextInput::make('availability_note')
+                            ->label('Ghi chú tình trạng')
+                            ->placeholder('vd: giao trong 2–4 tuần · còn 2 xe màu trắng')
+                            ->maxLength(120),
                         TextInput::make('slug')
                             ->label('Đường dẫn trang phiên bản')
                             ->helperText('Tự tạo từ tên nếu để trống (vd rx-350h-premium). Đã đăng thì không nên đổi — link cũ sẽ hỏng.')

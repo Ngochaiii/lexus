@@ -122,6 +122,9 @@
 
 {{-- JavaScript duy nhất của site — lớp nâng cấp, tắt đi mọi thứ vẫn chạy. --}}
 <script src="{{ asset('assets/lead.js') }}@if ($jsVersion)?v={{ $jsVersion }}@endif" defer></script>
+{{-- Đo lường tự host, ẩn danh: nguồn khách, bấm Gọi/Zalo, tốc độ thật. --}}
+@php $insightVersion = @filemtime(public_path('assets/insight.js')) ?: null; @endphp
+<script src="{{ asset('assets/insight.js') }}@if ($insightVersion)?v={{ $insightVersion }}@endif" defer></script>
 @stack('scripts')
 </body>
 </html>

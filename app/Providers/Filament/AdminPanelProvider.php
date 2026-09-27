@@ -63,6 +63,7 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
                 ManageSettings::class,
+                \App\Filament\Pages\Reports::class,
             ])
             ->widgets([
                 AccountWidget::class,

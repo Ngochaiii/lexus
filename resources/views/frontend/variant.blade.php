@@ -71,6 +71,7 @@
             <div class="eyebrow">{{ mb_strtoupper($product->name) }} · PHIÊN BẢN</div>
             <h1>{{ $fullName }} 2026</h1>
             @if (filled($variant->note))<p class="variant-page-hero__note">{{ $variant->note }}</p>@endif
+            @if ($stock = \App\Support\Availability::label($variant))<span class="stock-badge stock-badge--{{ \App\Support\Availability::key($variant) }}">{{ $stock }}</span>@endif
 
             <dl class="variant-prices variant-page-hero__prices">
                 <div class="is-list">

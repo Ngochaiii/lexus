@@ -56,7 +56,8 @@
                                     </th>
                                 @endif
                                 <td>@if (filled($variant->slug))<a href="{{ \App\Support\Url::variant($product->slug, $variant->slug) }}">{{ $variant->name }}</a>@else{{ $variant->name }}@endif
-                                    @if (filled($variant->note))<small>{{ $variant->note }}</small>@endif</td>
+                                    @if (filled($variant->note))<small>{{ $variant->note }}</small>@endif
+                                    @if ($stock = \App\Support\Availability::label($variant))<span class="stock-badge stock-badge--{{ \App\Support\Availability::key($variant) }}">{{ $stock }}</span>@endif</td>
                                 <td class="price-cell">{{ catalog_money($variant->price) ?: 'Đang cập nhật' }}</td>
                                 <td>
                                     <a class="text-link" href="{{ route('quote', ['xe' => $product->slug, 'phien-ban' => $variant->id]) }}"

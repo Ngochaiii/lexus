@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use App\Events\LeadReceived;
 use App\Jobs\ResolveLeadLocation;
+use App\Support\Attribution;
 use App\Support\Phone;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -67,8 +68,18 @@ class StoreLead
             $data['variant'] = $variant->name;   // hiện luôn trong mail/webhook
         }
 
+        // Khách tới từ đâu: lần chạm đầu insight.js ghi trong trình duyệt, gửi
+        // kèm form (ô ẩn "attribution"). Không có (tắt JS, API) thì coi là trực tiếp.
+        $raw = Attribution::decode($request->input('attribution'));
+        $touch = Attribution::classify($raw);
+
         $lead = $form->leads()->create([
             'data'       => $data,
+            'source'       => $touch['source'],
+            'medium'       => $touch['medium'],
+            'campaign'     => $touch['campaign'],
+            'landing_page' => $touch['landing_page'] ?? (parse_url((string) $request->header('referer'), PHP_URL_PATH) ?: null),
+            'device'       => Attribution::device($request->userAgent()),
             'name'       => Arr::get($data, 'name'),
             'phone'      => Arr::get($data, 'phone'),
             'email'      => Arr::get($data, 'email'),
@@ -76,7 +87,9 @@ class StoreLead
             'product_variant_id' => $variant?->getKey(),
             'utm'        => $request->collect()->only([
                 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
-            ])->filter()->all() ?: null,
+            ])->filter()->all() ?: (collect($raw['utm'] ?? [])->only([
+                'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+            ])->filter(fn ($v) => is_string($v))->map(fn ($v) => mb_substr($v, 0, 120))->all() ?: null),
             'referrer'   => $request->header('referer'),
             'ip'         => $request->ip(),
         ]);

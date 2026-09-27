@@ -27,6 +27,7 @@
         @if ($product->category)
             <span class="model-label">{{ mb_strtoupper($product->category->name) }}</span>
         @endif
+        @if ($stock = \App\Support\Availability::label($variant))<span class="stock-badge stock-badge--{{ \App\Support\Availability::key($variant) }}">{{ $stock }}</span>@endif
     </a>
     {{--
         Mỗi hàng trong thẻ có chiều cao cố định (tên 2 dòng, ghi chú 2 dòng)

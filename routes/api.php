@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\DealerController;
+use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\FeeCalculatorController;
 use App\Http\Controllers\Api\FormController;
 use App\Http\Controllers\Api\LeadController;
@@ -33,6 +34,11 @@ Route::get('forms/{key}', [FormController::class, 'show'])->name('catalog.forms.
 Route::post('leads', [LeadController::class, 'store'])
     ->middleware('throttle:10,1')
     ->name('catalog.leads.store');
+
+// Sự kiện ẩn danh (bấm Gọi/Zalo, tốc độ thật) từ insight.js — xem EventController.
+Route::post('events', [EventController::class, 'store'])
+    ->middleware('throttle:60,1')
+    ->name('catalog.events.store');
 
 if (catalog_feature('dealers')) {
     Route::get('dealers', [DealerController::class, 'index'])->name('catalog.dealers.index');

@@ -636,10 +636,14 @@ class LexusSiteSeeder extends Seeder
                     ['type' => 'text', 'title' => '2. Dữ liệu thu thập', 'intro' => 'Chúng tôi thu thập những gì',
                         'body' => '<h3>Do bạn cung cấp qua form</h3><ul><li>Họ và tên.</li><li>Số điện thoại.</li><li>Dòng xe bạn quan tâm.</li>'
                             .'<li>Xác nhận đồng ý với chính sách này.</li></ul>'
-                            .'<h3>Ghi nhận tự động khi gửi form</h3><ul><li>Trang bạn đang xem lúc gửi và nguồn chiến dịch quảng cáo (tham số UTM), nếu có.</li>'
+                            .'<h3>Ghi nhận tự động khi gửi form</h3><ul><li>Trang bạn đang xem lúc gửi, trang bạn vào đầu tiên, nguồn đưa bạn tới website '
+                            .'(Google, Facebook, Zalo…) và nguồn chiến dịch quảng cáo (tham số UTM), nếu có; loại thiết bị (điện thoại hay máy tính).</li>'
                             .'<li>Địa chỉ IP — dùng để chống gửi tự động (spam).</li></ul>'
+                            .'<h3>Thống kê ẩn danh</h3><ul><li>Số lượt bấm nút Gọi / Zalo theo từng trang và số đo tốc độ tải trang — '
+                            .'không kèm tên, số điện thoại hay địa chỉ IP, chỉ để biết trang nào hữu ích và cải thiện tốc độ.</li></ul>'
                             .'<h3>Lưu trên trình duyệt của bạn</h3><ul><li>Cookie phiên làm việc, cần để form gửi được an toàn.</li>'
                             .'<li>Ghi nhớ đã xem hộp báo giá tự bật, để không hiện lại liên tục. Dữ liệu này nằm trên máy bạn, không gửi về máy chủ.</li>'
+                            .'<li>Ghi nhớ nguồn đưa bạn tới website lần đầu — chỉ gửi kèm khi bạn chủ động gửi form.</li>'
                             .'<li>Nếu website bật công cụ đo lường (Google Tag Manager, Facebook Pixel), các công cụ này có thể đặt cookie riêng theo chính sách của Google và Meta.</li></ul>'],
                     ['type' => 'text', 'title' => '3. Mục đích', 'intro' => 'Dữ liệu được dùng để làm gì',
                         'body' => '<ul><li>Gọi lại để xác nhận lịch lái thử, gửi báo giá và phương án mua xe theo yêu cầu của bạn.</li>'

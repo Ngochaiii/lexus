@@ -142,6 +142,7 @@
                             @endif
                             @php $variantUrl = filled($variant->slug) ? \App\Support\Url::variant($product->slug, $variant->slug) : null; @endphp
                             <h3>@if ($variantUrl)<a href="{{ $variantUrl }}">{{ $variant->name }}</a>@else{{ $variant->name }}@endif</h3>
+                            @if ($stock = \App\Support\Availability::label($variant))<span class="stock-badge stock-badge--{{ \App\Support\Availability::key($variant) }}">{{ $stock }}</span>@endif
                             @if (filled($variant->note))<p class="variant-note">{{ $variant->note }}</p>@endif
                             <dl class="variant-prices">
                                 <div class="is-list">

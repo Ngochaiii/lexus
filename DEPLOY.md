@@ -153,6 +153,22 @@ stdout_logfile=/var/www/lexus/storage/logs/queue.log
 
 `supervisorctl reread && supervisorctl update`
 
+## CRM, đo lường, quét site (từ 27/09/2026)
+
+- **Admin → Khách hàng → Liên hệ**: đường ống Mới → Đã gọi → Hẹn lái thử →
+  Đã lái thử → Đặt cọc → Đã giao xe / Không mua (lý do); hẹn gọi lại (số đỏ ở
+  menu = lead mới + lead đến hạn gọi); nhật ký chăm sóc; giá trị hợp đồng,
+  hoa hồng; nguồn khách (tự ghi).
+- **Admin → Khách hàng → Báo cáo**: tỷ lệ chốt, hoa hồng, phễu, nguồn khách,
+  phiên bản được hỏi, lý do không mua, bấm Gọi/Zalo theo trang, tốc độ thật
+  (p75 LCP/INP/CLS 28 ngày).
+- `public/assets/insight.js` gửi sự kiện ẩn danh về `POST /api/v1/events`
+  (bot/Lighthouse bị bỏ qua) và đẩy `generate_lead`, `click_call`,
+  `click_zalo` vào `dataLayer` cho GTM/GA4 sau này.
+- **Quét toàn site**: `php artisan site:audit` (hoặc `--url=https://…`,
+  `--no-assets`). Thoát mã 1 nếu có lỗi — chạy sau mỗi lần cập nhật lớn.
+- **Tình trạng xe**: Admin → Dòng xe → Phiên bản → "Tình trạng xe".
+
 ## 5. Kiểm tra sau khi lên
 
 - [ ] Trang chủ hiện 16 thẻ phiên bản; bấm "Nhận báo giá" → popup ghi "Phiên bản: …"

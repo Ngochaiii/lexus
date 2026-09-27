@@ -4,18 +4,26 @@ namespace App\Filament\Resources\Leads;
 
 use App\Filament\Concerns\HasCatalogNavigation;
 use App\Filament\Resources\Leads\Pages\ManageLeads;
+use App\Filament\Schemas\MoneyInput;
+use App\Models\Lead;
 use App\Support\Catalog;
 use BackedEnum;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
@@ -49,9 +57,12 @@ class LeadResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        $new = static::getModel()::where('status', 'new')->count();
+        // Lead mới + lead đến hạn gọi lại — việc cần làm hôm nay.
+        $todo = static::getModel()::where('status', 'new')
+            ->orWhere(fn ($q) => $q->whereIn('status', Lead::OPEN)->where('follow_up_at', '<=', now()->endOfDay()))
+            ->count();
 
-        return $new ?: null;
+        return $todo ?: null;
     }
 
     public static function form(Schema $schema): Schema
@@ -74,16 +85,60 @@ class LeadResource extends Resource
                 ->disabled()
                 ->dehydrated(false),
 
-            Select::make('status')
-                ->label('Trạng thái')
-                ->options([
-                    'new' => 'Mới',
-                    'contacted' => 'Đã liên hệ',
-                    'done' => 'Xong',
-                    'spam' => 'Spam',
-                ])
-                ->default('new')
-                ->selectablePlaceholder(false),
+            Section::make('Chăm sóc & chốt')
+                ->columns(2)
+                ->columnSpanFull()
+                ->schema([
+                    Select::make('status')
+                        ->label('Trạng thái')
+                        ->options(Lead::STATUSES)
+                        ->default('new')
+                        ->live()
+                        ->selectablePlaceholder(false),
+                    DateTimePicker::make('follow_up_at')
+                        ->label('Hẹn gọi lại')
+                        ->seconds(false)
+                        ->helperText('Đến hạn sẽ hiện trong số đỏ ở menu "Liên hệ".'),
+                    Select::make('lost_reason')
+                        ->label('Lý do không mua')
+                        ->options(Lead::LOST_REASONS)
+                        ->visible(fn (Get $get) => $get('status') === 'lost'),
+                    MoneyInput::make('deal_value', 'Giá trị hợp đồng')
+                        ->visible(fn (Get $get) => in_array($get('status'), ['deposit', 'won'], true)),
+                    MoneyInput::make('commission', 'Hoa hồng')
+                        ->helperText('Chỉ hiện trong admin — dùng cho báo cáo thu nhập.')
+                        ->visible(fn (Get $get) => in_array($get('status'), ['deposit', 'won'], true)),
+                    Repeater::make('activities')
+                        ->label('Nhật ký chăm sóc')
+                        ->addActionLabel('+ Ghi lần liên hệ')
+                        ->defaultItems(0)
+                        ->reorderable(false)
+                        ->collapsible()
+                        ->itemLabel(fn (array $state): ?string => trim(($state['at'] ?? '').' · '.(['call' => 'Gọi', 'zalo' => 'Zalo', 'meet' => 'Gặp', 'test' => 'Lái thử', 'other' => 'Khác'][$state['type'] ?? ''] ?? '')))
+                        ->schema([
+                            DateTimePicker::make('at')->label('Lúc')->seconds(false)->default(now())->required(),
+                            Select::make('type')->label('Hình thức')->options([
+                                'call' => 'Gọi điện', 'zalo' => 'Nhắn Zalo', 'meet' => 'Gặp tại showroom', 'test' => 'Lái thử', 'other' => 'Khác',
+                            ])->default('call')->required(),
+                            Textarea::make('note')->label('Nội dung')->rows(2)->columnSpanFull(),
+                        ])
+                        ->columns(2)
+                        ->columnSpanFull(),
+                ]),
+
+            Section::make('Nguồn khách')
+                ->description('Ghi tự động khi khách gửi form: lần đầu khách vào web từ đâu.')
+                ->columns(3)
+                ->columnSpanFull()
+                ->collapsed()
+                ->schema([
+                    TextInput::make('source')->label('Nguồn')->disabled()->dehydrated(false)
+                        ->formatStateUsing(fn (?string $state) => Lead::sourceLabel($state)),
+                    TextInput::make('medium')->label('Kênh')->disabled()->dehydrated(false),
+                    TextInput::make('campaign')->label('Chiến dịch')->disabled()->dehydrated(false),
+                    TextInput::make('landing_page')->label('Trang vào đầu tiên')->disabled()->dehydrated(false)->columnSpan(2),
+                    TextInput::make('device')->label('Thiết bị')->disabled()->dehydrated(false),
+                ]),
 
             KeyValue::make('data')
                 ->label('Dữ liệu gửi lên')
@@ -123,19 +178,28 @@ class LeadResource extends Resource
                     ->placeholder('—')
                     ->tooltip(fn ($record) => $record->ip)
                     ->toggleable(),
+                TextColumn::make('source')
+                    ->label('Nguồn')
+                    ->formatStateUsing(fn (?string $state) => Lead::sourceLabel($state))
+                    ->description(fn ($record) => $record->landing_page)
+                    ->placeholder('—')
+                    ->toggleable(),
+                TextColumn::make('follow_up_at')
+                    ->label('Hẹn gọi')
+                    ->dateTime('d/m H:i')
+                    ->placeholder('—')
+                    ->color(fn ($record) => $record->follow_up_at && $record->follow_up_at->isPast() && in_array($record->status, Lead::OPEN, true) ? 'danger' : null)
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('status')
                     ->label('Trạng thái')
                     ->badge()
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'contacted' => 'Đã liên hệ',
-                        'done' => 'Xong',
-                        'spam' => 'Spam',
-                        default => 'Mới',
-                    })
+                    ->formatStateUsing(fn (string $state): string => Lead::STATUSES[$state] ?? $state)
                     ->color(fn (string $state): string => match ($state) {
-                        'done' => 'success',
-                        'spam' => 'danger',
+                        'won' => 'success',
+                        'lost', 'spam' => 'danger',
                         'new' => 'warning',
+                        'deposit', 'test_drive', 'appointment' => 'info',
                         default => 'gray',
                     }),
             ])
@@ -147,14 +211,16 @@ class LeadResource extends Resource
                 DeleteAction::make(),
             ])
             ->filters([
+                Filter::make('due')
+                    ->label('Cần gọi lại hôm nay')
+                    ->query(fn (Builder $q) => $q->whereIn('status', Lead::OPEN)->where('follow_up_at', '<=', now()->endOfDay())),
                 SelectFilter::make('status')
                     ->label('Trạng thái')
-                    ->options([
-                        'new' => 'Mới',
-                        'contacted' => 'Đã liên hệ',
-                        'done' => 'Xong',
-                        'spam' => 'Spam',
-                    ]),
+                    ->multiple()
+                    ->options(Lead::STATUSES),
+                SelectFilter::make('source')
+                    ->label('Nguồn')
+                    ->options(Lead::SOURCES),
                 SelectFilter::make('product_id')
                     ->label(Catalog::label('product.single'))
                     ->relationship('product', 'name'),
