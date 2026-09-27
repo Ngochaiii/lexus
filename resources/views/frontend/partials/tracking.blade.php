@@ -1,11 +1,30 @@
 {{--
-    Mã đo lường khai ở Cài đặt → Đo lường. Bỏ trống thì không in gì —
+    Mã đo lường khai ở Cài đặt → Đo lường (GA4, GTM, Facebook Pixel). Bỏ trống thì không in gì —
     không nhúng script rỗng, không gọi domain lạ khi chưa cấu hình.
 --}}
 @php
+    $ga4   = strtoupper(trim((string) catalog_setting('ga4_id')));
+    $ga4   = preg_match('/^G-[A-Z0-9]{4,20}$/', $ga4) ? $ga4 : null;
     $gtm   = catalog_setting('gtm_id');
     $pixel = catalog_setting('facebook_pixel');
 @endphp
+
+@if ($ga4)
+    {{-- gtag() có ngay để insight.js gửi sự kiện (xếp hàng chờ); còn gtag.js
+         (~150 KB) tải sau sự kiện load để không tranh băng thông với ảnh chính (LCP). --}}
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ $ga4 }}');
+        addEventListener('load', function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id={{ $ga4 }}';
+            document.head.appendChild(s);
+        });
+    </script>
+@endif
 
 @if (filled($gtm))
     <script>

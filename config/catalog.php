@@ -265,6 +265,8 @@ return [
         'tracking' => [
             'label' => 'Đo lường',
             'fields' => [
+                // Mã đo lường GA4 (G-XXXXXXXXXX): gắn thẳng gtag.js, không cần GTM.
+                'ga4_id' => ['label' => 'Google Analytics 4 — Mã đo lường (G-XXXXXXXXXX)', 'type' => 'text'],
                 'gtm_id' => ['label' => 'Google Tag Manager ID', 'type' => 'text'],
                 'facebook_pixel' => ['label' => 'Facebook Pixel ID', 'type' => 'text'],
             ],

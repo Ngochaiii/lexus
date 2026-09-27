@@ -438,6 +438,17 @@ class FrontendTest extends TestCase
         $this->get('/')->assertOk()->assertSee('GTM-ABC123');
     }
 
+    public function test_ga4_nhung_gtag_va_bo_qua_ma_sai_dinh_dang(): void
+    {
+        Setting::put('ga4_id', ' g-gwcm7l4ncg ');
+        $this->get('/')->assertOk()
+            ->assertSee("gtag('config', 'G-GWCM7L4NCG')", false)
+            ->assertSee('googletagmanager.com/gtag/js?id=G-GWCM7L4NCG', false);
+
+        Setting::put('ga4_id', "G-1234'</script>");
+        $this->get('/')->assertOk()->assertDontSee('googletagmanager.com');
+    }
+
     public function test_chua_cau_hinh_do_luong_thi_khong_nhung_script_nao(): void
     {
         $this->get('/')->assertOk()->assertDontSee('googletagmanager.com');

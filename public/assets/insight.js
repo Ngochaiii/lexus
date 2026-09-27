@@ -8,8 +8,9 @@
  *   2. Bấm Gọi / Zalo: mỗi lần bấm link tel: hoặc zalo.me gửi 1 sự kiện.
  *   3. Tốc độ thật: LCP, INP, CLS, FCP, TTFB của khách — gửi khi rời trang.
  *
- * Gửi về /api/v1/events bằng sendBeacon (không làm chậm trang). Đồng thời đẩy
- * sự kiện vào window.dataLayer để sau này GTM/GA4 dùng lại, không phải sửa code.
+ * Gửi về /api/v1/events bằng sendBeacon (không làm chậm trang). Đồng thời báo
+ * generate_lead / click_call / click_zalo cho GA4 (gtag) nếu đã cài mã GA4, còn
+ * không thì đẩy vào window.dataLayer cho GTM.
  */
 (() => {
   'use strict';
@@ -21,6 +22,10 @@
     set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* bỏ qua */ } },
   };
   window.dataLayer = window.dataLayer || [];
+  const track = (name, params) => {
+    if (typeof window.gtag === 'function') window.gtag('event', name, params || {});
+    else window.dataLayer.push(Object.assign({ event: name }, params));
+  };
 
   /* ── 1. Nguồn khách ─────────────────────────────────────────────────── */
 
@@ -65,7 +70,12 @@
     const form = e.target.closest && e.target.closest('[data-lead-form]');
     if (form) attach(form);
   }, true);
-  document.addEventListener('lead:sent', () => window.dataLayer.push({ event: 'generate_lead' }));
+  document.addEventListener('lead:sent', (e) => {
+    const form = e.target.closest ? e.target.closest('[data-lead-form]') : null;
+    // form_id = khoá form trong đường dẫn gửi (/gui-form/nhan-bao-gia → nhan-bao-gia).
+    const key = form ? (form.getAttribute('action') || '').split('/').filter(Boolean).pop() : '';
+    track('generate_lead', { form_id: key || 'lead', page_path: location.pathname });
+  });
 
   /* ── Gửi sự kiện ─────────────────────────────────────────────────────── */
 
@@ -84,7 +94,7 @@
     const a = e.target.closest && e.target.closest('a[href^="tel:"], a[href*="zalo.me"]');
     if (!a) return;
     const type = a.getAttribute('href').startsWith('tel:') ? 'call' : 'zalo';
-    window.dataLayer.push({ event: type === 'call' ? 'click_call' : 'click_zalo', page_path: location.pathname });
+    track(type === 'call' ? 'click_call' : 'click_zalo', { page_path: location.pathname });
     send([{ type, path: location.pathname }]);
   }, true);
 

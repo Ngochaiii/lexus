@@ -73,6 +73,8 @@ class LexusSiteSeeder extends Seeder
             'advisor_zalo'  => 'https://zalo.me/0989345989',
 
             'zalo' => 'https://zalo.me/0989345989',
+
+            'ga4_id' => 'G-GWCM7L4NCG',
         ];
 
         // Ảnh chia sẻ mặc định (Open Graph) khi gửi link trang không có ảnh
@@ -644,7 +646,8 @@ class LexusSiteSeeder extends Seeder
                             .'<h3>Lưu trên trình duyệt của bạn</h3><ul><li>Cookie phiên làm việc, cần để form gửi được an toàn.</li>'
                             .'<li>Ghi nhớ đã xem hộp báo giá tự bật, để không hiện lại liên tục. Dữ liệu này nằm trên máy bạn, không gửi về máy chủ.</li>'
                             .'<li>Ghi nhớ nguồn đưa bạn tới website lần đầu — chỉ gửi kèm khi bạn chủ động gửi form.</li>'
-                            .'<li>Nếu website bật công cụ đo lường (Google Tag Manager, Facebook Pixel), các công cụ này có thể đặt cookie riêng theo chính sách của Google và Meta.</li></ul>'],
+                            .'<li>Website dùng Google Analytics để thống kê lượt truy cập; công cụ này đặt cookie riêng theo chính sách của Google. '
+                            .'Nếu bật thêm Google Tag Manager hoặc Facebook Pixel, các công cụ đó cũng có thể đặt cookie theo chính sách của Google và Meta.</li></ul>'],
                     ['type' => 'text', 'title' => '3. Mục đích', 'intro' => 'Dữ liệu được dùng để làm gì',
                         'body' => '<ul><li>Gọi lại để xác nhận lịch lái thử, gửi báo giá và phương án mua xe theo yêu cầu của bạn.</li>'
                             .'<li>Chăm sóc sau bán hàng khi bạn đã mua xe: nhắc lịch bảo dưỡng, thông báo chương trình liên quan đến xe của bạn.</li>'
