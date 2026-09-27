@@ -98,6 +98,14 @@
     @endisset
 
     @include('frontend.partials.tracking')
+
+    {{-- Tải trước trang kế tiếp khi khách rê chuột (~200 ms) hoặc chạm vào link:
+         bấm sang trang xe/bảng giá gần như hiện ngay. Chỉ prefetch HTML (không
+         chạy JS nên không đếm trùng GA4/lượt xem); bỏ admin, API, form, file tải
+         về. Trình duyệt không hỗ trợ thì bỏ qua thẻ này. --}}
+    <script type="speculationrules">
+    {"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/admin/*","/api/*","/gui-form/*","/livewire/*","/storage/*"]}},{"not":{"selector_matches":"[rel~=nofollow],[download],[target=_blank]"}}]},"eagerness":"moderate"}]}
+    </script>
 </head>
 <body class="{{ trim(($bodyClass ?? '').($salesBar ? ' has-sales' : '')) }}">
 <a class="skip" href="#main">Đến nội dung chính</a>

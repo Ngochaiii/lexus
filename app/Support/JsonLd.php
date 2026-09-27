@@ -5,6 +5,7 @@ namespace App\Support;
 use App\Models\Setting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 /**
  * Dựng structured data (schema.org) cho từng loại trang. Frontend nhúng vào
@@ -177,7 +178,7 @@ class JsonLd
             'url' => $url,
             'mainEntityOfPage' => $url,
             'image' => Url::asset(data_get($post->seo, 'image') ?: $post->cover),
-            'datePublished' => $post->published_at?->toAtomString(),
+            'datePublished' => ($post->published_at ?? $post->created_at)?->toAtomString(),
             'dateModified' => ($post->updated_at ?? $post->published_at)?->toAtomString(),
             'inLanguage' => 'vi-VN',
             'articleSection' => $post->post_category_id ? $post->category?->name : null,
@@ -324,6 +325,7 @@ class JsonLd
             'email' => Setting::get('email'),
             'address' => $address ? ['@type' => 'PostalAddress'] + $address : Setting::get('address'),
             'hasMap' => Setting::get('map_url'),
+            'geo' => self::geo(Setting::get('geo')),
             'openingHoursSpecification' => self::openingHours((array) ($org['opening_hours'] ?? [])),
             'brand' => filled($brand) ? ['@type' => 'Brand', 'name' => $brand] : null,
             'areaServed' => $org['area_served'] ?? null,
@@ -346,7 +348,33 @@ class JsonLd
             'telephone' => self::phone(Setting::get('advisor_phone')),
             'worksFor' => ['@id' => self::organizationId()],
             'url' => Route::has('pages.show') ? route('pages.show', 'lien-he') : null,
+            // Hồ sơ Zalo, TikTok của chính chuyên viên — nối người viết bài với kênh thật.
+            'sameAs' => array_values(array_filter([
+                filled($zalo = Setting::get('advisor_zalo') ?: Setting::get('zalo'))
+                    ? (Str::startsWith($zalo, 'http') ? $zalo : 'https://zalo.me/'.$zalo)
+                    : null,
+                Setting::get('tiktok'),
+            ])),
         ], fn ($v) => filled($v));
+    }
+
+    /**
+     * "21.0301, 105.7812" (copy từ Google Maps) → GeoCoordinates. Sai định dạng
+     * hoặc ngoài Việt Nam thì bỏ, không in toạ độ sai.
+     *
+     * @return array<string, mixed>|null
+     */
+    public static function geo(?string $text): ?array
+    {
+        if (! preg_match('/^\s*(-?\d{1,2}\.\d+)\s*[,;]\s*(-?\d{1,3}\.\d+)\s*$/', (string) $text, $m)) {
+            return null;
+        }
+        [$lat, $lng] = [(float) $m[1], (float) $m[2]];
+        if ($lat < 8 || $lat > 24 || $lng < 102 || $lng > 110) {
+            return null;
+        }
+
+        return ['@type' => 'GeoCoordinates', 'latitude' => $lat, 'longitude' => $lng];
     }
 
     /** @return array<string, mixed> */

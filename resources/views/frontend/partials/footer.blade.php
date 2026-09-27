@@ -12,6 +12,8 @@
     $zaloRaw  = catalog_setting('advisor_zalo') ?: catalog_setting('zalo');
     $zalo     = $zaloRaw ? (\Illuminate\Support\Str::startsWith($zaloRaw, 'http') ? $zaloRaw : 'https://zalo.me/'.$zaloRaw) : null;
     $maps     = catalog_setting('map_url');
+    $tiktok   = catalog_setting('tiktok');
+    $tiktokAt = $tiktok ? '@'.\Illuminate\Support\Str::of($tiktok)->after('@')->before('?')->trim('/') : null;
     $company  = catalog_setting('company_name', $dealer);
 
     $footerModels = once(fn () => \App\Support\Catalog::query('product')
@@ -57,6 +59,7 @@
             <a href="{{ route('pages.show', 'lien-he') }}">Liên hệ tư vấn</a>
             @if ($phone)<a href="tel:{{ $phone }}">{{ $advisor ? $advisor.' · ' : '' }}{{ $phoneFmt }}</a>@endif
             @if ($zalo)<a href="{{ $zalo }}" rel="noopener">Zalo: {{ $phoneFmt }}</a>@endif
+            @if ($tiktok)<a href="{{ $tiktok }}" rel="noopener" target="_blank">TikTok: {{ $tiktokAt }}</a>@endif
             @if ($maps)<a href="{{ $maps }}" rel="noopener" target="_blank">{{ $dealer }}</a>@endif
             <a href="{{ route('pages.show', 'faq') }}">Câu hỏi thường gặp</a>
         </div>

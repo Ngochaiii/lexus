@@ -233,6 +233,9 @@
                     <div class="actions">
                         <a class="button" href="{{ route('pages.show', 'lien-he') }}">Trao đổi cùng tôi</a>
                         <a class="text-link" href="#khoanh-khac">Những lần đồng hành</a>
+                        @if ($tiktok = catalog_setting('tiktok'))
+                            <a class="text-link" href="{{ $tiktok }}" rel="noopener" target="_blank">Xem video trên TikTok</a>
+                        @endif
                     </div>
                 </div>
 

@@ -58,8 +58,8 @@ class LexusSiteSeeder extends Seeder
     {
         $values = [
             'site_name'        => 'Lexus Thăng Long',
-            'site_description' => 'Lexus Thăng Long — đại lý Lexus chính hãng tại ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy, Hà Nội. '
-                .'Bảng giá 6 dòng xe Lexus 2026 từ 2,36 tỷ, lái thử và báo giá lăn bánh cùng chuyên viên Thu Hà.',
+            // Meta description trang chủ: ≤ 160 ký tự để Google không cắt mất phần giá.
+            'site_description' => 'Đại lý Lexus chính hãng tại Hà Nội: bảng giá 6 dòng xe Lexus 2026 từ 2,36 tỷ, lái thử miễn phí và báo giá lăn bánh chi tiết cùng chuyên viên Thu Hà.',
             'seo_home_title'   => 'Lexus Thăng Long — Đại lý Lexus chính hãng tại Cầu Giấy, Hà Nội',
             'hotline'          => '0989345989',
             'address'          => 'Ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy, Hà Nội',
@@ -73,6 +73,7 @@ class LexusSiteSeeder extends Seeder
             'advisor_zalo'  => 'https://zalo.me/0989345989',
 
             'zalo' => 'https://zalo.me/0989345989',
+            'tiktok' => 'https://www.tiktok.com/@thuhalexus28',
 
             'ga4_id' => 'G-GWCM7L4NCG',
         ];

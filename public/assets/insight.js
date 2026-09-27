@@ -98,6 +98,12 @@
     send([{ type, path: location.pathname }]);
   }, true);
 
+  // Bấm sang kênh TikTok của chuyên viên — chỉ báo GA4 (không phải liên hệ trực tiếp).
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[href*="tiktok.com"]');
+    if (a) track('click_tiktok', { page_path: location.pathname });
+  }, true);
+
   /* ── 3. Tốc độ thật (Core Web Vitals) ───────────────────────────────── */
 
   if (!('PerformanceObserver' in window)) return;

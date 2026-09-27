@@ -167,6 +167,8 @@ return [
                 'social_image' => ['label' => 'Ảnh chia sẻ mặc định (Open Graph)', 'type' => 'image'],
                 'map_image' => ['label' => 'Ảnh bản đồ chỉ đường', 'type' => 'image'],
                 'map_url' => ['label' => 'Link Google Maps', 'type' => 'url'],
+                // Google Maps: chuột phải vào ghim đại lý → bấm dòng số đầu tiên để copy.
+                'geo' => ['label' => 'Toạ độ showroom (dán từ Google Maps, vd "21.0301, 105.7812")', 'type' => 'text'],
                 'visit_title' => ['label' => 'Tiêu đề thẻ liên hệ ở trang tĩnh', 'type' => 'text'],
                 'brochure_url' => ['label' => 'Link brochure (nút ở trang chi tiết)', 'type' => 'url'],
             ],

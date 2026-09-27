@@ -21,6 +21,17 @@ class Post extends Model
 
     protected string $slugSourceColumn = 'title';
 
+    protected static function booted(): void
+    {
+        // Đăng bài mà để trống "Đăng lúc" (vd bài Gemini chuyển Nháp → Đã đăng)
+        // thì lấy thời điểm đăng: Google cần datePublished, khách cần thấy ngày.
+        static::saving(function (Post $post) {
+            if ($post->status === 'published' && blank($post->published_at)) {
+                $post->published_at = now();
+            }
+        });
+    }
+
     public function urlType(): string
     {
         return 'post';

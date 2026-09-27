@@ -181,6 +181,19 @@ stdout_logfile=/var/www/lexus/storage/logs/queue.log
 - Cả hai chạy bằng queue worker (`lexus-queue@*`), dùng chung `GEMINI_API_KEY`
   và hạn mức: mỗi lần đề xuất / viết bài / soạn chia sẻ = 1 lượt gọi Gemini.
 
+## Sửa theo kiểm tra claude-seo (từ 29/09/2026)
+
+- Mô tả trang chủ ≤ 160 ký tự (migration tự thay nếu còn bản cũ của seeder).
+- Bài chuyển sang Đã đăng mà trống "Đăng lúc" → tự lấy thời điểm đăng; bài cũ
+  như vậy được migration điền ngày tạo.
+- **Cài đặt → Chung → Toạ độ showroom**: dán toạ độ từ Google Maps (chuột phải
+  vào ghim đại lý → bấm dòng số đầu) để Google có GeoCoordinates của đại lý.
+- `<script type="speculationrules">` trong layout: Chrome tải trước trang khi
+  khách rê/chạm link (bỏ /admin, /api, /gui-form).
+- Kênh TikTok của chuyên viên (Cài đặt → Mạng xã hội → TikTok; migration điền
+  `@thuhalexus28` nếu ô trống): hiện ở khối chuyên viên trang chủ, chân trang,
+  khối liên hệ; sameAs của chuyên viên; GA4 nhận sự kiện `click_tiktok`.
+
 ## 5. Kiểm tra sau khi lên
 
 - [ ] Trang chủ hiện 16 thẻ phiên bản; bấm "Nhận báo giá" → popup ghi "Phiên bản: …"

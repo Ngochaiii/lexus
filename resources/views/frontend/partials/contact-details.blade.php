@@ -11,6 +11,7 @@
     $phone    = catalog_setting('advisor_phone') ?: catalog_setting('hotline');
     $zalo     = catalog_setting('advisor_zalo') ?: catalog_setting('zalo');
     $hours    = catalog_setting('opening_hours');
+    $tiktok   = catalog_setting('tiktok');
 
     $phoneFmt = \App\Support\Phone::format($phone);
 @endphp
@@ -37,6 +38,13 @@
             <span>Zalo</span>
             <a href="{{ \Illuminate\Support\Str::startsWith($zalo, 'http') ? $zalo : 'https://zalo.me/'.$zalo }}"
                rel="noopener">Nhắn Zalo {{ $phoneFmt }} ↗</a>
+        </div>
+    @endif
+
+    @if (filled($tiktok))
+        <div>
+            <span>TikTok</span>
+            <a href="{{ $tiktok }}" rel="noopener" target="_blank">Video xe thực tế ↗</a>
         </div>
     @endif
 

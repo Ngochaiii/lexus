@@ -1,0 +1,74 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\Post;
+use App\Models\Setting;
+use App\Support\JsonLd;
+use Tests\TestCase;
+
+/** Sửa theo kết quả kiểm tra claude-seo (27/09/2026). */
+class SeoAuditFixesTest extends TestCase
+{
+    public function test_dang_bai_trong_ngay_dang_thi_tu_dien_ngay_va_co_date_published(): void
+    {
+        $post = Post::create(['title' => 'Bài Gemini', 'slug' => 'bai-gemini', 'status' => 'draft']);
+        $this->assertNull($post->published_at, 'nháp thì chưa có ngày đăng');
+
+        $this->travelTo(now()->setDate(2026, 9, 28)->setTime(9, 0));
+        $post->update(['status' => 'published']);
+        $this->assertSame('2026-09-28 09:00', $post->fresh()->published_at->format('Y-m-d H:i'));
+
+        $html = $this->get('/tin-tuc/bai-gemini')->assertOk()->getContent();
+        $this->assertStringContainsString('"datePublished":"2026-09-28T09:00:00', $html);
+        $this->assertStringContainsString('<time datetime="2026-09-28T09:00:00', $html, 'trang hiện ngày đăng');
+    }
+
+    public function test_toa_do_showroom_va_zalo_chuyen_vien_trong_du_lieu_cau_truc(): void
+    {
+        $this->assertSame(['@type' => 'GeoCoordinates', 'latitude' => 21.0301, 'longitude' => 105.7812], JsonLd::geo(' 21.0301, 105.7812 '));
+        $this->assertNull(JsonLd::geo('21,0301 105,7812'), 'sai định dạng thì bỏ');
+        $this->assertNull(JsonLd::geo('48.8584, 2.2945'), 'ngoài Việt Nam thì bỏ');
+
+        Setting::put('geo', '21.0301, 105.7812');
+        Setting::put('advisor_name', 'Thu Hà', 'home');
+        Setting::put('zalo', '0989345989', 'social');
+
+        $org = JsonLd::organization();
+        $this->assertSame(21.0301, $org['geo']['latitude']);
+        $this->assertSame(['https://zalo.me/0989345989'], $org['employee']['sameAs']);
+    }
+
+    public function test_kenh_tiktok_hien_o_trang_chu_chan_trang_va_du_lieu_cau_truc(): void
+    {
+        $this->get('/')->assertOk()->assertDontSee('tiktok.com', false);
+
+        Setting::put('tiktok', 'https://www.tiktok.com/@thuhalexus28', 'social');
+        Setting::put('advisor_name', 'Thu Hà', 'home');
+
+        $this->get('/')->assertOk()
+            ->assertSee('TikTok: @thuhalexus28')
+            ->assertSee('href="https://www.tiktok.com/@thuhalexus28"', false);
+        $this->assertContains('https://www.tiktok.com/@thuhalexus28', JsonLd::advisor()['sameAs']);
+    }
+
+    public function test_trang_co_speculation_rules_bo_admin_va_form(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        preg_match('#<script type="speculationrules">(.*?)</script>#s', $html, $m);
+        $rules = json_decode($m[1] ?? '', true);
+
+        $this->assertSame('moderate', $rules['prefetch'][0]['eagerness']);
+        $excluded = $rules['prefetch'][0]['where']['and'][1]['not']['href_matches'];
+        $this->assertContains('/admin/*', $excluded);
+        $this->assertContains('/gui-form/*', $excluded);
+    }
+
+    public function test_mo_ta_trang_chu_mac_dinh_khong_qua_160_ky_tu(): void
+    {
+        $seeder = file_get_contents(database_path('seeders/LexusSiteSeeder.php'));
+        preg_match("/'site_description' => '([^']+)'/u", $seeder, $m);
+
+        $this->assertLessThanOrEqual(160, mb_strlen($m[1]), 'Google cắt mô tả dài hơn ~160 ký tự');
+    }
+}
