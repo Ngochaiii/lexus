@@ -31,6 +31,7 @@ class Post extends Model
         return [
             'sections'     => 'array',
             'seo'          => 'array',
+            'share_kit'    => 'array',
             'published_at' => 'datetime',
         ];
     }

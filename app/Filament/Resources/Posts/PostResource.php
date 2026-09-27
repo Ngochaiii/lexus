@@ -9,6 +9,8 @@ use App\Filament\Resources\Posts\Pages\EditPost;
 use App\Filament\Resources\Posts\Pages\ListPosts;
 use App\Filament\Schemas\SeoSection;
 use App\Jobs\GenerateArticleWithGemini;
+use App\Jobs\GenerateShareKit;
+use App\Services\GeminiShareKit;
 use App\Support\Catalog;
 use App\Support\Url;
 use BackedEnum;
@@ -222,6 +224,47 @@ class PostResource extends Resource
                         ->placeholder("Hỏi: Giá lăn bánh Lexus RX 350h Premium bao nhiêu?\nĐáp: Khoảng 3,77 tỷ đồng tại Hà Nội…")
                         ->rows(8)
                         ->columnSpanFull(),
+                ]),
+
+            Section::make('Chia sẻ để kéo khách & link')
+                ->description('Gemini soạn sẵn status Facebook, tin nhắn Zalo và câu trả lời diễn đàn. Mỗi kênh gắn link có mã UTM riêng để trang Báo cáo và GA4 biết kênh nào ra khách. Bạn tự đăng tay, mỗi nơi một lần — không rải link hàng loạt (bị khoá tài khoản, Google coi là spam).')
+                ->visibleOn('edit')
+                ->collapsible()
+                ->columnSpanFull()
+                ->schema([
+                    Actions::make([
+                        Action::make('generateShareKit')
+                            ->label(fn (Get $get): string => filled($get('share_kit.facebook')) ? 'Gemini soạn lại' : 'Gemini soạn bài chia sẻ')
+                            ->icon(Heroicon::OutlinedSparkles)
+                            ->color('info')
+                            ->disabled(fn (Get $get, $record): bool => filled($get('share_job')) || $record?->status !== 'published')
+                            ->tooltip(fn ($record): ?string => $record?->status !== 'published' ? 'Đăng bài trước (link phải mở được) rồi mới soạn bài chia sẻ.' : null)
+                            ->action(function ($record, Set $set): void {
+                                Cache::put(GenerateShareKit::cacheKey($record->id), ['status' => 'running'], now()->addHours(6));
+                                GenerateShareKit::dispatch($record->id);
+                                $set('share_job', (string) $record->id);
+
+                                Notification::make()
+                                    ->title('Gemini đang soạn bài chia sẻ')
+                                    ->body('Dựa trên nội dung ĐÃ LƯU của bài. Khoảng 30 giây–1 phút, tự điền vào các ô bên dưới.')
+                                    ->info()
+                                    ->send();
+                            }),
+                    ])->key('shareKitActions'),
+
+                    Hidden::make('share_job')->dehydrated(false),
+
+                    View::make('filament.share-kit-poll')
+                        ->visible(fn (Get $get): bool => filled($get('share_job'))),
+
+                    ...collect(GeminiShareKit::CHANNELS)->map(fn (array $channel, string $key) => Textarea::make('share_kit.'.$key)
+                        ->label($channel['label'])
+                        ->rows($key === 'zalo' ? 4 : 8)
+                        ->hintAction(Action::make('copy_'.$key)
+                            ->label('Copy')
+                            ->icon(Heroicon::OutlinedClipboardDocument)
+                            ->alpineClickHandler("navigator.clipboard.writeText(\$wire.get('data.share_kit.{$key}') ?? ''); new FilamentNotification().title('Đã copy').success().send()")))
+                        ->values()->all(),
                 ]),
 
             SeoSection::make(),

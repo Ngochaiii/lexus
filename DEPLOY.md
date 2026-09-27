@@ -169,6 +169,18 @@ stdout_logfile=/var/www/lexus/storage/logs/queue.log
   `--no-assets`). Thoát mã 1 nếu có lỗi — chạy sau mỗi lần cập nhật lớn.
 - **Tình trạng xe**: Admin → Dòng xe → Phiên bản → "Tình trạng xe".
 
+## Kế hoạch bài viết & bài chia sẻ bằng Gemini (từ 28/09/2026)
+
+- **Admin → Nội dung → Kế hoạch bài viết**: nút "Gemini đề xuất chủ đề" (từ
+  khoá có ý định mua, trang cần đẩy, không trùng bài cũ) → "Viết bài" ở từng
+  chủ đề → Gemini viết thành bài **Nháp** (ảnh bìa = ảnh hero dòng xe), đọc
+  lại số liệu rồi mới chuyển Đã đăng. Nên 2–3 bài/tuần.
+- **Bài viết → Sửa → "Chia sẻ để kéo khách & link"** (chỉ bài đã đăng): Gemini
+  soạn status Facebook, tin Zalo, câu trả lời diễn đàn; link gắn UTM theo kênh.
+  Đăng tay — không tự động rải link.
+- Cả hai chạy bằng queue worker (`lexus-queue@*`), dùng chung `GEMINI_API_KEY`
+  và hạn mức: mỗi lần đề xuất / viết bài / soạn chia sẻ = 1 lượt gọi Gemini.
+
 ## 5. Kiểm tra sau khi lên
 
 - [ ] Trang chủ hiện 16 thẻ phiên bản; bấm "Nhận báo giá" → popup ghi "Phiên bản: …"

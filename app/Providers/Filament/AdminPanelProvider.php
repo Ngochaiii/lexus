@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Pages\ManageSettings;
 use App\Filament\Resources\Banners\BannerResource;
 use App\Filament\Resources\Categories\CategoryResource;
+use App\Filament\Resources\ContentIdeas\ContentIdeaResource;
 use App\Filament\Resources\Leads\LeadResource;
 use App\Filament\Resources\Menus\MenuResource;
 use App\Filament\Resources\Pages\PageResource;
@@ -51,6 +52,7 @@ class AdminPanelProvider extends PanelProvider
 
                 Catalog::feature('posts') ? PostResource::class : null,
                 Catalog::feature('posts') ? PostCategoryResource::class : null,
+                Catalog::feature('posts') ? ContentIdeaResource::class : null,
                 Catalog::feature('pages') ? PageResource::class : null,
 
                 MenuResource::class,
