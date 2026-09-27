@@ -5,7 +5,10 @@
     tĩnh), không phải một cột HTML duy nhất. Mục kiểu `text` render trong
     khối .article rộng 820px, đúng đặc tả mục 16 (content width 720–820px).
 
-    Biến từ PostController: $post · $sections · $related
+    Desktop: 2 cột — thân bài + cột phải dính theo (chuyên viên, giá xe, mục
+    lục; partials/post-aside). Mobile: cột phải xuống sau bài.
+
+    Biến từ PostController: $post · $sections · $toc · $car · $related
 --}}
 @extends('frontend.layout', [
     'title'       => data_get($post->seo, 'title', $post->title.' | '.catalog_setting('site_name', config('app.name'))),
@@ -36,47 +39,48 @@
 
     {{--
         Ảnh bìa theo ô "Bề rộng ảnh bìa" trong admin (cover_width):
-          narrow (mặc định) — thẳng cột chữ 820px · wide — khung nội dung ·
-          full — tràn màn hình.
+          narrow (mặc định) — trong cột bài, cạnh cột phải · wide — khung nội
+          dung · full — tràn màn hình (hai kiểu này nằm trên, trước 2 cột).
         Giữ nguyên tỉ lệ ảnh, không cắt: ảnh bìa hay là banner có chữ.
         Là LCP của trang nên không lazy; `sizes` khớp bề rộng thật để mobile
         và cột hẹp không tải bản 1536px.
     --}}
-    @if ($cover = catalog_image($post->cover))
-        @php
-            $coverSize   = \App\Support\Media::dimensions($post->cover);
-            $coverSrcset = \App\Support\Media::srcset($post->cover);
-            $coverWidth  = in_array($post->cover_width, ['wide', 'full'], true) ? $post->cover_width : 'narrow';
-            $coverSizes  = [
-                'narrow' => '(max-width: 860px) 100vw, 780px',
-                'wide'   => '(max-width: 1440px) 100vw, 1440px',
-                'full'   => '100vw',
-            ][$coverWidth];
-        @endphp
-        <figure class="post-cover post-cover--{{ $coverWidth }}">
-            <img src="{{ $cover }}" alt="{{ $post->title }}"
-                 @if ($coverSrcset) srcset="{{ $coverSrcset }}" sizes="{{ $coverSizes }}" @endif
-                 width="{{ $coverSize['w'] ?? 1600 }}" height="{{ $coverSize['h'] ?? 1067 }}" fetchpriority="high" decoding="async">
-        </figure>
+    @php
+        $cover       = catalog_image($post->cover);
+        $coverWidth  = in_array($post->cover_width, ['wide', 'full'], true) ? $post->cover_width : 'narrow';
+        $author      = catalog_setting('advisor_name');
+    @endphp
+
+    @if ($cover && $coverWidth !== 'narrow')
+        @include('frontend.partials.post-cover')
     @endif
 
-    {{-- Ai viết, cập nhật khi nào: người đọc và công cụ tìm kiếm/AI đều dựa
-         vào đây để đánh giá độ tin cậy của bài có số liệu (giá, phí). --}}
-    @php $author = catalog_setting('advisor_name'); @endphp
-    <div class="container post-byline">
-        @if ($author)
-            <p>Người viết: <a href="{{ route('pages.show', 'lien-he') }}" rel="author">{{ $author }}</a>
-                — {{ catalog_setting('advisor_role', 'Chuyên viên tư vấn') }}</p>
-        @endif
-        <p>
-            @if ($post->published_at)Đăng <time datetime="{{ $post->published_at->toAtomString() }}">{{ $post->published_at->format('d/m/Y') }}</time>@endif
-            @if ($post->updated_at && $post->published_at && $post->updated_at->gt($post->published_at->copy()->addDay()))
-                · Cập nhật <time datetime="{{ $post->updated_at->toAtomString() }}">{{ $post->updated_at->format('d/m/Y') }}</time>
+    <div class="container post-layout">
+        <div class="post-main">
+            @if ($cover && $coverWidth === 'narrow')
+                @include('frontend.partials.post-cover')
             @endif
-        </p>
-    </div>
 
-    @include('frontend.partials.sections', ['sections' => $sections, 'numbered' => false])
+            {{-- Ai viết, cập nhật khi nào: người đọc và công cụ tìm kiếm/AI đều dựa
+                 vào đây để đánh giá độ tin cậy của bài có số liệu (giá, phí). --}}
+            <div class="post-byline">
+                @if ($author)
+                    <p>Người viết: <a href="{{ route('pages.show', 'lien-he') }}" rel="author">{{ $author }}</a>
+                        — {{ catalog_setting('advisor_role', 'Chuyên viên tư vấn') }}</p>
+                @endif
+                <p>
+                    @if ($post->published_at)Đăng <time datetime="{{ $post->published_at->toAtomString() }}">{{ $post->published_at->format('d/m/Y') }}</time>@endif
+                    @if ($post->updated_at && $post->published_at && $post->updated_at->gt($post->published_at->copy()->addDay()))
+                        · Cập nhật <time datetime="{{ $post->updated_at->toAtomString() }}">{{ $post->updated_at->format('d/m/Y') }}</time>
+                    @endif
+                </p>
+            </div>
+
+            @include('frontend.partials.sections', ['sections' => $sections, 'numbered' => false])
+        </div>
+
+        @include('frontend.partials.post-aside', ['car' => $car ?? null, 'toc' => $toc ?? []])
+    </div>
 
     {{-- ══ Bài liên quan ══ --}}
     @if (filled($related))

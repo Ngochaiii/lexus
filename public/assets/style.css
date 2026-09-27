@@ -392,3 +392,42 @@ html:has(.quote-dialog[open]){overflow:hidden}
 .stock-badge--contact:before{background:#8a8780}
 .model-image .stock-badge{position:absolute;top:14px;right:14px;margin:0;padding:4px 10px 3px;background:#ffffffe8;font-size:12px}
 .data-table .stock-badge{display:flex;margin-top:4px;font-size:12px}
+
+/* ── Trang bài viết: thân bài + cột phải (partials/post-aside) ──────────── */
+.post-layout{display:grid;grid-template-columns:minmax(0,820px) minmax(300px,380px);justify-content:space-between;gap:56px}
+.post-main{min-width:0}
+.post-main .post-cover{max-width:none;padding-inline:0}
+.post-main .post-cover img{max-width:none}
+.post-main .container{max-width:none;padding-inline:0}
+.post-main .section{padding-block:0 48px}
+.post-main .text-section .section-heading:not(:has(.eyebrow,h2)){display:none}
+.post-main .article{max-width:none;padding:32px 0 0}
+.post-aside{min-width:0}
+.post-aside__sticky{position:sticky;top:24px;display:grid;gap:18px;max-height:calc(100vh - 48px);overflow-y:auto;scrollbar-width:thin}
+.aside-card{border:1px solid var(--line);padding:22px 24px;background:#fff}
+.aside-eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px}
+.aside-advisor{background:var(--stone);border-color:var(--stone)}
+.aside-advisor__who{display:flex;gap:14px;align-items:center}
+.aside-advisor__who img{width:64px;height:64px;border-radius:50%;flex:none;object-fit:cover}
+.aside-advisor__who strong{display:block;font-size:22px;font-weight:400;line-height:1.3}
+.aside-advisor__who span{display:block;font-size:14px;line-height:1.4;color:var(--muted)}
+.aside-note{font-size:16px;line-height:1.6;margin:14px 0 16px}
+.aside-actions{display:grid;gap:10px}
+.aside-actions .button{width:100%;font-size:15px;padding:12px 16px;min-height:48px}
+.aside-actions .text-link{justify-self:start;font-size:15px;gap:14px;margin-top:2px}
+.aside-price ul{list-style:none;margin:8px 0 0;padding:0}
+.aside-price li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.45}
+.aside-price li a{text-decoration:underline;text-underline-offset:3px}
+.aside-price li a:hover{color:var(--accent)}
+.aside-price li strong{font-weight:500;text-align:right;white-space:nowrap}
+.aside-price li small{grid-column:1/-1;color:var(--muted);font-size:14px}
+.aside-foot{font-size:13px;line-height:1.5;margin-top:10px}
+.aside-toc{padding-block:16px}
+.aside-toc summary{list-style:none;cursor:pointer;margin:0;display:flex;justify-content:space-between;gap:12px}
+.aside-toc summary::-webkit-details-marker{display:none}
+.aside-toc summary:after{content:'+';font-size:18px;line-height:1;font-weight:400}
+.aside-toc details[open] summary:after{content:'−'}
+.aside-toc ol{margin:10px 0 0;padding-left:20px;font-size:15px;line-height:1.5}
+.aside-toc li{margin:7px 0}
+.aside-toc a:hover{color:var(--accent);text-decoration:underline}
+@media(max-width:1100px){.post-layout{grid-template-columns:minmax(0,1fr);gap:0}.post-aside{padding-bottom:48px}.post-aside__sticky{position:static;max-height:none;overflow:visible}.aside-toc{display:none}}

@@ -28,7 +28,7 @@ class RichTextTest extends TestCase
             .'<ul><li>Tặng sạc</li><li>Miễn phí trước bạ</li></ul>'
         );
 
-        $this->assertStringContainsString('<h2>Ưu đãi tháng 9</h2>', $html);
+        $this->assertStringContainsString('<h2 id="muc-uu-dai-thang-9">Ưu đãi tháng 9</h2>', $html, 'h2 giữ nguyên, thêm neo mục lục');
         $this->assertStringContainsString('<strong>80 triệu</strong>', $html);
         $this->assertStringContainsString('<li>Tặng sạc</li>', $html);
     }

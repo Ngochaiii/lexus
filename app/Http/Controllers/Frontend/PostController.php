@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\Product;
+use App\Support\ArticleContext;
+use App\Support\Catalog;
+use App\Support\PostToc;
 use Illuminate\Contracts\View\View;
 
 class PostController extends Controller
@@ -15,11 +19,29 @@ class PostController extends Controller
             404
         );
 
+        [$sections, $toc] = PostToc::apply($post->renderableSections());
+
         return view('frontend.post', [
             'post' => $post->load('category'),
-            'sections' => $post->renderableSections(),
+            'sections' => $sections,
+            'toc' => count($toc) >= 3 ? $toc : [],
+            'car' => $this->carInPost($post),
             'related' => $this->related($post),
         ]);
+    }
+
+    /**
+     * Dòng xe bài đang nói tới (theo tiêu đề, không có thì theo từ khoá SEO) —
+     * cột phải hiện bảng giá + lăn bánh của dòng đó, cùng nguồn với bảng giá.
+     */
+    private function carInPost(Post $post): ?Product
+    {
+        $products = Catalog::query('product')->published()
+            ->with(['variants' => fn ($q) => $q->orderBy('sort')])
+            ->orderBy('sort')->get();
+
+        return ArticleContext::focusProducts($products, $post->title)->first()
+            ?? ArticleContext::focusProducts($products, (string) data_get($post->seo, 'keywords'))->first();
     }
 
     /**

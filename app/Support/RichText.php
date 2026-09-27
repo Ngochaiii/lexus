@@ -28,6 +28,9 @@ class RichText
     /** Thuộc tính giữ lại theo từng thẻ. Mọi on* và style đều rơi hết ở đây. */
     private const ATTRS = [
         'a' => ['href', 'title'],
+        // Neo cho mục lục bài viết (App\Support\PostToc gắn id="muc-…").
+        'h2' => ['id'],
+        'h3' => ['id'],
         'img' => ['src', 'alt', 'width', 'height'],
         'td' => ['colspan', 'rowspan'],
         'th' => ['colspan', 'rowspan'],
