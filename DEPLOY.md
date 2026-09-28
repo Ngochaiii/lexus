@@ -213,12 +213,6 @@ stdout_logfile=/var/www/lexus/storage/logs/queue.log
 - **Admin → Liên hệ**: cột "Từ khoá QC" (utm_term từ mẫu theo dõi Google Ads),
   lọc "Từ Google Ads" và theo chiến dịch. Sửa lọc "Cần gọi lại hôm nay" (trước
   đây không lọc gì — Filament truyền tham số closure theo TÊN, phải là `$query`).
-- **Báo lead qua Telegram** (gọi lại trong 5 phút): Telegram → @BotFather →
-  `/newbot` → ghi `TELEGRAM_BOT_TOKEN=` vào `.env`; mở bot, bấm Start, nhắn một
-  câu; `php artisan config:clear && php artisan lead:telegram-test` in ra
-  `TELEGRAM_CHAT_ID=…` → ghi vào `.env` (nhiều người: cách nhau dấu phẩy);
-  `php artisan optimize && supervisorctl restart lexus-queue:*`; chạy lại
-  `lead:telegram-test` để nhận tin thử. Cần queue worker đang chạy.
 
 ## 5. Kiểm tra sau khi lên
 

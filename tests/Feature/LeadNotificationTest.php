@@ -132,48 +132,4 @@ class LeadNotificationTest extends TestCase
 
         $this->assertSame(2, Lead::count());
     }
-
-    // --- Telegram: báo lead tức thì về điện thoại chuyên viên ---
-
-    public function test_bao_lead_moi_qua_telegram(): void
-    {
-        config(['catalog.leads.telegram' => ['bot_token' => '123:ABC', 'chat_ids' => ['111', '-222']]]);
-        Http::fake(['api.telegram.org/*' => Http::response(['ok' => true])]);
-        $this->form();
-
-        $this->postJson('/api/v1/leads', $this->payload())->assertCreated();
-
-        Http::assertSentCount(2);
-        Http::assertSent(fn ($request) => $request->url() === 'https://api.telegram.org/bot123:ABC/sendMessage'
-            && $request['chat_id'] === '111'
-            && str_contains($request['text'], 'Đạt')
-            && str_contains($request['text'], '0987 654 321')
-            && str_contains($request['text'], 'Đặt lịch lái thử'));
-    }
-
-    public function test_khong_bao_telegram_khi_chua_cau_hinh_hoac_lead_trung(): void
-    {
-        config(['catalog.leads.telegram' => ['bot_token' => null, 'chat_ids' => []]]);
-        Http::fake();
-        $this->form();
-        $this->postJson('/api/v1/leads', $this->payload())->assertCreated();
-        Http::assertNothingSent();
-
-        config(['catalog.leads.telegram' => ['bot_token' => '123:ABC', 'chat_ids' => ['111']]]);
-        $this->postJson('/api/v1/leads', $this->payload())->assertCreated();   // cùng số trong 5 phút → trùng
-        Http::assertNothingSent();
-    }
-
-    public function test_lenh_telegram_in_chat_id_roi_gui_tin_thu(): void
-    {
-        config(['catalog.leads.telegram' => ['bot_token' => '123:ABC', 'chat_ids' => []]]);
-        Http::fake(['api.telegram.org/bot123:ABC/getUpdates' => Http::response(['ok' => true, 'result' => [
-            ['message' => ['chat' => ['id' => 987654, 'first_name' => 'Thu', 'last_name' => 'Hà']]],
-        ]])]);
-        $this->artisan('lead:telegram-test')->expectsOutputToContain('TELEGRAM_CHAT_ID=987654')->assertSuccessful();
-
-        config(['catalog.leads.telegram.chat_ids' => ['987654']]);
-        Http::fake(['api.telegram.org/*' => Http::response(['ok' => true])]);
-        $this->artisan('lead:telegram-test')->expectsOutputToContain('Đã gửi tin thử tới 987654')->assertSuccessful();
-    }
 }
