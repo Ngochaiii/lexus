@@ -45,7 +45,7 @@ class Attribution
     ];
 
     /**
-     * @param  array<string, mixed>|null  $raw  {ref, land, utm:{…}, gclid, fbclid, ts}
+     * @param  array<string, mixed>|null  $raw  {ref, land, utm:{…}, gclid, gbraid, wbraid, fbclid, ts}
      * @return array{source:string,medium:string,campaign:?string,landing_page:?string}
      */
     public static function classify(?array $raw): array
@@ -67,10 +67,12 @@ class Attribution
             return ['source' => $source, 'medium' => Str::lower($clean($utm['utm_medium'] ?? null, 40) ?? 'utm'), 'campaign' => $campaign, 'landing_page' => $landing];
         }
 
-        if (filled($raw['gclid'] ?? null)) {
+        // Chỉ mã click thật. insight.js cũ gửi cờ 0/1, và filled(0) là true —
+        // từng làm mọi khách thành google/cpc.
+        if (array_filter(self::clickIds($raw))) {
             return ['source' => 'google', 'medium' => 'cpc', 'campaign' => $campaign, 'landing_page' => $landing];
         }
-        if (filled($raw['fbclid'] ?? null)) {
+        if (self::clickId($raw['fbclid'] ?? null)) {
             return ['source' => 'facebook', 'medium' => 'social', 'campaign' => $campaign, 'landing_page' => $landing];
         }
 
@@ -88,6 +90,27 @@ class Attribution
         }
 
         return ['source' => 'referral', 'medium' => Str::limit(preg_replace('/^www\./', '', $host), 40, ''), 'campaign' => $campaign, 'landing_page' => $landing];
+    }
+
+    /**
+     * Mã click Google Ads trong lần chạm (gbraid/wbraid thay gclid trên một số
+     * lượt iOS) — lưu vào lead để nhập chuyển đổi ngoại tuyến.
+     *
+     * @return array{gclid:?string,gbraid:?string,wbraid:?string}
+     */
+    public static function clickIds(?array $raw): array
+    {
+        return [
+            'gclid'  => self::clickId($raw['gclid'] ?? null),
+            'gbraid' => self::clickId($raw['gbraid'] ?? null),
+            'wbraid' => self::clickId($raw['wbraid'] ?? null),
+        ];
+    }
+
+    /** Mã click hợp lệ: chuỗi base64-url, không phải cờ 0/1 hay rác. */
+    private static function clickId(mixed $value): ?string
+    {
+        return is_string($value) && preg_match('/^[A-Za-z0-9_-]{10,255}$/', $value) ? $value : null;
     }
 
     /** Chuỗi JSON từ trình duyệt → mảng (giới hạn cỡ, bỏ rác). */

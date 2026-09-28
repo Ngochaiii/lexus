@@ -78,6 +78,7 @@ class StoreLead
             'source'       => $touch['source'],
             'medium'       => $touch['medium'],
             'campaign'     => $touch['campaign'],
+            ...Attribution::clickIds($raw),   // gclid/gbraid/wbraid → nhập chuyển đổi ngoại tuyến
             'landing_page' => $touch['landing_page'] ?? (parse_url((string) $request->header('referer'), PHP_URL_PATH) ?: null),
             'device'       => Attribution::device($request->userAgent()),
             'name'       => Arr::get($data, 'name'),

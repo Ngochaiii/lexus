@@ -71,4 +71,19 @@ class SeoAuditFixesTest extends TestCase
 
         $this->assertLessThanOrEqual(160, mb_strlen($m[1]), 'Google cắt mô tả dài hơn ~160 ký tự');
     }
+
+    // Tài khoản Google Ads đứng tên chuyên viên: trang chủ không được tự nhận
+    // là đại lý (chính sách "Trình bày sai sự thật"). Nói rõ ai đứng tên site.
+    public function test_tieu_de_va_mo_ta_trang_chu_noi_ro_la_site_cua_chuyen_vien(): void
+    {
+        $seeder = file_get_contents(database_path('seeders/LexusSiteSeeder.php'));
+        preg_match("/'seo_home_title'\s*=> '([^']+)'/u", $seeder, $title);
+        preg_match("/'site_description' => '([^']+)'/u", $seeder, $desc);
+
+        foreach ([$title[1], $desc[1]] as $text) {
+            $this->assertStringStartsWith('Thu Hà', $text);
+            $this->assertStringNotContainsString('Lexus Thăng Long — Đại lý', $text);
+        }
+        $this->assertLessThanOrEqual(60, mb_strlen($title[1]));
+    }
 }

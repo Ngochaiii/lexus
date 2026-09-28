@@ -38,7 +38,14 @@ class CrmInsightsTest extends TestCase
     public function test_phan_loai_nguon_khach(): void
     {
         $this->assertSame(['facebook', 'cpc', 'rx-thang10'], array_values(array_slice(Attribution::classify(['utm' => ['utm_source' => 'Facebook', 'utm_medium' => 'CPC', 'utm_campaign' => 'rx-thang10']]), 0, 3)));
-        $this->assertSame('google', Attribution::classify(['gclid' => 1])['source']);
+        $this->assertSame(['google', 'cpc'], array_values(array_slice(Attribution::classify(['gclid' => 'Cj0KCQjw_abc-123XYZ']), 0, 2)));
+        // insight.js cũ gửi cờ 0/1 thay cho mã — 0 từng bị filled() coi là có
+        // gclid, làm MỌI khách thành "Google Ads". Chỉ mã thật mới tính.
+        $this->assertSame('direct', Attribution::classify(['ref' => '', 'gclid' => 0, 'fbclid' => 0, 'direct' => true])['source']);
+        $this->assertSame(['google', 'organic'], array_values(array_slice(Attribution::classify(['ref' => 'https://www.google.com/', 'gclid' => 0]), 0, 2)));
+        $this->assertSame('direct', Attribution::classify(['gclid' => 1])['source'], 'cờ 1 kiểu cũ không phải mã click');
+        $this->assertSame(['gclid' => null, 'gbraid' => 'wxyz0123456789ab', 'wbraid' => null],
+            Attribution::clickIds(['gclid' => 0, 'gbraid' => 'wxyz0123456789ab', 'wbraid' => '<script>']));
         $this->assertSame(['google', 'organic'], array_values(array_slice(Attribution::classify(['ref' => 'https://www.google.com.vn/']), 0, 2)));
         $this->assertSame('coccoc', Attribution::classify(['ref' => 'https://coccoc.com/search?q=lexus'])['source']);
         $this->assertSame('zalo', Attribution::classify(['ref' => 'https://chat.zalo.me/'])['source']);
@@ -62,6 +69,65 @@ class CrmInsightsTest extends TestCase
         $this->assertSame('organic', $lead->medium);
         $this->assertSame('/san-pham/rx/rx-350h-premium', $lead->landing_page);
         $this->assertSame('mobile', $lead->device);
+        $this->assertNull($lead->gclid);
+    }
+
+    // gclid lưu nguyên mã để về sau báo Google lead nào thành khách thật
+    // (nhập chuyển đổi ngoại tuyến) — mã chỉ lấy được lúc khách vào từ quảng cáo.
+    public function test_lead_tu_quang_cao_luu_ma_click_google(): void
+    {
+        $this->post('/gui-form/nhan-bao-gia', [
+            'name' => 'Khách Ads', 'phone' => '0912345679',
+            'attribution' => json_encode(['ref' => 'https://www.google.com/', 'land' => '/san-pham/es', 'utm' => [], 'gclid' => 'Cj0KCQjw_abc-123XYZ']),
+        ])->assertRedirect();
+
+        $lead = Lead::sole();
+        $this->assertSame(['google', 'cpc'], [$lead->source, $lead->medium]);
+        $this->assertSame('Cj0KCQjw_abc-123XYZ', $lead->gclid);
+    }
+
+    public function test_ghi_lan_dau_lead_dat_hen_lai_thu_tro_len(): void
+    {
+        $lead = Lead::create(['form_id' => Form::first()->id, 'name' => 'A', 'phone' => '0912345670', 'status' => 'new']);
+        $this->assertNull($lead->qualified_at);
+
+        $lead->update(['status' => 'called']);
+        $this->assertNull($lead->fresh()->qualified_at);
+
+        $this->travelTo(now()->setDate(2026, 10, 2)->setTime(14, 30));
+        $lead->update(['status' => 'appointment']);
+        $first = $lead->fresh()->qualified_at;
+        $this->assertSame('2026-10-02 14:30', $first->format('Y-m-d H:i'));
+
+        $this->travel(3)->days();
+        $lead->update(['status' => 'deposit']);
+        $this->assertTrue($first->equalTo($lead->fresh()->qualified_at), 'giữ lần đầu, không ghi đè');
+    }
+
+    public function test_xuat_csv_nhap_chuyen_doi_ngoai_tuyen_cho_google_ads(): void
+    {
+        config(['catalog.leads.ads_conversion_name' => 'CRM Hen lai thu']);
+        $form = Form::first()->id;
+        $this->travelTo(now()->setDate(2026, 10, 20)->setTime(9, 0));
+
+        Lead::create(['form_id' => $form, 'name' => 'Hẹn', 'phone' => '0912000001', 'gclid' => 'GCLID_OK_1234567', 'status' => 'new'])
+            ->update(['status' => 'appointment']);
+        Lead::create(['form_id' => $form, 'name' => 'Chưa hẹn', 'phone' => '0912000002', 'gclid' => 'GCLID_NEW_123456', 'status' => 'called']);
+        Lead::create(['form_id' => $form, 'name' => 'Không từ Ads', 'phone' => '0912000003', 'status' => 'appointment']);
+
+        $lines = explode("\n", trim(\App\Support\GoogleAdsOfflineExport::csv()));
+
+        $this->assertSame('Parameters:TimeZone=Asia/Ho_Chi_Minh', $lines[0]);
+        $this->assertSame('Google Click ID,Conversion Name,Conversion Time', $lines[1]);
+        $this->assertSame('GCLID_OK_1234567,CRM Hen lai thu,2026-10-20 09:00:00', $lines[2]);
+        $this->assertCount(3, $lines, 'chỉ lead có gclid VÀ đã hẹn lái thử trở lên');
+
+        // Nút trong admin tải đúng file đó.
+        $this->actingAs(User::create(['name' => 'A', 'email' => 'admin', 'password' => 'x']));
+        Filament::setCurrentPanel(Filament::getPanel('admin'));
+        Livewire::test(\App\Filament\Resources\Leads\Pages\ManageLeads::class)
+            ->callAction('googleAdsExport')
+            ->assertFileDownloaded('google-ads-chuyen-doi-2026-10-20.csv');
     }
 
     public function test_nhan_su_kien_goi_zalo_va_toc_do_bo_qua_bot_va_so_lieu_sai(): void

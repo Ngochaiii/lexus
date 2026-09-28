@@ -138,6 +138,10 @@ class LeadResource extends Resource
                     TextInput::make('campaign')->label('Chiến dịch')->disabled()->dehydrated(false),
                     TextInput::make('landing_page')->label('Trang vào đầu tiên')->disabled()->dehydrated(false)->columnSpan(2),
                     TextInput::make('device')->label('Thiết bị')->disabled()->dehydrated(false),
+                    TextInput::make('gclid')->label('Mã click Google Ads (gclid)')->disabled()->dehydrated(false)
+                        ->placeholder('Không đến từ quảng cáo')->columnSpan(2),
+                    TextInput::make('qualified_at')->label('Hẹn lái thử lần đầu')->disabled()->dehydrated(false)
+                        ->formatStateUsing(fn ($state) => $state ? \Illuminate\Support\Carbon::parse($state)->format('d/m/Y H:i') : null),
                 ]),
 
             KeyValue::make('data')

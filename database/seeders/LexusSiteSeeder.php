@@ -59,8 +59,10 @@ class LexusSiteSeeder extends Seeder
         $values = [
             'site_name'        => 'Lexus Thăng Long',
             // Meta description trang chủ: ≤ 160 ký tự để Google không cắt mất phần giá.
-            'site_description' => 'Đại lý Lexus chính hãng tại Hà Nội: bảng giá 6 dòng xe Lexus 2026 từ 2,36 tỷ, lái thử miễn phí và báo giá lăn bánh chi tiết cùng chuyên viên Thu Hà.',
-            'seo_home_title'   => 'Lexus Thăng Long — Đại lý Lexus chính hãng tại Cầu Giấy, Hà Nội',
+            // Mở đầu bằng tên chuyên viên: site của Thu Hà, không tự nhận là đại lý
+            // (tài khoản Google Ads đứng tên cá nhân — chính sách "Trình bày sai sự thật").
+            'site_description' => 'Thu Hà, chuyên viên tư vấn tại Lexus Thăng Long – đại lý Lexus chính hãng ở Hà Nội. Bảng giá 6 dòng xe 2026 từ 2,36 tỷ, lái thử, báo giá lăn bánh chi tiết.',
+            'seo_home_title'   => 'Thu Hà – Tư vấn Lexus Thăng Long | Bảng giá Lexus 2026',
             'hotline'          => '0989345989',
             'address'          => 'Ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy, Hà Nội',
             'opening_hours'    => 'Thứ Hai – Chủ Nhật, 08:00 – 18:00',

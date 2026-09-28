@@ -351,6 +351,11 @@ return [
         // (LexusSiteSeeder). Đọc qua config để vẫn chạy sau `php artisan optimize`.
         'notify_emails' => array_values(array_filter(array_map('trim',
             explode(',', (string) env('LEAD_NOTIFY_EMAILS', ''))))),
+
+        // Tên hành động chuyển đổi "Nhập → Lượt nhấp" trong Google Ads — file
+        // "Xuất cho Google Ads" (Admin → Liên hệ) ghi đúng tên này, phải trùng
+        // khớp từng ký tự. Không dấu để khỏi lệch khi mở CSV bằng Excel.
+        'ads_conversion_name' => env('ADS_CONVERSION_NAME', 'CRM Hen lai thu'),
     ],
 
     // Tài khoản quản trị tạo lúc `db:seed` — xem DatabaseSeeder, DEPLOY.md.

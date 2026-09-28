@@ -17,6 +17,7 @@ class Lead extends Model
             'activities'   => 'array',
             'follow_up_at' => 'datetime',
             'closed_at'    => 'datetime',
+            'qualified_at' => 'datetime',
             'deal_value'   => 'decimal:2',
             'commission'   => 'decimal:2',
         ];
@@ -36,6 +37,9 @@ class Lead extends Model
 
     /** Còn đang theo — chưa chốt, chưa mất, không phải spam. */
     public const OPEN = ['new', 'called', 'appointment', 'test_drive', 'deposit'];
+
+    /** Khách thật (đã hẹn lái thử trở lên) — chuyển đổi báo lại Google Ads. */
+    public const QUALIFIED = ['appointment', 'test_drive', 'deposit', 'won'];
 
     public const LOST_REASONS = [
         'price'      => 'Giá / ngân sách',
@@ -65,6 +69,12 @@ class Lead extends Model
         static::saving(function (Lead $lead): void {
             if ($lead->isDirty('status')) {
                 $lead->closed_at = in_array($lead->status, ['won', 'lost'], true) ? ($lead->closed_at ?? now()) : null;
+
+                // Lần ĐẦU lên "Hẹn lái thử" trở lên — thời điểm chuyển đổi gửi
+                // Google Ads. Lùi trạng thái hay lên tiếp cũng không ghi đè.
+                if (in_array($lead->status, self::QUALIFIED, true)) {
+                    $lead->qualified_at ??= now();
+                }
             }
         });
     }

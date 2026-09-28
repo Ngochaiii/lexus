@@ -34,7 +34,12 @@
   ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach((k) => {
     if (params.get(k)) utm[k] = params.get(k).slice(0, 120);
   });
-  const campaign = Object.keys(utm).length || params.get('gclid') || params.get('fbclid');
+  // Mã click quảng cáo: lưu NGUYÊN mã (không phải cờ 0/1) để lead mang theo —
+  // Admin → Liên hệ → "Xuất cho Google Ads" dùng gclid báo lại khách thật.
+  // gbraid/wbraid: Google dùng thay gclid ở một số lượt từ iOS.
+  const clickId = (k) => (params.get(k) || '').slice(0, 255);
+  const ids = { gclid: clickId('gclid'), gbraid: clickId('gbraid'), wbraid: clickId('wbraid'), fbclid: clickId('fbclid') };
+  const campaign = Object.keys(utm).length || Object.values(ids).some(Boolean);
   const external = document.referrer && !document.referrer.startsWith(location.origin);
 
   let touch = null;
@@ -45,8 +50,7 @@
       ref: external ? document.referrer.slice(0, 300) : '',
       land: location.pathname,
       utm,
-      gclid: params.get('gclid') ? 1 : 0,
-      fbclid: params.get('fbclid') ? 1 : 0,
+      ...ids,
       direct: !external && !campaign,
       ts: Date.now(),
     };

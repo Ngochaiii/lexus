@@ -194,6 +194,18 @@ stdout_logfile=/var/www/lexus/storage/logs/queue.log
   `@thuhalexus28` nếu ô trống): hiện ở khối chuyên viên trang chủ, chân trang,
   khối liên hệ; sameAs của chuyên viên; GA4 nhận sự kiện `click_tiktok`.
 
+## Chuẩn bị Google Ads (từ 30/09/2026)
+
+- **Chạy `migrate`**: thêm cột gclid/gbraid/wbraid, `qualified_at` cho lead;
+  đổi tiêu đề, mô tả trang chủ sang "Thu Hà – Tư vấn Lexus Thăng Long…" (chỉ
+  khi còn bản mặc định); đưa nguồn "google/cpc" sai trước 30/09 về "Chưa rõ".
+- Lỗi đã sửa: insight.js cũ gửi cờ `gclid: 0`, máy chủ coi là có gclid → mọi
+  lead và lượt bấm Gọi/Zalo bị ghi nguồn Google Ads. Giờ chỉ mã click thật mới tính.
+- **Admin → Liên hệ → "Xuất cho Google Ads"**: CSV các lead từ quảng cáo đã
+  "Hẹn lái thử" trở lên trong 90 ngày. Google Ads → Mục tiêu → Lượt chuyển đổi
+  → tạo hành động **Nhập → Lượt nhấp** tên đúng `CRM Hen lai thu` (đổi bằng
+  `ADS_CONVERSION_NAME` trong `.env`), đặt **Phụ** lúc đầu; rồi Tải lên file.
+
 ## 5. Kiểm tra sau khi lên
 
 - [ ] Trang chủ hiện 16 thẻ phiên bản; bấm "Nhận báo giá" → popup ghi "Phiên bản: …"
