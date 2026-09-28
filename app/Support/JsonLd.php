@@ -96,7 +96,9 @@ class JsonLd
             'brand' => ['@type' => 'Brand', 'name' => (string) config('catalog.seo.brand', 'Lexus')],
             'model' => $variant->name,
             'category' => $product->category?->name,
-            'isVariantOf' => ['@id' => Url::absolute('product', $product->slug).'#product'],
+            // Không dùng isVariantOf → {"@id": dòng xe#product}: nút đó không có
+            // trên trang này nên Google coi là Product thứ hai thiếu name/offers
+            // (lỗi Đoạn trích sản phẩm). Quan hệ với dòng xe đã có ở breadcrumb.
             'offers' => filled($variant->price) ? [
                 '@type' => 'Offer',
                 'price' => (string) $variant->price,

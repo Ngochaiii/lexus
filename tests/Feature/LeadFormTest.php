@@ -89,11 +89,31 @@ class LeadFormTest extends TestCase
             ->assertCreated()
             ->assertJsonPath('message', 'Tư vấn viên sẽ gọi lại trong 15 phút.')
             ->assertJsonPath('data.id', $lead->id)
+            ->assertJsonPath('data.new', true)
             ->assertHeader('content-type', 'application/json');
 
         $this->assertSame('Khách kiểm thử', $lead->name);
         $this->assertSame('0900000099', $lead->phone);
         Event::assertDispatched(LeadReceived::class);
+    }
+
+    // lead.js chỉ phát lead:sent (→ generate_lead GA4, conversion Ads) khi
+    // data.new = true. Bot và lần gửi trùng vẫn nhận 201 như khách thật để bot
+    // không dò được, nhưng không được đếm thành chuyển đổi.
+    public function test_fetch_gui_trung_hoac_bot_van_201_nhung_khong_phai_lead_moi(): void
+    {
+        $payload = ['name' => 'Đạt', 'phone' => '0987654321'];
+
+        $this->postJson('/gui-form/dat-lich-lai-thu', $payload)->assertJsonPath('data.new', true);
+        $this->postJson('/gui-form/dat-lich-lai-thu', $payload)
+            ->assertCreated()
+            ->assertJsonPath('data.new', false);
+
+        $this->postJson('/gui-form/dat-lich-lai-thu', [
+            'name' => 'Bot', 'phone' => '0900000000', 'website' => 'http://spam.example',
+        ])->assertCreated()->assertJsonPath('data.new', false);
+
+        $this->assertSame(1, Lead::count());
     }
 
     public function test_fetch_form_tra_loi_json_va_khong_luu_khi_thieu_du_lieu(): void

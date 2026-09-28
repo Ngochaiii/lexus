@@ -216,7 +216,7 @@ mỗi phiên tối đa một lần. Chi tiết nghiên cứu ghi ngay trong `con
 của bản thiết kế vì popup tự bật bắt buộc phải có JS. Mọi thứ vẫn là lớp nâng
 cấp: tắt JS thì form POST thường, nút "Báo giá" dẫn tới `/bao-gia`.
 
-Có sẵn sự kiện `lead:sent` trên `document` để gắn đo chuyển đổi (GTM/Pixel).
+Có sẵn sự kiện `lead:sent` trên `document` để gắn đo chuyển đổi (GTM/Pixel). Chỉ phát khi máy chủ nhận lead **mới** (`data.new`): bot và lần gửi trùng vẫn nhận 201 nhưng không phát.
 
 ## Bộ render mục theo hệ CSS Lexus
 

@@ -51,6 +51,39 @@ class VariantPageTest extends TestCase
         $this->assertStringContainsString('data-variant-name="RX 350h Premium"', $html, 'nút báo giá gửi kèm phiên bản');
     }
 
+    // Search Console (Đoạn trích sản phẩm) coi mỗi {"@id": "…#product"} trỏ tới
+    // nút không có trên trang là một Product thứ hai → báo "thiếu name" và
+    // "phải có offers" với Tên mục "Không áp dụng". Mọi Product trên trang phải
+    // tự đủ tên + giá, và không tham chiếu tới #product của trang khác.
+    public function test_schema_phien_ban_khong_sinh_product_thieu_ten_hay_gia(): void
+    {
+        $html = $this->get('/san-pham/rx/rx-350h-premium')->assertOk()->getContent();
+
+        preg_match_all('#<script type="application/ld\+json">(.*?)</script>#s', $html, $m);
+        $defined = $referenced = [];
+        $walk = function ($node) use (&$walk, &$defined, &$referenced) {
+            if (! is_array($node)) {
+                return;
+            }
+            if (isset($node['@id']) && str_ends_with($node['@id'], '#product')) {
+                if (isset($node['@type'])) {
+                    $defined[] = $node['@id'];
+                    $this->assertNotEmpty($node['name'] ?? null, 'Product thiếu name');
+                    $this->assertNotEmpty($node['offers'] ?? null, 'Product thiếu offers');
+                } else {
+                    $referenced[] = $node['@id'];
+                }
+            }
+            array_map($walk, $node);
+        };
+        foreach ($m[1] as $json) {
+            $walk(json_decode(html_entity_decode($json), true));
+        }
+
+        $this->assertSame(['https://lexus.test/san-pham/rx/rx-350h-premium#product'], $defined);
+        $this->assertSame([], array_diff($referenced, $defined), 'tham chiếu tới Product không có trên trang');
+    }
+
     public function test_trang_phien_ban_co_du_cac_muc_anh_cua_dong_xe(): void
     {
         $this->rx->update(['sections' => [

@@ -83,7 +83,10 @@
         setStatus(form, data.message || form.dataset.success || 'Đã nhận thông tin của bạn.', 'success');
         store.set('localStorage', KEY_SENT, String(Date.now()));
         // Móc cho đo chuyển đổi (GTM/Pixel): document.addEventListener('lead:sent', …)
-        form.dispatchEvent(new CustomEvent('lead:sent', { bubbles: true }));
+        // Chỉ lead mới: bản trùng và bot cũng nhận 201 nhưng data.new = false.
+        if (data.data && data.data.new) {
+          form.dispatchEvent(new CustomEvent('lead:sent', { bubbles: true }));
+        }
       } else if (res.status === 422) {
         setStatus(form, 'Vui lòng kiểm tra lại các ô được đánh dấu.', 'error');
         showErrors(form, data.errors);
