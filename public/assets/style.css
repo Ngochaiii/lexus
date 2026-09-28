@@ -154,6 +154,19 @@ html:has(.quote-dialog[open]){overflow:hidden}
 .lead-form [aria-invalid=true]{border-color:#9a3b2f}
 .lead-form button[disabled]{opacity:.6;cursor:progress}
 
+/* Gửi thành công: form chỉ còn khung cảm ơn (lead.js đặt data-sent). */
+.lead-form[data-sent]>:not([data-lead-sent]){display:none!important}
+.lead-sent{padding:28px 28px 22px;border-left:2px solid var(--accent);background:var(--stone)}
+.lead-sent:focus{outline:none}
+.lead-sent__title{font-size:26px;line-height:1.25;color:var(--ink)}
+.lead-sent__title:before{content:'✓';display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;margin-right:12px;border-radius:50%;background:var(--accent);color:#fff;font-size:19px;vertical-align:3px}
+.lead-sent__message{margin-top:12px;font-size:17px;color:var(--ink)}
+.lead-sent__hint{margin-top:22px;font-size:15px}
+.lead-sent__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+.lead-sent__actions .button{gap:12px;font-size:14px;padding:12px 20px}
+.lead-sent__again{margin-top:20px;padding:0;border:0;background:none;color:var(--muted);font-size:15px;text-decoration:underline;cursor:pointer}
+.lead-sent__again:hover{color:var(--ink)}
+
 @media(max-width:700px){
   .quote-dialog[open]{grid-template-columns:1fr}
   .quote-dialog__media{display:none}

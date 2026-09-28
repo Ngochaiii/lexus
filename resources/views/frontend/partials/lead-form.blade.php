@@ -49,6 +49,12 @@
 
     $variant = ($variant ?? null) instanceof \Illuminate\Database\Eloquent\Model ? $variant : null;
 
+    // Nút Gọi/Zalo trong khung cảm ơn — cùng nguồn với partials/sales-bar.
+    $advisor  = catalog_setting('advisor_name');
+    $callTo   = catalog_setting('advisor_phone') ?: catalog_setting('hotline');
+    $zaloRaw  = catalog_setting('advisor_zalo') ?: catalog_setting('zalo');
+    $zaloLink = $zaloRaw ? (\Illuminate\Support\Str::startsWith($zaloRaw, 'http') ? $zaloRaw : 'https://zalo.me/'.$zaloRaw) : null;
+
     $formModel = once(fn () => \App\Support\Catalog::query('form')->pluck('success_message', 'key'));
     $successMessage = $formModel[$formKey] ?? 'Đã nhận thông tin của bạn. Chuyên viên tư vấn sẽ liên hệ sớm.';
 
@@ -69,6 +75,22 @@
     {{-- Kết quả gửi. aria-live để trình đọc màn hình đọc lên khi JS điền vào. --}}
     <div class="notice full" data-lead-status role="status" aria-live="polite" @unless ($sent) hidden @endunless>
         @if ($sent){{ session('lead_success') }}@endif
+    </div>
+
+    {{-- Gửi thành công (có JS): lead.js đặt data-sent trên form → CSS ẩn hết
+         các ô, chỉ còn khung này. Một dòng chữ nhỏ phía trên form trống thì
+         khách tưởng chưa gửi được và bấm lại. --}}
+    <div class="lead-sent full" data-lead-sent tabindex="-1" hidden>
+        <p class="lead-sent__title">Đã gửi thành công</p>
+        <p class="lead-sent__message" data-lead-sent-message></p>
+        @if ($callTo || $zaloLink)
+            <p class="lead-sent__hint">Muốn trao đổi ngay?</p>
+            <div class="lead-sent__actions">
+                @if ($callTo)<a class="button" href="tel:{{ $callTo }}">Gọi {{ $advisor ?: 'tư vấn' }} {{ \App\Support\Phone::format($callTo) }}</a>@endif
+                @if ($zaloLink)<a class="button outline" href="{{ $zaloLink }}" target="_blank" rel="noopener">Nhắn Zalo</a>@endif
+            </div>
+        @endif
+        <button class="lead-sent__again" type="button" data-lead-again>Gửi yêu cầu khác</button>
     </div>
 
     {{-- Bẫy bot. `hidden` một mình không đủ vì .field có display:flex; class

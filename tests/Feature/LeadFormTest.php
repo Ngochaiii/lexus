@@ -205,6 +205,10 @@ class LeadFormTest extends TestCase
         $this->assertStringContainsString('Đặt cọc', $html);
         $this->assertStringContainsString('name="_token"', $form);     // CSRF
         $this->assertStringContainsString('class="honeypot"', $form);  // ô bẫy bot
+        // Khung cảm ơn lead.js bật khi gửi xong — không có thì khách chỉ thấy
+        // form trống và tưởng chưa gửi được.
+        $this->assertStringContainsString('data-lead-sent', $form);
+        $this->assertStringContainsString('data-lead-again', $form);
 
         // Bỏ hết khoá trong config → form cuối trang biến mất, trang vẫn chạy
         config(['catalog.frontend.product_forms' => []]);

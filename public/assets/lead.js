@@ -40,6 +40,33 @@
     box.dataset.kind = kind || '';
   };
 
+  // Khung cảm ơn thay chỗ các ô (CSS: .lead-form[data-sent]). Form cũ không có
+  // khung (cache HTML) thì lùi về dòng trạng thái.
+  const showSent = (form, text) => {
+    const panel = form.querySelector('[data-lead-sent]');
+    if (!panel) { setStatus(form, text, 'success'); return; }
+    setStatus(form, '', '');
+    const msg = panel.querySelector('[data-lead-sent-message]');
+    if (msg) msg.textContent = text;
+    panel.hidden = false;
+    form.dataset.sent = '1';
+    panel.focus({ preventScroll: true });
+    panel.scrollIntoView({ block: 'nearest' });
+  };
+  const resetSent = (form) => {
+    const panel = form.querySelector('[data-lead-sent]');
+    if (panel) panel.hidden = true;
+    delete form.dataset.sent;
+  };
+  document.addEventListener('click', (event) => {
+    const again = event.target.closest && event.target.closest('[data-lead-again]');
+    if (!again) return;
+    const form = again.closest('[data-lead-form]');
+    resetSent(form);
+    const first = form.querySelector('input[name="name"]');
+    if (first) first.focus();
+  });
+
   const clearErrors = (form) => {
     form.querySelectorAll('[data-error-for]').forEach((el) => { el.hidden = true; el.textContent = ''; });
     form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
@@ -80,7 +107,7 @@
         form.reset();
         const chip = form.querySelector('[data-variant-chip]');
         if (chip && !form.querySelector('[data-variant-input]').value) chip.hidden = true;
-        setStatus(form, data.message || form.dataset.success || 'Đã nhận thông tin của bạn.', 'success');
+        showSent(form, data.message || form.dataset.success || 'Đã nhận thông tin của bạn.');
         store.set('localStorage', KEY_SENT, String(Date.now()));
         // Móc cho đo chuyển đổi (GTM/Pixel): document.addEventListener('lead:sent', …)
         // Chỉ lead mới: bản trùng và bot cũng nhận 201 nhưng data.new = false.
@@ -136,6 +163,7 @@
     form.action = mode === 'auto' ? dialog.dataset.autoAction : dialog.dataset.manualAction;
     clearErrors(form);
     setStatus(form, '', '');
+    resetSent(form);
     if (select) select.value = productId || '';
     setVariant(variantId, variantName);
     dialog.showModal();
