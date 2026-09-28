@@ -347,6 +347,7 @@ class JsonLd
             '@id' => self::advisorId(),
             'name' => Setting::get('advisor_name'),
             'jobTitle' => Setting::get('advisor_role'),
+            'description' => Setting::get('advisor_experience'),
             'telephone' => self::phone(Setting::get('advisor_phone')),
             'worksFor' => ['@id' => self::organizationId()],
             'url' => Route::has('pages.show') ? route('pages.show', 'lien-he') : null,

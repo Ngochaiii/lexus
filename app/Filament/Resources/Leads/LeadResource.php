@@ -136,6 +136,10 @@ class LeadResource extends Resource
                         ->formatStateUsing(fn (?string $state) => Lead::sourceLabel($state)),
                     TextInput::make('medium')->label('Kênh')->disabled()->dehydrated(false),
                     TextInput::make('campaign')->label('Chiến dịch')->disabled()->dehydrated(false),
+                    // Mẫu theo dõi Google Ads gửi utm_term={keyword}: từ khoá khách gõ
+                    // khi thấy quảng cáo — biết nên dồn tiền vào từ khoá nào.
+                    TextInput::make('utm.utm_term')->label('Từ khoá quảng cáo')->disabled()->dehydrated(false)
+                        ->placeholder('—')->columnSpan(3),
                     TextInput::make('landing_page')->label('Trang vào đầu tiên')->disabled()->dehydrated(false)->columnSpan(2),
                     TextInput::make('device')->label('Thiết bị')->disabled()->dehydrated(false),
                     TextInput::make('gclid')->label('Mã click Google Ads (gclid)')->disabled()->dehydrated(false)
@@ -188,6 +192,14 @@ class LeadResource extends Resource
                     ->description(fn ($record) => $record->landing_page)
                     ->placeholder('—')
                     ->toggleable(),
+                // Không đặt tên 'utm.utm_term': Filament hiểu dấu chấm là quan hệ.
+                TextColumn::make('utm_term')
+                    ->label('Từ khoá QC')
+                    ->state(fn ($record) => $record->utm['utm_term'] ?? null)
+                    ->description(fn ($record) => $record->campaign)
+                    ->placeholder('—')
+                    ->searchable(query: fn (Builder $q, string $search) => $q->where('utm', 'like', '%'.$search.'%'))
+                    ->toggleable(),
                 TextColumn::make('follow_up_at')
                     ->label('Hẹn gọi')
                     ->dateTime('d/m H:i')
@@ -214,10 +226,12 @@ class LeadResource extends Resource
                 EditAction::make(),
                 DeleteAction::make(),
             ])
+            // Filament truyền tham số closure THEO TÊN: phải là $query. Tên khác
+            // ($q) thì nhận null và bộ lọc lặng lẽ không lọc gì.
             ->filters([
                 Filter::make('due')
                     ->label('Cần gọi lại hôm nay')
-                    ->query(fn (Builder $q) => $q->whereIn('status', Lead::OPEN)->where('follow_up_at', '<=', now()->endOfDay())),
+                    ->query(fn (Builder $query) => $query->whereIn('status', Lead::OPEN)->where('follow_up_at', '<=', now()->endOfDay())),
                 SelectFilter::make('status')
                     ->label('Trạng thái')
                     ->multiple()
@@ -225,6 +239,13 @@ class LeadResource extends Resource
                 SelectFilter::make('source')
                     ->label('Nguồn')
                     ->options(Lead::SOURCES),
+                Filter::make('google_ads')
+                    ->label('Từ Google Ads')
+                    ->query(fn (Builder $query) => $query->where('source', 'google')->where('medium', 'cpc')),
+                SelectFilter::make('campaign')
+                    ->label('Chiến dịch')
+                    ->options(fn () => Catalog::query('lead')->whereNotNull('campaign')->distinct()
+                        ->orderBy('campaign')->pluck('campaign', 'campaign')->all()),
                 SelectFilter::make('product_id')
                     ->label(Catalog::label('product.single'))
                     ->relationship('product', 'name'),

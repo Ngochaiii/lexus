@@ -32,6 +32,7 @@
                         <p class="aside-eyebrow">Hỏi trực tiếp người viết</p>
                         @if ($advisor)<strong>{{ $advisor }}</strong>@endif
                         <span>{{ $role }}</span>
+                        @if (filled($experience = catalog_setting('advisor_experience')))<span>{{ $experience }}</span>@endif
                     </div>
                 </div>
                 <p class="aside-note">Báo giá lăn bánh, phương án trả góp và lịch lái thử theo đúng phiên bản bạn chọn — miễn phí.</p>

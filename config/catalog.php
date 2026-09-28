@@ -211,6 +211,9 @@ return [
                 'advisor_off' => ['label' => 'Tư vấn viên — ẩn khối này', 'type' => 'toggle'],
                 'advisor_name' => ['label' => 'Tư vấn viên — họ tên (VD "Hữu Lập")', 'type' => 'text'],
                 'advisor_role' => ['label' => 'Tư vấn viên — chức danh (mặc định "Tư vấn bán hàng")', 'type' => 'text'],
+                // Quảng cáo Google dùng câu này ("10 Năm Kinh Nghiệm Bán Ô Tô") —
+                // trang đích phải có đúng thông tin đó (khối chuyên viên trên trang xe).
+                'advisor_experience' => ['label' => 'Tư vấn viên — kinh nghiệm (VD "10 năm kinh nghiệm bán ô tô")', 'type' => 'text'],
                 'advisor_phone' => ['label' => 'Tư vấn viên — số gọi trực tiếp (trống thì dùng Hotline)', 'type' => 'text'],
                 'advisor_zalo' => ['label' => 'Tư vấn viên — Zalo (số hoặc link, trống thì dùng Zalo chung)', 'type' => 'text'],
                 'advisor_title' => ['label' => 'Tư vấn viên — tiêu đề (dòng 1)', 'type' => 'text'],
@@ -356,6 +359,15 @@ return [
         // "Xuất cho Google Ads" (Admin → Liên hệ) ghi đúng tên này, phải trùng
         // khớp từng ký tự. Không dấu để khỏi lệch khi mở CSV bằng Excel.
         'ads_conversion_name' => env('ADS_CONVERSION_NAME', 'CRM Hen lai thu'),
+
+        // Báo lead mới về Telegram (App\Listeners\SendLeadTelegram): bot tạo bằng
+        // @BotFather; chat id lấy bằng `php artisan lead:telegram-test`. Nhiều
+        // người nhận: cách nhau dấu phẩy. Bỏ trống thì không gửi.
+        'telegram' => [
+            'bot_token' => env('TELEGRAM_BOT_TOKEN'),
+            'chat_ids' => array_values(array_filter(array_map('trim',
+                explode(',', (string) env('TELEGRAM_CHAT_ID', ''))))),
+        ],
     ],
 
     // Tài khoản quản trị tạo lúc `db:seed` — xem DatabaseSeeder, DEPLOY.md.

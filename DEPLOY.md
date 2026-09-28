@@ -205,6 +205,20 @@ stdout_logfile=/var/www/lexus/storage/logs/queue.log
   "Hẹn lái thử" trở lên trong 90 ngày. Google Ads → Mục tiêu → Lượt chuyển đổi
   → tạo hành động **Nhập → Lượt nhấp** tên đúng `CRM Hen lai thu` (đổi bằng
   `ADS_CONVERSION_NAME` trong `.env`), đặt **Phụ** lúc đầu; rồi Tải lên file.
+- **Trang đích**: khối chuyên viên (ảnh, "10 năm kinh nghiệm bán ô tô", Gọi/Zalo,
+  báo giá, link trả góp) ở trang dòng xe, phiên bản, `/bang-gia`, `/lien-he`,
+  `/tai-chinh` — quảng cáo dùng các câu này nên trang đích phải có. Sửa kinh nghiệm
+  ở Cài đặt → Tư vấn viên — kinh nghiệm. Chính sách quyền riêng tư có mục
+  "7. Quảng cáo Google" (tiếp thị lại, gclid, cách từ chối) — migration tự thêm.
+- **Admin → Liên hệ**: cột "Từ khoá QC" (utm_term từ mẫu theo dõi Google Ads),
+  lọc "Từ Google Ads" và theo chiến dịch. Sửa lọc "Cần gọi lại hôm nay" (trước
+  đây không lọc gì — Filament truyền tham số closure theo TÊN, phải là `$query`).
+- **Báo lead qua Telegram** (gọi lại trong 5 phút): Telegram → @BotFather →
+  `/newbot` → ghi `TELEGRAM_BOT_TOKEN=` vào `.env`; mở bot, bấm Start, nhắn một
+  câu; `php artisan config:clear && php artisan lead:telegram-test` in ra
+  `TELEGRAM_CHAT_ID=…` → ghi vào `.env` (nhiều người: cách nhau dấu phẩy);
+  `php artisan optimize && supervisorctl restart lexus-queue:*`; chạy lại
+  `lead:telegram-test` để nhận tin thử. Cần queue worker đang chạy.
 
 ## 5. Kiểm tra sau khi lên
 

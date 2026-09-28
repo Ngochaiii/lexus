@@ -86,4 +86,28 @@ class SeoAuditFixesTest extends TestCase
         }
         $this->assertLessThanOrEqual(60, mb_strlen($title[1]));
     }
+
+    // Liên kết GA4 ↔ Google Ads bật quảng cáo cá nhân hoá: chính sách phải nói rõ
+    // tiếp thị lại, mã nhấp quảng cáo và cách từ chối. Migration đưa lên site thật.
+    public function test_chinh_sach_rieng_tu_noi_ro_quang_cao_google(): void
+    {
+        \App\Models\Setting::put('site_name', 'Lexus Thăng Long');
+        $old = [['type' => 'text', 'title' => 'Tóm tắt', 'body' => '<p>Cập nhật lần cuối: 24/09/2026. Chính sách…</p>']];
+        $page = \App\Models\Page::create(['slug' => 'quyen-rieng-tu', 'title' => 'Quyền riêng tư', 'status' => 'published', 'sections' => $old]);
+
+        (require database_path('migrations/2026_09_30_120000_advisor_experience_and_ads_privacy.php'))->up();
+
+        $html = $this->get('/quyen-rieng-tu')->assertOk()->getContent();
+        $this->assertStringContainsString('Quảng cáo, tiếp thị lại và cách từ chối', $html);
+        $this->assertStringContainsString('gclid', $html);
+        $this->assertStringContainsString('https://myadcenter.google.com/', $html);
+        $this->assertStringContainsString('Cập nhật lần cuối: 28/09/2026', $html);
+        $this->assertSame('10 năm kinh nghiệm bán ô tô', \App\Models\Setting::get('advisor_experience'));
+
+        (require database_path('migrations/2026_09_30_120000_advisor_experience_and_ads_privacy.php'))->up();
+        $this->assertCount(2, $page->fresh()->sections, 'chạy lại không thêm trùng mục 7');
+
+        $seeder = file_get_contents(database_path('seeders/LexusSiteSeeder.php'));
+        $this->assertStringContainsString("'7. Quảng cáo Google'", $seeder);
+    }
 }

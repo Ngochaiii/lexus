@@ -59,6 +59,11 @@
         @include('frontend.partials.price-table')
     @endif
 
+    {{-- Trang đích quảng cáo: người tư vấn (kinh nghiệm, Gọi/Zalo, trả góp). --}}
+    @if (in_array($page->slug, ['bang-gia', 'lien-he', 'tai-chinh'], true))
+        @include('frontend.partials.advisor-card', ['hideFinance' => $page->slug === 'tai-chinh'])
+    @endif
+
     @includeWhen($sections->isNotEmpty(), 'frontend.partials.sections', [
         'sections' => $sections,
         'numbered' => false,

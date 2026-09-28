@@ -39,6 +39,7 @@
 @php
     $advisor   = catalog_setting('advisor_name');
     $advisorRo = catalog_setting('advisor_role', 'Chuyên viên tư vấn');
+    $advisorEx = catalog_setting('advisor_experience');
     $portrait  = catalog_image(catalog_setting('advisor_image'));
     $hasAdvisor = filled($advisor) && ! catalog_setting('advisor_off');
 
@@ -126,7 +127,7 @@
                          @endunless
                          sizes="56px" width="320" height="320"
                          alt="Chân dung {{ $advisor }}" loading="lazy" decoding="async">
-                    <span><strong>{{ $advisor }}</strong><span>{{ $advisorRo }}</span></span>
+                    <span><strong>{{ $advisor }}</strong><span>{{ $advisorRo }}@if (filled($advisorEx)) · {{ $advisorEx }}@endif</span></span>
                 </a>
                 <p>Một người đồng hành cho hành trình Lexus của bạn.</p>
                 <a class="text-link" href="#chuyen-vien">Gặp người tư vấn</a>

@@ -23,6 +23,7 @@
         <span class="eyebrow">NGƯỜI TƯ VẤN CỦA BẠN</span>
         <strong>{{ $advisor }}</strong>
         <span>{{ $role }}</span>
+        @if (filled($experience = catalog_setting('advisor_experience')))<span class="advisor-mini-exp">{{ $experience }}</span>@endif
         <span class="advisor-mini-link">Tìm hiểu người đồng hành ↗</span>
     </span>
 </a>

@@ -169,6 +169,9 @@
         </section>
     @endif
 
+    {{-- Người tư vấn ngay sau bảng giá phiên bản — lúc khách muốn hỏi tiếp. --}}
+    @include('frontend.partials.advisor-card', ['car' => $product])
+
     {{-- ══ 2 · Màu sắc & xoay 360° ══ --}}
     @include('frontend.partials.vehicle-studio')
 

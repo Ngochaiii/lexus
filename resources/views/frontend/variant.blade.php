@@ -127,6 +127,9 @@
         </section>
     @endif
 
+    {{-- Người tư vấn ngay sau con số lăn bánh — lúc khách muốn hỏi tiếp. --}}
+    @include('frontend.partials.advisor-card', ['car' => $product, 'variant' => $variant])
+
     {{-- ══ 2 · Màu sắc ══ --}}
     @include('frontend.partials.vehicle-studio')
 

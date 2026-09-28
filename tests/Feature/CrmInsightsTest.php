@@ -130,6 +130,47 @@ class CrmInsightsTest extends TestCase
             ->assertFileDownloaded('google-ads-chuyen-doi-2026-10-20.csv');
     }
 
+    // Mẫu theo dõi Google Ads: ?utm_source=google&utm_medium=cpc&utm_campaign=c1-es&utm_term={keyword}
+    // → lead ghi từ khoá, admin hiện và lọc được "Từ Google Ads".
+    public function test_admin_thay_tu_khoa_quang_cao_va_loc_lead_google_ads(): void
+    {
+        $this->post('/gui-form/nhan-bao-gia', [
+            'name' => 'Khách Ads', 'phone' => '0912345601',
+            'attribution' => json_encode(['ref' => 'https://www.google.com/', 'land' => '/san-pham/es', 'gclid' => 'Cj0KCQjw_abc-123XYZ',
+                'utm' => ['utm_source' => 'google', 'utm_medium' => 'cpc', 'utm_campaign' => 'c1-es', 'utm_term' => 'giá lăn bánh lexus es']]),
+        ]);
+        $this->post('/gui-form/nhan-bao-gia', [
+            'name' => 'Khách Tự Nhiên', 'phone' => '0912345602',
+            'attribution' => json_encode(['ref' => 'https://www.google.com/', 'land' => '/bang-gia', 'utm' => []]),
+        ]);
+        [$ads, $organic] = [Lead::where('phone', '0912345601')->sole(), Lead::where('phone', '0912345602')->sole()];
+        $this->assertSame(['google', 'cpc', 'c1-es', 'giá lăn bánh lexus es'], [$ads->source, $ads->medium, $ads->campaign, $ads->utm['utm_term']]);
+
+        $this->actingAs(User::create(['name' => 'A', 'email' => 'admin', 'password' => 'x']));
+        Filament::setCurrentPanel(Filament::getPanel('admin'));
+        Livewire::test(\App\Filament\Resources\Leads\Pages\ManageLeads::class)
+            ->assertTableColumnStateSet('utm_term', 'giá lăn bánh lexus es', $ads)
+            ->assertCountTableRecords(2)
+            ->filterTable('google_ads')
+            ->assertCountTableRecords(1)
+            ->assertTableColumnStateSet('name', 'Khách Ads', $ads);
+    }
+
+    public function test_loc_can_goi_lai_hom_nay(): void
+    {
+        $form = Form::first()->id;
+        Lead::create(['form_id' => $form, 'name' => 'Đến hạn', 'phone' => '0912000011', 'status' => 'called', 'follow_up_at' => now()->subHour()]);
+        Lead::create(['form_id' => $form, 'name' => 'Tuần sau', 'phone' => '0912000012', 'status' => 'called', 'follow_up_at' => now()->addWeek()]);
+        Lead::create(['form_id' => $form, 'name' => 'Đã mua', 'phone' => '0912000013', 'status' => 'won', 'follow_up_at' => now()->subHour()]);
+
+        $this->actingAs(User::create(['name' => 'A', 'email' => 'admin', 'password' => 'x']));
+        Filament::setCurrentPanel(Filament::getPanel('admin'));
+        Livewire::test(\App\Filament\Resources\Leads\Pages\ManageLeads::class)
+            ->assertCountTableRecords(3)
+            ->filterTable('due')
+            ->assertCountTableRecords(1);
+    }
+
     public function test_nhan_su_kien_goi_zalo_va_toc_do_bo_qua_bot_va_so_lieu_sai(): void
     {
         $events = ['events' => [

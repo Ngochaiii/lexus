@@ -66,6 +66,23 @@
 .advisor-mini strong+span{display:none}
 .advisor-mini-link{display:block;font-size:15px;color:var(--muted);margin-top:8px;text-decoration:underline;text-underline-offset:4px}
 .advisor-mini:hover .advisor-mini-link{color:var(--accent)}
+.advisor-mini-exp{display:block;font-size:15px;color:var(--ink);margin-top:2px}
+
+/* Khối chuyên viên trên trang đích quảng cáo (partials/advisor-card). */
+.advisor-card-band{background:var(--stone);border-block:1px solid var(--line)}
+.advisor-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:48px;align-items:center;padding-block:44px}
+.advisor-card__who{display:flex;gap:22px;align-items:center}
+.advisor-card__who .advisor-avatar{width:96px;height:96px}
+.advisor-card__who .eyebrow{font-size:13px;letter-spacing:.14em;margin-bottom:8px}
+.advisor-card__who strong{display:block;font-size:28px;font-weight:400;line-height:1.25}
+.advisor-card__who span{display:block;font-size:16px;color:var(--muted);line-height:1.5}
+.advisor-card__who .advisor-card__exp{color:var(--ink);font-weight:500;margin-top:4px}
+.advisor-card__offer p{font-size:18px;color:var(--ink);max-width:620px}
+.advisor-card__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.advisor-card__actions .button{gap:12px;font-size:14px;padding:12px 22px}
+.advisor-card__finance{margin-top:14px;font-size:16px;white-space:normal}
+@media(max-width:850px){.advisor-card{grid-template-columns:minmax(0,1fr);gap:24px;padding-block:36px}}
+@media(max-width:600px){.advisor-card__who .advisor-avatar{width:72px;height:72px}.advisor-card__who strong{font-size:24px}.advisor-card__offer p{font-size:17px}.advisor-card__actions .button{flex:1 1 auto}}
 .advisor-welcome{margin:0;max-width:480px;justify-self:end}
 .contact-section .advisor-welcome img{aspect-ratio:4/5;object-fit:cover;object-position:50% 60%;height:auto}
 .advisor-welcome figcaption{padding-top:14px;font-size:16px;color:var(--muted)}

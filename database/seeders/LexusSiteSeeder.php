@@ -71,6 +71,7 @@ class LexusSiteSeeder extends Seeder
 
             'advisor_name'  => 'Thu Hà',
             'advisor_role'  => 'Chuyên viên tư vấn · Lexus Thăng Long',
+            'advisor_experience' => '10 năm kinh nghiệm bán ô tô',
             'advisor_phone' => '0989345989',
             'advisor_zalo'  => 'https://zalo.me/0989345989',
 
@@ -634,7 +635,7 @@ class LexusSiteSeeder extends Seeder
                         'body' => '<p>Khi bạn gửi form đăng ký lái thử hoặc nhận báo giá, chúng tôi lưu <strong>họ tên, số điện thoại và dòng xe bạn quan tâm</strong> '
                             .'để liên hệ tư vấn. Thông tin <strong>không được bán</strong> và chỉ chia sẻ với đại lý Lexus Thăng Long để phục vụ yêu cầu của bạn. '
                             .'Bạn có thể yêu cầu xem, sửa hoặc xoá dữ liệu bất cứ lúc nào qua hotline 0989 345 989.</p>'
-                            .'<p>Cập nhật lần cuối: 24/09/2026. Chính sách áp dụng theo Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15 và Nghị định 356/2025/NĐ-CP.</p>'],
+                            .'<p>Cập nhật lần cuối: 28/09/2026. Chính sách áp dụng theo Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15 và Nghị định 356/2025/NĐ-CP.</p>'],
                     ['type' => 'text', 'title' => '1. Bên xử lý dữ liệu', 'intro' => 'Ai chịu trách nhiệm với dữ liệu của bạn',
                         'body' => '<p>Website này là trang tư vấn của chuyên viên bán hàng Thu Hà tại đại lý Lexus Thăng Long (ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy, Hà Nội), '
                             .'không phải website chính thức của Lexus Việt Nam. Mọi yêu cầu liên quan đến dữ liệu cá nhân, vui lòng liên hệ hotline 0989 345 989.</p>'],
@@ -642,7 +643,8 @@ class LexusSiteSeeder extends Seeder
                         'body' => '<h3>Do bạn cung cấp qua form</h3><ul><li>Họ và tên.</li><li>Số điện thoại.</li><li>Dòng xe bạn quan tâm.</li>'
                             .'<li>Xác nhận đồng ý với chính sách này.</li></ul>'
                             .'<h3>Ghi nhận tự động khi gửi form</h3><ul><li>Trang bạn đang xem lúc gửi, trang bạn vào đầu tiên, nguồn đưa bạn tới website '
-                            .'(Google, Facebook, Zalo…) và nguồn chiến dịch quảng cáo (tham số UTM), nếu có; loại thiết bị (điện thoại hay máy tính).</li>'
+                            .'(Google, Facebook, Zalo…), nguồn chiến dịch quảng cáo (tham số UTM, từ khoá quảng cáo) và mã nhấp quảng cáo Google (gclid), nếu có; '
+                            .'loại thiết bị (điện thoại hay máy tính).</li>'
                             .'<li>Địa chỉ IP — dùng để chống gửi tự động (spam).</li></ul>'
                             .'<h3>Thống kê ẩn danh</h3><ul><li>Số lượt bấm nút Gọi / Zalo theo từng trang và số đo tốc độ tải trang — '
                             .'không kèm tên, số điện thoại hay địa chỉ IP, chỉ để biết trang nào hữu ích và cải thiện tốc độ.</li></ul>'
@@ -654,7 +656,8 @@ class LexusSiteSeeder extends Seeder
                     ['type' => 'text', 'title' => '3. Mục đích', 'intro' => 'Dữ liệu được dùng để làm gì',
                         'body' => '<ul><li>Gọi lại để xác nhận lịch lái thử, gửi báo giá và phương án mua xe theo yêu cầu của bạn.</li>'
                             .'<li>Chăm sóc sau bán hàng khi bạn đã mua xe: nhắc lịch bảo dưỡng, thông báo chương trình liên quan đến xe của bạn.</li>'
-                            .'<li>Thống kê nguồn khách (khách đến từ trang nào, chiến dịch nào) để cải thiện website.</li></ul>'
+                            .'<li>Thống kê nguồn khách (khách đến từ trang nào, chiến dịch nào) để cải thiện website.</li>'
+                            .'<li>Đo hiệu quả quảng cáo Google: báo cho Google biết lượt bấm quảng cáo nào dẫn tới lịch hẹn xem xe (xem mục 7).</li></ul>'
                             .'<p>Chúng tôi không dùng dữ liệu của bạn cho mục đích khác khi chưa hỏi ý kiến bạn.</p>'],
                     ['type' => 'text', 'title' => '4. Chia sẻ', 'intro' => 'Dữ liệu được chia sẻ với ai',
                         'body' => '<ul><li>Đại lý Lexus Thăng Long — để lập báo giá, hợp đồng, đăng ký lái thử và giao xe.</li>'
@@ -670,6 +673,18 @@ class LexusSiteSeeder extends Seeder
                             .'<li>Rút lại sự đồng ý và yêu cầu xoá dữ liệu.</li><li>Yêu cầu ngừng liên hệ tư vấn, chăm sóc.</li>'
                             .'<li>Khiếu nại nếu cho rằng dữ liệu bị xử lý sai quy định.</li></ul>'
                             .'<p>Gọi hoặc nhắn Zalo 0989 345 989 để thực hiện các quyền trên. Chúng tôi phản hồi trong thời hạn pháp luật quy định.</p>'],
+                    // Bắt buộc khi chạy Google Ads có tiếp thị lại (liên kết GA4 ↔ Ads bật
+                    // quảng cáo cá nhân hoá) — chính sách quảng cáo cá nhân hoá của Google.
+                    ['type' => 'text', 'title' => '7. Quảng cáo Google', 'intro' => 'Quảng cáo, tiếp thị lại và cách từ chối',
+                        'body' => '<p>Website quảng cáo trên Google (Google Ads) và dùng Google Analytics. Khi bạn đến từ một quảng cáo, '
+                            .'trình duyệt ghi nhớ <strong>mã nhấp quảng cáo</strong> (gclid) và gửi kèm nếu bạn gửi form. '
+                            .'Khi bạn đã hẹn xem xe, chúng tôi báo lại cho Google <strong>chỉ mã nhấp đó và thời điểm hẹn</strong> — '
+                            .'không gửi tên hay số điện thoại — để Google biết quảng cáo nào hữu ích.</p>'
+                            .'<p>Google và các bên thứ ba có thể dùng cookie để hiển thị quảng cáo của website này cho bạn trên các trang khác '
+                            .'dựa trên việc bạn đã xem website (tiếp thị lại). Bạn có thể tắt quảng cáo được cá nhân hoá tại '
+                            .'<a href="https://myadcenter.google.com/" rel="noopener" target="_blank">Trung tâm quảng cáo của tôi</a> của Google, '
+                            .'và chặn Google Analytics bằng '
+                            .'<a href="https://tools.google.com/dlpage/gaoptout" rel="noopener" target="_blank">tiện ích chọn không tham gia Google Analytics</a>.</p>'],
                 ],
             ],
 
