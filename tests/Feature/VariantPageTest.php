@@ -90,12 +90,16 @@ class VariantPageTest extends TestCase
     {
         Setting::put('advisor_name', 'Thu Hà');
         Setting::put('advisor_experience', '10 năm kinh nghiệm bán ô tô');
+        // Quảng cáo ghi "Đại Lý 3S Chính Hãng" → trang đích phải nói đúng điều đó.
+        Setting::put('advisor_dealer_note', 'Lexus Thăng Long – đại lý 3S chính hãng: bán xe, bảo hành, dịch vụ, phụ tùng');
         \App\Models\Page::create(['slug' => 'bang-gia', 'title' => 'Bảng giá', 'status' => 'published', 'sections' => []]);
+        \App\Models\Page::create(['slug' => 'lien-he', 'title' => 'Liên hệ', 'status' => 'published', 'sections' => []]);
 
-        foreach (['/san-pham/rx', '/san-pham/rx/rx-350h-premium', '/bang-gia'] as $url) {
+        foreach (['/san-pham/rx', '/san-pham/rx/rx-350h-premium', '/bang-gia', '/lien-he'] as $url) {
             $html = $this->get($url)->assertOk()->getContent();
             $this->assertStringContainsString('class="advisor-card-band"', $html, $url);
             $this->assertStringContainsString('10 năm kinh nghiệm bán ô tô', $html, $url);
+            $this->assertStringContainsString('đại lý 3S chính hãng: bán xe, bảo hành, dịch vụ, phụ tùng', $html, $url);
             $this->assertStringContainsString('trả góp', $html, $url);
             $this->assertStringContainsString('href="tel:0989345989"', $html, $url);
         }

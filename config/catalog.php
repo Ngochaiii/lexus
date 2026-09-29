@@ -214,6 +214,8 @@ return [
                 // Quảng cáo Google dùng câu này ("10 Năm Kinh Nghiệm Bán Ô Tô") —
                 // trang đích phải có đúng thông tin đó (khối chuyên viên trên trang xe).
                 'advisor_experience' => ['label' => 'Tư vấn viên — kinh nghiệm (VD "10 năm kinh nghiệm bán ô tô")', 'type' => 'text'],
+                // Quảng cáo ghi "Đại Lý 3S Chính Hãng" — khối chuyên viên trên trang đích nói đúng điều đó.
+                'advisor_dealer_note' => ['label' => 'Tư vấn viên — đại lý đang làm (VD "Lexus Thăng Long – đại lý 3S chính hãng: bán xe, bảo hành, dịch vụ, phụ tùng")', 'type' => 'text'],
                 'advisor_phone' => ['label' => 'Tư vấn viên — số gọi trực tiếp (trống thì dùng Hotline)', 'type' => 'text'],
                 'advisor_zalo' => ['label' => 'Tư vấn viên — Zalo (số hoặc link, trống thì dùng Zalo chung)', 'type' => 'text'],
                 'advisor_title' => ['label' => 'Tư vấn viên — tiêu đề (dòng 1)', 'type' => 'text'],

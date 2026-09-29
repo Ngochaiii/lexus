@@ -78,6 +78,7 @@
 .advisor-card__who span{display:block;font-size:16px;color:var(--muted);line-height:1.5}
 .advisor-card__who .advisor-card__exp{color:var(--ink);font-weight:500;margin-top:4px}
 .advisor-card__offer p{font-size:18px;color:var(--ink);max-width:620px}
+.advisor-card__offer .advisor-card__dealer{margin-top:10px;font-size:15px;color:var(--muted)}
 .advisor-card__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
 .advisor-card__actions .button{gap:12px;font-size:14px;padding:12px 22px}
 .advisor-card__finance{margin-top:14px;font-size:16px;white-space:normal}

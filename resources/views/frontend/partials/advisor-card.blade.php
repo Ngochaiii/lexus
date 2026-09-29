@@ -4,7 +4,8 @@
     lời mời mua trả góp.
 
     Vì sao cần: quảng cáo Google của chuyên viên ghi "10 Năm Kinh Nghiệm Bán
-    Ô Tô", "Phương Án Trả Góp" — trang đích phải có đúng thông tin đó, nếu không
+    Ô Tô", "Phương Án Trả Góp", "Đại Lý 3S Chính Hãng" (advisor_dealer_note) —
+    trang đích phải có đúng thông tin đó, nếu không
     Google coi là tuyên bố không có căn cứ và hạ điểm liên quan trang đích.
 
     Biến (đều tuỳ chọn):
@@ -16,6 +17,7 @@
     $advisor    = catalog_setting('advisor_name');
     $role       = catalog_setting('advisor_role', 'Chuyên viên tư vấn');
     $experience = catalog_setting('advisor_experience');
+    $dealerNote = catalog_setting('advisor_dealer_note');
     $phone      = catalog_setting('advisor_phone') ?: catalog_setting('hotline');
     $zaloRaw    = catalog_setting('advisor_zalo') ?: catalog_setting('zalo');
     $zalo       = $zaloRaw ? (\Illuminate\Support\Str::startsWith($zaloRaw, 'http') ? $zaloRaw : 'https://zalo.me/'.$zaloRaw) : null;
@@ -53,6 +55,7 @@
                     Báo giá lăn bánh {{ $carName ?: 'Lexus' }} theo đúng phiên bản bạn chọn, phương án mua trả góp
                     và lịch lái thử tại showroom — {{ $advisor }} trực tiếp tư vấn, miễn phí.
                 </p>
+                @if (filled($dealerNote))<p class="advisor-card__dealer">{{ $dealerNote }}</p>@endif
                 <div class="advisor-card__actions">
                     @if ($phone)<a class="button" href="tel:{{ $phone }}">Gọi {{ \App\Support\Phone::format($phone) }}</a>@endif
                     @if ($zalo)<a class="button outline" href="{{ $zalo }}" rel="noopener" target="_blank">Nhắn Zalo</a>@endif

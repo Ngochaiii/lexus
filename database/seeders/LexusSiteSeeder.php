@@ -72,6 +72,7 @@ class LexusSiteSeeder extends Seeder
             'advisor_name'  => 'Thu Hà',
             'advisor_role'  => 'Chuyên viên tư vấn · Lexus Thăng Long',
             'advisor_experience' => '10 năm kinh nghiệm bán ô tô',
+            'advisor_dealer_note' => 'Lexus Thăng Long – đại lý 3S chính hãng: bán xe, bảo hành, dịch vụ, phụ tùng',
             'advisor_phone' => '0989345989',
             'advisor_zalo'  => 'https://zalo.me/0989345989',
 
