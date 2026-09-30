@@ -149,4 +149,21 @@ class VariantPageTest extends TestCase
             ->assertSee('class="contact-float"', false)
             ->assertSee('class="sales-bar"', false);
     }
+
+    // Mục tiêu quảng cáo là cuộc gọi tới chuyên viên: trên điện thoại, nút Gọi
+    // đứng đầu thanh dưới cùng (CSS :first-child tô đậm, rộng gấp đôi).
+    public function test_thanh_duoi_dien_thoai_nut_goi_dung_dau(): void
+    {
+        Setting::put('advisor_name', 'Thu Hà');
+        Setting::put('zalo', '0989345989');
+
+        $html = $this->get('/san-pham/rx')->assertOk()->getContent();
+        preg_match('#<nav class="sales-bar"[^>]*>(.*?)</nav>#s', $html, $bar);
+        preg_match_all('#<a [^>]*href="([^"]+)"#', $bar[1], $links);
+
+        $this->assertSame('tel:0989345989', $links[1][0], 'nút đầu là Gọi');
+        $this->assertStringContainsString('zalo.me/0989345989', $links[1][1], 'thứ hai là Zalo');
+        $this->assertStringContainsString('/bao-gia', $links[1][2], 'cuối là Báo giá');
+        $this->assertStringContainsString('>Gọi Thu Hà<', $bar[1]);
+    }
 }

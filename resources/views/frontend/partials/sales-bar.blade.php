@@ -1,6 +1,6 @@
 {{--
     Liên hệ nhanh trên mọi trang ($salesBar mặc định true ở layout):
-      · mobile (≤600px): thanh dính đáy Báo giá / Gọi / Zalo — `body.has-sales` chừa chỗ;
+      · mobile (≤600px): thanh dính đáy Gọi / Zalo / Báo giá — nút đầu rộng, tô đậm (mục tiêu là cuộc gọi); `body.has-sales` chừa chỗ;
       · màn hình lớn hơn: hai nút tròn nổi góc dưới trái (Gọi có vòng sóng, Zalo).
 --}}
 @php
@@ -10,9 +10,9 @@
     $zalo    = $zaloRaw ? (\Illuminate\Support\Str::startsWith($zaloRaw, 'http') ? $zaloRaw : 'https://zalo.me/'.$zaloRaw) : null;
 @endphp
 <nav class="sales-bar" aria-label="Tư vấn nhanh">
-    <a href="{{ route('quote') }}" data-quote>Nhận báo giá</a>
     @if ($phone)<a href="tel:{{ $phone }}">Gọi {{ $advisor ?: 'tư vấn' }}</a>@endif
     @if ($zalo)<a href="{{ $zalo }}" rel="noopener">Zalo</a>@endif
+    <a href="{{ route('quote') }}" data-quote>Báo giá</a>
 </nav>
 
 @if ($phone || $zalo)
