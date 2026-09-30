@@ -28,9 +28,10 @@
     $pageCanonical   = $canonical ?? request()->url();
     $pageType        = $ogType ?? 'website';
     $pageRobots      = $robots ?? 'index,follow,max-image-preview:large';
-    $pageImage       = \App\Support\Url::asset(
-        ($ogImage ?? null) ?: catalog_setting('social_image') ?: catalog_setting('logo')
-    );
+    $pageImageSource = ($ogImage ?? null) ?: catalog_setting('social_image') ?: catalog_setting('logo');
+    // Zalo không hiện ảnh xem trước từ WebP → dùng bản JPG 1200×630 khi tạo được.
+    $pageImageShare  = \App\Support\Media::sharePath($pageImageSource);
+    $pageImage       = \App\Support\Url::asset($pageImageShare ?? $pageImageSource);
 
     $overlay  = $overlay  ?? false;
     // Gọi / Zalo luôn trong tầm tay trên mọi trang — kênh ra khách chính của
@@ -69,6 +70,11 @@
     @endif
     @if (filled($pageImage))
         <meta property="og:image" content="{{ $pageImage }}">
+        @if ($pageImageShare)
+            <meta property="og:image:type" content="image/jpeg">
+            <meta property="og:image:width" content="{{ \App\Media\ImageVariantBuilder::SHARE_SIZE[0] }}">
+            <meta property="og:image:height" content="{{ \App\Media\ImageVariantBuilder::SHARE_SIZE[1] }}">
+        @endif
         <meta property="og:image:alt" content="{{ $pageTitle }}">
     @endif
 

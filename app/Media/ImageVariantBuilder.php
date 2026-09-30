@@ -18,6 +18,9 @@ class ImageVariantBuilder
 
     public const MANIFEST = self::DIR.'/manifest.json';
 
+    /** Cỡ ảnh chia sẻ Facebook/Zalo khuyên dùng (1,91:1). */
+    public const SHARE_SIZE = [1200, 630];
+
     public function __construct(private readonly MediaStore $media) {}
 
     /**
@@ -169,6 +172,70 @@ class ImageVariantBuilder
             flock($lock, LOCK_UN);
             fclose($lock);
         }
+    }
+
+    /**
+     * Ảnh chia sẻ (og:image) JPG 1200×630, cắt giữa. Zalo không hiện ảnh xem
+     * trước khi og:image là WebP, nên ảnh chia sẻ luôn là JPG. Sinh lần đầu
+     * trang cần tới (hoặc khi ảnh gốc mới hơn), sau đó chỉ kiểm tra file.
+     */
+    public function share(string $path): string
+    {
+        $target = self::sharePath($path);
+        $full = $this->media->absolutePath($path);
+        $sourceTime = @filemtime($full) ?: 0;
+
+        if ($this->media->exists($target)
+            && (@filemtime($this->media->absolutePath($target)) ?: 0) >= $sourceTime) {
+            return $target;
+        }
+
+        ini_set('memory_limit', '512M');
+
+        $contents = @file_get_contents($full);
+        $source = is_string($contents) ? @imagecreatefromstring($contents) : false;
+
+        if (! $source) {
+            throw new \RuntimeException('PHP-GD không giải mã được ảnh.');
+        }
+
+        [$w, $h] = self::SHARE_SIZE;
+        $canvas = imagecreatetruecolor($w, $h);
+
+        try {
+            // JPG không có nền trong suốt: PNG trong suốt (logo) nằm trên nền trắng.
+            imagefill($canvas, 0, 0, imagecolorallocate($canvas, 255, 255, 255));
+            $sw = imagesx($source);
+            $sh = imagesy($source);
+            $scale = max($w / $sw, $h / $sh);
+            $cropW = (int) round($w / $scale);
+            $cropH = (int) round($h / $scale);
+            imagecopyresampled($canvas, $source, 0, 0, (int) (($sw - $cropW) / 2), (int) (($sh - $cropH) / 2), $w, $h, $cropW, $cropH);
+
+            ob_start();
+            $encoded = imagejpeg($canvas, null, 85);
+            $jpg = ob_get_clean();
+
+            if (! $encoded || ! is_string($jpg) || $jpg === '') {
+                throw new \RuntimeException('Không mã hoá được ảnh chia sẻ JPG.');
+            }
+
+            $this->media->write($target, $jpg);
+        } finally {
+            imagedestroy($canvas);
+            imagedestroy($source);
+        }
+
+        return $target;
+    }
+
+    /** catalog/a/b.webp → catalog/_v/a/b-share.jpg */
+    public static function sharePath(string $path): string
+    {
+        $relative = Str::after($path, 'catalog/');
+        $directory = trim(pathinfo($relative, PATHINFO_DIRNAME), '.');
+
+        return self::DIR.'/'.($directory !== '' ? $directory.'/' : '').pathinfo($relative, PATHINFO_FILENAME).'-share.jpg';
     }
 
     public static function variantPath(string $path, int $width): string

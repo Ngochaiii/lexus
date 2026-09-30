@@ -80,6 +80,30 @@ class Media
         return $entry ? ['w' => $entry['w'], 'h' => $entry['h']] : null;
     }
 
+    /**
+     * Đường dẫn ảnh chia sẻ JPG 1200×630 (og:image) của một ảnh trên disk,
+     * sinh nếu chưa có. Null khi là link ngoài, SVG, file không tồn tại hoặc
+     * không tạo được — lúc đó dùng ảnh gốc như cũ.
+     */
+    public static function sharePath(mixed $path): ?string
+    {
+        $rel = self::normalise($path);
+
+        if (! $rel
+            || ! in_array(Str::lower(pathinfo($rel, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'webp'], true)
+            || ! static::store()->exists($rel)) {
+            return null;
+        }
+
+        try {
+            return app(ImageVariantBuilder::class)->share($rel);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return null;
+        }
+    }
+
     /** Đường dẫn tương đối trên disk public, hoặc null nếu là link ngoài. */
     private static function normalise(mixed $path): ?string
     {

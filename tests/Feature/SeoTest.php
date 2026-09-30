@@ -225,6 +225,28 @@ class SeoTest extends TestCase
         $this->assertStringContainsString('"@type":"AutoDealer"', $html);
     }
 
+    // Zalo không hiện ảnh xem trước khi og:image là WebP (link gửi qua Zalo chỉ
+    // còn chữ). Ảnh chia sẻ phải là JPG 1200×630, tự sinh từ ảnh gốc.
+    public function test_og_image_la_jpg_1200x630_de_zalo_facebook_hien_anh(): void
+    {
+        Setting::put('social_image', 'catalog/seo/social.webp');
+        $img = imagecreatetruecolor(1600, 900);
+        ob_start();
+        imagewebp($img);
+        app(\App\Media\MediaStore::class)->write('catalog/seo/social.webp', ob_get_clean());
+
+        $html = $this->get('/')->assertOk()->getContent();
+
+        $this->assertStringContainsString('<meta property="og:image" content="https://lexus.vn/storage/catalog/_v/seo/social-share.jpg">', $html);
+        $this->assertStringContainsString('<meta property="og:image:type" content="image/jpeg">', $html);
+        $this->assertStringContainsString('<meta property="og:image:width" content="1200">', $html);
+        $this->assertStringContainsString('<meta property="og:image:height" content="630">', $html);
+        $this->assertStringContainsString('<meta name="twitter:image" content="https://lexus.vn/storage/catalog/_v/seo/social-share.jpg">', $html);
+
+        $info = getimagesize(app(\App\Media\MediaStore::class)->absolutePath('catalog/_v/seo/social-share.jpg'));
+        $this->assertSame([1200, 630, 'image/jpeg'], [$info[0], $info[1], $info['mime']]);
+    }
+
     public function test_canonical_phan_trang_tu_tro(): void
     {
         config(['catalog.frontend.per_page' => 1]);
