@@ -142,10 +142,10 @@ class BrandSeederTest extends TestCase
             }
         }
 
-        // Danh mục đang bán (25/9/2026): 6 dòng, 11 phiên bản; NX giữ dữ liệu nhưng ẩn.
+        // Danh mục đang bán (1/10/2026): 6 dòng, 12 phiên bản (thêm ES 500e); NX giữ dữ liệu nhưng ẩn.
         $this->assertSame('draft', Product::where('slug', 'nx')->sole()->status);
-        $this->assertSame(11, \App\Models\ProductVariant::whereHas('product', fn ($q) => $q->published())->count());
-        $this->assertSame([2_360_000_000, 2_580_000_000],
+        $this->assertSame(12, \App\Models\ProductVariant::whereHas('product', fn ($q) => $q->published())->count());
+        $this->assertSame([2_360_000_000, 2_580_000_000, 2_980_000_000],
             Product::where('slug', 'es')->sole()->variants()->orderBy('sort')->pluck('price')->map(fn ($p) => (int) $p)->all());
         $this->assertSame(['GX 550'], Product::where('slug', 'gx')->sole()->variants()->pluck('name')->all());
         $this->assertSame(['LM 500h 6 chỗ'], Product::where('slug', 'lm')->sole()->variants()->pluck('name')->all());

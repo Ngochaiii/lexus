@@ -303,7 +303,7 @@ class LexusSiteSeeder extends Seeder
                             ['label' => 'Showroom mở cửa lúc nào?',
                                 'value' => 'Showroom mở cửa '.$hours.'. Nên đặt lịch trước để chuyên viên chuẩn bị sẵn xe lái thử bạn quan tâm.'],
                             ['label' => 'Lexus Thăng Long bán những dòng xe nào?',
-                                'value' => '6 dòng xe Lexus, 11 phiên bản: ES (sedan), RX (SUV hạng sang), GX, LX (SUV khung gầm rời), '
+                                'value' => '6 dòng xe Lexus, 12 phiên bản: ES (sedan), RX (SUV hạng sang), GX, LX (SUV khung gầm rời), '
                                     .'LM (MPV) và LS (sedan đầu bảng). Giá từng phiên bản xem tại trang Bảng giá.'],
                             ['label' => 'Đăng ký lái thử Lexus cần những gì?',
                                 'value' => 'Chỉ cần để lại họ tên, số điện thoại và dòng xe muốn lái thử. Khi đến, mang theo giấy phép lái xe hạng B '
@@ -582,7 +582,7 @@ class LexusSiteSeeder extends Seeder
                         'type' => 'faq', 'title' => 'Mua xe', 'intro' => 'Giá và mua xe',
                         'rows' => [
                             ['label' => 'Xe Lexus rẻ nhất và đắt nhất hiện nay giá bao nhiêu?',
-                                'value' => 'Rẻ nhất là ES 350h Premium 2,36 tỷ đồng; đắt nhất là LX 600 VIP 4 chỗ 9,7 tỷ đồng (giá niêm yết, đã gồm VAT). Xem đủ 11 phiên bản tại trang Bảng giá.'],
+                                'value' => 'Rẻ nhất là ES 350h Premium 2,36 tỷ đồng; đắt nhất là LX 600 VIP 4 chỗ 9,7 tỷ đồng (giá niêm yết, đã gồm VAT). Xem đủ 12 phiên bản tại trang Bảng giá.'],
                             ['label' => 'Giá niêm yết đã gồm những gì?',
                                 'value' => 'Đã gồm thuế VAT; chưa gồm lệ phí trước bạ, phí biển số, phí bảo trì đường bộ, đăng kiểm và bảo hiểm.'],
                             ['label' => 'Giá lăn bánh Lexus tại Hà Nội tính thế nào?',
@@ -892,7 +892,7 @@ class LexusSiteSeeder extends Seeder
                         .'<p>Xem ảnh, màu và thông số tại trang <a href="/san-pham/es">Lexus ES</a>, hoặc để lại số tại '
                         .'<a href="/bao-gia?xe=es">Nhận báo giá</a> để chuyên viên Thu Hà gửi bảng tính lăn bánh chi tiết và lịch lái thử.</p>'),
                     $faq([
-                        'Lexus ES 2026 có mấy phiên bản?' => 'Hai phiên bản hybrid: ES 350h Premium 2,36 tỷ đồng và ES 350h Luxury 2,58 tỷ đồng.',
+                        'Lexus ES 2026 có mấy phiên bản?' => 'Ba phiên bản: hai bản hybrid ES 350h Premium 2,36 tỷ đồng, ES 350h Luxury 2,58 tỷ đồng và bản thuần điện ES 500e 2,98 tỷ đồng.',
                         'Giá lăn bánh Lexus ES 350h tại Hà Nội bao nhiêu?' => 'Tạm tính khoảng 2,66 tỷ đồng (Premium) và 2,90 tỷ đồng (Luxury), gồm lệ phí trước bạ 12% và phí biển số 14 triệu đồng.',
                         'ES 350h có phải cắm sạc không?' => 'Không. ES 350h là hybrid tự sạc khi phanh và khi động cơ xăng chạy.',
                         'ES 350h có được bảo hành 10 năm không?' => 'Có. Xe hybrid Lexus bán mới từ 8/5/2026 được bảo hành 10 năm, không giới hạn km cho xe và pin hybrid, khi bảo dưỡng định kỳ đầy đủ tại đại lý.',
@@ -941,21 +941,21 @@ class LexusSiteSeeder extends Seeder
             ],
             [
                 'slug'      => 'bang-gia-xe-lexus-2026-tai-ha-noi',
-                'title'     => 'Bảng giá xe Lexus 2026 tại Hà Nội: 6 dòng xe, 11 phiên bản',
-                'seo_title' => 'Bảng giá xe Lexus 2026 tại Hà Nội — từ 2,36 tỷ, 11 phiên bản',
+                'title'     => 'Bảng giá xe Lexus 2026 tại Hà Nội: 6 dòng xe, 12 phiên bản',
+                'seo_title' => 'Bảng giá xe Lexus 2026 tại Hà Nội — từ 2,36 tỷ, 12 phiên bản',
                 'category'  => 'bang-gia-mua-xe',
                 'cover'     => 'khu-trung-bay',
                 'keywords'  => 'bảng giá xe Lexus 2026, giá xe Lexus Hà Nội, giá Lexus ES 350h, giá Lexus RX, giá Lexus LX',
                 'excerpt'   => 'Giá xe Lexus 2026 tại Hà Nội từ 2,36 tỷ đồng (ES 350h Premium) đến 9,7 tỷ đồng (LX 600 VIP). '
-                    .'Bảng giá niêm yết 6 dòng xe, 11 phiên bản đang bán tại Lexus Thăng Long, Hà Nội.',
+                    .'Bảng giá niêm yết 6 dòng xe, 12 phiên bản đang bán tại Lexus Thăng Long, Hà Nội.',
                 'sections'  => [
                     $text('Trả lời nhanh', 'Xe Lexus 2026 giá bao nhiêu?',
                         '<p>Tại Hà Nội, <strong>xe Lexus 2026 có giá niêm yết từ 2,36 tỷ đồng (ES 350h Premium) đến 9,7 tỷ đồng (LX 600 VIP)</strong>. '
-                        .'Lexus Thăng Long đang bán 6 dòng xe với 11 phiên bản: sedan ES, LS; SUV RX, GX, LX và MPV LM.</p>'
+                        .'Lexus Thăng Long đang bán 6 dòng xe với 12 phiên bản: sedan ES, LS; SUV RX, GX, LX và MPV LM.</p>'
                         .'<p>Giá dưới đây là giá niêm yết đã gồm VAT, chưa gồm lệ phí trước bạ và phí đăng ký. '
                         .'Bảng giá luôn cập nhật theo đại lý có tại trang <a href="/bang-gia">Bảng giá xe Lexus</a>.</p>'),
                     $table('Giá khởi điểm', 'Giá từ của từng dòng xe', [
-                        'Lexus ES (sedan)'          => 'từ 2.360.000.000 đ — ES 350h Premium và ES 350h Luxury',
+                        'Lexus ES (sedan)'          => 'từ 2.360.000.000 đ — ES 350h Premium, ES 350h Luxury và ES 500e thuần điện',
                         'Lexus RX (SUV cỡ trung)'   => 'từ 3.350.000.000 đ — 3 phiên bản',
                         'Lexus GX (SUV khung rời)'  => '6.200.000.000 đ — GX 550',
                         'Lexus LM (MPV)'            => '7.210.000.000 đ — LM 500h 6 chỗ',
@@ -965,6 +965,8 @@ class LexusSiteSeeder extends Seeder
                     $text('Chọn theo ngân sách', 'Nên chọn Lexus nào với ngân sách của bạn?',
                         '<h3>Dưới 3 tỷ đồng</h3><p>ES 350h Premium (2,36 tỷ) và ES 350h Luxury (2,58 tỷ) — sedan hybrid thế hệ mới, '
                         .'khoang sau rộng, êm và tiết kiệm; hợp đi phố và đưa đón gia đình.</p>'
+                        .'<p>ES 500e thuần điện (2,98 tỷ) được miễn lệ phí trước bạ: lăn bánh Hà Nội khoảng 2,99 tỷ, '
+                        .'chỉ hơn ES 350h Luxury khoảng 90 triệu đồng.</p>'
                         .'<h3>Từ 3 đến 5 tỷ đồng</h3><p>RX 350h Premium (3,35 tỷ), RX 350h Luxury (4,14 tỷ) và RX 500h F SPORT Performance (4,94 tỷ) '
                         .'cho gia đình cần SUV 5 chỗ rộng rãi.</p>'
                         .'<h3>Trên 6 tỷ đồng</h3><p>GX 550 (6,2 tỷ) và LX 600 (từ 8,59 tỷ) cho nhu cầu SUV khung gầm rời, 7 chỗ; '
