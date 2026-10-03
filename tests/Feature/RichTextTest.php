@@ -92,4 +92,35 @@ class RichTextTest extends TestCase
         $this->assertStringContainsString('VinFast dừng cho thuê pin.', $html);
         $this->assertStringNotContainsString('<h2>Thông báo dịch vụ</h2>', $html, 'tên mục chỉ được hiện một lần, trong hộp');
     }
+
+    /* Bảng nhiều cột dán vào bài rộng hơn màn điện thoại: phải nằm trong khung
+       riêng (không đẩy cả trang tràn ngang) và mỗi ô mang nhãn cột để CSS xếp
+       thành thẻ dọc trên mobile. */
+    public function test_bang_duoc_boc_khung_va_gan_nhan_cot(): void
+    {
+        $html = $this->render(
+            '<table><thead><tr><th>Phiên bản</th><th>Giá niêm yết</th></tr></thead>'
+            .'<tbody><tr><td>ES 500e</td><td>2,98 tỷ</td></tr></tbody></table>'
+        );
+
+        $this->assertStringContainsString('<div class="rt-table rt-table--stack"><table>', $html);
+        $this->assertStringContainsString('<td data-label="Phiên bản">ES 500e</td>', $html);
+        $this->assertStringContainsString('<td data-label="Giá niêm yết">2,98 tỷ</td>', $html);
+    }
+
+    /* Bảng không có dòng tiêu đề (hoặc gộp ô): không đoán nhãn, chỉ cuộn ngang. */
+    public function test_bang_khong_tieu_de_chi_cuon_ngang(): void
+    {
+        $html = $this->render('<table><tr><td>A</td><td>B</td></tr></table>');
+
+        $this->assertStringContainsString('<div class="rt-table"><table>', $html);
+        $this->assertStringNotContainsString('data-label', $html);
+    }
+
+    public function test_khong_cho_nguoi_nhap_tu_dat_data_label(): void
+    {
+        $html = $this->render('<p data-label="x">Chữ</p>');
+
+        $this->assertStringNotContainsString('data-label', $html);
+    }
 }

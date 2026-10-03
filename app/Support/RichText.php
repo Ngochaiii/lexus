@@ -67,6 +67,7 @@ class RichText
         }
 
         static::scrub($root);
+        static::frameTables($doc, $root);
 
         $out = '';
 
@@ -140,6 +141,60 @@ class RichText
     private static function safeUrl(string $url): bool
     {
         return (bool) preg_match('#^(https?://|mailto:|tel:|/|\#)#i', trim($url));
+    }
+
+    /**
+     * Bảng dán vào bài thường 4–5 cột — trên điện thoại rộng hơn màn hình và
+     * đẩy cả trang tràn ngang. Bọc mỗi bảng trong div.rt-table (khung cuộn
+     * riêng). Bảng có dòng tiêu đề và không gộp ô thì gắn data-label = tên cột
+     * cho từng ô, thêm rt-table--stack để CSS xếp mỗi dòng thành một thẻ dọc.
+     * Chạy SAU scrub nên data-label chỉ có thể do đây gắn, không từ người nhập.
+     */
+    private static function frameTables(DOMDocument $doc, DOMElement $root): void
+    {
+        foreach (iterator_to_array($root->getElementsByTagName('table')) as $table) {
+            $rows = iterator_to_array($table->getElementsByTagName('tr'));
+            $labels = [];
+
+            $head = $rows[0] ?? null;
+            $merged = false;
+            foreach ($rows as $tr) {
+                foreach ($tr->childNodes as $cell) {
+                    if ($cell instanceof DOMElement && ($cell->hasAttribute('colspan') || $cell->hasAttribute('rowspan'))) {
+                        $merged = true;
+                    }
+                }
+            }
+
+            if ($head && ! $merged) {
+                foreach ($head->childNodes as $cell) {
+                    if (! $cell instanceof DOMElement) {
+                        continue;
+                    }
+                    if (strtolower($cell->nodeName) !== 'th') {
+                        $labels = [];
+                        break;
+                    }
+                    $labels[] = trim(preg_replace('/\s+/u', ' ', $cell->textContent));
+                }
+            }
+
+            if ($labels) {
+                foreach (array_slice($rows, 1) as $tr) {
+                    $i = 0;
+                    foreach ($tr->childNodes as $cell) {
+                        if ($cell instanceof DOMElement && ($label = $labels[$i++] ?? '') !== '') {
+                            $cell->setAttribute('data-label', $label);
+                        }
+                    }
+                }
+            }
+
+            $wrap = $doc->createElement('div');
+            $wrap->setAttribute('class', $labels ? 'rt-table rt-table--stack' : 'rt-table');
+            $table->parentNode->replaceChild($wrap, $table);
+            $wrap->appendChild($table);
+        }
     }
 
     /** Gỡ vỏ thẻ lạ nhưng giữ nguyên chữ bên trong. */

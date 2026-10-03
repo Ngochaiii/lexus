@@ -252,6 +252,30 @@ html:has(.quote-dialog[open]){overflow:hidden}
 .article th,.article td{border-bottom:1px solid var(--line);padding:14px 12px;text-align:left}
 .article th{background:var(--stone);font-weight:500}
 
+/* Đoạn văn thân bài căn đều hai bên cho mép phải thẳng tắp. text-wrap:pretty
+   tránh dòng cuối mồ côi một chữ; overflow-wrap cắt link dài khỏi tràn. */
+.article p,.article li{text-align:justify;text-wrap:pretty;overflow-wrap:break-word}
+
+/* Bảng trong thân bài (RichText bọc div.rt-table): khung cuộn ngang riêng,
+   bảng rộng không bao giờ đẩy cả trang tràn ra ngoài màn hình. */
+.rt-table{margin:22px 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.rt-table table{margin:0}
+.rt-table th{white-space:nowrap}
+
+/* Điện thoại: bảng có dòng tiêu đề → mỗi dòng thành một thẻ, ô đầu làm tên
+   thẻ, các ô sau là cặp "tên cột — giá trị" (data-label do RichText gắn). */
+@media(max-width:640px){
+.rt-table--stack{overflow:visible}
+.rt-table--stack table,.rt-table--stack tbody,.rt-table--stack tr,.rt-table--stack td{display:block;width:100%}
+.rt-table--stack thead,.rt-table--stack tr:first-child:has(> th){display:none}
+.rt-table--stack tr{border:1px solid var(--line);background:#fff;padding:4px 16px;margin-bottom:12px}
+.rt-table--stack td{display:grid;grid-template-columns:minmax(0,42%) minmax(0,1fr);gap:12px;padding:10px 0;font-size:16px;line-height:1.5;text-align:right}
+.rt-table--stack td:before{content:attr(data-label);text-align:left;color:var(--muted);font-size:14px}
+.rt-table--stack td:first-child{display:block;text-align:left;font-size:18px;font-weight:500;padding:12px 0}
+.rt-table--stack td:first-child:before{content:none}
+.rt-table--stack td:last-child{border-bottom:0}
+}
+
 /* Hai khối chữ liền nhau (trang chính sách, bài viết): bỏ khoảng trắng trên
    của khối sau — mỗi khối là một section riêng nên mặc định cách rất xa. */
 .text-section + .text-section,
@@ -373,6 +397,9 @@ html:has(.quote-dialog[open]){overflow:hidden}
 .header-phone:hover span{text-decoration:underline}
 @media(max-width:1200px){.header-phone{margin-right:22px}}
 @media(max-width:600px){.header-phone{margin-right:14px;width:40px;height:40px;justify-content:center;border:1px solid currentColor;border-radius:50%;padding:0}.header-phone span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}}
+/* Điện thoại: logo + nút gọi + MENU từng rộng hơn màn 375px (cả trang tràn
+   ngang). Cho logo co lại vừa chỗ còn lại, ảnh thu theo tỉ lệ, sát lề trái. */
+@media(max-width:600px){.site-header{gap:12px}.header-phone{margin-right:10px}.site-header .brand{flex-shrink:1;min-width:0}.site-header .brand-logo{max-width:100%;object-position:left center}}
 /* Nút Gọi / Zalo nổi góc dưới phải (partials/sales-bar) — màn hình >600px; mobile dùng thanh đáy.
    Góc phải để không đè lên chữ căn lề trái. */
 .contact-float{position:fixed;right:22px;bottom:22px;z-index:45;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
