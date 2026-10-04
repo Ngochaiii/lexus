@@ -538,9 +538,9 @@
  "lm": {
   "hero": {
    "role": "hero",
-   "w": 1920,
-   "h": 800,
-   "source": "tpl:lm.webp"
+   "w": 1200,
+   "h": 675,
+   "source": "LM500h6cho.webp"
   },
   "ngoai-that": {
    "role": "ngoai-that",

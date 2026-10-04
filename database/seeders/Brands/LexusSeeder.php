@@ -103,7 +103,7 @@ class LexusSeeder extends BrandSeeder
     /**
      * Phiên bản kèm ảnh riêng — thẻ phiên bản ở trang chủ và trang xe. Ảnh là
      * đường dẫn trong media/lexus/{xe}/ (phien-ban/… từ import_details.py,
-     * hoặc một khung 360° khi Car-project không có ảnh riêng).
+     * hoặc ảnh góc đầu tiên của một màu khi Car-project không có ảnh riêng).
      */
     protected function seedVariants(Model $product, array $data): void
     {
@@ -136,34 +136,16 @@ class LexusSeeder extends BrandSeeder
     }
 
     /**
-     * Ảnh xoay của một màu, theo thứ tự.
-     *
-     * Ưu tiên bộ 360° thật (≥ 12 khung chụp/render quanh xe) ở
-     * media/lexus/{xe}/360/{màu}/ — lexus.com (RX, ES, NX, GX, LX, 18 khung),
-     * Lexus Anh (LM, 36 khung), Lexus Nhật (LS, 12 khung); tải bằng
-     * import_360.py, xem docs/vehicle-studio.md; NX Xanh dương cũng từ Lexus
-     * Nhật. Không có thì lùi về bộ "nhiều góc" từ Car-project (goc-manifest.json).
+     * Ảnh góc của một màu, theo thứ tự đi vòng quanh xe: bộ 2–5 ảnh từ
+     * Car-project (ảnh sale cung cấp, xe bản Việt Nam — import_angles.py,
+     * goc-manifest.json). 04/10/2026 bỏ hẳn bộ xoay 360° tải từ lexus.com /
+     * Lexus Anh / Lexus Nhật (xe bản nước ngoài): trên site không còn ảnh nào
+     * lấy từ lexus.com.
      *
      * @return array<int, string>
      */
     private function angles(string $slug, string $key): array
     {
-        $spin = glob(database_path("seeders/media/lexus/{$slug}/360/{$key}/*.webp")) ?: [];
-        sort($spin);
-
-        if (count($spin) >= 12) {
-            // Mở ở góc 3/4 trước cho ấn tượng đầu đẹp hơn — vòng xoay giữ
-            // nguyên. lexus.com: khung 04 (khung 01 là ảnh từ trên xuống),
-            // riêng LX khung 01. LM (Lexus Anh, 36 góc): khung 05 = 40°.
-            // Bộ Lexus Nhật (LS, NX Xanh dương — 12 góc × 30°): khung 02 = 30°.
-            $start = count($spin) === 12 ? 1 : (['lx' => 0, 'lm' => 4][$slug] ?? 3);
-            $spin = [...array_slice($spin, $start), ...array_slice($spin, 0, $start)];
-
-            return collect($spin)
-                ->map(fn ($file) => $this->image($slug, "360/{$key}/".basename($file, '.webp')))
-                ->filter()->values()->all();
-        }
-
         static $manifest = null;
         $manifest ??= json_decode((string) @file_get_contents(database_path('seeders/media/lexus/goc-manifest.json')), true) ?: [];
 
@@ -523,8 +505,8 @@ class LexusSeeder extends BrandSeeder
             ],
             'variants' => [
                 ['name' => 'ES 350h Premium', 'image' => 'phien-ban/premium', 'price' => 2_360_000_000, 'note' => 'Hybrid thế hệ mới'],
-                ['name' => 'ES 350h Luxury', 'image' => '360/xam/04', 'price' => 2_580_000_000, 'note' => 'Hybrid · trang bị Luxury'],
-                ['name' => 'ES 500e', 'image' => '360/trang/04', 'price' => 2_980_000_000, 'note' => 'Thuần điện · miễn lệ phí trước bạ'],
+                ['name' => 'ES 350h Luxury', 'image' => 'goc/xam-1', 'price' => 2_580_000_000, 'note' => 'Hybrid · trang bị Luxury'],
+                ['name' => 'ES 500e', 'image' => 'goc/trang-1', 'price' => 2_980_000_000, 'note' => 'Thuần điện · miễn lệ phí trước bạ'],
             ],
             'faq' => [
                 'Giá xe Lexus ES 2026 bao nhiêu?' =>
@@ -643,7 +625,7 @@ class LexusSeeder extends BrandSeeder
                 ['Đen', '#1A1A1C', 'mau-den'],
             ],
             'variants' => [
-                ['name' => 'NX 350 F SPORT', 'image' => '360/do/04', 'price' => 3_130_000_000, 'note' => 'Xăng tăng áp 2.4L · 275 HP · treo thích ứng AVS'],
+                ['name' => 'NX 350 F SPORT', 'image' => 'goc/do-1', 'price' => 3_130_000_000, 'note' => 'Xăng tăng áp 2.4L · 275 HP · treo thích ứng AVS'],
                 ['name' => 'NX 350h', 'image' => 'phien-ban/350h', 'price' => 3_270_000_000, 'note' => 'Hybrid 2.5L · AWD E-Four'],
             ],
             'specs' => [

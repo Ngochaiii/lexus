@@ -48,15 +48,13 @@ class VehicleStudioTest extends TestCase
         $this->get('/san-pham/studio-rx')->assertOk()->assertSee('Ảnh tổng quan minh họa')->assertSee('data-studio-image', false);
     }
 
-    // Ảnh xoay lấy từ trình chọn màu của Lexus toàn cầu (lexus.com, Lexus Anh,
-    // Lexus Nhật — docs/vehicle-studio.md), xe bản nước ngoài: ghi rõ nguồn để
-    // không ngụ ý đây là ảnh xe tại đại lý (Google Ads, AdvisorIdentityTest).
-    public function test_ghi_nguon_anh_minh_hoa_duoi_khung_xoay(): void
+    // Ảnh màu là ảnh sale cung cấp (Car-project), không còn ảnh lexus.com —
+    // bỏ dòng ghi nguồn lexus.com (04/10/2026, xem SalesPhotosTest).
+    public function test_khung_mau_khong_con_ghi_nguon_lexus_com(): void
     {
         $this->vehicle()->options()->create(['name' => 'Trắng', 'hex' => '#ffffff', 'image' => '/assets/rx.webp']);
 
-        $this->get('/san-pham/studio-rx')->assertOk()
-            ->assertSee('Ảnh minh hoạ từ Lexus toàn cầu (lexus.com); xe bán tại Việt Nam có thể khác về mâm, trang bị và màu.');
+        $this->get('/san-pham/studio-rx')->assertOk()->assertDontSee('lexus.com');
     }
 
     public function test_frames_survive_duplicate_and_keep_order(): void

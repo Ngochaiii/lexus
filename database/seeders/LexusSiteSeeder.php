@@ -874,7 +874,7 @@ class LexusSiteSeeder extends Seeder
                     $cards('Phiên bản', 'Hai phiên bản ES 350h tại Việt Nam', [
                         ['image' => $car('es/phien-ban/premium'), 'eyebrow' => '2,36 tỷ', 'label' => 'ES 350h Premium',
                             'desc' => 'Hybrid xăng – điện, không cần sạc. Phiên bản khởi điểm của ES thế hệ mới.', 'url' => '/san-pham/es#versions'],
-                        ['image' => $car('es/360/xam/04'), 'eyebrow' => '2,58 tỷ', 'label' => 'ES 350h Luxury',
+                        ['image' => $car('es/goc/xam-1'), 'eyebrow' => '2,58 tỷ', 'label' => 'ES 350h Luxury',
                             'desc' => 'Cùng hệ hybrid, bổ sung trang bị tiện nghi và vật liệu cao cấp hơn.', 'url' => '/san-pham/es#versions'],
                         ['image' => $car('es/chi-tiet/moi-man-hinh'), 'eyebrow' => 'Khoang lái', 'label' => 'Màn hình trung tâm cỡ lớn',
                             'desc' => 'Bản đồ, âm thanh, điều hòa gom về một màn hình; ít nút bấm vật lý.', 'url' => '/san-pham/es#chi-tiet'],

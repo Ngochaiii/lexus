@@ -116,31 +116,27 @@ class BrandSeederTest extends TestCase
         $this->assertSame(0, Product::whereNull('category_id')->count());
     }
 
-    public function test_moi_mau_xe_lexus_deu_xoay_duoc_va_giu_bo_360_rx(): void
+    public function test_moi_mau_xe_lexus_dung_bo_anh_goc_cua_sale_khong_dung_anh_lexus_com(): void
     {
         $this->seed(\Database\Seeders\Brands\LexusSeeder::class);
 
         $options = Product::with('options')->get()->flatMap->options;
         $this->assertNotEmpty($options);
 
+        // 04/10/2026 bỏ hẳn bộ xoay 360° tải từ lexus.com / Lexus Anh / Lexus
+        // Nhật (xe bản nước ngoài): mọi màu dùng bộ ảnh góc từ Car-project —
+        // ảnh sale cung cấp, xe bản Việt Nam (import_angles.py).
         foreach ($options as $option) {
-            $this->assertGreaterThanOrEqual(2, count($option->spin_frames ?? []),
-                "{$option->name} ({$option->product->slug}) thiếu bộ ảnh góc");
-        }
-
-        // Lỗi từng gặp: seeder xoá màu tạo lại → mất bộ 360° 18 khung của RX.
-        $copper = Product::where('slug', 'rx')->sole()->options->firstWhere('name', 'Đồng');
-        $this->assertCount(18, $copper->spin_frames);
-        $this->assertTrue(app(MediaStore::class)->exists($copper->spin_frames[0]));
-
-        // Bộ 360°: lexus.com (18 khung), Lexus Anh cho LM (36), Lexus Nhật
-        // cho LS và NX Xanh dương (12). Mọi màu của cả 7 xe đều xoay 360°.
-        foreach (['es' => 18, 'gx' => 18, 'lx' => 18, 'rx' => 18, 'nx' => 18, 'lm' => 36, 'ls' => 12] as $slug => $frames) {
-            foreach (Product::where('slug', $slug)->sole()->options as $option) {
-                $expected = $slug === 'nx' && $option->name === 'Xanh dương' ? 12 : $frames;
-                $this->assertCount($expected, $option->spin_frames, "{$slug} {$option->name} thiếu 360°");
+            $slug = $option->product->slug;
+            $this->assertGreaterThanOrEqual(2, count($option->spin_frames ?? []), "{$option->name} ({$slug}) thiếu bộ ảnh góc");
+            foreach ($option->spin_frames as $frame) {
+                $this->assertStringStartsWith("catalog/lexus/{$slug}/goc/", $frame);
+                $this->assertTrue(app(MediaStore::class)->exists($frame), $frame);
             }
         }
+
+        $this->assertSame(0, \App\Models\ProductVariant::where('image', 'like', '%/360/%')->count(), 'ảnh phiên bản không dùng khung 360°');
+        $this->assertDirectoryDoesNotExist(database_path('seeders/media/lexus/rx/360'));
 
         // Danh mục đang bán (1/10/2026): 6 dòng, 12 phiên bản (thêm ES 500e); NX giữ dữ liệu nhưng ẩn.
         $this->assertSame('draft', Product::where('slug', 'nx')->sole()->status);

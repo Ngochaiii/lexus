@@ -17,7 +17,7 @@ return new class extends Migration
 {
     private const VARIANT = 'ES 500e';
 
-    private const IMAGE = 'catalog/lexus/es/360/trang/04.webp';
+    private const IMAGE = 'catalog/lexus/es/goc/trang-1.webp';
 
     private const TAGLINE = ['Sedan hạng sang thế hệ mới, hybrid 350h', 'Sedan hạng sang thế hệ mới: hybrid 350h và thuần điện 500e'];
 

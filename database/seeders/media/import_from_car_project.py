@@ -95,7 +95,7 @@ PICK = {
         ('thu-vien', 'thu-vien-7', 'nx/duoi-xe.jpg'), ('thu-vien', 'thu-vien-8', 'nx/Khoang hành lý.jpg'),
     ],
     'lm': [
-        ('hero', 'hero', 'tpl:lm.webp'),
+        ('hero', 'hero', 'LM500h6cho.webp'),  # ảnh sale, thay ảnh mẫu của template
         ('ngoai-that', 'ngoai-that', 'lm/intro.jpg'),
         ('noi-that', 'noi-that', 'lm/noi-that-4cho.jpg'),
         ('mau', 'mau-trang', 'lm/mau-trang.jpg'), ('mau', 'mau-den', 'lm/mau-den.jpg'),
