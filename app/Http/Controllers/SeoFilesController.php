@@ -59,7 +59,7 @@ class SeoFilesController
 
     public function llms(): Response
     {
-        $name     = catalog_setting('site_name', config('app.name'));
+        $name     = \App\Support\JsonLd::websiteName();
         $address  = catalog_setting('address');
         $hours    = catalog_setting('opening_hours');
         $hotline  = \App\Support\Phone::format(catalog_setting('hotline'));
@@ -74,7 +74,7 @@ class SeoFilesController
         $facts = array_filter([
             $address ? 'Địa chỉ: '.$address : null,
             $hours ? 'Giờ mở cửa: '.$hours : null,
-            $hotline ? 'Hotline: '.$hotline.($advisor ? ' ('.$advisor.', chuyên viên tư vấn)' : '') : null,
+            $hotline ? ($advisor ? 'Điện thoại chuyên viên '.$advisor.': ' : 'Hotline: ').$hotline : null,
             'Website: '.rtrim((string) config('app.url'), '/'),
         ]);
         foreach ($facts as $fact) {

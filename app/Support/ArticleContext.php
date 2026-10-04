@@ -61,17 +61,22 @@ class ArticleContext
             ->only(['streetAddress', 'addressLocality', 'addressRegion'])->filter()->implode(', ');
 
         $lines = array_filter([
-            'Tên website/đại lý: '.catalog_setting('site_name', config('app.name')),
+            'Đại lý (nơi chuyên viên làm việc, nơi khách mua và nhận xe): '.catalog_setting('site_name', config('app.name')),
             filled($address) ? 'Địa chỉ showroom: '.$address : null,
-            filled($hotline = catalog_setting('hotline')) ? 'Hotline: '.Phone::format($hotline) : null,
             filled($advisor = catalog_setting('advisor_name')) ? 'Chuyên viên tư vấn (người đứng tên bài): '.$advisor : null,
+            filled($phone = catalog_setting('advisor_phone') ?: catalog_setting('hotline'))
+                ? ($advisor ? 'Điện thoại chuyên viên '.$advisor.': ' : 'Điện thoại: ').Phone::format($phone) : null,
+            // Google Ads tạm ngưng tài khoản vì site "ngụ ý là đại lý" — bài viết
+            // phải nói bằng lời chuyên viên (xem AdvisorVoiceTest).
+            'Đây là website tư vấn cá nhân của chuyên viên, KHÔNG phải website của đại lý: không xưng "chúng tôi" thay đại lý,'
+                .' không gọi số điện thoại là "hotline"/"tổng đài", không viết "showroom của chúng tôi"; nói "showroom Lexus Thăng Long", "chuyên viên '.($advisor ?: 'tư vấn').'".',
             'Giờ mở cửa: '.strtr(implode(', ', (array) config('catalog.seo.organization.opening_hours', [])), [
                 'Mo-Su' => 'Thứ Hai – Chủ nhật', 'Mo-Fr' => 'Thứ Hai – Thứ Sáu', 'Mo-Sa' => 'Thứ Hai – Thứ Bảy', '-' => ' – ',
             ]),
             'Ngày viết bài: '.now()->format('d/m/Y').' (tháng '.now()->format('n/Y').')',
         ]);
 
-        return "## ĐẠI LÝ\n- ".implode("\n- ", $lines);
+        return "## CHUYÊN VIÊN VÀ ĐẠI LÝ\n- ".implode("\n- ", $lines);
     }
 
     private static function onRoadRules(): string

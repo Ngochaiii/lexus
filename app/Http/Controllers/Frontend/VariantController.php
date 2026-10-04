@@ -83,6 +83,7 @@ class VariantController extends Controller
         $address = collect(config('catalog.seo.organization.address', []))
             ->only(['streetAddress', 'addressLocality', 'addressRegion'])->filter()->implode(', ');
         $hotline = catalog_setting('advisor_phone') ?: catalog_setting('hotline');
+        $advisor = catalog_setting('advisor_name');
 
         $rows = [];
 
@@ -112,8 +113,11 @@ class VariantController extends Controller
         }
 
         $rows[] = ['label' => "Mua {$name} chính hãng ở đâu tại Hà Nội?",
+            // Số di động của chuyên viên — không gọi là "Hotline" (nghe như tổng
+            // đài đại lý, xem AdvisorVoiceTest).
             'value' => trim("{$dealer}".($address ? " — {$address}" : '').'. Có xe lái thử và xưởng dịch vụ chính hãng tại đại lý.'
-                .($hotline ? ' Hotline '.\App\Support\Phone::format($hotline).'.' : ''))];
+                .($hotline ? ' Gọi '.($advisor ? "chuyên viên {$advisor} " : 'chuyên viên ')
+                    .\App\Support\Phone::format($hotline).' để hẹn lái thử và nhận báo giá.' : ''))];
 
         $rows = array_values(array_filter($rows, fn ($r) => filled($r['value'])));
 

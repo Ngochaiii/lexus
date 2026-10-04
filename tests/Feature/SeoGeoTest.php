@@ -72,7 +72,7 @@ class SeoGeoTest extends TestCase
     {
         $txt = $this->get('/llms.txt')->assertOk()->getContent();
 
-        $this->assertStringStartsWith('# Lexus Thăng Long', $txt);
+        $this->assertStringStartsWith('# Thu Hà – Tư vấn Lexus Thăng Long', $txt);
         $this->assertStringContainsString('[Lexus RX](https://lexusthanglong.test/san-pham/rx)', $txt);
         $this->assertStringContainsString('RX 500h F SPORT Performance', $txt);
         $this->assertStringContainsString('0989 345 989', $txt);
