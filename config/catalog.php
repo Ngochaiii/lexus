@@ -210,6 +210,9 @@ return [
                 // (ảnh ở public/assets/images) — chỉ tắt khi bật `advisor_off`.
                 'advisor_off' => ['label' => 'Tư vấn viên — ẩn khối này', 'type' => 'toggle'],
                 'advisor_name' => ['label' => 'Tư vấn viên — họ tên (VD "Hữu Lập")', 'type' => 'text'],
+                // Họ tên đầy đủ (như CCCD) — hiện dưới logo và ở chân trang để
+                // ai xem cũng biết đây là site cá nhân của chuyên viên.
+                'advisor_full_name' => ['label' => 'Tư vấn viên — họ tên đầy đủ (VD "Nguyễn Thị Thu Hà")', 'type' => 'text'],
                 'advisor_role' => ['label' => 'Tư vấn viên — chức danh (mặc định "Tư vấn bán hàng")', 'type' => 'text'],
                 // Quảng cáo Google dùng câu này ("10 Năm Kinh Nghiệm Bán Ô Tô") —
                 // trang đích phải có đúng thông tin đó (khối chuyên viên trên trang xe).

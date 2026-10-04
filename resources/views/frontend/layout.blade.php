@@ -62,7 +62,7 @@
 
     <meta property="og:locale" content="vi_VN">
     <meta property="og:type" content="{{ $pageType }}">
-    <meta property="og:site_name" content="{{ $siteName }}">
+    <meta property="og:site_name" content="{{ \App\Support\JsonLd::websiteName() }}">
     <meta property="og:title" content="{{ $pageTitle }}">
     <meta property="og:url" content="{{ $pageCanonical }}">
     @if (filled($pageDescription))

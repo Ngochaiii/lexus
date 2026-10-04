@@ -15,6 +15,7 @@
     $tiktok   = catalog_setting('tiktok');
     $tiktokAt = $tiktok ? '@'.\Illuminate\Support\Str::of($tiktok)->after('@')->before('?')->trim('/') : null;
     $company  = catalog_setting('company_name', $dealer);
+    $advisorFull = catalog_setting('advisor_full_name') ?: $advisor;
 
     $footerModels = once(fn () => \App\Support\Catalog::query('product')
         ->published()->orderBy('sort')->take(6)->get());
@@ -66,8 +67,14 @@
     </div>
 
     <div class="footer-bottom">
-        <div>© {{ date('Y') }} {{ $company }}. Website tư vấn cá nhân của chuyên viên bán hàng,
-            không phải website chính thức của Lexus Việt Nam.<br>Giá là thông tin tham khảo, vui lòng liên hệ
+        <div>© {{ date('Y') }} {{ $company }}.
+            @if (filled($advisorFull))
+                Website tư vấn cá nhân của {{ $advisorFull }} – chuyên viên tư vấn bán hàng tại {{ $dealer }},
+                được đại lý cho phép sử dụng tên và logo; không phải website chính thức của Lexus Việt Nam hay của đại lý.
+            @else
+                Website tư vấn cá nhân của chuyên viên bán hàng, không phải website chính thức của Lexus Việt Nam hay của đại lý.
+            @endif
+            <br>Giá là thông tin tham khảo, vui lòng liên hệ
             để nhận báo giá chính thức. Hình ảnh xe có thể khác phiên bản tại Việt Nam.</div>
         <span>
             <a href="{{ route('pages.show', 'quyen-rieng-tu') }}">Quyền riêng tư</a> &nbsp; / &nbsp;

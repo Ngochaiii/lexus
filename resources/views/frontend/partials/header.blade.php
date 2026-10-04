@@ -22,6 +22,10 @@
         ->orderBy('sort')->get());
 
     $spotlight = $navModels->first();
+
+    // Dòng nhỏ dưới logo đại lý: site là của chuyên viên, không phải web chính
+    // thức của đại lý (chính sách Google Ads — xem AdvisorIdentityTest).
+    $advisorFull = catalog_setting('advisor_full_name') ?: catalog_setting('advisor_name');
 @endphp
 <header class="site-header {{ $overlay ? 'over-hero' : '' }}">
     <a class="brand" href="{{ route('home') }}" aria-label="{{ catalog_setting('site_name', 'Lexus Thăng Long') }} — Trang chủ">
@@ -29,6 +33,9 @@
              src="{{ asset('assets/logo-ltl-'.($overlay ? 'white' : 'black').'.webp') }}"
              alt="{{ catalog_setting('site_name', 'Lexus Thăng Long') }}"
              width="800" height="68" decoding="async">
+        @if (filled($advisorFull))
+            <span class="brand-advisor">Website tư vấn cá nhân · {{ $advisorFull }}</span>
+        @endif
     </a>
 
     <nav class="desktop-nav" aria-label="Điều hướng chính">

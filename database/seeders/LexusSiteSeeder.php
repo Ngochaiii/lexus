@@ -70,6 +70,7 @@ class LexusSiteSeeder extends Seeder
             'map_url'          => 'https://www.google.com/maps/search/?api=1&query=Lexus+Th%C4%83ng+Long+Ph%E1%BA%A1m+H%C3%B9ng+C%E1%BA%A7u+Gi%E1%BA%A5y+H%C3%A0+N%E1%BB%99i',
 
             'advisor_name'  => 'Thu Hà',
+            'advisor_full_name' => 'Nguyễn Thị Thu Hà',
             'advisor_role'  => 'Chuyên viên tư vấn · Lexus Thăng Long',
             'advisor_experience' => '10 năm kinh nghiệm bán ô tô',
             'advisor_dealer_note' => 'Lexus Thăng Long – đại lý 3S chính hãng: bán xe, bảo hành, dịch vụ, phụ tùng',
@@ -1216,8 +1217,9 @@ class LexusSiteSeeder extends Seeder
         Catalog::query('banner')->updateOrCreate(
             ['title' => "Dấu ấn riêng.\nHành trình khác biệt."],
             [
-                'eyebrow'      => 'LEXUS THĂNG LONG · CẦU GIẤY, HÀ NỘI',
-                'subtitle'     => "Đại lý Lexus chính hãng tại ngã tư Phạm Hùng – Dương Đình Nghệ.\nĐón tiếp bạn mỗi ngày, 8:00 – 18:00.",
+                // Lời của chuyên viên, không tự nhận là đại lý (AdvisorIdentityTest).
+                'eyebrow'      => 'THU HÀ · TƯ VẤN LEXUS THĂNG LONG',
+                'subtitle'     => "Thu Hà – chuyên viên tư vấn tại Lexus Thăng Long, ngã tư Phạm Hùng – Dương Đình Nghệ.\nHẹn xem xe, lái thử mỗi ngày, 8:00 – 18:00.",
                 'image'        => $this->facility('khu-trung-bay'),
                 'image_mobile' => null,
                 'cta_label'    => 'Khám phá các dòng xe',

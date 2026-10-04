@@ -188,7 +188,7 @@ class JsonLd
             // Tác giả là người thật, có tên — tín hiệu E-E-A-T. Chuyên viên
             // tư vấn của đại lý là người viết/duyệt nội dung.
             'author' => filled(Setting::get('advisor_name')) ? self::advisor() : ['@id' => self::organizationId()],
-            'publisher' => ['@id' => self::organizationId()],
+            'publisher' => ['@id' => self::publisherId()],
         ], fn ($v) => filled($v));
     }
 
@@ -319,11 +319,13 @@ class JsonLd
             '@type' => $org['type'] ?? 'Organization',
             '@id' => self::organizationId(),
             'name' => $name,
-            'url' => rtrim(config('app.url'), '/'),
+            // Website là của chuyên viên, không phải web chính thức của đại lý
+            // → không khai url của đại lý là trang này (xem AdvisorIdentityTest).
+            'url' => self::hasAdvisor() ? null : rtrim(config('app.url'), '/'),
             'logo' => Url::asset($logo),
             'image' => Url::asset(Setting::get('social_image') ?: $logo),
             'description' => Setting::get('site_description'),
-            'telephone' => self::phone(Setting::get('hotline')),
+            'telephone' => self::dealerPhone(),
             'email' => Setting::get('email'),
             'address' => $address ? ['@type' => 'PostalAddress'] + $address : Setting::get('address'),
             'hasMap' => Setting::get('map_url'),
@@ -342,10 +344,14 @@ class JsonLd
     /** Chuyên viên tư vấn — người thật đứng tên nội dung và nhận cuộc gọi. */
     public static function advisor(): array
     {
+        $short = Setting::get('advisor_name');
+        $full = Setting::get('advisor_full_name') ?: $short;
+
         return array_filter([
             '@type' => 'Person',
             '@id' => self::advisorId(),
-            'name' => Setting::get('advisor_name'),
+            'name' => $full,
+            'alternateName' => $full !== $short ? $short : null,
             'jobTitle' => Setting::get('advisor_role'),
             'description' => Setting::get('advisor_experience'),
             'telephone' => self::phone(Setting::get('advisor_phone')),
@@ -388,10 +394,48 @@ class JsonLd
             '@type' => 'WebSite',
             '@id' => self::websiteId(),
             'url' => rtrim((string) config('app.url'), '/'),
-            'name' => Setting::get('site_name') ?: config('app.name'),
+            'name' => self::websiteName(),
             'inLanguage' => 'vi-VN',
-            'publisher' => ['@id' => self::organizationId()],
+            'publisher' => ['@id' => self::publisherId()],
         ]);
+    }
+
+    /**
+     * Tên website: "Thu Hà – Tư vấn Lexus Thăng Long" khi có chuyên viên —
+     * site cá nhân của người tư vấn, không đứng tên đại lý. Dùng cho
+     * WebSite.name và og:site_name.
+     */
+    public static function websiteName(): string
+    {
+        $site = (string) (Setting::get('site_name') ?: config('app.name'));
+
+        return self::hasAdvisor() ? Setting::get('advisor_name').' – Tư vấn '.$site : $site;
+    }
+
+    protected static function hasAdvisor(): bool
+    {
+        return filled(Setting::get('advisor_name'));
+    }
+
+    /** Website và bài viết do chuyên viên đứng tên; không có chuyên viên thì là đại lý. */
+    protected static function publisherId(): string
+    {
+        return self::hasAdvisor() ? self::advisorId() : self::organizationId();
+    }
+
+    /**
+     * Số của đại lý. Hotline trùng số chuyên viên thì đó là máy cá nhân —
+     * để ở nút Person, không gán cho đại lý.
+     */
+    protected static function dealerPhone(): ?string
+    {
+        $hotline = Setting::get('hotline');
+
+        if (self::hasAdvisor() && Phone::normalize($hotline) === Phone::normalize(Setting::get('advisor_phone'))) {
+            return null;
+        }
+
+        return self::phone($hotline);
     }
 
     /** 0989345989 → +84989345989 (định dạng quốc tế schema.org khuyên dùng). */
