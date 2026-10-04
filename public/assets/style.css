@@ -493,3 +493,5 @@ html:has(.quote-dialog[open]){overflow:hidden}
 .site-header .brand{flex-direction:column;align-items:flex-start;justify-content:center;gap:7px}
 .brand-advisor{font-size:13px;line-height:1.2;letter-spacing:.04em;opacity:.85;white-space:nowrap}
 @media(max-width:600px){.site-header .brand{gap:5px}.brand-advisor{font-size:10.5px;letter-spacing:.02em;white-space:normal}}
+/* Nguồn ảnh dưới khung xoay (vehicle-studio.blade.php). */
+.studio-source{text-align:center;font-size:12px;line-height:1.5;margin-top:6px;color:#8a867f}

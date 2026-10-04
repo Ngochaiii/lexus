@@ -44,6 +44,8 @@
                     <output data-angle-label>0°</output>
                 </div>
                 <p class="studio-hint" data-hint>Khám phá màu sắc ngoại thất.</p>
+                {{-- Ảnh xoay tải từ trình chọn màu của Lexus toàn cầu, xe bản nước ngoài (docs/vehicle-studio.md). --}}
+                <p class="studio-source">Ảnh minh hoạ từ Lexus toàn cầu (lexus.com); xe bán tại Việt Nam có thể khác về mâm, trang bị và màu.</p>
             </div>
             <div class="studio-selection">
                 <p class="eyebrow">BỘ SƯU TẬP MÀU SẮC</p>
