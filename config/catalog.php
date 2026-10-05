@@ -214,9 +214,10 @@ return [
                 // ai xem cũng biết đây là site cá nhân của chuyên viên.
                 'advisor_full_name' => ['label' => 'Tư vấn viên — họ tên đầy đủ (VD "Nguyễn Thị Thu Hà")', 'type' => 'text'],
                 'advisor_role' => ['label' => 'Tư vấn viên — chức danh (mặc định "Tư vấn bán hàng")', 'type' => 'text'],
-                // Quảng cáo Google dùng câu này ("10 Năm Kinh Nghiệm Bán Ô Tô") —
+                // Phải đúng sự thật, khớp giấy đại lý (chị Thu Hà làm từ 2017) —
+                // không phóng đại kinh nghiệm. Quảng cáo Google dùng cùng câu này —
                 // trang đích phải có đúng thông tin đó (khối chuyên viên trên trang xe).
-                'advisor_experience' => ['label' => 'Tư vấn viên — kinh nghiệm (VD "10 năm kinh nghiệm bán ô tô")', 'type' => 'text'],
+                'advisor_experience' => ['label' => 'Tư vấn viên — kinh nghiệm (VD "Tư vấn Lexus tại Lexus Thăng Long từ 2017")', 'type' => 'text'],
                 // Quảng cáo ghi "Đại Lý 3S Chính Hãng" — khối chuyên viên trên trang đích nói đúng điều đó.
                 'advisor_dealer_note' => ['label' => 'Tư vấn viên — đại lý đang làm (VD "Lexus Thăng Long – đại lý 3S chính hãng: bán xe, bảo hành, dịch vụ, phụ tùng")', 'type' => 'text'],
                 'advisor_phone' => ['label' => 'Tư vấn viên — số gọi trực tiếp (trống thì dùng Hotline)', 'type' => 'text'],

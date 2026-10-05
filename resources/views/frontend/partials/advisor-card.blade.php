@@ -3,8 +3,7 @@
     liên hệ, tài chính): ảnh, tên, kinh nghiệm, Gọi / Zalo / Nhận báo giá, và
     lời mời mua trả góp.
 
-    Vì sao cần: quảng cáo Google của chuyên viên ghi "10 Năm Kinh Nghiệm Bán
-    Ô Tô", "Phương Án Trả Góp", "Đại Lý 3S Chính Hãng" (advisor_dealer_note) —
+    Vì sao cần: quảng cáo Google của chuyên viên ghi kinh nghiệm (advisor_experience), "Phương Án Trả Góp", "Đại Lý 3S Chính Hãng" (advisor_dealer_note) —
     trang đích phải có đúng thông tin đó, nếu không
     Google coi là tuyên bố không có căn cứ và hạ điểm liên quan trang đích.
 

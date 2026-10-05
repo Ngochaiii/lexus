@@ -84,12 +84,12 @@ class VariantPageTest extends TestCase
         $this->assertSame([], array_diff($referenced, $defined), 'tham chiếu tới Product không có trên trang');
     }
 
-    // Quảng cáo ghi "10 Năm Kinh Nghiệm Bán Ô Tô", "Phương Án Trả Góp": trang đích
+    // Quảng cáo ghi kinh nghiệm chuyên viên, "Phương Án Trả Góp": trang đích
     // phải có đúng thông tin đó (điểm liên quan trang đích, tuyên bố có căn cứ).
     public function test_trang_dich_quang_cao_co_khoi_chuyen_vien_kinh_nghiem_va_tra_gop(): void
     {
         Setting::put('advisor_name', 'Thu Hà');
-        Setting::put('advisor_experience', '10 năm kinh nghiệm bán ô tô');
+        Setting::put('advisor_experience', 'Tư vấn Lexus tại Lexus Thăng Long từ 2017');
         // Quảng cáo ghi "Đại Lý 3S Chính Hãng" → trang đích phải nói đúng điều đó.
         Setting::put('advisor_dealer_note', 'Lexus Thăng Long – đại lý 3S chính hãng: bán xe, bảo hành, dịch vụ, phụ tùng');
         \App\Models\Page::create(['slug' => 'bang-gia', 'title' => 'Bảng giá', 'status' => 'published', 'sections' => []]);
@@ -98,7 +98,7 @@ class VariantPageTest extends TestCase
         foreach (['/san-pham/rx', '/san-pham/rx/rx-350h-premium', '/bang-gia', '/lien-he'] as $url) {
             $html = $this->get($url)->assertOk()->getContent();
             $this->assertStringContainsString('class="advisor-card-band"', $html, $url);
-            $this->assertStringContainsString('10 năm kinh nghiệm bán ô tô', $html, $url);
+            $this->assertStringContainsString('Tư vấn Lexus tại Lexus Thăng Long từ 2017', $html, $url);
             $this->assertStringContainsString('đại lý 3S chính hãng: bán xe, bảo hành, dịch vụ, phụ tùng', $html, $url);
             $this->assertStringContainsString('trả góp', $html, $url);
             $this->assertStringContainsString('href="tel:0989345989"', $html, $url);
@@ -107,7 +107,7 @@ class VariantPageTest extends TestCase
         $html = $this->get('/san-pham/rx/rx-350h-premium')->getContent();
         $this->assertStringContainsString('Báo giá lăn bánh Lexus RX 350h Premium', $html);
         $this->assertStringContainsString('data-variant-name="RX 350h Premium"', $html);
-        $this->assertStringContainsString('"description":"10 năm kinh nghiệm bán ô tô"', $html, 'Person trong JSON-LD');
+        $this->assertStringContainsString('"description":"Tư vấn Lexus tại Lexus Thăng Long từ 2017"', $html, 'Person trong JSON-LD');
     }
 
     public function test_trang_phien_ban_co_du_cac_muc_anh_cua_dong_xe(): void
