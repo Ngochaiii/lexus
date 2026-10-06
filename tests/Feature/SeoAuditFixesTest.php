@@ -107,7 +107,7 @@ class SeoAuditFixesTest extends TestCase
         (require database_path('migrations/2026_09_30_120000_advisor_experience_and_ads_privacy.php'))->up();
         $this->assertCount(2, $page->fresh()->sections, 'chạy lại không thêm trùng mục 7');
 
-        $seeder = file_get_contents(database_path('seeders/LexusSiteSeeder.php'));
-        $this->assertStringContainsString("'7. Quảng cáo Google'", $seeder);
+        $legal = file_get_contents(database_path('content/legal-pages.php'));
+        $this->assertStringContainsString("'7. Quảng cáo Google'", $legal);
     }
 }
