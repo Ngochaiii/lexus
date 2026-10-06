@@ -236,7 +236,7 @@ class LexusSiteSeeder extends Seeder
         return [
             'the-gioi-lexus' => [
                 'seo' => [
-                    'title'       => 'Thế giới Lexus: Omotenashi, Takumi, Hybrid | Lexus Thăng Long',
+                    'title'       => 'Thế giới Lexus: Omotenashi, Takumi, Hybrid | Thu Hà tư vấn Lexus',
                     'description' => 'Omotenashi, Takumi và 20 năm tiên phong hybrid hạng sang — những giá trị làm nên Lexus, '
                         .'và cách Lexus Thăng Long tại Cầu Giấy, Hà Nội mang chúng đến mỗi khách hàng.',
                     'eyebrow'     => 'THẾ GIỚI LEXUS',
@@ -318,7 +318,7 @@ class LexusSiteSeeder extends Seeder
 
             'bang-gia' => [
                 'seo' => [
-                    'title'       => 'Bảng giá xe Lexus 2026 mới nhất tại Hà Nội | Lexus Thăng Long',
+                    'title'       => 'Bảng giá xe Lexus 2026 mới nhất tại Hà Nội | Thu Hà tư vấn Lexus',
                     'description' => 'Bảng giá xe Lexus 2026: ES 350h từ 2,36 tỷ, RX từ 3,35 tỷ, GX 550 6,2 tỷ, LM 7,21 tỷ, '
                         .'LS 8,03 tỷ, LX từ 8,59 tỷ. Nhận báo giá lăn bánh Hà Nội tại Lexus Thăng Long.',
                     'eyebrow'     => 'BẢNG GIÁ',
@@ -347,7 +347,7 @@ class LexusSiteSeeder extends Seeder
 
             'showroom' => [
                 'seo' => [
-                    'title'       => 'Showroom Lexus Thăng Long — Phạm Hùng, Cầu Giấy, Hà Nội',
+                    'title'       => 'Xem xe tại showroom Lexus Thăng Long, Cầu Giấy | Thu Hà tư vấn Lexus',
                     'description' => 'Showroom Lexus Thăng Long tại ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy, Hà Nội. '
                         .'Mở cửa '.$hours.'. Xem xe, lái thử và nhận tư vấn trực tiếp.',
                     'eyebrow'     => 'LEXUS THĂNG LONG',
@@ -384,7 +384,7 @@ class LexusSiteSeeder extends Seeder
 
             'dich-vu' => [
                 'seo' => [
-                    'title'       => 'Dịch vụ & bảo dưỡng xe Lexus tại Hà Nội | Lexus Thăng Long',
+                    'title'       => 'Dịch vụ & bảo dưỡng xe Lexus tại Hà Nội | Thu Hà tư vấn Lexus',
                     'description' => 'Xưởng dịch vụ Lexus chính hãng tại Cầu Giấy, Hà Nội: bảo dưỡng định kỳ, sửa chữa chung, '
                         .'đồng sơn với buồng sơn sấy tiêu chuẩn. Đặt lịch qua chuyên viên Lexus Thăng Long.',
                     'eyebrow'     => 'DỊCH VỤ',
@@ -441,7 +441,7 @@ class LexusSiteSeeder extends Seeder
             // là chính sách chung từ 10/2023.
             'uu-dai' => [
                 'seo' => [
-                    'title'       => 'Đặc quyền sở hữu Lexus: bảo hành 10 năm xe hybrid | Lexus Thăng Long',
+                    'title'       => 'Đặc quyền sở hữu Lexus: bảo hành 10 năm xe hybrid | Thu Hà tư vấn Lexus',
                     'description' => 'Xe Lexus hybrid bán mới từ 8/5/2026 được bảo hành 10 năm, không giới hạn km cho cả xe và pin hybrid. '
                         .'Chính sách bảo hành, bảo dưỡng và đồng hành sau bán hàng tại Lexus Thăng Long, Hà Nội.',
                     'eyebrow'     => 'ĐẶC QUYỀN SỞ HỮU',
@@ -501,7 +501,7 @@ class LexusSiteSeeder extends Seeder
             // Việt Nam áp dụng) với lãi suất GIẢ ĐỊNH 8%/năm — ghi rõ là minh họa.
             'tai-chinh' => [
                 'seo' => [
-                    'title'       => 'Mua Lexus trả góp tại Hà Nội: hồ sơ, ví dụ vay | Lexus Thăng Long',
+                    'title'       => 'Mua Lexus trả góp tại Hà Nội: hồ sơ, ví dụ vay | Thu Hà tư vấn Lexus',
                     'description' => 'Mua Lexus trả góp: vay thường 70–80% giá xe, thời hạn tới 7–8 năm. Ví dụ vay 70% Lexus RX 350h Premium '
                         .'trong 7 năm, hồ sơ cần chuẩn bị và câu hỏi thường gặp — Lexus Thăng Long, Hà Nội.',
                     'eyebrow'     => 'GIẢI PHÁP TÀI CHÍNH',
@@ -572,7 +572,7 @@ class LexusSiteSeeder extends Seeder
             // ── Câu hỏi thường gặp (tổng hợp) ─────────────────────────────
             'faq' => [
                 'seo' => [
-                    'title'       => 'Câu hỏi thường gặp khi mua xe Lexus tại Hà Nội | Lexus Thăng Long',
+                    'title'       => 'Câu hỏi thường gặp khi mua xe Lexus tại Hà Nội | Thu Hà tư vấn Lexus',
                     'description' => 'Giải đáp nhanh: giá xe Lexus 2026, giá lăn bánh Hà Nội, lái thử, trả góp, bảo hành 10 năm xe hybrid, '
                         .'thời gian giao xe và địa chỉ showroom Lexus Thăng Long.',
                     'eyebrow'     => 'HỎI ĐÁP',

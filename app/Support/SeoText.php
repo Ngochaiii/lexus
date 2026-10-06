@@ -6,6 +6,18 @@ namespace App\Support;
 class SeoText
 {
     /**
+     * Đuôi tiêu đề trang: " | Thu Hà tư vấn Lexus" khi site có chuyên viên
+     * đứng tên — "| Lexus Thăng Long" đọc như website của đại lý (Google Ads
+     * tạm ngưng vì ngụ ý là đại lý). Không có chuyên viên thì dùng tên site.
+     */
+    public static function titleSuffix(): string
+    {
+        $advisor = catalog_setting('advisor_name');
+
+        return ' | '.(filled($advisor) ? $advisor.' tư vấn Lexus' : catalog_setting('site_name', config('app.name')));
+    }
+
+    /**
      * Mô tả meta ≤ $max ký tự: ưu tiên cắt ở cuối câu (". ", "! ", "? ")
      * nếu còn giữ được ít nhất 60% độ dài; không thì cắt ở ranh giới từ và
      * thêm "…". Chuỗi ngắn hơn giới hạn giữ nguyên.

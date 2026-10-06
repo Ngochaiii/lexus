@@ -9,7 +9,7 @@
     Biến từ QuoteController: $form · $products · $selected
 --}}
 @extends('frontend.layout', [
-    'title'       => 'Nhận báo giá xe Lexus | '.catalog_setting('site_name', config('app.name')),
+    'title'       => 'Nhận báo giá xe Lexus'.\App\Support\SeoText::titleSuffix(),
     'description' => 'Để lại thông tin để nhận báo giá lăn bánh và phương án sở hữu Lexus phù hợp từ chuyên viên tư vấn '.catalog_setting('site_name', 'Lexus Thăng Long').'.',
 ])
 

@@ -11,7 +11,7 @@
     mở đầu — nhét nó vào dòng mục thường thì ảnh bị bóp méo.
 --}}
 @extends('frontend.layout', [
-    'title'       => data_get($page->seo, 'title', $page->title.' | '.catalog_setting('site_name', config('app.name'))),
+    'title'       => data_get($page->seo, 'title', $page->title.\App\Support\SeoText::titleSuffix()),
     'description' => data_get($page->seo, 'description'),
     'canonical'   => \App\Support\Url::absolute('page', $page->slug),
     'jsonld'      => \App\Support\JsonLd::graph(

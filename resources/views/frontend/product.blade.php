@@ -2,7 +2,7 @@
 @extends('frontend.layout', [
     'overlay'     => ! $studio,
     'salesBar'    => true,
-    'title'       => data_get($product->seo, 'title', $product->name.' | '.catalog_setting('site_name', config('app.name'))),
+    'title'       => data_get($product->seo, 'title', $product->name.\App\Support\SeoText::titleSuffix()),
     'description' => data_get($product->seo, 'description')
         ?: collect([$product->name, $product->tagline])->filter()->join(' — ')
             .'. Khám phá thiết kế, phiên bản và đăng ký lái thử.',

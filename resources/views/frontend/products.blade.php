@@ -33,7 +33,7 @@
         .'. Xem giá từng phiên bản, màu xe và đăng ký lái thử.';
 @endphp
 @extends('frontend.layout', [
-    'title'       => $listTitle.' | '.catalog_setting('site_name', config('app.name')),
+    'title'       => $listTitle.\App\Support\SeoText::titleSuffix(),
     'description' => $listDesc,
     'canonical'   => $indexCanonical,
     'prev'        => $products->previousPageUrl(),

@@ -7,7 +7,7 @@
     Biến từ BookingController: $forms · $products · $mode · $selected
 --}}
 @extends('frontend.layout', [
-    'title'       => 'Đăng ký lái thử xe Lexus tại Hà Nội | '.catalog_setting('site_name', config('app.name')),
+    'title'       => 'Đăng ký lái thử xe Lexus tại Hà Nội'.\App\Support\SeoText::titleSuffix(),
     'description' => 'Đặt lịch lái thử xe Lexus (SUV, Sedan, MPV) tại showroom Lexus Thăng Long, Cầu Giấy, Hà Nội. Chuyên viên tư vấn gọi lại xác nhận lịch hẹn.',
     'jsonld'      => \App\Support\JsonLd::graph(
         \App\Support\JsonLd::forBreadcrumb([

@@ -17,7 +17,7 @@
         : 'Bảng giá, giá lăn bánh, so sánh phiên bản và kinh nghiệm chọn xe Lexus tại Hà Nội — cập nhật bởi chuyên viên tư vấn Lexus Thăng Long.';
 @endphp
 @extends('frontend.layout', [
-    'title'       => $listName.' | '.catalog_setting('site_name', config('app.name')),
+    'title'       => $listName.\App\Support\SeoText::titleSuffix(),
     'description' => $listDesc,
     'canonical'   => $indexCanonical,
     'prev'        => $posts->previousPageUrl(),

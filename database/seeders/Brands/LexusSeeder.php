@@ -408,7 +408,7 @@ class LexusSeeder extends BrandSeeder
                     'Lexus RX bán tại Việt Nam là bản 5 chỗ, khoang hành lý 612 lít và gập được hàng ghế sau.',
             ] + $this->commonFaq('Lexus RX'),
             'seo' => [
-                'title'       => 'Lexus RX 2026: giá từ 3,35 tỷ, thông số, màu | Lexus Thăng Long',
+                'title'       => 'Lexus RX 2026: giá từ 3,35 tỷ, thông số, màu | Thu Hà tư vấn Lexus',
                 'description' => 'Giá xe Lexus RX 2026 tại Hà Nội: RX 350h Premium 3,35 tỷ, 350h Luxury 4,14 tỷ, '
                     .'500h F SPORT Performance 4,94 tỷ. Xem màu, thông số và đăng ký lái thử tại Lexus Thăng Long.',
             ],
@@ -525,7 +525,7 @@ class LexusSeeder extends BrandSeeder
                     .'và chi phí sử dụng hợp lý của hệ truyền động hybrid.',
             ] + $this->commonFaq('Lexus ES'),
             'seo' => [
-                'title'       => 'Lexus ES 350h 2026: giá từ 2,36 tỷ, thế hệ mới | Lexus Thăng Long',
+                'title'       => 'Lexus ES 350h 2026: giá từ 2,36 tỷ, thế hệ mới | Thu Hà tư vấn Lexus',
                 'description' => 'Giá Lexus ES 2026 tại Hà Nội: 350h Premium 2,36 tỷ, 350h Luxury 2,58 tỷ, ES 500e thuần điện 2,98 tỷ (miễn trước bạ). Lái thử tại Lexus Thăng Long.',
             ],
         ];
@@ -675,7 +675,7 @@ class LexusSeeder extends BrandSeeder
                     .'bản 500h hiệu năng cao. Cả hai đều là SUV 5 chỗ.',
             ] + $this->commonFaq('Lexus NX'),
             'seo' => [
-                'title'       => 'Lexus NX 2026: giá từ 3,13 tỷ, 350h & F SPORT | Lexus Thăng Long',
+                'title'       => 'Lexus NX 2026: giá từ 3,13 tỷ, 350h & F SPORT | Thu Hà tư vấn Lexus',
                 'description' => 'Lexus NX 2026 tại Hà Nội: NX 350 F SPORT 3,13 tỷ (tăng áp 275 HP), NX 350h 3,27 tỷ (hybrid, 6,65 L/100 km). '
                     .'Xem 6 màu, thông số chi tiết và đăng ký lái thử tại Lexus Thăng Long, Cầu Giấy.',
             ],
@@ -803,7 +803,7 @@ class LexusSeeder extends BrandSeeder
                     .'dẫn động bốn bánh toàn thời gian.',
             ] + $this->commonFaq('Lexus LX'),
             'seo' => [
-                'title'       => 'Lexus LX 600 2026: giá từ 8,59 tỷ, 3 phiên bản | Lexus Thăng Long',
+                'title'       => 'Lexus LX 600 2026: giá từ 8,59 tỷ, 3 phiên bản | Thu Hà tư vấn Lexus',
                 'description' => 'Giá Lexus LX 600 2026 tại Hà Nội: Urban 8,59 tỷ, F SPORT 8,84 tỷ, VIP 4 chỗ 9,7 tỷ. '
                     .'V6 tăng áp kép 409 HP. Xem màu, thông số và đặt lịch lái thử tại Lexus Thăng Long.',
             ],
@@ -916,7 +916,7 @@ class LexusSeeder extends BrandSeeder
                     .'LX lớn hơn, sang trọng hơn và có bản VIP 4 chỗ.',
             ] + $this->commonFaq('Lexus GX'),
             'seo' => [
-                'title'       => 'Lexus GX 550 2026: giá 6,2 tỷ, thông số | Lexus Thăng Long',
+                'title'       => 'Lexus GX 550 2026: giá 6,2 tỷ, thông số | Thu Hà tư vấn Lexus',
                 'description' => 'Giá Lexus GX 550 2026 tại Hà Nội: 6,2 tỷ đồng, lăn bánh khoảng 6,96 tỷ. SUV khung gầm rời, '
                     .'V6 tăng áp kép 349 HP, 7 chỗ. Xem ảnh thực tế và lái thử tại Lexus Thăng Long.',
             ],
@@ -1022,7 +1022,7 @@ class LexusSeeder extends BrandSeeder
                     .'và tận dụng năng lượng phanh, nên tiết kiệm hơn đáng kể so với MPV cỡ lớn chạy xăng thuần.',
             ] + $this->commonFaq('Lexus LM'),
             'seo' => [
-                'title'       => 'Lexus LM 500h 6 chỗ 2026: giá 7,21 tỷ | Lexus Thăng Long',
+                'title'       => 'Lexus LM 500h 6 chỗ 2026: giá 7,21 tỷ | Thu Hà tư vấn Lexus',
                 'description' => 'Giá Lexus LM 500h 6 chỗ 2026 tại Hà Nội: 7,21 tỷ, lăn bánh khoảng 8,09 tỷ. MPV hạng sang hybrid 366 HP, '
                     .'ghế thương gia. Xem nội thất và đặt lịch trải nghiệm tại Lexus Thăng Long.',
             ],
@@ -1150,7 +1150,7 @@ class LexusSeeder extends BrandSeeder
                     .'màn hình 48 inch, thuận tiện làm việc trên xe. Nhiều khách chọn LS để tự lái và LM cho tài xế.',
             ] + $this->commonFaq('Lexus LS'),
             'seo' => [
-                'title'       => 'Lexus LS 500h 2026: giá 8,03 tỷ, thông số | Lexus Thăng Long',
+                'title'       => 'Lexus LS 500h 2026: giá 8,03 tỷ, thông số | Thu Hà tư vấn Lexus',
                 'description' => 'Lexus LS 500h 2026 giá 8,03 tỷ tại Hà Nội: sedan đầu bảng V6 hybrid 354 HP, treo khí nén, '
                     .'6,24 L/100 km. Xem màu, nội thất thủ công Takumi và đặt lịch lái thử tại Lexus Thăng Long.',
             ],

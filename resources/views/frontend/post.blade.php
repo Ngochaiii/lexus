@@ -11,7 +11,7 @@
     Biến từ PostController: $post · $sections · $toc · $car · $related
 --}}
 @extends('frontend.layout', [
-    'title'       => data_get($post->seo, 'title', $post->title.' | '.catalog_setting('site_name', config('app.name'))),
+    'title'       => data_get($post->seo, 'title', $post->title.\App\Support\SeoText::titleSuffix()),
     'description' => data_get($post->seo, 'description') ?: $post->excerpt,
     'canonical'   => \App\Support\Url::absolute('post', $post->slug),
     'ogType'      => 'article',

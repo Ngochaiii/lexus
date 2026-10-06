@@ -20,8 +20,9 @@
     if ($roadShort && mb_strlen($seoTitle.', lăn bánh '.$roadShort) <= 62) {
         $seoTitle .= ', lăn bánh '.$roadShort;
     }
-    if (mb_strlen($seoTitle.' | '.$site) <= 70) {
-        $seoTitle .= ' | '.$site;
+    $suffix = \App\Support\SeoText::titleSuffix();
+    if (mb_strlen($seoTitle.$suffix) <= 70) {
+        $seoTitle .= $suffix;
     }
 
     $seoDesc = 'Giá '.$fullName.' 2026 tại Hà Nội: '
