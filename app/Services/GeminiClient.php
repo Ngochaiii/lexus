@@ -21,6 +21,9 @@ use RuntimeException;
  */
 class GeminiClient
 {
+    /** Trần token đầu ra lớn nhất của các model Gemini flash. */
+    private const MAX_OUTPUT_CEILING = 65536;
+
     private const ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent';
 
     /** Báo lỗi sớm (trước khi đọc ảnh, gọi mạng) khi chưa cấu hình. */
@@ -144,12 +147,22 @@ class GeminiClient
 
         // Gemini 3.x tính cả token "suy nghĩ" (~2.000–2.500) vào trần này,
         // nên trần thấp sẽ cắt cụt JSON giữa chừng và báo lỗi định dạng sai lệch.
+        // Bị cắt thì tự gọi lại với trần gấp đôi (tới trần tối đa của Gemini
+        // flash) thay vì bắt người dùng sửa .env.
         if ($response->json('candidates.0.finishReason') === 'MAX_TOKENS') {
-            Log::warning('Gemini: bị cắt vì hết trần token', $context);
+            $limit = (int) data_get($payload, 'generationConfig.maxOutputTokens', 8192);
+            Log::warning('Gemini: bị cắt vì hết trần token', $context + ['limit' => $limit]);
+
+            if ($limit < self::MAX_OUTPUT_CEILING) {
+                data_set($payload, 'generationConfig.maxOutputTokens', min(self::MAX_OUTPUT_CEILING, $limit * 2));
+
+                return $this->json($payload, $task);
+            }
 
             throw new RuntimeException(
-                ucfirst($task).' bị cắt vì vượt trần token đầu ra của Gemini. '
-                .'Hãy tăng GEMINI_MAX_OUTPUT_TOKENS trong file .env (khuyến nghị 8192 trở lên) rồi tạo lại.',
+                ucfirst($task).' vẫn bị cắt ở trần '.self::MAX_OUTPUT_CEILING.' token của Gemini (suy nghĩ '
+                .(int) $response->json('usageMetadata.thoughtsTokenCount').', nội dung '.(int) $response->json('usageMetadata.candidatesTokenCount')
+                .' token). Hãy rút gọn yêu cầu thêm hoặc thử lại.',
             );
         }
 

@@ -348,9 +348,58 @@ class GeminiArticleWriterTest extends TestCase
         ]);
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('GEMINI_MAX_OUTPUT_TOKENS');
+        $this->expectExceptionMessage('vẫn bị cắt');
 
         app(GeminiArticleWriter::class)->generate('Một tiêu đề', $this->imagePath);
+    }
+
+    // 09/10/2026: bài theo khung GEO dài hơn, Gemini 3.x tính cả token suy nghĩ
+    // vào trần → bị cắt. Tự gọi lại với trần gấp đôi thay vì bắt sửa .env.
+    private function geminiArticleResponse(): \GuzzleHttp\Promise\PromiseInterface
+    {
+        return Http::response(['candidates' => [['content' => ['parts' => [['text' => json_encode([
+            'primary_keyword' => 'giá lăn bánh lexus es', 'search_intent' => 'Tìm giá',
+            'secondary_keywords' => ['lexus es hà nội', 'lăn bánh es', 'es 350h', 'trước bạ', 'biển số'],
+            'excerpt' => 'Tóm tắt.', 'article_html' => '<p>'.str_repeat('Giá lăn bánh Lexus ES. ', 20).'</p>',
+            'seo_title' => 'Giá lăn bánh Lexus ES', 'meta_description' => str_repeat('Mô tả giá lăn bánh Lexus ES. ', 5),
+            'slug' => 'gia-lan-banh-lexus-es', 'faq' => [['question' => 'Bao nhiêu?', 'answer' => 'Khoảng 2,66 tỷ.']],
+            'keywords' => ['giá lăn bánh lexus es', 'lexus es hà nội', 'lăn bánh es', 'es 350h', 'trước bạ'],
+        ], JSON_UNESCAPED_UNICODE)]]], 'finishReason' => 'STOP']]]);
+    }
+
+    public function test_bai_bi_cat_thi_tu_goi_lai_voi_tran_gap_doi(): void
+    {
+        config(['services.gemini.max_output_tokens' => 16384]);
+        $cut = Http::response(['candidates' => [[
+            'content' => ['parts' => [['text' => '{"excerpt": "Tóm tắt", "article_html": "<p>Đang dở']]],
+            'finishReason' => 'MAX_TOKENS',
+        ]], 'usageMetadata' => ['thoughtsTokenCount' => 9000, 'candidatesTokenCount' => 7384]]);
+
+        Http::fake(['generativelanguage.googleapis.com/*' => Http::sequence()->pushResponse($cut)->pushResponse($this->geminiArticleResponse())]);
+
+        $article = app(GeminiArticleWriter::class)->generate('Một tiêu đề', $this->imagePath);
+
+        $this->assertNotSame('', $article['article_html']);
+        $sent = Http::recorded()->map(fn ($pair) => data_get($pair[0]->data(), 'generationConfig.maxOutputTokens'))->all();
+        $this->assertSame([16384, 32768], $sent);
+    }
+
+    public function test_bi_cat_den_tran_toi_da_thi_bao_ro_so_token(): void
+    {
+        config(['services.gemini.max_output_tokens' => 32768]);
+        Http::fake(['generativelanguage.googleapis.com/*' => Http::response(['candidates' => [[
+            'content' => ['parts' => [['text' => '{"excerpt": "Đang dở']]],
+            'finishReason' => 'MAX_TOKENS',
+        ]], 'usageMetadata' => ['thoughtsTokenCount' => 30000, 'candidatesTokenCount' => 35536]])]);
+
+        try {
+            app(GeminiArticleWriter::class)->generate('Một tiêu đề', $this->imagePath);
+            $this->fail('Phải báo lỗi');
+        } catch (RuntimeException $e) {
+            $this->assertStringContainsString('65536', $e->getMessage());
+            $this->assertStringContainsString('suy nghĩ 30000', $e->getMessage());
+        }
+        Http::assertSentCount(2);
     }
 
     public function test_nut_gemini_luon_bam_duoc_va_bao_thieu_du_lieu(): void
