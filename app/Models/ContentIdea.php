@@ -27,10 +27,18 @@ class ContentIdea extends Model
         'dia-phuong' => 'Khu vực / đại lý',
     ];
 
+    /** Giai đoạn hành trình khách — khách hỏi Google/AI khác nhau ở mỗi giai đoạn. */
+    public const STAGES = [
+        'tim-hieu' => 'Tìm hiểu',
+        'lua-chon' => 'Lựa chọn',
+        'quyet-dinh' => 'Quyết định',
+    ];
+
     protected function casts(): array
     {
         return [
             'secondary_keywords' => 'array',
+            'ai_prompts' => 'array',
             'priority' => 'integer',
         ];
     }

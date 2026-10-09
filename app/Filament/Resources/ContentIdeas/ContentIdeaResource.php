@@ -79,6 +79,9 @@ class ContentIdeaResource extends Resource
             TagsInput::make('secondary_keywords')->label('Từ khoá phụ')->columnSpanFull(),
             Textarea::make('search_intent')->label('Khách tìm để làm gì')->rows(2)->columnSpanFull(),
             Textarea::make('angle')->label('Bài phải trả lời được')->rows(3)->columnSpanFull(),
+            TagsInput::make('ai_prompts')->label('Câu khách hỏi ChatGPT/Gemini')->columnSpanFull()
+                ->helperText('Câu hỏi đầy đủ như khách gõ cho AI; bài sẽ trả lời thẳng từng câu.'),
+            Select::make('stage')->label('Giai đoạn khách')->options(ContentIdea::STAGES),
             Select::make('cluster')->label('Nhóm chủ đề')->options(ContentIdea::CLUSTERS),
             Select::make('priority')->label('Ưu tiên')->options(ContentIdea::PRIORITIES)->default(2)->required()->selectablePlaceholder(false),
         ]);
@@ -97,6 +100,9 @@ class ContentIdeaResource extends Resource
                     ->color(fn (int $state) => match ($state) { 1 => 'danger', 2 => 'warning', default => 'gray' }),
                 TextColumn::make('title')->label('Chủ đề')->wrap()->searchable()
                     ->description(fn (ContentIdea $r) => 'Từ khoá: '.$r->primary_keyword.(filled($r->target_url) ? ' · Đẩy: '.$r->target_url : '')),
+                TextColumn::make('stage')->label('Giai đoạn')->badge()
+                    ->formatStateUsing(fn (?string $state) => ContentIdea::STAGES[$state] ?? $state)
+                    ->color(fn (?string $state) => match ($state) { 'quyet-dinh' => 'success', 'lua-chon' => 'info', default => 'gray' }),
                 TextColumn::make('cluster')->label('Nhóm')->badge()->color('gray')
                     ->formatStateUsing(fn (?string $state) => ContentIdea::CLUSTERS[$state] ?? $state)->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('target_url')->label('Trang cần đẩy')->toggleable(isToggledHiddenByDefault: true)
@@ -109,6 +115,7 @@ class ContentIdeaResource extends Resource
             ->filters([
                 SelectFilter::make('status')->label('Trạng thái')->multiple()->options(ContentIdea::STATUSES)
                     ->default(['idea', 'writing', 'drafted']),
+                SelectFilter::make('stage')->label('Giai đoạn')->options(ContentIdea::STAGES),
                 SelectFilter::make('cluster')->label('Nhóm')->options(ContentIdea::CLUSTERS),
             ])
             ->headerActions([

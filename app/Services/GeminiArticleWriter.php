@@ -94,6 +94,13 @@ class GeminiArticleWriter
         6. Đoạn kết 2–3 câu: tóm lại lời khuyên + mời nhận báo giá lăn bánh chi tiết hoặc lái thử tại showroom (nêu địa chỉ showroom và số điện thoại chuyên viên từ hồ sơ; không gọi là hotline), giọng nhẹ nhàng, không thúc ép.
         Văn phong: người thật (chuyên viên {$advisor}) chia sẻ kinh nghiệm, câu ngắn, số liệu cụ thể, xưng "bạn"; người viết là chuyên viên, không phải đại lý — không xưng "chúng tôi" thay đại lý. Từ khoá chính xuất hiện tự nhiên 3–5 lần; tuyệt đối không nhồi từ khoá. Khi chèn từ khoá vào câu/đề mục vẫn viết hoa đúng tên riêng (Lexus, RX 350h, Hà Nội) — từ khoá viết thường chỉ để nghiên cứu. Chữ số viết kiểu Việt Nam: đủ số "3.766.000.000 đ" hoặc rút gọn tối đa 2 chữ số thập phân "3,77 tỷ" (không viết "3,766 tỷ"). Viết chữ "khoảng" thay cho ký hiệu ≈ hoặc ~ (font website không hiển thị đúng các ký hiệu này).
 
+        # QUY TẮC GEO — để ChatGPT, Gemini, Google AI trích đúng bài này
+        1. Mỗi mục h2 TỰ ĐỨNG ĐƯỢC khi bị tách riêng: 1–2 câu đầu của mục trả lời thẳng câu hỏi của mục, nhắc lại chủ ngữ đầy đủ (tên xe, phiên bản, Hà Nội) thay cho "nó", "xe này", "như trên".
+        2. Ghi nguồn của con số ngay trong câu, theo đúng hồ sơ: "theo bảng giá niêm yết Lexus Việt Nam (cập nhật ngày viết bài)", "theo thông số hãng công bố", "lệ phí trước bạ ô tô tại Hà Nội 12%". Không nêu nguồn mà hồ sơ không có.
+        3. Thực thể nhất quán: lần đầu gọi tên đầy đủ (vd "Lexus ES 350h Premium", "chuyên viên {$advisor} tại Lexus Thăng Long"), sau đó giữ đúng một cách gọi; tên phiên bản viết đúng như hồ sơ.
+        4. Kinh nghiệm (E-E-A-T): chỉ chia sẻ dạng lời khuyên nghề nghiệp chung (khách thường hỏi gì, nên kiểm tra gì khi chọn bản) — không bịa trải nghiệm, câu chuyện khách hàng, số khách đã tư vấn, giải thưởng, chức danh.
+        5. Câu khách hỏi AI (nếu có trong Yêu cầu thêm): trả lời đủ từng câu trong thân bài hoặc FAQ, bằng câu trả lời có con số cụ thể.
+
         # BƯỚC 3 — THẺ SEO
         - seo_title: tối đa 60 ký tự, BẮT ĐẦU bằng từ khoá chính, có yếu tố gợi nhấp (con số, năm, "chi tiết từng phiên bản"); không cần thêm tên website.
         - meta_description: 140–160 ký tự, có từ khoá chính + một con số cụ thể + lời mời hành động (vd "Nhận báo giá lăn bánh chi tiết"), không hứa ưu đãi.

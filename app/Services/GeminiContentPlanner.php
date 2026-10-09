@@ -78,6 +78,9 @@ class GeminiContentPlanner
                 'target_url' => $target,
                 'cluster' => array_key_exists($cluster, ContentIdea::CLUSTERS) ? $cluster : null,
                 'priority' => max(1, min(3, (int) ($row['priority'] ?? 2))),
+                'stage' => array_key_exists($stage = (string) ($row['stage'] ?? ''), ContentIdea::STAGES) ? $stage : null,
+                'ai_prompts' => collect($row['ai_prompts'] ?? [])->filter(fn ($q) => is_string($q) && filled(trim($q)))
+                    ->map(fn ($q) => Str::limit(trim($q), 250, ''))->take(5)->values()->all(),
             ]));
         }
 
@@ -122,14 +125,30 @@ class GeminiContentPlanner
         return $post;
     }
 
+    /** Cách viết theo từng giai đoạn hành trình khách (GEO). */
+    private const STAGE_GUIDE = [
+        'tim-hieu' => 'khách đang tìm hiểu kiến thức, chưa chọn xe. Giải thích dễ hiểu, đúng sự thật, có ví dụ số liệu từ hồ sơ; dẫn sang dòng xe liên quan; lời mời liên hệ nhẹ nhàng ở cuối.',
+        'lua-chon' => 'khách đang so các dòng xe, phiên bản Lexus đang bán hoặc cách mua (trả thẳng, trả góp). Có bảng so sánh theo tiêu chí khách quan tâm và kết luận rõ "bản nào hợp với ai". Không xếp hạng hay so sánh đại lý, sale khác; không so với hãng khác bằng số liệu không có trong hồ sơ.',
+        'quyet-dinh' => 'khách đã gần mua: cần con số đầy đủ (giá, lăn bánh, trả trước), các bước làm, thời gian, và đường liên hệ rõ ràng (nhận báo giá, lái thử, gọi chuyên viên).',
+    ];
+
     /** Chỉ dẫn gửi kèm tiêu đề cho GeminiArticleWriter. */
     public function instructionsFor(ContentIdea $idea): string
     {
+        $prompts = collect($idea->ai_prompts ?? [])->filter()->values();
+
         return implode("\n", array_filter([
             'Từ khoá chính BẮT BUỘC dùng làm primary_keyword: "'.$idea->primary_keyword.'".',
             filled($idea->secondary_keywords) ? 'Từ khoá phụ nên dùng tự nhiên: '.implode(', ', $idea->secondary_keywords).'.' : null,
             filled($idea->search_intent) ? 'Ý định tìm kiếm: '.$idea->search_intent : null,
             filled($idea->angle) ? 'Bài phải trả lời được: '.$idea->angle : null,
+            isset(self::STAGE_GUIDE[$idea->stage])
+                ? 'Giai đoạn: '.ContentIdea::STAGES[$idea->stage].' — '.self::STAGE_GUIDE[$idea->stage]
+                : null,
+            $prompts->isNotEmpty()
+                ? "Câu khách hỏi ChatGPT/Gemini mà bài PHẢI trả lời trực tiếp (dùng ít nhất 2 câu làm đề mục h2 dạng câu hỏi, câu đầu của mục đó là câu trả lời):\n"
+                    .$prompts->map(fn ($q) => '- '.$q)->implode("\n")
+                : null,
             filled($idea->target_url)
                 ? 'TRANG CẦN ĐẨY: '.$idea->target_url.' — chèn ít nhất 2 link tới đúng đường dẫn này (1 link trong 3 đoạn đầu), anchor text chứa từ khoá hoặc tên xe/phiên bản.'
                 : null,
@@ -206,6 +225,14 @@ class GeminiContentPlanner
         # TRANG CẦN ĐẨY (target_url CHỈ được chọn trong danh sách này)
         {$targetList}
 
+        # GIAI ĐOẠN HÀNH TRÌNH KHÁCH (GEO)
+        Khách không chỉ gõ Google mà còn hỏi thẳng ChatGPT, Gemini — mỗi giai đoạn hỏi khác nhau. Mỗi chủ đề gắn đúng một stage:
+        - tim-hieu (Tìm hiểu): hỏi kiến thức trước khi chọn xe — "xe hybrid Lexus có phải cắm sạc không", "lăn bánh gồm những khoản gì", "bảo hành pin hybrid Lexus bao lâu".
+        - lua-chon (Lựa chọn): so dòng xe, phiên bản Lexus đang bán, cách mua — "nên mua ES 350h hay RX 350h cho gia đình", "ES 350h Premium và Luxury khác gì", "trả góp hay trả thẳng". Ở website này "lựa chọn" là chọn XE và CÁCH MUA: không xếp hạng đại lý, sale khác, không viết "top đại lý/sale uy tín", không so với hãng khác.
+        - quyet-dinh (Quyết định): gần mua — "giá lăn bánh ES 350h Premium Hà Nội", "trả trước bao nhiêu để mua RX 350h", "thủ tục mua Lexus trả góp", "lái thử Lexus ở Hà Nội cần gì".
+        Trong {$count} chủ đề: mỗi giai đoạn ít nhất một chủ đề (nếu {$count} ≥ 3); khoảng một nửa là quyet-dinh vì gần ra khách nhất.
+        ai_prompts: 3–5 câu hỏi HỘI THOẠI đầy đủ mà khách thật sẽ gõ cho ChatGPT/Gemini về chủ đề này, có ngữ cảnh (ngân sách, gia đình mấy người, đi phố hay đi tỉnh, ở Hà Nội) — khác với từ khoá ngắn gõ Google. Không đặt câu hỏi về đại lý hay sale khác.
+
         # CÁCH CHỌN CHỦ ĐỀ
         1. Ưu tiên từ khoá có Ý ĐỊNH MUA gần: "giá lăn bánh…", "… trả góp", "so sánh A và B", "có nên mua…", "… bản nào đáng mua", "… hà nội". Tránh chủ đề tin tức chung chung, lịch sử hãng, chủ đề không dẫn tới mua xe.
         2. Mỗi chủ đề nhắm MỘT từ khoá chính 3–7 chữ (viết thường, đúng cách người Việt gõ) và phải khác hẳn nhau — không để 2 bài tranh cùng một từ khoá.
@@ -235,8 +262,10 @@ class GeminiContentPlanner
                             'target_url' => ['type' => 'string'],
                             'cluster' => ['type' => 'string', 'enum' => array_keys(ContentIdea::CLUSTERS)],
                             'priority' => ['type' => 'integer', 'minimum' => 1, 'maximum' => 3],
+                            'stage' => ['type' => 'string', 'enum' => array_keys(ContentIdea::STAGES)],
+                            'ai_prompts' => ['type' => 'array', 'items' => ['type' => 'string'], 'minItems' => 3, 'maxItems' => 5],
                         ],
-                        'required' => ['title', 'primary_keyword', 'secondary_keywords', 'search_intent', 'angle', 'target_url', 'cluster', 'priority'],
+                        'required' => ['title', 'primary_keyword', 'secondary_keywords', 'search_intent', 'angle', 'target_url', 'cluster', 'priority', 'stage', 'ai_prompts'],
                     ],
                 ],
             ],
