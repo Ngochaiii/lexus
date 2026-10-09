@@ -256,7 +256,7 @@ class LexusSeeder extends BrandSeeder
             "Mua {$name} chính hãng ở đâu tại Hà Nội?" =>
                 self::DEALER.' là đại lý Lexus chính hãng tại '.self::ADDRESS.'. Showroom trưng bày, '
                 .'có xe lái thử và xưởng dịch vụ chính hãng ngay tại đại lý. Đặt lịch lái thử trên website '
-                .'hoặc gọi hotline 0989 345 989 (Thu Hà).',
+                .'hoặc gọi số 0934 846 666 (Thu Hà).',
         ];
     }
 

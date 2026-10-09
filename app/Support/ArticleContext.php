@@ -66,6 +66,10 @@ class ArticleContext
             filled($advisor = catalog_setting('advisor_name')) ? 'Chuyên viên tư vấn (người đứng tên bài): '.$advisor : null,
             filled($phone = catalog_setting('advisor_phone') ?: catalog_setting('hotline'))
                 ? ($advisor ? 'Điện thoại chuyên viên '.$advisor.': ' : 'Điện thoại: ').Phone::format($phone) : null,
+            // Số Zalo có thể khác số gọi — bài viết ghi đúng số cho từng kênh.
+            filled($zalo = Phone::zalo(catalog_setting('advisor_zalo') ?: catalog_setting('zalo')))
+                ? ($advisor ? 'Zalo chuyên viên '.$advisor.': ' : 'Zalo: ').$zalo
+                    .($zalo !== Phone::format($phone) ? ' (khác số điện thoại: gọi thì ghi số điện thoại, nhắn Zalo thì ghi số Zalo)' : '') : null,
             // Google Ads tạm ngưng tài khoản vì site "ngụ ý là đại lý" — bài viết
             // phải nói bằng lời chuyên viên (xem AdvisorVoiceTest).
             'Đây là website tư vấn cá nhân của chuyên viên, KHÔNG phải website của đại lý: không xưng "chúng tôi" thay đại lý,'

@@ -26,14 +26,14 @@ return [
             ['type' => 'text', 'title' => 'Tóm tắt', 'intro' => 'Chính sách trong ba câu',
                 'body' => '<p>Khi bạn gửi form đăng ký lái thử hoặc nhận báo giá, chuyên viên Thu Hà lưu <strong>họ tên, số điện thoại và dòng xe bạn quan tâm</strong> '
                     .'để liên hệ tư vấn. Thông tin <strong>không được bán</strong> và chỉ chia sẻ với đại lý Lexus Thăng Long khi cần để làm báo giá, lái thử hoặc hợp đồng cho bạn. '
-                    .'Bạn có thể yêu cầu xem, sửa hoặc xoá dữ liệu bất cứ lúc nào qua số 0989 345 989 (gọi hoặc Zalo).</p>'
+                    .'Bạn có thể yêu cầu xem, sửa hoặc xoá dữ liệu bất cứ lúc nào qua số 0934 846 666 (gọi) hoặc Zalo 0989 345 989.</p>'
                     .$updated.' Chính sách áp dụng theo Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15 và Nghị định 356/2025/NĐ-CP.</p>'],
             ['type' => 'text', 'title' => '1. Người chịu trách nhiệm', 'intro' => 'Ai nhận và xử lý dữ liệu của bạn',
                 'body' => '<p>Website này là <strong>trang tư vấn cá nhân</strong> của bà <strong>Nguyễn Thị Thu Hà</strong>, chuyên viên tư vấn bán hàng '
                     .'tại đại lý Lexus Thăng Long (ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy, Hà Nội). '
                     .'Thu Hà là người quản lý website và trực tiếp nhận, xử lý thông tin bạn gửi qua website.</p>'
                     .'<p>Website được đại lý cho phép sử dụng tên và logo; <strong>không phải</strong> website chính thức của Lexus Việt Nam hay của đại lý. '
-                    .'Mọi yêu cầu về dữ liệu cá nhân, vui lòng gọi hoặc nhắn Zalo 0989 345 989.</p>'],
+                    .'Mọi yêu cầu về dữ liệu cá nhân, vui lòng gọi 0934 846 666 hoặc nhắn Zalo 0989 345 989.</p>'],
             ['type' => 'text', 'title' => '2. Dữ liệu thu thập', 'intro' => 'Website thu thập những gì',
                 'body' => '<h3>Do bạn cung cấp qua form</h3><ul><li>Họ và tên.</li><li>Số điện thoại.</li><li>Dòng xe bạn quan tâm.</li>'
                     .'<li>Xác nhận đồng ý với chính sách này.</li></ul>'
@@ -67,7 +67,7 @@ return [
                 'body' => '<ul><li>Được biết dữ liệu nào đang được lưu và dùng vào việc gì.</li><li>Xem và yêu cầu sửa dữ liệu sai.</li>'
                     .'<li>Rút lại sự đồng ý và yêu cầu xoá dữ liệu.</li><li>Yêu cầu ngừng liên hệ tư vấn, chăm sóc.</li>'
                     .'<li>Khiếu nại nếu cho rằng dữ liệu bị xử lý sai quy định.</li></ul>'
-                    .'<p>Gọi hoặc nhắn Zalo 0989 345 989 để thực hiện các quyền trên. Thu Hà phản hồi trong thời hạn pháp luật quy định.</p>'],
+                    .'<p>Gọi 0934 846 666 hoặc nhắn Zalo 0989 345 989 để thực hiện các quyền trên. Thu Hà phản hồi trong thời hạn pháp luật quy định.</p>'],
             // Giữ tên mục: SeoAuditFixesTest. Chạy lại Google Ads có tiếp thị lại
             // thì phải nói rõ ở đây trước khi bật.
             ['type' => 'text', 'title' => '7. Quảng cáo Google', 'intro' => 'Google Analytics, quảng cáo và cách từ chối',
@@ -122,7 +122,7 @@ return [
                     .'Quyết định mua xe nên dựa trên báo giá, hợp đồng và thông tin xác nhận trực tiếp với đại lý. '
                     .'Liên kết đến website khác (bản đồ, Zalo, ngân hàng…) thuộc trách nhiệm của bên sở hữu website đó.</p>'],
             ['type' => 'text', 'title' => '7. Liên hệ', 'intro' => 'Liên hệ và luật áp dụng',
-                'body' => '<p>Mọi câu hỏi về điều khoản, vui lòng gọi hoặc nhắn Zalo chuyên viên Thu Hà: 0989 345 989. Điều khoản này được điều chỉnh theo pháp luật Việt Nam. '
+                'body' => '<p>Mọi câu hỏi về điều khoản, vui lòng gọi chuyên viên Thu Hà: 0934 846 666 hoặc nhắn Zalo 0989 345 989. Điều khoản này được điều chỉnh theo pháp luật Việt Nam. '
                     .'Xem thêm <a href="/quyen-rieng-tu">Chính sách quyền riêng tư</a>.</p>'],
         ],
     ],

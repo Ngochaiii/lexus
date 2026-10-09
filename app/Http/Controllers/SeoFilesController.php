@@ -75,6 +75,7 @@ class SeoFilesController
             $address ? 'Địa chỉ: '.$address : null,
             $hours ? 'Giờ mở cửa: '.$hours : null,
             $hotline ? ($advisor ? 'Điện thoại chuyên viên '.$advisor.': ' : 'Hotline: ').$hotline : null,
+            ($zalo = \App\Support\Phone::zalo(catalog_setting('advisor_zalo') ?: catalog_setting('zalo'))) ? 'Zalo: '.$zalo : null,
             'Website: '.rtrim((string) config('app.url'), '/'),
         ]);
         foreach ($facts as $fact) {

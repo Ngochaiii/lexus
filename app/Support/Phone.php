@@ -38,6 +38,18 @@ class Phone
     }
 
     /**
+     * Số hiển thị của đường dẫn Zalo: "https://zalo.me/0989345989" (hoặc
+     * "0989345989") → "0989 345 989". Số Zalo có thể khác số gọi, nên chỗ ghi
+     * "Zalo: …" lấy số ở đây. Link nhóm/OA không phải số thì trả null.
+     */
+    public static function zalo(?string $link): ?string
+    {
+        $digits = self::normalize(preg_replace('#^https?://(www\.)?zalo\.me/#i', '', trim((string) $link)));
+
+        return self::isValid($digits) ? self::format($digits) : null;
+    }
+
+    /**
      * Dạng hiển thị: "0989345989" → "0989 345 989".
      *
      * Di động Việt Nam là 4-3-3; số bàn 02xx là 4-3-3 luôn nên cùng một

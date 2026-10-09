@@ -63,7 +63,7 @@ class LexusSiteSeeder extends Seeder
             // (tài khoản Google Ads đứng tên cá nhân — chính sách "Trình bày sai sự thật").
             'site_description' => 'Thu Hà, chuyên viên tư vấn tại Lexus Thăng Long – đại lý Lexus chính hãng ở Hà Nội. Bảng giá 6 dòng xe 2026 từ 2,36 tỷ, lái thử, báo giá lăn bánh chi tiết.',
             'seo_home_title'   => 'Thu Hà – Tư vấn Lexus Thăng Long | Bảng giá Lexus 2026',
-            'hotline'          => '0989345989',
+            'hotline'          => '0934846666',
             'address'          => 'Ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy, Hà Nội',
             'opening_hours'    => 'Thứ Hai – Chủ Nhật, 08:00 – 18:00',
             'company_name'     => 'Thu Hà · Lexus Thăng Long',
@@ -74,7 +74,7 @@ class LexusSiteSeeder extends Seeder
             'advisor_role'  => 'Chuyên viên tư vấn · Lexus Thăng Long',
             'advisor_experience' => 'Tư vấn Lexus tại Lexus Thăng Long từ 2017',
             'advisor_dealer_note' => 'Lexus Thăng Long – đại lý 3S chính hãng: bán xe, bảo hành, dịch vụ, phụ tùng',
-            'advisor_phone' => '0989345989',
+            'advisor_phone' => '0934846666',
             'advisor_zalo'  => 'https://zalo.me/0989345989',
 
             'zalo' => 'https://zalo.me/0989345989',
@@ -419,7 +419,7 @@ class LexusSiteSeeder extends Seeder
             'lien-he' => [
                 'seo' => [
                     'title'       => 'Liên hệ tư vấn Lexus — Thu Hà, Lexus Thăng Long',
-                    'description' => 'Liên hệ chuyên viên Thu Hà, Lexus Thăng Long: hotline 0989 345 989. Showroom tại '
+                    'description' => 'Liên hệ chuyên viên Thu Hà, Lexus Thăng Long: số 0934 846 666, Zalo 0989 345 989. Showroom tại '
                         .$where.', mở cửa '.$hours.'.',
                     'eyebrow'     => 'LIÊN HỆ',
                     'excerpt'     => 'Một đầu mối đồng hành từ lựa chọn xe đến trải nghiệm thực tế.',
@@ -490,7 +490,7 @@ class LexusSiteSeeder extends Seeder
                             ['label' => 'Xe mua trước ngày 8/5/2026 được bảo hành bao lâu?',
                                 'value' => 'Theo chính sách ghi trong sổ bảo hành của xe tại thời điểm mua; từ 10/2023 Lexus Việt Nam áp dụng 5 năm không giới hạn km cho xe và 7 năm cho pin hybrid.'],
                             ['label' => 'Bảo dưỡng Lexus ở đâu tại Hà Nội?',
-                                'value' => 'Tại xưởng dịch vụ của Lexus Thăng Long, ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy. Đặt lịch qua chuyên viên hoặc hotline 0989 345 989.'],
+                                'value' => 'Tại xưởng dịch vụ của Lexus Thăng Long, ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy. Đặt lịch qua chuyên viên hoặc số 0934 846 666.'],
                         ],
                     ],
                 ],
@@ -601,7 +601,7 @@ class LexusSiteSeeder extends Seeder
                             ['label' => 'Showroom Lexus Thăng Long ở đâu, mở cửa khi nào?',
                                 'value' => 'Ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy, Hà Nội; mở cửa Thứ Hai – Chủ Nhật, 08:00 – 18:00.'],
                             ['label' => 'Lái thử Lexus có mất phí không, cần mang gì?',
-                                'value' => 'Miễn phí. Đặt lịch trước trên website hoặc qua hotline 0989 345 989, mang theo giấy phép lái xe hạng B còn hiệu lực.'],
+                                'value' => 'Miễn phí. Đặt lịch trước trên website hoặc qua số 0934 846 666, mang theo giấy phép lái xe hạng B còn hiệu lực.'],
                             ['label' => 'Có thể lái thử nhiều xe trong một buổi không?',
                                 'value' => 'Có, nếu báo trước để chuyên viên chuẩn bị. Cách tốt nhất để chọn giữa RX 350h và RX 500h, hay ES và LS, là lái liền nhau.'],
                         ],
@@ -875,7 +875,7 @@ class LexusSiteSeeder extends Seeder
                         'Xe Lexus đắt nhất tại Việt Nam là xe nào?' => 'Lexus LX 600 VIP 4 chỗ, giá niêm yết 9,7 tỷ đồng.',
                         'Giá niêm yết đã là giá lăn bánh chưa?' => 'Chưa. Cần cộng lệ phí trước bạ 12% (xe xăng/hybrid tại Hà Nội), phí biển số 14 triệu đồng và các phí đăng ký khác. '
                             .'Xem cách tính trong bài giá lăn bánh Lexus tại Hà Nội.',
-                        'Mua xe Lexus ở đâu tại Hà Nội?' => 'Lexus Thăng Long, ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy. Hotline 0989 345 989 (Thu Hà).',
+                        'Mua xe Lexus ở đâu tại Hà Nội?' => 'Lexus Thăng Long, ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy. Điện thoại 0934 846 666 (chuyên viên Thu Hà).',
                     ]),
                 ],
             ],
@@ -975,17 +975,17 @@ class LexusSiteSeeder extends Seeder
                 'sections'  => [
                     $text('Trả lời nhanh', 'Lexus Thăng Long ở đâu?',
                         '<p><strong>Lexus Thăng Long nằm tại ngã tư Phạm Hùng – Dương Đình Nghệ, quận Cầu Giấy, Hà Nội, mở cửa từ 8:00 đến 18:00, Thứ Hai đến Chủ Nhật.</strong> '
-                        .'Hotline chuyên viên tư vấn: 0989 345 989 (Thu Hà).</p>'
+                        .'Điện thoại chuyên viên tư vấn: 0934 846 666 (Thu Hà), Zalo 0989 345 989.</p>'
                         .'<p>Đại lý có showroom trưng bày đủ 6 dòng xe Lexus đang bán, xe lái thử, khu bàn giao riêng, phòng chờ và xưởng dịch vụ với buồng sơn sấy.</p>'),
                     $table('Thông tin', 'Thông tin nhanh về đại lý', [
                         'Địa chỉ'      => 'Ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy, Hà Nội',
                         'Giờ mở cửa'   => 'Thứ Hai – Chủ Nhật, 08:00 – 18:00',
-                        'Hotline'      => '0989 345 989 — Thu Hà, chuyên viên tư vấn',
+                        'Điện thoại chuyên viên' => '0934 846 666 — Thu Hà, chuyên viên tư vấn',
                         'Dòng xe'      => 'ES, RX, GX, LX, LM, LS',
                         'Dịch vụ'      => 'Bán xe mới, lái thử, bảo dưỡng, sửa chữa chung, đồng sơn',
                     ]),
                     $text('Lái thử', 'Đặt lịch lái thử Lexus như thế nào?',
-                        '<ol><li>Để lại họ tên, số điện thoại và dòng xe muốn lái trên trang <a href="/dang-ky-lai-thu">Đăng ký lái thử</a>, hoặc gọi 0989 345 989.</li>'
+                        '<ol><li>Để lại họ tên, số điện thoại và dòng xe muốn lái trên trang <a href="/dang-ky-lai-thu">Đăng ký lái thử</a>, hoặc gọi 0934 846 666.</li>'
                         .'<li>Chuyên viên gọi lại trong giờ làm việc để chốt ngày giờ và chuẩn bị đúng phiên bản bạn quan tâm.</li>'
                         .'<li>Khi đến, mang theo giấy phép lái xe hạng B còn hiệu lực. Buổi lái thử thường kéo dài 30–60 phút, kèm tư vấn phiên bản và báo giá.</li></ol>'
                         .'<p>Nên đặt lịch trước khi đến vào cuối tuần để có sẵn xe lái thử.</p>'),

@@ -14,6 +14,7 @@
     $tiktok   = catalog_setting('tiktok');
 
     $phoneFmt = \App\Support\Phone::format($phone);
+    $zaloFmt  = \App\Support\Phone::zalo($zalo) ?? $phoneFmt;
 @endphp
 <div class="contact-details">
     @if (filled($address))
@@ -37,7 +38,7 @@
         <div>
             <span>Zalo</span>
             <a href="{{ \Illuminate\Support\Str::startsWith($zalo, 'http') ? $zalo : 'https://zalo.me/'.$zalo }}"
-               rel="noopener">Nhắn Zalo {{ $phoneFmt }} ↗</a>
+               rel="noopener">Nhắn Zalo {{ $zaloFmt }} ↗</a>
         </div>
     @endif
 

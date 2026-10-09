@@ -46,7 +46,7 @@
                 @if (filled($zalo))
                     <div id="zalo" class="notice">Zalo:
                         <a href="{{ \Illuminate\Support\Str::startsWith($zalo, 'http') ? $zalo : 'https://zalo.me/'.$zalo }}"
-                           rel="noopener"><u>{{ \App\Support\Phone::format($phone) }}</u></a>
+                           rel="noopener"><u>{{ \App\Support\Phone::zalo($zalo) ?? \App\Support\Phone::format($phone) }}</u></a>
                         — nhắn tin trực tiếp cho {{ catalog_setting('advisor_name', 'chuyên viên tư vấn') }},
                         phản hồi trong giờ làm việc.</div>
                 @endif

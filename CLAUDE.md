@@ -1,6 +1,6 @@
 # Lexus — website tư vấn của chị Thu Hà
 
-Website **es350h-lexusthanglong.com**: trang tư vấn cá nhân của **Nguyễn Thị Thu Hà**, chuyên viên tư vấn bán hàng tại Lexus Thăng Long (Hà Nội) từ 01/03/2017. **Không phải website của đại lý** — đại lý cho phép dùng tên và logo bằng giấy xác nhận có dấu. Mục tiêu duy nhất của site: khách gọi hoặc nhắn Zalo **0989 345 989**.
+Website **es350h-lexusthanglong.com**: trang tư vấn cá nhân của **Nguyễn Thị Thu Hà**, chuyên viên tư vấn bán hàng tại Lexus Thăng Long (Hà Nội) từ 01/03/2017. **Không phải website của đại lý** — đại lý cho phép dùng tên và logo bằng giấy xác nhận có dấu. Mục tiêu duy nhất của site: khách gọi **0934 846 666** hoặc nhắn Zalo **0989 345 989** (từ 09/10/2026 hai số khác nhau: chỗ ghi "Zalo: …" lấy số từ link Zalo, không lấy số gọi).
 
 Laravel 13 + Filament 5, PHP 8.3, MariaDB. CSS/JS viết tay trong `public/assets/` (không build). Trả lời người dùng bằng tiếng Việt.
 
