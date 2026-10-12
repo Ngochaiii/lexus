@@ -237,11 +237,12 @@ class SeoTest extends TestCase
 
         $html = $this->get('/')->assertOk()->getContent();
 
-        $this->assertStringContainsString('<meta property="og:image" content="https://lexus.vn/storage/catalog/_v/seo/social-share.jpg">', $html);
+        // ?v=… là phiên bản ảnh (MediaUrlVersionTest): thay ảnh thì Zalo/Facebook lấy ảnh mới.
+        $this->assertMatchesRegularExpression('#<meta property="og:image" content="https://lexus\.vn/storage/catalog/_v/seo/social-share\.jpg\?v=[0-9a-z]+">#', $html);
         $this->assertStringContainsString('<meta property="og:image:type" content="image/jpeg">', $html);
         $this->assertStringContainsString('<meta property="og:image:width" content="1200">', $html);
         $this->assertStringContainsString('<meta property="og:image:height" content="630">', $html);
-        $this->assertStringContainsString('<meta name="twitter:image" content="https://lexus.vn/storage/catalog/_v/seo/social-share.jpg">', $html);
+        $this->assertMatchesRegularExpression('#<meta name="twitter:image" content="https://lexus\.vn/storage/catalog/_v/seo/social-share\.jpg\?v=[0-9a-z]+">#', $html);
 
         $info = getimagesize(app(\App\Media\MediaStore::class)->absolutePath('catalog/_v/seo/social-share.jpg'));
         $this->assertSame([1200, 630, 'image/jpeg'], [$info[0], $info[1], $info['mime']]);

@@ -15,6 +15,9 @@ class Media
     /** @var array<string,array>|null */
     private static ?array $manifest = null;
 
+    /** @var array<string,string> đường dẫn → phiên bản, tính một lần mỗi request */
+    private static array $versions = [];
+
     /**
      * URL của một ảnh. Nhận cả:
      *   - đường dẫn trên disk public: `catalog/sections/a.webp`
@@ -35,7 +38,32 @@ class Media
             return $path;
         }
 
-        return static::store()->url($path);
+        return self::versioned($path);
+    }
+
+    /**
+     * URL ảnh trên disk kèm `?v=<thời điểm sửa file>` (base 36). Cloudflare
+     * giữ ảnh 30 ngày theo URL: thay ảnh cùng tên mà URL không đổi thì khách
+     * vẫn thấy ảnh cũ (04/10 ảnh đầu trang LM, 12/10 ảnh ES). File không có
+     * trên disk thì trả URL như cũ.
+     */
+    private static function versioned(string $rel): string
+    {
+        $url = static::store()->url($rel);
+
+        if (! array_key_exists($rel, self::$versions)) {
+            $time = @filemtime(static::store()->absolutePath($rel));
+            self::$versions[$rel] = $time ? '?v='.base_convert((string) $time, 10, 36) : '';
+        }
+
+        return $url.self::$versions[$rel];
+    }
+
+    /** Quên phiên bản và manifest đã nhớ (test, lệnh chạy lâu sau khi thay ảnh). */
+    public static function flushVersions(): void
+    {
+        self::$versions = [];
+        self::$manifest = null;
     }
 
     /**
@@ -54,7 +82,7 @@ class Media
         $rel = self::normalise($path);
 
         $parts = array_map(
-            fn (int $w) => static::store()->url(ImageVariantBuilder::variantPath($rel, $w)).' '.$w.'w',
+            fn (int $w) => self::versioned(ImageVariantBuilder::variantPath($rel, $w)).' '.$w.'w',
             $entry['v'],
         );
 
@@ -62,7 +90,7 @@ class Media
         // mà nằm trong srcset thì màn Retina sẽ chọn đúng nó (1440 logical =
         // 2880 device px), và ta lại tải về đúng tấm 867 KB muốn tránh.
         if ($entry['w'] <= max(ImageVariantBuilder::WIDTHS)) {
-            $parts[] = static::store()->url($rel).' '.$entry['w'].'w';
+            $parts[] = self::versioned($rel).' '.$entry['w'].'w';
         }
 
         return implode(', ', $parts);
@@ -113,6 +141,11 @@ class Media
 
         if (blank($path) || ! is_string($path)) {
             return null;
+        }
+
+        // URL của chính Media::url() mang theo ?v=… — bỏ trước khi tra manifest.
+        if (! Str::startsWith($path, ['http://', 'https://', '//', 'data:']) || Str::contains($path, '/storage/')) {
+            $path = Str::before($path, '?');
         }
 
         // Blade phần lớn đã gọi catalog_image() trước, nên thứ truyền vào đây
