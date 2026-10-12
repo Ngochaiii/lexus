@@ -81,10 +81,17 @@ class Media
 
         $rel = self::normalise($path);
 
-        $parts = array_map(
-            fn (int $w) => self::versioned(ImageVariantBuilder::variantPath($rel, $w)).' '.$w.'w',
+        // Bản thu nhỏ manifest ghi nhưng không có file (bị xoá tay/migration) thì
+        // bỏ, để trình duyệt không chọn trúng file 404. versioned() trả URL không
+        // có ?v= đúng khi file không tồn tại.
+        $parts = array_values(array_filter(array_map(
+            function (int $w) use ($rel): ?string {
+                $url = self::versioned(ImageVariantBuilder::variantPath($rel, $w));
+
+                return str_contains($url, '?v=') ? $url.' '.$w.'w' : null;
+            },
             $entry['v'],
-        );
+        )));
 
         // Chỉ đưa bản gốc vào khi nó không lớn hơn bậc lớn nhất. Ảnh gốc 5760px
         // mà nằm trong srcset thì màn Retina sẽ chọn đúng nó (1440 logical =
@@ -93,7 +100,7 @@ class Media
             $parts[] = self::versioned($rel).' '.$entry['w'].'w';
         }
 
-        return implode(', ', $parts);
+        return $parts !== [] ? implode(', ', $parts) : null;
     }
 
     /**

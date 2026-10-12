@@ -54,4 +54,31 @@ class MediaUrlVersionTest extends TestCase
         $this->assertMatchesRegularExpression('#/storage/catalog/_v/test/rong-400\.webp\?v=[0-9a-z]+ 400w#', $srcset);
         $this->assertMatchesRegularExpression('#/storage/catalog/test/rong\.webp\?v=[0-9a-z]+ 1000w#', $srcset);
     }
+
+    // 12/10/2026: migration 04/10 xoá bản thu nhỏ ảnh đầu trang LM nhưng manifest
+    // vẫn ghi → srcset trỏ vào file 404. Không liệt kê bản thu nhỏ không có file,
+    // và migration dựng lại bản còn thiếu.
+    public function test_srcset_bo_ban_thu_nho_khong_co_file_va_migration_dung_lai(): void
+    {
+        $media = app(MediaStore::class);
+        $path = 'catalog/test/hero.webp';
+        $image = imagecreatetruecolor(1000, 600);
+        ob_start();
+        imagewebp($image);
+        $media->write($path, (string) ob_get_clean());
+        $builder = app(ImageVariantBuilder::class);
+        $builder->mergeManifest([$path => $builder->build($path, true)[1]]);
+        $media->delete(ImageVariantBuilder::variantPath($path, 400));
+        Media::flushVersions();
+
+        $srcset = (string) Media::srcset($path);
+        $this->assertStringNotContainsString('hero-400.webp', $srcset);
+        $this->assertStringContainsString('hero-800.webp', $srcset);
+
+        (require database_path('migrations/2026_10_12_110000_rebuild_missing_image_variants.php'))->up();
+        Media::flushVersions();
+
+        $this->assertTrue($media->exists(ImageVariantBuilder::variantPath($path, 400)));
+        $this->assertStringContainsString('hero-400.webp', (string) Media::srcset($path));
+    }
 }
