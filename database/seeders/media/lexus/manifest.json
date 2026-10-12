@@ -672,14 +672,14 @@
   },
   "ngoai-that": {
    "role": "ngoai-that",
-   "w": 583,
-   "h": 421,
+   "w": 1920,
+   "h": 1281,
    "source": "es/hong-xe.jpg"
   },
   "noi-that": {
    "role": "noi-that",
-   "w": 517,
-   "h": 343,
+   "w": 1600,
+   "h": 1067,
    "source": "es/cabin-tong-quan.jpg"
   },
   "mau-trang": {
@@ -714,8 +714,8 @@
   },
   "mau-dong": {
    "role": "mau",
-   "w": 549,
-   "h": 398,
+   "w": 1600,
+   "h": 1067,
    "source": "es/mau-dong.jpg"
   },
   "an-toan-pcs": {
@@ -756,26 +756,26 @@
   },
   "thu-vien-1": {
    "role": "thu-vien",
-   "w": 370,
-   "h": 309,
+   "w": 1600,
+   "h": 1067,
    "source": "es/dau-xe.jpg"
   },
   "thu-vien-2": {
    "role": "thu-vien",
-   "w": 379,
-   "h": 308,
+   "w": 1600,
+   "h": 1067,
    "source": "es/duoi-xe.jpg"
   },
   "thu-vien-3": {
    "role": "thu-vien",
-   "w": 452,
-   "h": 255,
+   "w": 1600,
+   "h": 1067,
    "source": "es/hang-ghe-sau.jpg"
   },
   "thu-vien-4": {
    "role": "thu-vien",
-   "w": 416,
-   "h": 285,
+   "w": 1600,
+   "h": 1067,
    "source": "es/man-hinh-14.jpg"
   },
   "thu-vien-5": {
@@ -792,8 +792,8 @@
   },
   "thu-vien-7": {
    "role": "thu-vien",
-   "w": 527,
-   "h": 263,
+   "w": 1600,
+   "h": 1067,
    "source": "es/thao-tac.jpg"
   },
   "thu-vien-8": {

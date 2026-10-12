@@ -1,7 +1,8 @@
 """
 Nhập ảnh xe + ảnh cơ sở từ dự án tham khảo Car-project vào kho ảnh seed.
 
-    python3 database/seeders/media/import_from_car_project.py
+    python3 database/seeders/media/import_from_car_project.py      # mọi mục
+    python3 database/seeders/media/import_from_car_project.py es   # chỉ dòng ES
 
 Đọc   : ../Car-project/Car-project/public/web/assets/images/{model}/…
 Ghi   : database/seeders/media/lexus/{slug}/{vai-tro}.webp
@@ -18,6 +19,8 @@ Cần `cwebp` (brew install webp).
 """
 import json, os, subprocess, sys
 from pathlib import Path
+
+from not_vn_sources import NOT_VN
 
 HERE = Path(__file__).resolve().parent
 LEXUS = HERE.parents[2]
@@ -159,15 +162,28 @@ def size(path):
 
 
 def main():
+    # `import_from_car_project.py es` → chỉ nhập dòng ES, giữ manifest các mục khác.
+    only = set(sys.argv[1:])
     manifest, missing = {}, []
+    if only:
+        manifest = json.loads((OUT / 'manifest.json').read_text())
+        manifest.update({k: {} for k in only if k in manifest})  # giữ thứ tự khoá
     for slug, items in PICK.items():
+        if only and slug not in only:
+            continue
         (OUT / slug).mkdir(parents=True, exist_ok=True)
         for role, name, src in items:
             source = TPL / src[4:] if src.startswith('tpl:') else SRC / src
             if not source.is_file():
                 missing.append(str(source)); continue
-            w, h = size(source)
             dest = OUT / slug / f'{name}.webp'
+            if src in NOT_VN:
+                if not dest.is_file():
+                    missing.append(str(source)); continue
+                dw, dh = size(dest)  # ảnh không phải xe Việt Nam: giữ ảnh đã nhập
+                manifest.setdefault(slug, {})[name] = {'role': role, 'w': dw, 'h': dh, 'source': src}
+                continue
+            w, h = size(source)
             cmd = ['cwebp', '-quiet', '-q', '82', '-metadata', 'none']
             if w > MAX[role]:
                 cmd += ['-resize', str(MAX[role]), '0']

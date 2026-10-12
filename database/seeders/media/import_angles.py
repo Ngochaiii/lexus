@@ -2,7 +2,8 @@
 """
 Nhập bộ ẢNH GÓC theo màu cho trình xem xe (vehicle-studio) từ Car-project.
 
-    python3 database/seeders/media/import_angles.py
+    python3 database/seeders/media/import_angles.py        # mọi dòng xe
+    python3 database/seeders/media/import_angles.py es     # chỉ dòng ES
 
 Car-project có 4–5 ảnh mỗi màu (trước, ngang, sau…), KHÔNG phải chuỗi 24–36
 khung chụp trên bàn xoay. Trình xem hiển thị chúng ở chế độ "nhiều góc nhìn":
@@ -25,6 +26,8 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+
+from not_vn_sources import NOT_VN
 
 HERE = Path(__file__).resolve().parent
 SRC = HERE.parents[3] / 'Car-project' / 'Car-project' / 'public' / 'web' / 'assets' / 'images'
@@ -111,8 +114,15 @@ def convert(source, dest):
 
 
 def main():
+    # `import_angles.py es` → chỉ nhập dòng ES, giữ nguyên manifest các dòng khác.
+    only = set(sys.argv[1:])
     manifest, missing = {}, []
+    if only:
+        manifest = json.loads((OUT / 'goc-manifest.json').read_text())
+        manifest.update({k: {} for k in only if k in manifest})  # giữ thứ tự khoá
     for car, colours in ANGLES.items():
+        if only and car not in only:
+            continue
         (OUT / car / 'goc').mkdir(parents=True, exist_ok=True)
         for colour, files in colours.items():
             for n, rel in enumerate(files, 1):
@@ -120,9 +130,17 @@ def main():
                 if not source.is_file():
                     missing.append(rel); continue
                 name = f'{colour}-{n}'
-                w, h = convert(source, OUT / car / 'goc' / f'{name}.webp')
+                dest = OUT / car / 'goc' / f'{name}.webp'
+                if rel in NOT_VN:
+                    if not dest.is_file():
+                        missing.append(rel); continue
+                    w, h = size(dest)  # ảnh không phải xe Việt Nam: giữ ảnh đã nhập
+                else:
+                    w, h = convert(source, dest)
                 manifest.setdefault(car, {}).setdefault(colour, []).append({'file': f'goc/{name}', 'w': w, 'h': h, 'source': rel})
     for car, items in EXTRA.items():
+        if only and car not in only:
+            continue
         for name, rel in items.items():
             source = SRC / rel
             if not source.is_file():

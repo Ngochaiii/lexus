@@ -2,7 +2,8 @@
 """
 Nhập ảnh MÂM XE và CHI TIẾT XE (bản Việt Nam) từ Car-project.
 
-    python3 database/seeders/media/import_details.py
+    python3 database/seeders/media/import_details.py      # mọi dòng xe
+    python3 database/seeders/media/import_details.py es   # chỉ dòng ES
 
 Ảnh 360° lấy từ lexus.com là xe bản Mỹ — mâm, logo có thể khác. Phần "Chi tiết
 & tùy chọn" ở trang xe vì thế dùng ảnh của Car-project: mâm theo từng phiên
@@ -97,8 +98,11 @@ def width(path):
 
 
 def main():
+    only = set(sys.argv[1:])  # `import_details.py es` → chỉ dòng ES
     missing, total = [], 0
     for car, items in DETAILS.items():
+        if only and car not in only:
+            continue
         (OUT / car / 'chi-tiet').mkdir(parents=True, exist_ok=True)
         for name, rel in items.items():
             source = SRC / rel
@@ -110,6 +114,8 @@ def main():
             subprocess.run(cmd + [str(source), '-o', str(OUT / car / 'chi-tiet' / f'{name}.webp')], check=True)
             total += 1
     for car, items in VARIANT_IMAGES.items():
+        if only and car not in only:
+            continue
         (OUT / car / 'phien-ban').mkdir(parents=True, exist_ok=True)
         for name, rel in items.items():
             source = SRC / rel

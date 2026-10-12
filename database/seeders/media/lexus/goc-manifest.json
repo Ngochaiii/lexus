@@ -291,26 +291,26 @@
   "dong": [
    {
     "file": "goc/dong-1",
-    "w": 381,
-    "h": 282,
+    "w": 1600,
+    "h": 1200,
     "source": "es/dong-3.jpg"
    },
    {
     "file": "goc/dong-2",
-    "w": 472,
-    "h": 299,
+    "w": 1600,
+    "h": 1200,
     "source": "es/dong-1.jpg"
    },
    {
     "file": "goc/dong-3",
-    "w": 359,
-    "h": 280,
+    "w": 1600,
+    "h": 1200,
     "source": "es/dong-2.jpg"
    },
    {
     "file": "goc/dong-4",
-    "w": 412,
-    "h": 367,
+    "w": 1600,
+    "h": 1200,
     "source": "es/dong-4.jpg"
    }
   ],
