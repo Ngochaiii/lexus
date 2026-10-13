@@ -61,7 +61,7 @@ class GeminiArticleWriter
 
         $prompt = <<<PROMPT
         # NHIỆM VỤ
-        Viết một bài tiếng Việt chuẩn SEO cho website {$siteName} — website tư vấn của chuyên viên {$advisor} tại đại lý Lexus chính hãng ở Hà Nội. Người đọc là khách đang cân nhắc mua xe Lexus (thu nhập cao, bận rộn, cần con số rõ ràng và lời khuyên thật).
+        Viết một bài tiếng Việt chuẩn SEO cho website {$siteName} — website tư vấn cá nhân của chuyên viên {$advisor} tại showroom Lexus Thăng Long, Hà Nội (không phải website của đại lý). Người đọc là khách đang cân nhắc mua xe Lexus (thu nhập cao, bận rộn, cần con số rõ ràng và lời khuyên thật).
 
         Tiêu đề biên tập viên đặt: {$title}
         Yêu cầu thêm: {$extra}

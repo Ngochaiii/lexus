@@ -3,7 +3,7 @@
     liên hệ, tài chính): ảnh, tên, kinh nghiệm, Gọi / Zalo / Nhận báo giá, và
     lời mời mua trả góp.
 
-    Vì sao cần: quảng cáo Google của chuyên viên ghi kinh nghiệm (advisor_experience), "Phương Án Trả Góp", "Đại Lý 3S Chính Hãng" (advisor_dealer_note) —
+    Vì sao cần: quảng cáo Google của chuyên viên ghi kinh nghiệm (advisor_experience), "Phương Án Trả Góp", nơi làm việc (advisor_dealer_note — từ 13/10/2026 không ghi "đại lý 3S chính hãng", xem NoDealerClaimTest) —
     trang đích phải có đúng thông tin đó, nếu không
     Google coi là tuyên bố không có căn cứ và hạ điểm liên quan trang đích.
 

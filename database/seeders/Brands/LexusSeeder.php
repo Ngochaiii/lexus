@@ -253,9 +253,9 @@ class LexusSeeder extends BrandSeeder
                 .'+ phí đăng kiểm, phí bảo trì đường bộ và bảo hiểm '
                 .'trách nhiệm dân sự bắt buộc. Bảo hiểm vật chất là tùy chọn. Để nhận bảng tính chi tiết theo '
                 .'phiên bản và ưu đãi đang áp dụng, bấm "Nhận báo giá" — chuyên viên gửi riêng cho bạn.',
-            "Mua {$name} chính hãng ở đâu tại Hà Nội?" =>
-                self::DEALER.' là đại lý Lexus chính hãng tại '.self::ADDRESS.'. Showroom trưng bày, '
-                .'có xe lái thử và xưởng dịch vụ chính hãng ngay tại đại lý. Đặt lịch lái thử trên website '
+            "Mua {$name} ở đâu tại Hà Nội?" =>
+                'Showroom '.self::DEALER.' ở '.self::ADDRESS.'. Showroom trưng bày, '
+                .'có xe lái thử và xưởng dịch vụ ngay tại showroom. Đặt lịch lái thử trên website '
                 .'hoặc gọi số 0934 846 666 (Thu Hà).',
         ];
     }

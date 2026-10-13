@@ -61,7 +61,7 @@ class LexusSiteSeeder extends Seeder
             // Meta description trang chủ: ≤ 160 ký tự để Google không cắt mất phần giá.
             // Mở đầu bằng tên chuyên viên: site của Thu Hà, không tự nhận là đại lý
             // (tài khoản Google Ads đứng tên cá nhân — chính sách "Trình bày sai sự thật").
-            'site_description' => 'Thu Hà, chuyên viên tư vấn tại Lexus Thăng Long – đại lý Lexus chính hãng ở Hà Nội. Bảng giá 6 dòng xe 2026 từ 2,36 tỷ, lái thử, báo giá lăn bánh chi tiết.',
+            'site_description' => 'Thu Hà, chuyên viên tư vấn tại showroom Lexus Thăng Long, Hà Nội. Bảng giá 6 dòng xe 2026 từ 2,36 tỷ, lái thử, báo giá lăn bánh chi tiết.',
             'seo_home_title'   => 'Thu Hà – Tư vấn Lexus Thăng Long | Bảng giá Lexus 2026',
             'hotline'          => '0934846666',
             'address'          => 'Ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy, Hà Nội',
@@ -73,7 +73,7 @@ class LexusSiteSeeder extends Seeder
             'advisor_full_name' => 'Nguyễn Thị Thu Hà',
             'advisor_role'  => 'Chuyên viên tư vấn · Lexus Thăng Long',
             'advisor_experience' => 'Tư vấn Lexus tại Lexus Thăng Long từ 2017',
-            'advisor_dealer_note' => 'Lexus Thăng Long – đại lý 3S chính hãng: bán xe, bảo hành, dịch vụ, phụ tùng',
+            'advisor_dealer_note' => 'Showroom Lexus Thăng Long: bán xe, bảo hành, dịch vụ, phụ tùng tại một nơi',
             'advisor_phone' => '0934846666',
             'advisor_zalo'  => 'https://zalo.me/0989345989',
 
@@ -248,7 +248,7 @@ class LexusSiteSeeder extends Seeder
                     [
                         'type' => 'media', 'layout' => 'split', 'title' => 'Lexus Thăng Long',
                         'intro' => "Một địa chỉ.\nTrọn hành trình sở hữu.",
-                        'body'  => 'Lexus Thăng Long là đại lý Lexus chính hãng tại '.$where.'. Showroom trưng bày đủ các '
+                        'body'  => 'Showroom Lexus Thăng Long ở '.$where.'. Showroom trưng bày đủ các '
                             .'dòng xe Lexus, có xe lái thử, khu bàn giao riêng và xưởng dịch vụ đạt chuẩn của hãng — '
                             .'đồng hành từ lần ghé thăm đầu tiên đến những lần bảo dưỡng về sau.',
                         'cta_label' => 'Đường đến showroom', 'cta_url' => '/showroom',
@@ -971,7 +971,7 @@ class LexusSiteSeeder extends Seeder
                 'cover'     => 'mat-tien-toan-canh',
                 'keywords'  => 'Lexus Thăng Long, đại lý Lexus Hà Nội, showroom Lexus Cầu Giấy, Lexus Phạm Hùng, lái thử Lexus Hà Nội',
                 'excerpt'   => 'Lexus Thăng Long ở ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy, Hà Nội, mở cửa 8:00–18:00 tất cả các ngày. '
-                    .'Có đủ 6 dòng xe Lexus đang bán, xe lái thử và xưởng dịch vụ chính hãng.',
+                    .'Có đủ 6 dòng xe Lexus đang bán, xe lái thử và xưởng dịch vụ.',
                 'sections'  => [
                     $text('Trả lời nhanh', 'Lexus Thăng Long ở đâu?',
                         '<p><strong>Lexus Thăng Long nằm tại ngã tư Phạm Hùng – Dương Đình Nghệ, quận Cầu Giấy, Hà Nội, mở cửa từ 8:00 đến 18:00, Thứ Hai đến Chủ Nhật.</strong> '
@@ -1019,7 +1019,7 @@ class LexusSiteSeeder extends Seeder
                 'layout' => 'bleed',
                 'title'  => 'Lexus Thăng Long · Cầu Giấy, Hà Nội',
                 'intro'  => "Không chỉ là nơi mua xe.\nMà là nơi được đón tiếp.",
-                'body'   => 'Showroom và xưởng dịch vụ Lexus chính hãng tại ngã tư Phạm Hùng – Dương Đình Nghệ. '
+                'body'   => 'Showroom và xưởng dịch vụ Lexus Thăng Long tại ngã tư Phạm Hùng – Dương Đình Nghệ. '
                     .'Ghé thăm để xem tận nơi, lái thử và trò chuyện cùng chuyên viên.',
                 'cta_label' => 'Bước vào thế giới Lexus',
                 'cta_url'   => '/the-gioi-lexus',

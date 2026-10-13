@@ -112,10 +112,10 @@ class VariantController extends Controller
                 ])->filter()->implode(' ')];
         }
 
-        $rows[] = ['label' => "Mua {$name} chính hãng ở đâu tại Hà Nội?",
+        $rows[] = ['label' => "Mua {$name} ở đâu tại Hà Nội?",
             // Số di động của chuyên viên — không gọi là "Hotline" (nghe như tổng
             // đài đại lý, xem AdvisorVoiceTest).
-            'value' => trim("{$dealer}".($address ? " — {$address}" : '').'. Có xe lái thử và xưởng dịch vụ chính hãng tại đại lý.'
+            'value' => trim("{$dealer}".($address ? " — {$address}" : '').'. Có xe lái thử và xưởng dịch vụ ngay tại showroom.'
                 .($hotline ? ' Gọi '.($advisor ? "chuyên viên {$advisor} " : 'chuyên viên ')
                     .\App\Support\Phone::format($hotline).' để hẹn lái thử và nhận báo giá.' : ''))];
 

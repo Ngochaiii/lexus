@@ -207,7 +207,7 @@ class GeminiContentPlanner
 
         $prompt = <<<PROMPT
         # NHIỆM VỤ
-        Bạn lập kế hoạch nội dung SEO cho {$site} — website tư vấn của chuyên viên bán xe tại đại lý Lexus chính hãng ở Hà Nội. Mục tiêu: có khách tìm trên Google/AI → đọc bài → bấm sang trang xe/báo giá → để lại số điện thoại.
+        Bạn lập kế hoạch nội dung SEO cho {$site} — website tư vấn cá nhân của chuyên viên bán xe tại showroom Lexus Thăng Long, Hà Nội (không phải website của đại lý). Mục tiêu: có khách tìm trên Google/AI → đọc bài → bấm sang trang xe/báo giá → để lại số điện thoại.
         Đề xuất đúng {$count} chủ đề bài viết MỚI. {$focusLine}
 
         # DỮ LIỆU THẬT CỦA WEBSITE
