@@ -27,6 +27,11 @@ class ProductVariant extends Model
             $variant->slug = $slug;
         });
 
+        // Giá từ của xe = giá phiên bản rẻ nhất (trang sản phẩm là chuẩn):
+        // sửa/xoá phiên bản là thẻ xe, "Giá từ", JSON-LD đổi theo, không lệch.
+        static::saved(fn (ProductVariant $variant) => $variant->syncProductPriceFrom());
+        static::deleted(fn (ProductVariant $variant) => $variant->syncProductPriceFrom());
+
         static::saved(function (ProductVariant $variant): void {
             if (! $variant->is_default || ! $variant->product_id) {
                 return;
@@ -49,6 +54,18 @@ class ProductVariant extends Model
             'range_km' => 'integer',
             'is_default' => 'boolean',
         ];
+    }
+
+    public function syncProductPriceFrom(): void
+    {
+        if (! $this->product_id) {
+            return;
+        }
+
+        $min = static::query()->where('product_id', $this->product_id)->where('price', '>', 0)->min('price');
+        if ($min !== null) {
+            catalog_model('product')::query()->whereKey($this->product_id)->update(['price_from' => $min]);
+        }
     }
 
     public function product(): BelongsTo
