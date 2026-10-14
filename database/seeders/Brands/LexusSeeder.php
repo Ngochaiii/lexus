@@ -912,7 +912,7 @@ class LexusSeeder extends BrandSeeder
                 'Giá xe Lexus GX 550 2026 bao nhiêu?' =>
                     'Lexus GX 550 giá niêm yết 6,45 tỷ đồng (đã gồm VAT). Lăn bánh tại Hà Nội tạm tính khoảng 7,24 tỷ đồng.',
                 'GX và LX nên chọn xe nào?' =>
-                    'Cả hai chung khung gầm rời và động cơ V6 3.5L tăng áp kép. GX gọn hơn, giá thấp hơn khoảng 2,4 tỷ; '
+                    'Cả hai chung khung gầm rời và động cơ V6 3.5L tăng áp kép. GX gọn hơn, giá thấp hơn khoảng 2,1 tỷ; '
                     .'LX lớn hơn, sang trọng hơn và có bản VIP 4 chỗ.',
             ] + $this->commonFaq('Lexus GX'),
             'seo' => [

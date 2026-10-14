@@ -88,12 +88,25 @@ class PriceFollowsVariantsTest extends TestCase
             .'Giá niêm yết GX 550: 6,45 tỷ. Lăn bánh khoảng 7,24 tỷ. Bảng: 6.450.000.000 đ. Tiêu thụ 6,24 L/100 km.</p>', $post->sections[0]['body']);
     }
 
+    public function test_cau_gx_re_hon_lx_trong_hoi_dap_doi_theo_gia_moi(): void
+    {
+        $gx = $this->car('gx', 'Lexus GX', [6_450_000_000]);
+        $gx->update(['sections' => [['type' => 'faq', 'rows' => [['label' => 'GX và LX nên chọn xe nào?',
+            'value' => 'GX gọn hơn, giá thấp hơn khoảng 2,4 tỷ; LX lớn hơn.']]]]]);
+
+        $migration = require database_path('migrations/2026_10_14_130000_gx_gap_to_lx.php');
+        $migration->up();
+        $migration->up();
+
+        $this->assertSame('GX gọn hơn, giá thấp hơn khoảng 2,1 tỷ; LX lớn hơn.', $gx->fresh()->sections[0]['rows'][0]['value']);
+    }
+
     public function test_seeder_khong_con_gia_gx_cu(): void
     {
         foreach (['seeders/LexusSiteSeeder.php', 'seeders/Brands/LexusSeeder.php'] as $file) {
             $code = preg_replace('#/\*.*?\*/#s', '', file_get_contents(database_path($file)));
 
-            foreach (['6,2 tỷ', '6,20 tỷ', '6,96 tỷ', '6.200.000.000', '6_200_000_000'] as $old) {
+            foreach (['6,2 tỷ', '6,20 tỷ', '6,96 tỷ', '6.200.000.000', '6_200_000_000', 'khoảng 2,4 tỷ'] as $old) {
                 $this->assertStringNotContainsString($old, $code, "$file còn $old");
             }
         }
