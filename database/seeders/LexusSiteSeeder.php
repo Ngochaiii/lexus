@@ -322,7 +322,7 @@ class LexusSiteSeeder extends Seeder
                     'description' => 'Bảng giá xe Lexus 2026: ES 350h từ 2,36 tỷ, RX từ 3,35 tỷ, GX 550 6,2 tỷ, LM 7,21 tỷ, '
                         .'LS 8,03 tỷ, LX từ 8,59 tỷ. Nhận báo giá lăn bánh Hà Nội tại Lexus Thăng Long.',
                     'eyebrow'     => 'BẢNG GIÁ',
-                    'excerpt'     => 'Giá niêm yết từng phiên bản, cập nhật theo bảng giá của đại lý. Bấm "Nhận báo giá" để có giá lăn bánh chi tiết.',
+                    'excerpt'     => 'Giá niêm yết và giá lăn bánh Hà Nội tạm tính của từng phiên bản. Cần báo giá chi tiết theo nơi đăng ký xe, nhắn Zalo cho Thu Hà.',
                 ],
                 'sections' => [
                     [
