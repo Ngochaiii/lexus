@@ -61,7 +61,7 @@ class LexusSiteSeeder extends Seeder
             // Meta description trang chủ: ≤ 160 ký tự để Google không cắt mất phần giá.
             // Mở đầu bằng tên chuyên viên: site của Thu Hà, không tự nhận là đại lý
             // (tài khoản Google Ads đứng tên cá nhân — chính sách "Trình bày sai sự thật").
-            'site_description' => 'Thu Hà, chuyên viên tư vấn tại showroom Lexus Thăng Long, Hà Nội. Bảng giá 6 dòng xe 2026 từ 2,36 tỷ, lái thử, báo giá lăn bánh chi tiết.',
+            'site_description' => 'Thu Hà, chuyên viên tư vấn tại showroom Lexus Thăng Long, Hà Nội. Bảng giá 6 dòng xe 2026 từ 2,34 tỷ, lái thử, báo giá lăn bánh chi tiết.',
             'seo_home_title'   => 'Thu Hà – Tư vấn Lexus Thăng Long | Bảng giá Lexus 2026',
             'hotline'          => '0934846666',
             'address'          => 'Ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy, Hà Nội',
@@ -319,7 +319,7 @@ class LexusSiteSeeder extends Seeder
             'bang-gia' => [
                 'seo' => [
                     'title'       => 'Bảng giá xe Lexus 2026 mới nhất tại Hà Nội | Thu Hà tư vấn Lexus',
-                    'description' => 'Bảng giá xe Lexus 2026: ES 350h từ 2,36 tỷ, RX từ 3,35 tỷ, GX 550 6,2 tỷ, LM 7,21 tỷ, '
+                    'description' => 'Bảng giá xe Lexus 2026: ES 350h từ 2,34 tỷ, RX từ 3,35 tỷ, GX 550 6,2 tỷ, LM 7,21 tỷ, '
                         .'LS 8,03 tỷ, LX từ 8,59 tỷ. Nhận báo giá lăn bánh Hà Nội tại Lexus Thăng Long.',
                     'eyebrow'     => 'BẢNG GIÁ',
                     'excerpt'     => 'Giá niêm yết và giá lăn bánh Hà Nội tạm tính của từng phiên bản. Cần báo giá chi tiết theo nơi đăng ký xe, nhắn Zalo cho Thu Hà.',
@@ -583,7 +583,7 @@ class LexusSiteSeeder extends Seeder
                         'type' => 'faq', 'title' => 'Mua xe', 'intro' => 'Giá và mua xe',
                         'rows' => [
                             ['label' => 'Xe Lexus rẻ nhất và đắt nhất hiện nay giá bao nhiêu?',
-                                'value' => 'Rẻ nhất là ES 350h Premium 2,36 tỷ đồng; đắt nhất là LX 600 VIP 4 chỗ 9,7 tỷ đồng (giá niêm yết, đã gồm VAT). Xem đủ 12 phiên bản tại trang Bảng giá.'],
+                                'value' => 'Rẻ nhất là ES 350h Premium 2,34 tỷ đồng; đắt nhất là LX 600 VIP 4 chỗ 9,7 tỷ đồng (giá niêm yết, đã gồm VAT). Xem đủ 12 phiên bản tại trang Bảng giá.'],
                             ['label' => 'Giá niêm yết đã gồm những gì?',
                                 'value' => 'Đã gồm thuế VAT; chưa gồm lệ phí trước bạ, phí biển số, phí bảo trì đường bộ, đăng kiểm và bảo hiểm.'],
                             ['label' => 'Giá lăn bánh Lexus tại Hà Nội tính thế nào?',
@@ -756,23 +756,23 @@ class LexusSiteSeeder extends Seeder
         return [
             [
                 'slug'      => 'lexus-es-2026-the-he-moi-nhung-dieu-can-biet',
-                'title'     => 'Lexus ES 350h 2026 thế hệ mới: giá 2,36 – 2,58 tỷ và những điều cần biết',
-                'seo_title' => 'Lexus ES 350h 2026: giá 2,36 – 2,58 tỷ, Premium hay Luxury',
+                'title'     => 'Lexus ES 350h 2026 thế hệ mới: giá 2,34 – 2,60 tỷ và những điều cần biết',
+                'seo_title' => 'Lexus ES 350h 2026: giá 2,34 – 2,60 tỷ, Premium hay Luxury',
                 'category'  => 'tu-van-chon-xe',
                 'cover'     => 'es/the-he-moi-truoc',
                 'keywords'  => 'Lexus ES 350h 2026, giá Lexus ES 2026, ES 350h Premium, ES 350h Luxury, Lexus ES thế hệ mới',
-                'excerpt'   => 'Lexus ES 350h thế hệ mới có 2 phiên bản: Premium 2,36 tỷ và Luxury 2,58 tỷ (đã gồm VAT), lăn bánh Hà Nội '
-                    .'khoảng 2,66 – 2,90 tỷ. Dáng fastback, hybrid không cần sạc, khoang lái nhiều màn hình.',
+                'excerpt'   => 'Lexus ES 350h thế hệ mới có 2 phiên bản: Premium 2,34 tỷ và Luxury 2,60 tỷ (đã gồm VAT), lăn bánh Hà Nội '
+                    .'khoảng 2,63 – 2,93 tỷ. Dáng fastback, hybrid không cần sạc, khoang lái nhiều màn hình.',
                 'sections'  => [
                     $text('Trả lời nhanh', 'Lexus ES 2026 giá bao nhiêu, có gì mới?',
-                        '<p><strong>Lexus ES 350h 2026 có giá niêm yết 2,36 tỷ đồng (Premium) và 2,58 tỷ đồng (Luxury); lăn bánh tại Hà Nội '
-                        .'tạm tính khoảng 2,66 tỷ và 2,90 tỷ đồng.</strong> Đây là ES thế hệ thứ 8 — mẫu Lexus có giá dễ tiếp cận nhất hiện nay.</p>'
+                        '<p><strong>Lexus ES 350h 2026 có giá niêm yết 2,34 tỷ đồng (Premium) và 2,60 tỷ đồng (Luxury); lăn bánh tại Hà Nội '
+                        .'tạm tính khoảng 2,63 tỷ và 2,93 tỷ đồng.</strong> Đây là ES thế hệ thứ 8 — mẫu Lexus có giá dễ tiếp cận nhất hiện nay.</p>'
                         .'<p>Xe đổi sang dáng fastback với khối đầu xe "Spindle Body" liền thân thay cho lưới tản nhiệt truyền thống, '
                         .'trục cơ sở dài hơn cho khoang sau rộng rãi, khoang lái tối giản với màn hình trung tâm cỡ lớn.</p>'),
                     $cards('Phiên bản', 'Hai phiên bản ES 350h tại Việt Nam', [
-                        ['image' => $car('es/phien-ban/premium'), 'eyebrow' => '2,36 tỷ', 'label' => 'ES 350h Premium',
+                        ['image' => $car('es/phien-ban/premium'), 'eyebrow' => '2,34 tỷ', 'label' => 'ES 350h Premium',
                             'desc' => 'Hybrid xăng – điện, không cần sạc. Phiên bản khởi điểm của ES thế hệ mới.', 'url' => '/san-pham/es#versions'],
-                        ['image' => $car('es/goc/xam-1'), 'eyebrow' => '2,58 tỷ', 'label' => 'ES 350h Luxury',
+                        ['image' => $car('es/goc/xam-1'), 'eyebrow' => '2,60 tỷ', 'label' => 'ES 350h Luxury',
                             'desc' => 'Cùng hệ hybrid, bổ sung trang bị tiện nghi và vật liệu cao cấp hơn.', 'url' => '/san-pham/es#versions'],
                         ['image' => $car('es/chi-tiet/moi-man-hinh'), 'eyebrow' => 'Khoang lái', 'label' => 'Màn hình trung tâm cỡ lớn',
                             'desc' => 'Bản đồ, âm thanh, điều hòa gom về một màn hình; ít nút bấm vật lý.', 'url' => '/san-pham/es#chi-tiet'],
@@ -780,8 +780,8 @@ class LexusSiteSeeder extends Seeder
                             'desc' => 'Mái vuốt liền mạch về đuôi, dải đèn hậu nối liền chiều ngang.', 'url' => '/san-pham/es#thiet-ke'],
                     ]),
                     $table('Giá lăn bánh', 'Giá Lexus ES 350h 2026 tại Hà Nội (tạm tính)', [
-                        'ES 350h Premium' => 'Niêm yết 2.360.000.000 đ · trước bạ 12%: 283.200.000 đ · biển số 14.000.000 đ → khoảng 2.657.200.000 đ',
-                        'ES 350h Luxury'  => 'Niêm yết 2.580.000.000 đ · trước bạ 12%: 309.600.000 đ · biển số 14.000.000 đ → khoảng 2.903.600.000 đ',
+                        'ES 350h Premium' => 'Niêm yết 2.340.000.000 đ · trước bạ 12%: 280.800.000 đ · biển số 14.000.000 đ → khoảng 2.634.800.000 đ',
+                        'ES 350h Luxury'  => 'Niêm yết 2.600.000.000 đ · trước bạ 12%: 312.000.000 đ · biển số 14.000.000 đ → khoảng 2.926.000.000 đ',
                         'Chưa gồm'        => 'Phí đăng kiểm, bảo trì đường bộ, bảo hiểm TNDS bắt buộc (vài triệu đồng); bảo hiểm vật chất tùy chọn',
                     ]),
                     $text('Chọn bản nào', 'Premium hay Luxury?',
@@ -791,8 +791,8 @@ class LexusSiteSeeder extends Seeder
                         .'<p>Xem ảnh, màu và thông số tại trang <a href="/san-pham/es">Lexus ES</a>, hoặc để lại số tại '
                         .'<a href="/bao-gia?xe=es">Nhận báo giá</a> để chuyên viên Thu Hà gửi bảng tính lăn bánh chi tiết và lịch lái thử.</p>'),
                     $faq([
-                        'Lexus ES 2026 có mấy phiên bản?' => 'Ba phiên bản: hai bản hybrid ES 350h Premium 2,36 tỷ đồng, ES 350h Luxury 2,58 tỷ đồng và bản thuần điện ES 500e 2,98 tỷ đồng.',
-                        'Giá lăn bánh Lexus ES 350h tại Hà Nội bao nhiêu?' => 'Tạm tính khoảng 2,66 tỷ đồng (Premium) và 2,90 tỷ đồng (Luxury), gồm lệ phí trước bạ 12% và phí biển số 14 triệu đồng.',
+                        'Lexus ES 2026 có mấy phiên bản?' => 'Ba phiên bản: hai bản hybrid ES 350h Premium 2,34 tỷ đồng, ES 350h Luxury 2,60 tỷ đồng và bản thuần điện ES 500e 2,94 tỷ đồng.',
+                        'Giá lăn bánh Lexus ES 350h tại Hà Nội bao nhiêu?' => 'Tạm tính khoảng 2,63 tỷ đồng (Premium) và 2,93 tỷ đồng (Luxury), gồm lệ phí trước bạ 12% và phí biển số 14 triệu đồng.',
                         'ES 350h có phải cắm sạc không?' => 'Không. ES 350h là hybrid tự sạc khi phanh và khi động cơ xăng chạy.',
                         'ES 350h có được bảo hành 10 năm không?' => 'Có. Xe hybrid Lexus bán mới từ 8/5/2026 được bảo hành 10 năm, không giới hạn km cho xe và pin hybrid, khi bảo dưỡng định kỳ đầy đủ tại đại lý.',
                     ]),
@@ -841,20 +841,20 @@ class LexusSiteSeeder extends Seeder
             [
                 'slug'      => 'bang-gia-xe-lexus-2026-tai-ha-noi',
                 'title'     => 'Bảng giá xe Lexus 2026 tại Hà Nội: 6 dòng xe, 12 phiên bản',
-                'seo_title' => 'Bảng giá xe Lexus 2026 tại Hà Nội — từ 2,36 tỷ, 12 phiên bản',
+                'seo_title' => 'Bảng giá xe Lexus 2026 tại Hà Nội — từ 2,34 tỷ, 12 phiên bản',
                 'category'  => 'bang-gia-mua-xe',
                 'cover'     => 'khu-trung-bay',
                 'keywords'  => 'bảng giá xe Lexus 2026, giá xe Lexus Hà Nội, giá Lexus ES 350h, giá Lexus RX, giá Lexus LX',
-                'excerpt'   => 'Giá xe Lexus 2026 tại Hà Nội từ 2,36 tỷ đồng (ES 350h Premium) đến 9,7 tỷ đồng (LX 600 VIP). '
+                'excerpt'   => 'Giá xe Lexus 2026 tại Hà Nội từ 2,34 tỷ đồng (ES 350h Premium) đến 9,7 tỷ đồng (LX 600 VIP). '
                     .'Bảng giá niêm yết 6 dòng xe, 12 phiên bản đang bán tại Lexus Thăng Long, Hà Nội.',
                 'sections'  => [
                     $text('Trả lời nhanh', 'Xe Lexus 2026 giá bao nhiêu?',
-                        '<p>Tại Hà Nội, <strong>xe Lexus 2026 có giá niêm yết từ 2,36 tỷ đồng (ES 350h Premium) đến 9,7 tỷ đồng (LX 600 VIP)</strong>. '
+                        '<p>Tại Hà Nội, <strong>xe Lexus 2026 có giá niêm yết từ 2,34 tỷ đồng (ES 350h Premium) đến 9,7 tỷ đồng (LX 600 VIP)</strong>. '
                         .'Lexus Thăng Long đang bán 6 dòng xe với 12 phiên bản: sedan ES, LS; SUV RX, GX, LX và MPV LM.</p>'
                         .'<p>Giá dưới đây là giá niêm yết đã gồm VAT, chưa gồm lệ phí trước bạ và phí đăng ký. '
                         .'Bảng giá luôn cập nhật theo đại lý có tại trang <a href="/bang-gia">Bảng giá xe Lexus</a>.</p>'),
                     $table('Giá khởi điểm', 'Giá từ của từng dòng xe', [
-                        'Lexus ES (sedan)'          => 'từ 2.360.000.000 đ — ES 350h Premium, ES 350h Luxury và ES 500e thuần điện',
+                        'Lexus ES (sedan)'          => 'từ 2.340.000.000 đ — ES 350h Premium, ES 350h Luxury và ES 500e thuần điện',
                         'Lexus RX (SUV cỡ trung)'   => 'từ 3.350.000.000 đ — 3 phiên bản',
                         'Lexus GX (SUV khung rời)'  => '6.200.000.000 đ — GX 550',
                         'Lexus LM (MPV)'            => '7.210.000.000 đ — LM 500h 6 chỗ',
@@ -862,16 +862,16 @@ class LexusSiteSeeder extends Seeder
                         'Lexus LX (SUV đầu bảng)'   => 'từ 8.590.000.000 đ — 3 phiên bản',
                     ]),
                     $text('Chọn theo ngân sách', 'Nên chọn Lexus nào với ngân sách của bạn?',
-                        '<h3>Dưới 3 tỷ đồng</h3><p>ES 350h Premium (2,36 tỷ) và ES 350h Luxury (2,58 tỷ) — sedan hybrid thế hệ mới, '
+                        '<h3>Dưới 3 tỷ đồng</h3><p>ES 350h Premium (2,34 tỷ) và ES 350h Luxury (2,60 tỷ) — sedan hybrid thế hệ mới, '
                         .'khoang sau rộng, êm và tiết kiệm; hợp đi phố và đưa đón gia đình.</p>'
-                        .'<p>ES 500e thuần điện (2,98 tỷ) được miễn lệ phí trước bạ: lăn bánh Hà Nội khoảng 2,99 tỷ, '
+                        .'<p>ES 500e thuần điện (2,94 tỷ) được miễn lệ phí trước bạ: lăn bánh Hà Nội khoảng 2,95 tỷ, '
                         .'chỉ hơn ES 350h Luxury khoảng 90 triệu đồng.</p>'
                         .'<h3>Từ 3 đến 5 tỷ đồng</h3><p>RX 350h Premium (3,35 tỷ), RX 350h Luxury (4,14 tỷ) và RX 500h F SPORT Performance (4,94 tỷ) '
                         .'cho gia đình cần SUV 5 chỗ rộng rãi.</p>'
                         .'<h3>Trên 6 tỷ đồng</h3><p>GX 550 (6,2 tỷ) và LX 600 (từ 8,59 tỷ) cho nhu cầu SUV khung gầm rời, 7 chỗ; '
                         .'LM 500h 6 chỗ (7,21 tỷ) cho đưa đón đối tác và gia đình; LS 500h (8,03 tỷ) cho người thích sedan đầu bảng.</p>'),
                     $faq([
-                        'Xe Lexus rẻ nhất năm 2026 là xe nào?' => 'Lexus ES 350h Premium, giá niêm yết 2,36 tỷ đồng (đã gồm VAT); lăn bánh Hà Nội tạm tính khoảng 2,66 tỷ đồng.',
+                        'Xe Lexus rẻ nhất năm 2026 là xe nào?' => 'Lexus ES 350h Premium, giá niêm yết 2,34 tỷ đồng (đã gồm VAT); lăn bánh Hà Nội tạm tính khoảng 2,63 tỷ đồng.',
                         'Xe Lexus đắt nhất tại Việt Nam là xe nào?' => 'Lexus LX 600 VIP 4 chỗ, giá niêm yết 9,7 tỷ đồng.',
                         'Giá niêm yết đã là giá lăn bánh chưa?' => 'Chưa. Cần cộng lệ phí trước bạ 12% (xe xăng/hybrid tại Hà Nội), phí biển số 14 triệu đồng và các phí đăng ký khác. '
                             .'Xem cách tính trong bài giá lăn bánh Lexus tại Hà Nội.',
@@ -911,8 +911,8 @@ class LexusSiteSeeder extends Seeder
                         .'<tr><td>Bảo hiểm TNDS 1 năm (5 chỗ)</td><td>480.700 đ</td></tr>'
                         .'<tr><th>Tạm tính (chưa gồm đăng kiểm, bảo hiểm vật chất)</th><th>khoảng 3.768.040.700 đ</th></tr>'
                         .'</tbody></table>'
-                        .'<p>Tương tự, <strong>Lexus ES 350h Premium</strong> (2,36 tỷ đồng) lăn bánh tạm tính <strong>khoảng 2.659.240.700 đ</strong>: '
-                        .'trước bạ 283.200.000 đ, biển số 14.000.000 đ, phí đường bộ 1.560.000 đ và bảo hiểm TNDS 480.700 đ. '
+                        .'<p>Tương tự, <strong>Lexus ES 350h Premium</strong> (2,34 tỷ đồng) lăn bánh tạm tính <strong>khoảng 2.636.840.700 đ</strong>: '
+                        .'trước bạ 280.800.000 đ, biển số 14.000.000 đ, phí đường bộ 1.560.000 đ và bảo hiểm TNDS 480.700 đ. '
                         .'Riêng lệ phí trước bạ đã chiếm 12% giá xe — khoản lớn nhất cần tính khi chuẩn bị tài chính.</p>'
                         .'<p>Lệ phí trước bạ tính trên giá trong bảng giá tính lệ phí trước bạ của cơ quan thuế, có thể chênh nhẹ so với giá bán. '
                         .'Các con số trên để tham khảo; bảng tính chính xác theo phiên bản và ưu đãi hiện hành, chuyên viên gửi riêng khi bạn '

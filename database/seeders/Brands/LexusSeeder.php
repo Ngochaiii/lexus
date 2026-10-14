@@ -422,12 +422,12 @@ class LexusSeeder extends BrandSeeder
             'name'       => 'Lexus ES',
             'tagline'    => 'Sedan hạng sang thế hệ mới: hybrid 350h và thuần điện 500e',
             'category'   => 'sedan',
-            'price_from' => 2_360_000_000,   // giá đại lý 01/10/2026: 350h Premium 2,36 · Luxury 2,58 · 500e 2,98 tỷ
+            'price_from' => 2_340_000_000,   // giá xác nhận 14/10/2026: 350h Premium 2,34 · Luxury 2,60 · 500e 2,94 tỷ
             'highlights' => [
                 ['value' => '350h', 'unit' => '', 'label' => 'Hybrid thế hệ mới'],
                 ['value' => '5', 'unit' => 'chỗ', 'label' => 'Sedan hạng sang'],
                 ['value' => '3', 'unit' => 'phiên bản', 'label' => 'Hybrid 350h · thuần điện 500e'],
-                ['value' => '2,36', 'unit' => 'tỷ', 'label' => 'Giá từ · thế hệ thứ 8'],
+                ['value' => '2,34', 'unit' => 'tỷ', 'label' => 'Giá từ · thế hệ thứ 8'],
             ],
             'exterior' => [
                 'image' => 'the-he-moi-truoc',
@@ -504,15 +504,15 @@ class LexusSeeder extends BrandSeeder
                 ['Đen', '#1C1D20', 'mau-den'],
             ],
             'variants' => [
-                ['name' => 'ES 350h Premium', 'image' => 'phien-ban/premium', 'price' => 2_360_000_000, 'note' => 'Hybrid thế hệ mới'],
-                ['name' => 'ES 350h Luxury', 'image' => 'goc/xam-1', 'price' => 2_580_000_000, 'note' => 'Hybrid · trang bị Luxury'],
-                ['name' => 'ES 500e', 'image' => 'goc/trang-1', 'price' => 2_980_000_000, 'note' => 'Thuần điện · miễn lệ phí trước bạ'],
+                ['name' => 'ES 350h Premium', 'image' => 'phien-ban/premium', 'price' => 2_340_000_000, 'note' => 'Hybrid thế hệ mới'],
+                ['name' => 'ES 350h Luxury', 'image' => 'goc/xam-1', 'price' => 2_600_000_000, 'note' => 'Hybrid · trang bị Luxury'],
+                ['name' => 'ES 500e', 'image' => 'goc/trang-1', 'price' => 2_940_000_000, 'note' => 'Thuần điện · miễn lệ phí trước bạ'],
             ],
             'faq' => [
                 'Giá xe Lexus ES 2026 bao nhiêu?' =>
-                    'Lexus ES thế hệ mới có 3 phiên bản: ES 350h Premium 2,36 tỷ đồng, ES 350h Luxury 2,58 tỷ đồng (hybrid) '
-                    .'và ES 500e 2,98 tỷ đồng (thuần điện), giá niêm yết đã gồm VAT. Lăn bánh tại Hà Nội tạm tính khoảng '
-                    .'2,66 tỷ, 2,90 tỷ và 2,99 tỷ đồng — ES 500e được miễn lệ phí trước bạ.',
+                    'Lexus ES thế hệ mới có 3 phiên bản: ES 350h Premium 2,34 tỷ đồng, ES 350h Luxury 2,60 tỷ đồng (hybrid) '
+                    .'và ES 500e 2,94 tỷ đồng (thuần điện), giá niêm yết đã gồm VAT. Lăn bánh tại Hà Nội tạm tính khoảng '
+                    .'2,63 tỷ, 2,93 tỷ và 2,95 tỷ đồng — ES 500e được miễn lệ phí trước bạ.',
                 'Lexus ES 500e có gì khác ES 350h?' =>
                     'ES 500e là bản thuần điện chạy pin: không dùng xăng, sạc điện. ES 350h là hybrid, không cần sạc. '
                     .'ES 500e được miễn lệ phí trước bạ đến hết năm 2030, nên dù giá niêm yết cao hơn ES 350h Luxury 400 triệu đồng, '
@@ -525,8 +525,8 @@ class LexusSeeder extends BrandSeeder
                     .'và chi phí sử dụng hợp lý của hệ truyền động hybrid.',
             ] + $this->commonFaq('Lexus ES'),
             'seo' => [
-                'title'       => 'Lexus ES 350h 2026: giá từ 2,36 tỷ, thế hệ mới | Thu Hà tư vấn Lexus',
-                'description' => 'Giá Lexus ES 2026 tại Hà Nội: 350h Premium 2,36 tỷ, 350h Luxury 2,58 tỷ, ES 500e thuần điện 2,98 tỷ (miễn trước bạ). Lái thử tại Lexus Thăng Long.',
+                'title'       => 'Lexus ES 350h 2026: giá từ 2,34 tỷ, thế hệ mới | Thu Hà tư vấn Lexus',
+                'description' => 'Giá Lexus ES 2026 tại Hà Nội: 350h Premium 2,34 tỷ, 350h Luxury 2,60 tỷ, ES 500e thuần điện 2,94 tỷ (miễn trước bạ). Lái thử tại Lexus Thăng Long.',
             ],
         ];
     }
