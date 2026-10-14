@@ -32,6 +32,13 @@
 
     $heroSrcset = \App\Support\Media::srcset(data_get($product->hero, 'src'));
     $heroSizes  = $studio ? '(max-width: 900px) 100vw, 55vw' : '100vw';
+
+    // Gọi / Zalo chuyên viên — cùng nguồn với partials/sales-bar. Trang xe là
+    // trang đích quảng cáo dòng xe: khách vào là thấy ngay hai nút này.
+    $advisor  = catalog_setting('advisor_name');
+    $callTo   = catalog_setting('advisor_phone') ?: catalog_setting('hotline');
+    $zaloRaw  = catalog_setting('advisor_zalo') ?: catalog_setting('zalo');
+    $zaloLink = $zaloRaw ? (\Illuminate\Support\Str::startsWith($zaloRaw, 'http') ? $zaloRaw : 'https://zalo.me/'.$zaloRaw) : null;
 @endphp
 
 @push('preload')
@@ -84,10 +91,13 @@
                     <p>Giá đang cập nhật</p>
                 @endif
                 <div class="actions">
+                    @if ($callTo)<a class="button light" href="tel:{{ $callTo }}">Gọi {{ $advisor ?: 'tư vấn' }}</a>@endif
+                    @if ($zaloLink)<a class="button outline" href="{{ $zaloLink }}" target="_blank" rel="noopener">Nhắn Zalo</a>@endif
                     @if ($variants->isNotEmpty())
-                        <a class="button light" href="#versions">Xem giá {{ $variants->count() }} phiên bản</a>
+                        <a class="text-link" href="#versions">Xem giá {{ $variants->count() }} phiên bản</a>
+                    @elseif (! $callTo && ! $zaloLink)
+                        <a class="text-link" href="{{ route('quote', ['xe' => $product->slug]) }}" data-quote data-product="{{ $product->id }}">Nhận báo giá</a>
                     @endif
-                    <a class="text-link" href="{{ route('quote', ['xe' => $product->slug]) }}" data-quote data-product="{{ $product->id }}">Nhận báo giá</a>
                 </div>
             </div>
         </div>
@@ -252,6 +262,23 @@
             </div>
         </section>
     @endforeach
+
+    {{-- ══ Cuối trang khi không đặt form (mặc định): Gọi / Zalo, còn ai muốn
+         được gọi lại thì để số qua popup — một form duy nhất trên trang. ══ --}}
+    @if ($forms->isEmpty())
+        <section class="section stone contact-close">
+            <div class="container">
+                <div class="eyebrow">MỘT BƯỚC ĐẾN GẦN HƠN</div>
+                <h2>{{ $product->name }}.<br>Dành riêng cho bạn.</h2>
+                <p>Gọi hoặc nhắn Zalo {{ $advisor ?: 'chuyên viên' }} để nhận báo giá lăn bánh, phương án trả góp và hẹn lái thử.</p>
+                <div class="actions">
+                    @if ($callTo)<a class="button" href="tel:{{ $callTo }}">Gọi {{ $advisor ?: 'tư vấn' }} {{ \App\Support\Phone::format($callTo) }}</a>@endif
+                    @if ($zaloLink)<a class="button outline" href="{{ $zaloLink }}" target="_blank" rel="noopener">Nhắn Zalo</a>@endif
+                    <a class="text-link" href="{{ route('quote', ['xe' => $product->slug]) }}" data-quote data-product="{{ $product->id }}">Để lại số, {{ $advisor ?: 'chuyên viên' }} gọi lại</a>
+                </div>
+            </div>
+        </section>
+    @endif
 
     {{-- ══ Xe liên quan ══ --}}
     @php

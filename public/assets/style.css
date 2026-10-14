@@ -497,3 +497,7 @@ html:has(.quote-dialog[open]){overflow:hidden}
 .site-header .brand{flex-direction:column;align-items:flex-start;justify-content:center;gap:7px}
 .brand-advisor{font-size:13px;line-height:1.2;letter-spacing:.04em;opacity:.85;white-space:nowrap}
 @media(max-width:600px){.site-header .brand{gap:5px}.brand-advisor{font-size:10.5px;letter-spacing:.02em;white-space:normal}}
+
+/* Cuối trang xe (product.blade, khi không đặt form): Gọi / Zalo / để lại số qua popup. */
+.contact-close p{max-width:620px;margin-top:20px}
+.model-hero:not(.is-studio) .button.outline{background:#00000059;border-color:#fff;color:#fff}

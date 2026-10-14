@@ -398,8 +398,10 @@ return [
 
         // Form hiện ở cuối trang chi tiết sản phẩm — key nào đã nhúng giữa
         // trang qua mục kiểu `form` (VD "dat-lich-lai-thu" gắn tự động cho
-        // mọi xe trong BrandSeeder) thì không lặp lại ở đây. [] = không hiện.
-        'product_forms' => ['nhan-bao-gia'],
+        // mọi xe trong BrandSeeder) thì không lặp lại ở đây. [] = không hiện:
+        // cuối trang xe chỉ còn Gọi / Zalo + nút mở popup báo giá — một form
+        // duy nhất trên trang (14/10/2026, trang đích quảng cáo dòng xe).
+        'product_forms' => [],
 
         // Form ở băng đăng ký nhận tin ngay trên footer — chỉ cần ô email.
         // null = ẩn hẳn băng đó.
