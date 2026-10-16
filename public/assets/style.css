@@ -156,8 +156,7 @@
 .quote-dialog__body h2{font-size:clamp(27px,2.4vw,36px);line-height:1.2}
 .quote-dialog__lede{margin:14px 0 26px;font-size:16px}
 .quote-dialog .lead-form{gap:16px}
-.quote-dialog__close-form{position:absolute;top:0;right:0;z-index:2;margin:0}
-.quote-dialog__close{width:52px;height:52px;border:0;background:transparent;color:var(--ink);font-size:32px;line-height:1;cursor:pointer}
+.quote-dialog__close{position:absolute;top:0;right:0;z-index:2;margin:0;width:52px;height:52px;border:0;background:transparent;color:var(--ink);font-size:32px;line-height:1;cursor:pointer}
 .quote-dialog__close:hover{color:var(--accent)}
 .quote-dialog__close:focus-visible{outline:2px solid var(--accent);outline-offset:-6px}
 html:has(.quote-dialog[open]){overflow:hidden}

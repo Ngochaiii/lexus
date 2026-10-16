@@ -111,7 +111,7 @@
     <div class="field">
         <label for="{{ $idp }}-phone">Số điện thoại *</label>
         <input id="{{ $idp }}-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"
-               placeholder="09xx xxx xxx" pattern="[+0-9 ().-]{9,18}"
+               placeholder="09xx xxx xxx" pattern="[+0-9 .\(\)\-]{9,18}"
                value="{{ $old('phone') }}" required>
         <p class="form-note field-error" data-error-for="phone" @unless ($bag->has('phone')) hidden @endunless>
             {{ $bag->first('phone') }}</p>

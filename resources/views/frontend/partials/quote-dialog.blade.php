@@ -33,10 +33,11 @@
             data-sent-days="{{ (int) ($cfg['sent_days'] ?? 90) }}"
         @endif>
 
-    {{-- method="dialog": bấm là đóng hộp, không cần JS cho nút này. --}}
-    <form method="dialog" class="quote-dialog__close-form">
-        <button class="quote-dialog__close" aria-label="Đóng">×</button>
-    </form>
+    {{-- Nút thường (lead.js đóng hộp), KHÔNG dùng <form method="dialog">: form
+         đóng hộp cũng phát sự kiện submit, GA4 đếm thành form_submit — mỗi lần
+         khách đóng popup thành một lượt "gửi form" ảo. Không JS thì hộp không
+         bao giờ mở, nên nút không cần chạy được khi tắt JS. --}}
+    <button type="button" class="quote-dialog__close" data-dialog-close aria-label="Đóng">×</button>
 
     {{-- Ảnh thật tại quầy lễ tân Lexus Thăng Long: có logo trên tường, và là
          người sẽ gọi lại cho khách — gắn form với một cơ sở, một con người

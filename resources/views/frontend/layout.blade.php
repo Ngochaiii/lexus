@@ -113,7 +113,8 @@
     {"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/admin/*","/api/*","/gui-form/*","/livewire/*","/storage/*"]}},{"not":{"selector_matches":"[rel~=nofollow],[download],[target=_blank]"}}]},"eagerness":"moderate"}]}
     </script>
 </head>
-<body class="{{ trim(($bodyClass ?? '').($salesBar ? ' has-sales' : '')) }}">
+<body class="{{ trim(($bodyClass ?? '').($salesBar ? ' has-sales' : '')) }}"
+      @if (($product ?? null) instanceof \App\Models\Product) data-product="{{ $product->getKey() }}" @endif>
 <a class="skip" href="#main">Đến nội dung chính</a>
 
 @include('frontend.partials.header', ['overlay' => $overlay])

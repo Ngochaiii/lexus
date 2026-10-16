@@ -172,6 +172,9 @@
   };
 
 
+  // Nút × (button thường, không phải form method="dialog" — xem quote-dialog).
+  dialog.querySelectorAll('[data-dialog-close]').forEach((btn) => btn.addEventListener('click', () => dialog.close()));
+
   // Bấm ra ngoài hộp (vào nền mờ) thì đóng. Sự kiện click trên chính
   // <dialog> chỉ xảy ra khi bấm vào ::backdrop, vì nội dung phủ kín hộp.
   dialog.addEventListener('click', (event) => {
@@ -194,7 +197,9 @@
 
     event.preventDefault();
 
-    // Chọn sẵn xe: ưu tiên data-product (id), không có thì đọc ?xe={slug}.
+    // Chọn sẵn xe: ưu tiên data-product (id), rồi ?xe={slug}, cuối cùng là
+    // dòng xe của trang đang xem (<body data-product> trên trang xe/phiên bản)
+    // — nút "Báo giá" ở thanh đáy, header không biết trang đang nói xe nào.
     let productId = link.dataset.product || '';
     if (!productId && select) {
       let slug = '';
@@ -202,6 +207,7 @@
       const option = slug && select.querySelector(`option[data-slug="${CSS.escape(slug)}"]`);
       if (option) productId = option.value;
     }
+    if (!productId) productId = document.body.dataset.product || '';
     open('manual', productId, link.dataset.variant || '', link.dataset.variantName || '');
   });
 
