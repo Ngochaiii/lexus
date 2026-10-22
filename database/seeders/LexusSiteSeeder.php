@@ -67,7 +67,7 @@ class LexusSiteSeeder extends Seeder
             'address'          => 'Ngã tư Phạm Hùng – Dương Đình Nghệ, Cầu Giấy, Hà Nội',
             'opening_hours'    => 'Thứ Hai – Chủ Nhật, 08:00 – 18:00',
             'company_name'     => 'Thu Hà · Lexus Thăng Long',
-            'map_url'          => 'https://www.google.com/maps/search/?api=1&query=Lexus+Th%C4%83ng+Long+Ph%E1%BA%A1m+H%C3%B9ng+C%E1%BA%A7u+Gi%E1%BA%A5y+H%C3%A0+N%E1%BB%99i',
+            'map_url'          => 'https://maps.app.goo.gl/TswfzGgp6sKzMGn47',
 
             'advisor_name'  => 'Thu Hà',
             'advisor_full_name' => 'Nguyễn Thị Thu Hà',
