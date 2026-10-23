@@ -11,7 +11,8 @@
 
     Trang đích quảng cáo "giá xe lexus": khách xem giá niêm yết là đi, nên
     bảng hiện luôn lăn bánh tạm tính (như trang xe) và nút cuối dòng mở Zalo
-    chuyên viên — hỏi lăn bánh bằng một chạm, không phải điền form. Chưa cài
+    chuyên viên — hỏi lăn bánh bằng một chạm, không phải điền form; nút Gọi
+    đứng trước cho khách thích gọi thẳng (23/10/2026). Chưa cài
     Zalo thì quay về form báo giá.
 --}}
 @php
@@ -28,6 +29,7 @@
     $advisor = catalog_setting('advisor_name', 'chuyên viên');
     $zaloRaw = catalog_setting('advisor_zalo') ?: catalog_setting('zalo');
     $zalo    = $zaloRaw ? (\Illuminate\Support\Str::startsWith($zaloRaw, 'http') ? $zaloRaw : 'https://zalo.me/'.$zaloRaw) : null;
+    $phone   = catalog_setting('advisor_phone') ?: catalog_setting('hotline');
 @endphp
 
 @if ($priceProducts->isNotEmpty())
@@ -75,6 +77,10 @@
                                 @php $estimate = \App\Support\OnRoadPrice::for($variant); @endphp
                                 <td class="price-cell price-cell--road" data-label="Lăn bánh {{ $onRoad['region'] }} (tạm tính)">{{ $estimate ? catalog_money_short($estimate['total']) : '—' }}</td>
                                 <td class="price-action">
+                                    @if ($phone)
+                                        <a class="text-link" href="tel:{{ $phone }}"
+                                           aria-label="Gọi {{ $advisor }} hỏi giá lăn bánh {{ $variant->name }}">Gọi</a>
+                                    @endif
                                     @if ($zalo)
                                         <a class="text-link" href="{{ $zalo }}" rel="noopener" target="_blank"
                                            aria-label="Nhắn Zalo {{ $advisor }} hỏi giá lăn bánh {{ $variant->name }}">Hỏi Zalo</a>

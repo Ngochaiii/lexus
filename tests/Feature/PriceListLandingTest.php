@@ -70,6 +70,26 @@ class PriceListLandingTest extends TestCase
         $this->assertStringNotContainsString('data-quote', $table);
     }
 
+    public function test_moi_dong_co_nut_goi_canh_nut_zalo(): void
+    {
+        Setting::put('advisor_zalo', '0989345989');
+        Setting::put('advisor_phone', '0934846666');
+
+        $table = $this->table();
+
+        $this->assertSame(2, substr_count($table, 'href="tel:0934846666"'));
+        $this->assertStringContainsString('Gọi Thu Hà hỏi giá lăn bánh RX 350h Premium', $table);
+        $this->assertMatchesRegularExpression('#href="tel:0934846666"[^>]*>Gọi</a>\s*<a[^>]*zalo\.me#', $table);
+    }
+
+    public function test_chua_co_so_dien_thoai_thi_khong_hien_nut_goi(): void
+    {
+        Setting::put('advisor_zalo', '0989345989');
+        Setting::put('hotline', '');
+
+        $this->assertStringNotContainsString('href="tel:', $this->table());
+    }
+
     public function test_chua_co_zalo_thi_van_dung_form_bao_gia(): void
     {
         $this->assertStringContainsString('data-quote', $this->table());

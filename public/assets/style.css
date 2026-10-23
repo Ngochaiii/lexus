@@ -236,6 +236,7 @@ html:has(.quote-dialog[open]){overflow:hidden}
 .price-table td small{font-size:14px;margin-top:4px;font-weight:400}
 .price-table .price-cell{font-variant-numeric:tabular-nums;white-space:nowrap}
 .price-table td:last-child{text-align:right;white-space:nowrap}
+.price-table .price-action .text-link+.text-link{margin-left:20px}
 /* Điện thoại (trang đích quảng cáo): dải mở đầu gọn để bảng lên ngay màn
    hình đầu; mỗi phiên bản là một thẻ (niêm yết | lăn bánh, nút Zalo bên dưới)
    thay vì bảng 5 cột phải kéo ngang. */
