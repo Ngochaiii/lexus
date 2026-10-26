@@ -135,6 +135,9 @@
     @include('frontend.partials.quote-dialog', ['autoOpen' => $popup])
 @endunless
 
+{{-- Khung Zalo: chép sẵn lời nhắn + đường dự phòng khi Zalo không mở. --}}
+@include('frontend.partials.zalo-sheet')
+
 {{-- JavaScript duy nhất của site — lớp nâng cấp, tắt đi mọi thứ vẫn chạy. --}}
 <script src="{{ asset('assets/lead.js') }}@if ($jsVersion)?v={{ $jsVersion }}@endif" defer></script>
 {{-- Đo lường tự host, ẩn danh: nguồn khách, bấm Gọi/Zalo, tốc độ thật. --}}

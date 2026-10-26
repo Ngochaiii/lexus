@@ -5,11 +5,13 @@
  * thì form vẫn POST thường và redirect về kèm lời cảm ơn, nút "Báo giá" vẫn
  * dẫn tới trang /bao-gia. Không có nút chết.
  *
- * Ba việc:
+ * Bốn việc:
  *   1. Gửi mọi form [data-lead-form] bằng fetch, hiện kết quả tại chỗ.
  *   2. Bấm nút "Báo giá" → mở <dialog id="quote-dialog"> thay vì chuyển trang.
  *   3. Trang chủ: tự mở popup sau N giây — có giới hạn tần suất, không bật trên
  *      điện thoại (xem config('catalog.frontend.popup') để biết vì sao).
+ *   4. Bấm Zalo → chép sẵn lời nhắn có tên xe, mở khung Zalo dự phòng
+ *      (partials/zalo-sheet). Đặt trước mục 2 vì mục 2 thoát sớm ở /bao-gia.
  */
 (() => {
   'use strict';
@@ -133,6 +135,71 @@
       if (button) button.disabled = false;
     }
   });
+
+  /* ── 4. Nút Zalo: chép sẵn lời nhắn + khung dự phòng ────────────────── */
+
+  const zaloSheet = document.getElementById('zalo-sheet');
+  if (zaloSheet && typeof zaloSheet.showModal === 'function') {
+    const message = zaloSheet.querySelector('[data-zalo-message]');
+    const copied = zaloSheet.querySelector('[data-zalo-copied]');
+    const status = zaloSheet.querySelector('[data-copy-status]');
+
+    // Lùi về execCommand khi không có Clipboard API (http, trình duyệt trong
+    // app cũ). Ô tạm phải nằm ngoài vùng bị khoá: khi khung đang mở thì mọi
+    // thứ ngoài khung thành inert, nên gắn vào chính khung.
+    const legacyCopy = (text, host) => {
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.setAttribute('readonly', '');
+      area.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+      host.appendChild(area);
+      area.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { /* bỏ qua */ }
+      area.remove();
+      return ok;
+    };
+    // Phải gọi ngay trong cú bấm (trình duyệt chỉ cho chép khi khách vừa chạm).
+    const copy = (text, host) => {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          return navigator.clipboard.writeText(text).then(() => true, () => legacyCopy(text, host));
+        }
+      } catch (e) { /* lùi về execCommand */ }
+      return Promise.resolve(legacyCopy(text, host));
+    };
+    const say = (text) => { status.textContent = text; status.hidden = !text; };
+
+    // Mọi link Zalo của trang (thanh đáy, nút nổi, đầu trang xe, bảng giá…).
+    // KHÔNG chặn link: Zalo vẫn mở như trước, khung chỉ chờ sẵn khi khách quay lại.
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest && event.target.closest('a[href*="zalo.me"]');
+      if (!link || link.hasAttribute('data-zalo-again')) return;
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const text = `${zaloSheet.dataset.greeting} ${link.dataset.zaloCar || zaloSheet.dataset.car} ạ.`;
+      message.textContent = text;
+      copied.hidden = true;
+      say('');
+      copy(text, document.body).then((ok) => { copied.hidden = !ok; });
+      // Mở khung sau khi trình duyệt đã xử lý link (sang Zalo / tab mới).
+      setTimeout(() => { if (!zaloSheet.open) zaloSheet.showModal(); }, 0);
+    });
+
+    zaloSheet.addEventListener('click', (event) => {
+      if (event.target === zaloSheet) { zaloSheet.close(); return; } // bấm nền mờ
+      const target = event.target.closest('button, a');
+      if (!target) return;
+      if (target.hasAttribute('data-dialog-close')) zaloSheet.close();
+      else if (target.hasAttribute('data-copy-message')) {
+        copy(message.textContent, zaloSheet).then((ok) => say(ok ? 'Đã chép lời nhắn — mở Zalo, bấm Nhắn tin rồi Dán.' : 'Máy không cho chép — giữ vào lời nhắn ở trên để chép.'));
+      } else if (target.dataset.copy) {
+        copy(target.dataset.copy, zaloSheet).then((ok) => say(ok ? 'Đã chép số Zalo — mở Zalo, bấm ô tìm kiếm và Dán số.' : `Số Zalo: ${target.dataset.copy}`));
+      } else if (target.hasAttribute('data-quote')) {
+        zaloSheet.close(); // nhường chỗ cho popup báo giá (mục 2 mở nó)
+      }
+    });
+  }
 
   /* ── 2. Popup báo giá ───────────────────────────────────────────────── */
 

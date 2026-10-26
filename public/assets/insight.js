@@ -5,7 +5,9 @@
  *      Facebook, Zalo…), UTM, trang vào đầu tiên → localStorage. Gắn vào mọi
  *      form [data-lead-form] (ô ẩn "attribution") để lead biết tới từ đâu.
  *      Lượt có UTM/gclid/fbclid (chiến dịch) ghi đè lần trước; vào thẳng thì không.
- *   2. Bấm Gọi / Zalo: mỗi lần bấm link tel: hoặc zalo.me gửi 1 sự kiện.
+ *   2. Bấm Gọi / Zalo: mỗi lần bấm link tel: hoặc zalo.me gửi 1 sự kiện. Nút
+ *      "Mở Zalo" trong khung Zalo dự phòng (data-zalo-again) là bấm lại của
+ *      cùng khách — không đếm thêm.
  *   3. Tốc độ thật: LCP, INP, CLS, FCP, TTFB của khách — gửi khi rời trang.
  *
  * Gửi về /api/v1/events bằng sendBeacon (không làm chậm trang). Đồng thời báo
@@ -95,7 +97,7 @@
   /* ── 2. Bấm Gọi / Zalo ──────────────────────────────────────────────── */
 
   document.addEventListener('click', (e) => {
-    const a = e.target.closest && e.target.closest('a[href^="tel:"], a[href*="zalo.me"]');
+    const a = e.target.closest && e.target.closest('a[href^="tel:"], a[href*="zalo.me"]:not([data-zalo-again])');
     if (!a) return;
     const type = a.getAttribute('href').startsWith('tel:') ? 'call' : 'zalo';
     track(type === 'call' ? 'click_call' : 'click_zalo', { page_path: location.pathname });

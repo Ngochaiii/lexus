@@ -83,6 +83,7 @@
                                     @endif
                                     @if ($zalo)
                                         <a class="text-link" href="{{ $zalo }}" rel="noopener" target="_blank"
+                                           data-zalo-car="{{ \Illuminate\Support\Str::start($variant->name, 'Lexus ') }}"
                                            aria-label="Nhắn Zalo {{ $advisor }} hỏi giá lăn bánh {{ $variant->name }}">Hỏi Zalo</a>
                                     @else
                                         <a class="text-link" href="{{ route('quote', ['xe' => $product->slug, 'phien-ban' => $variant->id]) }}"

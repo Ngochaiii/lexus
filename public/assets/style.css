@@ -501,3 +501,21 @@ html:has(.quote-dialog[open]){overflow:hidden}
 /* Cuối trang xe (product.blade, khi không đặt form): Gọi / Zalo / để lại số qua popup. */
 .contact-close p{max-width:620px;margin-top:20px}
 .model-hero:not(.is-studio) .button.outline{background:#00000059;border-color:#fff;color:#fff}
+
+/* ── Khung Zalo dự phòng (partials/zalo-sheet, public/assets/lead.js) ───────
+   Hộp nhỏ giữa màn hình; điện thoại thì thành tấm trượt dưới đáy, sát ngón cái. */
+.zalo-sheet{border:0;padding:34px 28px 26px;width:min(460px,calc(100% - 32px));max-height:calc(100dvh - 32px);overflow-y:auto;background:var(--paper);color:var(--ink);box-shadow:0 30px 80px rgba(10,12,14,.35)}
+.zalo-sheet[open]{animation:quote-in .26s var(--ease) both}
+.zalo-sheet::backdrop{background:rgba(10,12,14,.62)}
+.zalo-sheet h2{font-size:26px;margin:0 40px 16px 0}
+.zalo-sheet__copied{margin:0 0 6px;color:#1f7a3a;font-size:16px;font-weight:600}
+.zalo-sheet__message{margin:0 0 12px;padding:12px 16px;background:var(--stone);border-left:3px solid var(--accent);font-size:17px;line-height:1.5}
+.zalo-sheet__steps{font-size:16px;line-height:1.55}
+.zalo-sheet__actions{display:grid;gap:10px;margin-top:14px}.zalo-sheet__actions .button{margin:0}
+.zalo-sheet__fallback{margin:22px 0 2px;color:var(--ink);font-size:16px;font-weight:600}
+.zalo-sheet__list{list-style:none;margin:0;padding:0}
+.zalo-sheet__list li{padding:2px 0}
+.zalo-sheet__list small{display:block;color:var(--muted);font-size:14px}
+.zalo-sheet button.text-link{background:none;border-width:0 0 1px;border-radius:0;color:inherit;cursor:pointer}.zalo-sheet button.text-link:after{content:none}
+.zalo-sheet__status{margin-top:14px;padding:10px 14px;background:#e9f4ec;color:#1f5c31;font-size:15px;line-height:1.5}
+@media (max-width:600px){.zalo-sheet{width:100%;max-width:none;margin:auto 0 0;padding:30px 20px calc(20px + env(safe-area-inset-bottom))}}
