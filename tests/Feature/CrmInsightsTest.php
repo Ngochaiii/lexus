@@ -193,7 +193,7 @@ class CrmInsightsTest extends TestCase
 
     public function test_bao_cao_ty_le_chot_hoa_hong_va_p75(): void
     {
-        $form = Form::sole();
+        $form = Form::where('key', 'nhan-bao-gia')->sole();
         foreach (['won', 'won', 'lost', 'called', 'spam'] as $status) {
             $form->leads()->create(['name' => 'K', 'phone' => '0900000000', 'status' => $status, 'source' => 'google',
                 'commission' => $status === 'won' ? 50_000_000 : null]);

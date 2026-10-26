@@ -519,3 +519,15 @@ html:has(.quote-dialog[open]){overflow:hidden}
 .zalo-sheet button.text-link{background:none;border-width:0 0 1px;border-radius:0;color:inherit;cursor:pointer}.zalo-sheet button.text-link:after{content:none}
 .zalo-sheet__status{margin-top:14px;padding:10px 14px;background:#e9f4ec;color:#1f5c31;font-size:15px;line-height:1.5}
 @media (max-width:600px){.zalo-sheet{width:100%;max-width:none;margin:auto 0 0;padding:30px 20px calc(20px + env(safe-area-inset-bottom))}}
+
+/* ── Form để lại số một ô trên bảng giá (partials/quick-callback) ─────────── */
+.quick-callback{margin:0 0 28px;padding:20px 22px;background:var(--stone)}
+.quick-callback__label{display:block;margin-bottom:10px;font-size:17px;font-weight:600;color:var(--ink)}
+.quick-callback__row{display:flex;gap:10px}
+.quick-callback__row input{flex:1 1 auto;min-width:0;min-height:50px;padding:10px 14px;border:1px solid var(--line);background:#fff;font-size:18px}
+.quick-callback__row .button{width:auto;margin:0;flex:0 0 auto}
+.quick-callback .consent{display:flex;gap:10px;align-items:flex-start;margin-top:10px;font-size:15px;line-height:1.5;color:var(--muted)}
+.quick-callback .consent input{margin-top:4px}
+.quick-callback[data-sent] .quick-callback__fields{display:none}
+.quick-callback .lead-sent__title{font-weight:600;color:var(--ink)}
+@media (max-width:600px){.quick-callback{padding:16px}.quick-callback__row{flex-direction:column}.quick-callback__row .button{width:100%}}

@@ -96,12 +96,23 @@
 
   /* ── 2. Bấm Gọi / Zalo ──────────────────────────────────────────────── */
 
+  // Nút nằm ở đâu + khách đã ở trang bao lâu: chạm thanh đáy sau 2 giây gần
+  // như là chạm nhầm khi lướt; bấm trong bảng giá sau 40 giây là khách thật.
+  const PLACES = [
+    ['.zalo-sheet', 'sheet'], ['.sales-bar', 'bar'], ['.contact-float', 'float'], ['.price-table', 'table'],
+    ['.lead-sent', 'thanks'], ['.advisor-card', 'advisor'], ['.hero, .model-hero', 'hero'],
+    ['header, .site-header', 'header'], ['footer, .site-footer', 'footer'],
+  ];
+  const placeOf = (a) => (PLACES.find(([sel]) => a.closest(sel)) || [null, 'content'])[1];
+
   document.addEventListener('click', (e) => {
     const a = e.target.closest && e.target.closest('a[href^="tel:"], a[href*="zalo.me"]:not([data-zalo-again])');
     if (!a) return;
     const type = a.getAttribute('href').startsWith('tel:') ? 'call' : 'zalo';
-    track(type === 'call' ? 'click_call' : 'click_zalo', { page_path: location.pathname });
-    send([{ type, path: location.pathname }]);
+    const place = placeOf(a);
+    const secs = Math.round(performance.now() / 1000);
+    track(type === 'call' ? 'click_call' : 'click_zalo', { page_path: location.pathname, place, secs });
+    send([{ type, path: location.pathname, place, secs }]);
   }, true);
 
   // Bấm sang kênh TikTok của chuyên viên — chỉ báo GA4 (không phải liên hệ trực tiếp).

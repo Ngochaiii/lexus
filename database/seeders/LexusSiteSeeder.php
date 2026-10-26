@@ -153,6 +153,17 @@ class LexusSiteSeeder extends Seeder
             $form->fields()->delete();
             $form->fields()->createMany($fields);
         }
+
+        // Form một ô trên /bang-gia (partials/quick-callback): chỉ số điện
+        // thoại + đồng ý — khách đang xem giá gõ số là xong.
+        $quick = Catalog::query('form')->updateOrCreate(['key' => 'goi-lai-nhanh'], array_filter([
+            'name'            => 'Để lại số (bảng giá)',
+            'description'     => 'Form một ô số điện thoại trên trang bảng giá.',
+            'success_message' => 'Đã nhận số của bạn. Thu Hà sẽ gọi lại báo giá lăn bánh sớm nhất.',
+            'notify_emails'   => $notify ?: null,
+        ]));
+        $quick->fields()->delete();
+        $quick->fields()->createMany(array_values(array_filter($fields, fn ($f) => in_array($f['key'], ['phone', 'consent'], true))));
     }
 
     /**

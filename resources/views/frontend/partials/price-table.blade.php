@@ -48,6 +48,8 @@
             </p>
         </div>
 
+        @include('frontend.partials.quick-callback')
+
         <div class="table-wrap">
             <table class="data-table">
                 <caption class="studio-sr">Bảng giá xe Lexus tại {{ catalog_setting('site_name', 'Lexus Thăng Long') }}</caption>
