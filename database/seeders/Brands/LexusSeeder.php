@@ -256,7 +256,7 @@ class LexusSeeder extends BrandSeeder
             "Mua {$name} ở đâu tại Hà Nội?" =>
                 'Showroom '.self::DEALER.' ở '.self::ADDRESS.'. Showroom trưng bày, '
                 .'có xe lái thử và xưởng dịch vụ ngay tại showroom. Đặt lịch lái thử trên website '
-                .'hoặc gọi số 0934 846 666 (Thu Hà).',
+                .'hoặc gọi số 0977 573 366 (Thu Hà).',
         ];
     }
 

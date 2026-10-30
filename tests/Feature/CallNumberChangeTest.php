@@ -111,15 +111,5 @@ class CallNumberChangeTest extends TestCase
         $this->assertSame('0911111111', Setting::get('advisor_phone'));
     }
 
-    public function test_seeder_dung_so_moi(): void
-    {
-        $seeder = file_get_contents(database_path('seeders/LexusSiteSeeder.php'));
-
-        $this->assertStringContainsString("'advisor_phone' => '0934846666'", $seeder);
-        $this->assertStringContainsString("'zalo' => 'https://zalo.me/0989345989'", $seeder);
-        foreach (['seeders/LexusSiteSeeder.php', 'seeders/Brands/LexusSeeder.php', 'content/legal-pages.php'] as $file) {
-            $text = file_get_contents(database_path($file));
-            $this->assertDoesNotMatchRegularExpression('/(?<!Zalo )(?<!zalo\.me\/)0989 ?345 ?989/u', $text, $file);
-        }
-    }
+    // Seeder dùng số mới 0977 573 366 từ 30/10/2026: xem ContactNumberChangeTest.
 }
