@@ -63,6 +63,12 @@ class ProductForm
                     ->helperText('Đây là dòng chữ TO NHẤT trên trang, viết như một câu quảng cáo. Tên xe đã nằm ở dòng nhỏ phía trên rồi.')
                     ->columnSpanFull(),
 
+                Textarea::make('notice')
+                    ->label('Ghi chú đầu bảng giá')
+                    ->helperText('Hiện ngay trên các phiên bản: bản đang bán, ưu đãi tháng, xe có sẵn. Chỉ ghi điều chị Hà đã xác nhận; để trống thì ẩn.')
+                    ->rows(3)
+                    ->columnSpanFull(),
+
                 Select::make('category_id')
                     ->label('Danh mục')
                     ->relationship('category', 'name')

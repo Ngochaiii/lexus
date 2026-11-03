@@ -375,6 +375,8 @@ html:has(.quote-dialog[open]){overflow:hidden}
    lớn nhất thẻ; lăn bánh tạm tính ngay dưới, nhỏ hơn — trả lời luôn câu hỏi
    "tổng cộng bao nhiêu" mà không lấn giá niêm yết. */
 .versions .section-heading p{max-width:460px}
+.versions-notice{margin:0 0 32px;padding:18px 24px;border-left:2px solid var(--accent);background:var(--stone);font-size:18px;color:var(--ink);max-width:900px}
+@media(max-width:600px){.versions-notice{font-size:17px;padding:16px 18px;margin-bottom:24px}}
 .variant{display:flex;flex-direction:column;background:#fff}
 .variant .variant-note{font-size:16px;line-height:1.5;margin-top:8px}
 .variant-prices{margin:22px 0 22px;padding-top:18px;border-top:1px solid var(--line);display:grid;gap:12px}

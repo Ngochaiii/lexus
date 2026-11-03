@@ -88,6 +88,7 @@ abstract class BrandSeeder extends Seeder
             [
                 'name' => $data['name'],
                 'tagline' => $data['tagline'] ?? null,
+                'notice' => $data['notice'] ?? null,
                 'category_id' => $categories[$data['category'] ?? ''] ?? null,
                 'price_from' => $data['price_from'] ?? null,
                 'status' => $data['status'] ?? 'published',

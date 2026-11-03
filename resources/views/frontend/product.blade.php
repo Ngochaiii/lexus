@@ -140,6 +140,10 @@
                         chưa gồm đăng kiểm, phí đường bộ, bảo hiểm (vài triệu đồng).
                     </p>
                 </div>
+                {{-- Ghi chú đầu bảng giá, sửa trong admin: bản đang bán, ưu đãi tháng (đã xác nhận). --}}
+                @if (filled($product->notice))
+                    <p class="versions-notice">{{ $product->notice }}</p>
+                @endif
                 <div class="variant-grid">
                     @foreach ($variants as $variant)
                         @php $estimate = \App\Support\OnRoadPrice::for($variant); @endphp
