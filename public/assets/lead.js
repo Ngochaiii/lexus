@@ -5,13 +5,15 @@
  * thì form vẫn POST thường và redirect về kèm lời cảm ơn, nút "Báo giá" vẫn
  * dẫn tới trang /bao-gia. Không có nút chết.
  *
- * Bốn việc:
+ * Năm việc:
  *   1. Gửi mọi form [data-lead-form] bằng fetch, hiện kết quả tại chỗ.
  *   2. Bấm nút "Báo giá" → mở <dialog id="quote-dialog"> thay vì chuyển trang.
  *   3. Trang chủ: tự mở popup sau N giây — có giới hạn tần suất, không bật trên
  *      điện thoại (xem config('catalog.frontend.popup') để biết vì sao).
  *   4. Bấm Zalo → chép sẵn lời nhắn có tên xe, mở khung Zalo dự phòng
  *      (partials/zalo-sheet). Đặt trước mục 2 vì mục 2 thoát sớm ở /bao-gia.
+ *   5. Bấm Gọi → vẫn quay số, khách quay lại web có khung "Để lại số"
+ *      (partials/call-sheet). Cũng đặt trước mục 2.
  */
 (() => {
   'use strict';
@@ -198,6 +200,30 @@
       } else if (target.hasAttribute('data-quote')) {
         zaloSheet.close(); // nhường chỗ cho popup báo giá (mục 2 mở nó)
       }
+    });
+  }
+
+  /* ── 5. Nút Gọi: khung để lại số khi khách quay lại ─────────────────── */
+
+  const callSheet = document.getElementById('call-sheet');
+  if (callSheet && typeof callSheet.showModal === 'function') {
+    // KHÔNG chặn link: máy vẫn quay số như trước, khung chỉ chờ sẵn phía sau.
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest && event.target.closest('a[href^="tel:"]');
+      if (!link || link.hasAttribute('data-call-again')) return;
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (within(KEY_SENT, 1)) return; // vừa để lại số rồi, không hỏi lại
+
+      const host = link.closest('dialog[open]'); // nút Gọi trong khung Zalo, popup báo giá
+      setTimeout(() => {
+        if (host) host.close();
+        if (!callSheet.open) callSheet.showModal();
+      }, 0);
+    });
+
+    callSheet.addEventListener('click', (event) => {
+      if (event.target === callSheet) { callSheet.close(); return; } // bấm nền mờ
+      if (event.target.closest('[data-dialog-close]')) callSheet.close();
     });
   }
 

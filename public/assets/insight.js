@@ -6,8 +6,8 @@
  *      form [data-lead-form] (ô ẩn "attribution") để lead biết tới từ đâu.
  *      Lượt có UTM/gclid/fbclid (chiến dịch) ghi đè lần trước; vào thẳng thì không.
  *   2. Bấm Gọi / Zalo: mỗi lần bấm link tel: hoặc zalo.me gửi 1 sự kiện. Nút
- *      "Mở Zalo" trong khung Zalo dự phòng (data-zalo-again) là bấm lại của
- *      cùng khách — không đếm thêm.
+ *      "Mở Zalo" trong khung Zalo dự phòng (data-zalo-again) và số trong khung
+ *      sau nút Gọi (data-call-again) là bấm lại của cùng khách — không đếm thêm.
  *   3. Tốc độ thật: LCP, INP, CLS, FCP, TTFB của khách — gửi khi rời trang.
  *
  * Gửi về /api/v1/events bằng sendBeacon (không làm chậm trang). Đồng thời báo
@@ -80,7 +80,8 @@
     const form = e.target.closest ? e.target.closest('[data-lead-form]') : null;
     // form_id = khoá form trong đường dẫn gửi (/gui-form/nhan-bao-gia → nhan-bao-gia).
     const key = form ? (form.getAttribute('action') || '').split('/').filter(Boolean).pop() : '';
-    track('generate_lead', { form_id: key || 'lead', page_path: location.pathname });
+    // place: số để lại ngay sau khi bấm Gọi (khách đổi ý ở màn hình quay số).
+    track('generate_lead', { form_id: key || 'lead', page_path: location.pathname, place: form && form.closest('.call-sheet') ? 'call_sheet' : 'page' });
   });
 
   /* ── Gửi sự kiện ─────────────────────────────────────────────────────── */
@@ -106,7 +107,7 @@
   const placeOf = (a) => (PLACES.find(([sel]) => a.closest(sel)) || [null, 'content'])[1];
 
   document.addEventListener('click', (e) => {
-    const a = e.target.closest && e.target.closest('a[href^="tel:"], a[href*="zalo.me"]:not([data-zalo-again])');
+    const a = e.target.closest && e.target.closest('a[href^="tel:"]:not([data-call-again]), a[href*="zalo.me"]:not([data-zalo-again])');
     if (!a) return;
     const type = a.getAttribute('href').startsWith('tel:') ? 'call' : 'zalo';
     const place = placeOf(a);

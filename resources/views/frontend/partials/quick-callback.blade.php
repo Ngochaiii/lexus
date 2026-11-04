@@ -14,6 +14,9 @@
     $quickForm = once(fn () => \App\Support\Catalog::query('form')->where('key', 'goi-lai-nhanh')->first());
     $advisor   = catalog_setting('advisor_name') ?: 'chuyên viên';
     $honeypot  = config('catalog.leads.honeypot', 'website');
+    // Dùng hai chỗ trên một trang (bảng giá, khung sau nút Gọi): id phải khác nhau.
+    $idPrefix  = $idPrefix ?? 'quick-callback';
+    $label     = $label ?? 'Cần giá lăn bánh chi tiết? Để lại số, '.$advisor.' gọi lại cho bạn.';
 @endphp
 @if ($quickForm)
     <form class="quick-callback" action="{{ route('leads.store', 'goi-lai-nhanh') }}" method="post"
@@ -21,10 +24,10 @@
         @csrf
 
         <div class="quick-callback__fields">
-            <label class="quick-callback__label" for="quick-callback-phone">
-                Cần giá lăn bánh chi tiết? Để lại số, {{ $advisor }} gọi lại cho bạn.</label>
+            <label class="quick-callback__label" for="{{ $idPrefix }}-phone">
+                {{ $label }}</label>
             <div class="quick-callback__row">
-                <input id="quick-callback-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"
+                <input id="{{ $idPrefix }}-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"
                        placeholder="Số điện thoại của bạn" pattern="[+0-9 .\(\)\-]{9,18}" required>
                 <button class="button" type="submit">Gọi lại cho tôi</button>
             </div>
@@ -37,8 +40,8 @@
         </div>
 
         <div class="honeypot" hidden aria-hidden="true">
-            <label for="quick-callback-{{ $honeypot }}">Để trống ô này</label>
-            <input id="quick-callback-{{ $honeypot }}" name="{{ $honeypot }}" tabindex="-1" autocomplete="off">
+            <label for="{{ $idPrefix }}-{{ $honeypot }}">Để trống ô này</label>
+            <input id="{{ $idPrefix }}-{{ $honeypot }}" name="{{ $honeypot }}" tabindex="-1" autocomplete="off">
         </div>
 
         <div class="notice" data-lead-status role="status" aria-live="polite" hidden></div>
