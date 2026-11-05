@@ -113,6 +113,19 @@ class GxTwoVersionsTest extends TestCase
         $this->assertStringContainsString('từ 6,4 tỷ', $seo['description']);
     }
 
+    public function test_bai_lm_co_the_html_cung_doi_gia_gx(): void
+    {
+        $post = Post::create(['title' => 'Giá LM', 'slug' => 'gia-lm', 'status' => 'published', 'published_at' => now(),
+            'sections' => [['type' => 'content', 'body' => '<li><p><strong>Lexus GX 550:</strong> Giá niêm yết 6.450.000.000 đ '
+                .'(lăn bánh Hà Nội tạm tính khoảng 7,24 tỷ đồng). Mẫu SUV 7 chỗ.</p></li>']]]);
+
+        (require database_path('migrations/2026_11_05_110000_gx_price_in_lm_post.php'))->up();
+        (require database_path('migrations/2026_11_05_110000_gx_price_in_lm_post.php'))->up();
+
+        $this->assertSame('<li><p><strong>Lexus GX 550:</strong> Giá niêm yết từ 6.400.000.000 đ '
+            .'(lăn bánh Hà Nội tạm tính từ khoảng 7,18 tỷ đồng). Mẫu SUV 7 chỗ.</p></li>', $post->fresh()->sections[0]['body']);
+    }
+
     public function test_rx_350h_va_gx_ghi_co_san_nhieu_mau_rx_500h_thi_khong(): void
     {
         $this->migrate();
