@@ -276,8 +276,7 @@ class LexusSeeder extends BrandSeeder
             // Ghi chú đầu bảng giá: khách gõ "lexus rx350" (tên cũ) vào đây — xem
             // migration 2026_11_03_090000_product_notice_rx350h.
             'notice'     => 'Bạn đang tìm Lexus RX 350? Bản RX đang bán tại Lexus Thăng Long là RX 350h hybrid 2.5L '
-                .'(Premium và Luxury) và RX 500h F SPORT Performance. Giá niêm yết và lăn bánh từng bản ngay bên dưới; '
-                .'nhắn Zalo Thu Hà để nhận báo giá theo nơi đăng ký xe.',
+                .'(Premium và Luxury) và RX 500h F SPORT Performance. Giá niêm yết và lăn bánh từng bản ngay bên dưới.',
             'category'   => 'suv',
             'price_from' => 3_350_000_000,
             'highlights' => [

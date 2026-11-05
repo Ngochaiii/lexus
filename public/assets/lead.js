@@ -179,7 +179,8 @@
       if (!link || link.hasAttribute('data-zalo-again')) return;
       if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
-      const text = `${zaloSheet.dataset.greeting} ${link.dataset.zaloCar || zaloSheet.dataset.car} ạ.`;
+      // data-zalo-tail: đuôi lời nhắn riêng (khối người tư vấn: chỗ điền nơi đăng ký xe).
+      const text = `${zaloSheet.dataset.greeting} ${link.dataset.zaloCar || zaloSheet.dataset.car}${link.dataset.zaloTail || ' ạ.'}`;
       message.textContent = text;
       copied.hidden = true;
       say('');
@@ -259,8 +260,17 @@
     resetSent(form);
     if (select) select.value = productId || '';
     setVariant(variantId, variantName);
+    // Form rút gọn: đã biết xe của trang thì ẩn ô chọn, chỉ ghi tên xe.
+    const productField = form.querySelector('[data-product-field]');
+    const productLine = form.querySelector('[data-product-line]');
+    if (productLine && productField && select) {
+      const known = select.selectedOptions[0] && select.value ? select.selectedOptions[0].textContent : '';
+      productField.hidden = Boolean(known);
+      productLine.hidden = !known || Boolean(variantId);
+      productLine.querySelector('[data-product-name]').textContent = known;
+    }
     dialog.showModal();
-    const first = form.querySelector('input[name="name"]');
+    const first = form.querySelector('input[name="name"], input[name="phone"]');
     if (first) first.focus();
   };
 

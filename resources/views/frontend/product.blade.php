@@ -140,6 +140,7 @@
                         chưa gồm đăng kiểm, phí đường bộ, bảo hiểm (vài triệu đồng).
                     </p>
                 </div>
+                @include('frontend.partials.advisor-strip', ['car' => $product])
                 {{-- Ghi chú đầu bảng giá, sửa trong admin: bản đang bán, ưu đãi tháng (đã xác nhận). --}}
                 @if (filled($product->notice))
                     <p class="versions-notice">{{ $product->notice }}</p>

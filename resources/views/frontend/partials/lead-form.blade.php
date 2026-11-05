@@ -25,12 +25,15 @@
       $variant      phiên bản chọn sẵn (ProductVariant) — gửi kèm variant_id ẩn;
                     popup thì lead.js điền khi khách bấm từ thẻ phiên bản
       $note         dòng ghi chú dưới nút; bỏ trống thì dùng câu mặc định
+      $short        true = chỉ hỏi số điện thoại + đồng ý (popup báo giá): không có
+                    ô tên, ô xe không bắt buộc và lead.js ẩn khi đã biết xe của trang
       $instance     hậu tố id — BẮT BUỘC khác nhau khi một trang có hai form
                     (trang chi tiết xe có form cuối trang + popup trong layout),
                     không thì id="name" trùng và nhãn trỏ nhầm ô
 --}}
 @php
     $formKey     = $formKey     ?? 'dang-ky-lai-thu';
+    $short       = $short       ?? false;
     $submitLabel = $submitLabel ?? 'Gửi đăng ký';
     $honeypot    = config('catalog.leads.honeypot', 'website');
     $idp         = \Illuminate\Support\Str::slug($formKey.'-'.($instance ?? 'form'));
@@ -100,6 +103,7 @@
         <input id="{{ $idp }}-{{ $honeypot }}" name="{{ $honeypot }}" tabindex="-1" autocomplete="off">
     </div>
 
+    @unless ($short)
     <div class="field">
         <label for="{{ $idp }}-name">Họ và tên *</label>
         <input id="{{ $idp }}-name" name="name" autocomplete="name" placeholder="Nguyễn Minh Anh"
@@ -107,6 +111,7 @@
         <p class="form-note field-error" data-error-for="name" @unless ($bag->has('name')) hidden @endunless>
             {{ $bag->first('name') }}</p>
     </div>
+    @endunless
 
     <div class="field">
         <label for="{{ $idp }}-phone">Số điện thoại *</label>
@@ -124,9 +129,13 @@
         Phiên bản: <strong data-variant-name>{{ $variant?->name }}</strong>
     </p>
 
-    <div class="field full">
-        <label for="{{ $idp }}-product">Dòng xe quan tâm *</label>
-        <select id="{{ $idp }}-product" name="product_id" required data-product-select>
+    @if ($short)
+        <p class="variant-chip full" data-product-line hidden>Xe: <strong data-product-name></strong></p>
+    @endif
+
+    <div class="field full" data-product-field>
+        <label for="{{ $idp }}-product">Dòng xe quan tâm{{ $short ? '' : ' *' }}</label>
+        <select id="{{ $idp }}-product" name="product_id" @unless ($short) required @endunless data-product-select>
             <option value="">Chọn dòng xe</option>
             @foreach ($products as $item)
                 @php $value = (string) $item->getKey(); @endphp

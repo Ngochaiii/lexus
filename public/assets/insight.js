@@ -100,7 +100,7 @@
   // Nút nằm ở đâu + khách đã ở trang bao lâu: chạm thanh đáy sau 2 giây gần
   // như là chạm nhầm khi lướt; bấm trong bảng giá sau 40 giây là khách thật.
   const PLACES = [
-    ['.zalo-sheet', 'sheet'], ['.sales-bar', 'bar'], ['.contact-float', 'float'], ['.price-table', 'table'],
+    ['.advisor-strip', 'strip'], ['.zalo-sheet', 'sheet'], ['.sales-bar', 'bar'], ['.contact-float', 'float'], ['.price-table', 'table'],
     ['.lead-sent', 'thanks'], ['.advisor-card', 'advisor'], ['.hero, .model-hero', 'hero'],
     ['header, .site-header', 'header'], ['footer, .site-footer', 'footer'],
   ];

@@ -68,7 +68,7 @@
     <div class="quote-dialog__body">
         <div class="eyebrow">BÁO GIÁ LEXUS</div>
         <h2 id="quote-dialog-title">Báo giá lăn bánh,<br>gửi riêng cho bạn.</h2>
-        <p class="quote-dialog__lede">Chọn dòng xe bạn quan tâm. Chuyên viên tư vấn sẽ gửi báo giá chi tiết
+        <p class="quote-dialog__lede">Để lại số, {{ $advisor ?: 'chuyên viên tư vấn' }} gửi báo giá chi tiết
             từng khoản và phương án sở hữu phù hợp.</p>
 
         {{-- products/selected truyền null TƯỜNG MINH: @include kế thừa biến
@@ -79,6 +79,7 @@
             'formKey'     => 'nhan-bao-gia',
             'submitLabel' => 'Nhận báo giá',
             'instance'    => 'popup',
+            'short'       => true,
             'products'    => null,
             'selected'    => null,
             'note'        => 'Không phát sinh chi phí. Thông tin của bạn chỉ dùng cho mục đích tư vấn.',

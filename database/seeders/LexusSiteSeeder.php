@@ -151,7 +151,14 @@ class LexusSiteSeeder extends Seeder
 
             $form = Catalog::query('form')->updateOrCreate(['key' => $key], $attributes);
             $form->fields()->delete();
-            $form->fields()->createMany($fields);
+            // Popup báo giá chỉ hỏi số + đồng ý, xe chọn sẵn theo trang (migration 2026_11_05_090000).
+            $form->fields()->createMany(in_array($key, ['nhan-bao-gia', 'popup-bao-gia'], true)
+                ? array_map(fn ($f) => match ($f['key']) {
+                    'name'       => ['rules' => ['nullable', 'max:100']] + $f,
+                    'product_id' => ['rules' => ['nullable']] + $f,
+                    default      => $f,
+                }, $fields)
+                : $fields);
         }
 
         // Form một ô trên /bang-gia (partials/quick-callback): chỉ số điện

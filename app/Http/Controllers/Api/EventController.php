@@ -22,7 +22,7 @@ class EventController extends Controller
     private const LIMITS = ['LCP' => 60000, 'INP' => 20000, 'FCP' => 60000, 'TTFB' => 60000, 'CLS' => 10];
 
     /** Vị trí nút insight.js gửi lên; giá trị khác bỏ trống. */
-    private const PLACES = ['bar', 'float', 'header', 'hero', 'table', 'sheet', 'thanks', 'advisor', 'footer', 'content'];
+    private const PLACES = ['bar', 'float', 'header', 'hero', 'table', 'sheet', 'thanks', 'advisor', 'strip', 'footer', 'content'];
 
     public function store(Request $request): Response
     {

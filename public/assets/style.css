@@ -375,6 +375,15 @@ html:has(.quote-dialog[open]){overflow:hidden}
    lớn nhất thẻ; lăn bánh tạm tính ngay dưới, nhỏ hơn — trả lời luôn câu hỏi
    "tổng cộng bao nhiêu" mà không lấn giá niêm yết. */
 .versions .section-heading p{max-width:460px}
+.field[hidden]{display:none}
+.advisor-strip{display:flex;gap:16px;align-items:flex-start;max-width:900px;margin:0 0 24px;padding:16px 18px;border:1px solid var(--line);background:var(--paper)}
+.advisor-strip .advisor-avatar{flex:0 0 64px;width:64px;height:64px}
+.advisor-strip p{margin:0 0 8px;font-size:17px;line-height:1.5;color:var(--ink)}
+.advisor-strip .advisor-strip__who strong{display:block;font-size:20px;font-weight:500}
+.advisor-strip .advisor-strip__who span{display:block;font-size:15px;color:var(--muted)}
+.advisor-strip__body{flex:1 1 auto;min-width:0}
+.advisor-strip .text-link{max-width:100%;white-space:normal;font-size:16px}
+@media(max-width:600px){.advisor-strip{gap:12px;padding:14px}.advisor-strip .advisor-avatar{flex-basis:52px;width:52px;height:52px}.advisor-strip p{font-size:16px;margin-bottom:6px}.advisor-strip .advisor-strip__who strong{font-size:18px}.advisor-strip .advisor-strip__who span{font-size:14px}}
 .versions-notice{margin:0 0 32px;padding:18px 24px;border-left:2px solid var(--accent);background:var(--stone);font-size:18px;color:var(--ink);max-width:900px}
 @media(max-width:600px){.versions-notice{font-size:17px;padding:16px 18px;margin-bottom:24px}}
 .variant{display:flex;flex-direction:column;background:#fff}
