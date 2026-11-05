@@ -276,7 +276,8 @@ class LexusSeeder extends BrandSeeder
             // Ghi chú đầu bảng giá: khách gõ "lexus rx350" (tên cũ) vào đây — xem
             // migration 2026_11_03_090000_product_notice_rx350h.
             'notice'     => 'Bạn đang tìm Lexus RX 350? Bản RX đang bán tại Lexus Thăng Long là RX 350h hybrid 2.5L '
-                .'(Premium và Luxury) và RX 500h F SPORT Performance. Giá niêm yết và lăn bánh từng bản ngay bên dưới.',
+                .'(Premium và Luxury) và RX 500h F SPORT Performance. Giá niêm yết và lăn bánh từng bản ngay bên dưới. '
+                .'RX 350h có sẵn nhiều màu, thay đổi theo ngày: hỏi Thu Hà màu bạn thích còn xe không.',
             'category'   => 'suv',
             'price_from' => 3_350_000_000,
             'highlights' => [
@@ -372,8 +373,10 @@ class LexusSeeder extends BrandSeeder
                 ['Xanh dương', '#28324F', 'goc/xanh-duong-1', 'xanh-duong'],
             ],
             'variants' => [
-                ['name' => 'RX 350h Premium', 'image' => 'phien-ban/premium', 'price' => 3_350_000_000, 'note' => 'Hybrid 2.5L · AWD E-Four'],
-                ['name' => 'RX 350h Luxury', 'image' => 'phien-ban/luxury', 'price' => 4_140_000_000, 'note' => 'Hybrid 2.5L · trang bị Luxury'],
+                ['name' => 'RX 350h Premium', 'image' => 'phien-ban/premium', 'price' => 3_350_000_000, 'note' => 'Hybrid 2.5L · AWD E-Four',
+                    'availability' => 'in_stock', 'availability_note' => 'nhiều màu, thay đổi theo ngày'],
+                ['name' => 'RX 350h Luxury', 'image' => 'phien-ban/luxury', 'price' => 4_140_000_000, 'note' => 'Hybrid 2.5L · trang bị Luxury',
+                    'availability' => 'in_stock', 'availability_note' => 'nhiều màu, thay đổi theo ngày'],
                 ['name' => 'RX 500h F SPORT Performance', 'image' => 'phien-ban/fsport', 'price' => 4_940_000_000, 'note' => 'Hybrid tăng áp 2.4L · 371 HP · DIRECT4'],
             ],
             'specs' => [
@@ -821,7 +824,8 @@ class LexusSeeder extends BrandSeeder
             'name'       => 'Lexus GX',
             'tagline'    => 'SUV khung gầm rời, sinh ra cho đường dài',
             'category'   => 'suv',
-            'price_from' => 6_450_000_000,
+            'price_from' => 6_400_000_000,
+            'notice'     => 'GX 550 có hai bản: cửa trời đơn và cửa trời toàn cảnh. Có sẵn nhiều màu, thay đổi theo ngày: hỏi Thu Hà màu bạn thích còn xe không.',
             'highlights' => [
                 ['value' => '349', 'unit' => 'HP', 'label' => 'V6 3.5L tăng áp kép'],
                 ['value' => '650', 'unit' => 'Nm', 'label' => 'Mô-men xoắn cực đại'],
@@ -842,7 +846,7 @@ class LexusSeeder extends BrandSeeder
                 'title' => 'Nội thất',
                 'intro' => 'Nút bấm vật lý, ở đúng nơi cần.',
                 'body'  => 'Các nút điều khiển địa hình và điều hòa đặt thành hàng dưới màn hình lớn — thao tác '
-                    .'được cả khi đeo găng. Ghế da bán aniline có sưởi, làm mát, mát-xa; cửa sổ trời toàn cảnh.',
+                    .'được cả khi đeo găng. Ghế da bán aniline có sưởi, làm mát, mát-xa; cửa sổ trời đơn hoặc toàn cảnh tuỳ bản.',
             ],
             'drive' => [
                 'image' => 'van-hanh',
@@ -891,7 +895,11 @@ class LexusSeeder extends BrandSeeder
                 ['Xanh rêu', '#3F4A3A', 'mau-xanh'],
             ],
             'variants' => [
-                ['name' => 'GX 550', 'image' => 'phien-ban/luxury', 'price' => 6_450_000_000, 'note' => 'V6 3.5L tăng áp kép · 7 chỗ'],
+                // Bản toàn cảnh giữ slug gx-550 (migration 2026_11_05_100000).
+                ['name' => 'GX 550 cửa trời đơn', 'image' => 'phien-ban/luxury', 'price' => 6_400_000_000, 'note' => 'V6 3.5L tăng áp kép · 7 chỗ',
+                    'availability' => 'in_stock', 'availability_note' => 'nhiều màu, thay đổi theo ngày'],
+                ['name' => 'GX 550 cửa trời toàn cảnh', 'slug' => 'gx-550', 'image' => 'phien-ban/luxury', 'price' => 6_450_000_000, 'note' => 'V6 3.5L tăng áp kép · 7 chỗ',
+                    'availability' => 'in_stock', 'availability_note' => 'nhiều màu, thay đổi theo ngày'],
             ],
             'specs' => [
                 'Động cơ' => [
@@ -914,14 +922,14 @@ class LexusSeeder extends BrandSeeder
             ],
             'faq' => [
                 'Giá xe Lexus GX 550 2026 bao nhiêu?' =>
-                    'Lexus GX 550 giá niêm yết 6,45 tỷ đồng (đã gồm VAT). Lăn bánh tại Hà Nội tạm tính khoảng 7,24 tỷ đồng.',
+                    'Lexus GX 550 giá niêm yết 6,4 tỷ đồng bản cửa trời đơn, 6,45 tỷ đồng bản cửa trời toàn cảnh (đã gồm VAT). Lăn bánh tại Hà Nội tạm tính khoảng 7,18 và 7,24 tỷ đồng.',
                 'GX và LX nên chọn xe nào?' =>
                     'Cả hai chung khung gầm rời và động cơ V6 3.5L tăng áp kép. GX gọn hơn, giá thấp hơn khoảng 2,1 tỷ; '
                     .'LX lớn hơn, sang trọng hơn và có bản VIP 4 chỗ.',
             ] + $this->commonFaq('Lexus GX'),
             'seo' => [
-                'title'       => 'Lexus GX 550 2026: giá 6,45 tỷ, thông số | Thu Hà tư vấn Lexus',
-                'description' => 'Giá Lexus GX 550 2026 tại Hà Nội: 6,45 tỷ đồng, lăn bánh khoảng 7,24 tỷ. SUV khung gầm rời, '
+                'title'       => 'Lexus GX 550 2026: giá từ 6,4 tỷ, thông số | Thu Hà tư vấn Lexus',
+                'description' => 'Giá Lexus GX 550 2026 tại Hà Nội: từ 6,4 tỷ đồng, lăn bánh từ khoảng 7,18 tỷ. SUV khung gầm rời, '
                     .'V6 tăng áp kép 349 HP, 7 chỗ. Xem ảnh thực tế và lái thử tại Lexus Thăng Long.',
             ],
         ];

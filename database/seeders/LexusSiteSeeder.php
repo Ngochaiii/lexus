@@ -322,7 +322,7 @@ class LexusSiteSeeder extends Seeder
                             ['label' => 'Showroom mở cửa lúc nào?',
                                 'value' => 'Showroom mở cửa '.$hours.'. Nên đặt lịch trước để chuyên viên chuẩn bị sẵn xe lái thử bạn quan tâm.'],
                             ['label' => 'Lexus Thăng Long bán những dòng xe nào?',
-                                'value' => '6 dòng xe Lexus, 12 phiên bản: ES (sedan), RX (SUV hạng sang), GX, LX (SUV khung gầm rời), '
+                                'value' => '6 dòng xe Lexus, 13 phiên bản: ES (sedan), RX (SUV hạng sang), GX, LX (SUV khung gầm rời), '
                                     .'LM (MPV) và LS (sedan đầu bảng). Giá từng phiên bản xem tại trang Bảng giá.'],
                             ['label' => 'Đăng ký lái thử Lexus cần những gì?',
                                 'value' => 'Chỉ cần để lại họ tên, số điện thoại và dòng xe muốn lái thử. Khi đến, mang theo giấy phép lái xe hạng B '
@@ -337,7 +337,7 @@ class LexusSiteSeeder extends Seeder
             'bang-gia' => [
                 'seo' => [
                     'title'       => 'Bảng giá xe Lexus 2026 mới nhất tại Hà Nội | Thu Hà tư vấn Lexus',
-                    'description' => 'Bảng giá xe Lexus 2026: ES 350h từ 2,34 tỷ, RX từ 3,35 tỷ, GX 550 6,45 tỷ, LM 7,21 tỷ, '
+                    'description' => 'Bảng giá xe Lexus 2026: ES 350h từ 2,34 tỷ, RX từ 3,35 tỷ, GX 550 từ 6,4 tỷ, LM 7,21 tỷ, '
                         .'LS 8,03 tỷ, LX từ 8,59 tỷ. Nhận báo giá lăn bánh Hà Nội tại Lexus Thăng Long.',
                     'eyebrow'     => 'BẢNG GIÁ',
                     'excerpt'     => 'Giá niêm yết và giá lăn bánh Hà Nội tạm tính của từng phiên bản. Cần báo giá chi tiết theo nơi đăng ký xe, nhắn Zalo cho Thu Hà.',
@@ -601,7 +601,7 @@ class LexusSiteSeeder extends Seeder
                         'type' => 'faq', 'title' => 'Mua xe', 'intro' => 'Giá và mua xe',
                         'rows' => [
                             ['label' => 'Xe Lexus rẻ nhất và đắt nhất hiện nay giá bao nhiêu?',
-                                'value' => 'Rẻ nhất là ES 350h Premium 2,34 tỷ đồng; đắt nhất là LX 600 VIP 4 chỗ 9,7 tỷ đồng (giá niêm yết, đã gồm VAT). Xem đủ 12 phiên bản tại trang Bảng giá.'],
+                                'value' => 'Rẻ nhất là ES 350h Premium 2,34 tỷ đồng; đắt nhất là LX 600 VIP 4 chỗ 9,7 tỷ đồng (giá niêm yết, đã gồm VAT). Xem đủ 13 phiên bản tại trang Bảng giá.'],
                             ['label' => 'Giá niêm yết đã gồm những gì?',
                                 'value' => 'Đã gồm thuế VAT; chưa gồm lệ phí trước bạ, phí biển số, phí bảo trì đường bộ, đăng kiểm và bảo hiểm.'],
                             ['label' => 'Giá lăn bánh Lexus tại Hà Nội tính thế nào?',
@@ -823,24 +823,24 @@ class LexusSiteSeeder extends Seeder
                 'category'  => 'tu-van-chon-xe',
                 'cover'     => 'gx/hero',
                 'keywords'  => 'Lexus GX 550, Lexus LX 600, so sánh GX và LX, giá Lexus GX 550, SUV khung gầm rời Lexus',
-                'excerpt'   => 'Lexus GX 550 giá 6,45 tỷ, V6 3.5L tăng áp kép 349 HP, 7 chỗ; LX 600 giá 8,59 – 9,70 tỷ, 409 HP, '
+                'excerpt'   => 'Lexus GX 550 giá từ 6,4 tỷ, V6 3.5L tăng áp kép 349 HP, 7 chỗ; LX 600 giá 8,59 – 9,70 tỷ, 409 HP, '
                     .'ba bản Urban, F SPORT, VIP. So sánh để chọn đúng SUV khung gầm rời cho bạn.',
                 'sections'  => [
                     $text('Trả lời nhanh', 'Chọn GX hay LX?',
-                        '<p><strong>Lexus GX 550 (6,45 tỷ đồng) gọn hơn và rẻ hơn LX 600 khoảng 2,1 tỷ đồng; LX 600 (8,59 – 9,70 tỷ đồng) '
+                        '<p><strong>Lexus GX 550 (từ 6,4 tỷ đồng) gọn hơn và rẻ hơn LX 600 khoảng 2,1 tỷ đồng; LX 600 (8,59 – 9,70 tỷ đồng) '
                         .'lớn hơn, mạnh hơn và có bản VIP 4 chỗ.</strong> Cả hai là SUV khung gầm rời dùng động cơ V6 3.5L tăng áp kép: GX 349 HP, LX 409 HP.</p>'
                         .'<p>Chọn GX nếu cần một chiếc SUV 7 chỗ chắc chắn, đi được đường xấu, dễ xoay xở trong phố. '
                         .'Chọn LX nếu ưu tiên sự bề thế, tiện nghi hàng ghế sau và hình ảnh xe "đầu bảng".</p>'),
                     $table('So sánh', 'GX 550 và LX 600', [
-                        'Giá niêm yết' => 'GX 550: 6,45 tỷ · LX 600: 8,59 – 9,70 tỷ',
-                        'Lăn bánh Hà Nội (tạm tính)' => 'GX 550: khoảng 7,24 tỷ · LX 600 Urban: khoảng 9,63 tỷ',
+                        'Giá niêm yết' => 'GX 550: 6,4 – 6,45 tỷ · LX 600: 8,59 – 9,70 tỷ',
+                        'Lăn bánh Hà Nội (tạm tính)' => 'GX 550: khoảng 7,18 – 7,24 tỷ · LX 600 Urban: khoảng 9,63 tỷ',
                         'Động cơ'      => 'GX: V6 3.5L tăng áp kép, 349 HP, 650 Nm · LX: V6 3.5L tăng áp kép, 409 HP, 650 Nm',
                         'Số chỗ'       => 'GX: 7 · LX: 7 (Urban), 5 (F SPORT), 4 (VIP)',
                         'Khoảng sáng gầm' => 'GX: 220 mm · LX: 205 mm',
                         'Phiên bản'    => 'GX: GX 550 · LX: Urban, F SPORT, VIP',
                     ]),
-                    $cards('Phiên bản', 'Bốn lựa chọn khung gầm rời', [
-                        ['image' => $car('gx/phien-ban/luxury'), 'eyebrow' => '6,45 tỷ', 'label' => 'GX 550',
+                    $cards('Phiên bản', 'Năm lựa chọn khung gầm rời', [
+                        ['image' => $car('gx/phien-ban/luxury'), 'eyebrow' => '6,4 – 6,45 tỷ', 'label' => 'GX 550',
                             'desc' => 'V6 tăng áp kép 349 HP, 7 chỗ, khoảng sáng gầm 220 mm.', 'url' => '/san-pham/gx#versions'],
                         ['image' => $car('lx/phien-ban/urban'), 'eyebrow' => '8,59 tỷ', 'label' => 'LX 600 Urban',
                             'desc' => '7 chỗ, mâm 22 inch.', 'url' => '/san-pham/lx#versions'],
@@ -850,7 +850,7 @@ class LexusSiteSeeder extends Seeder
                             'desc' => '4 chỗ, ghế sau thương gia ngả 48 độ.', 'url' => '/san-pham/lx#versions'],
                     ]),
                     $faq([
-                        'Lexus GX 550 giá bao nhiêu?' => 'Giá niêm yết 6,45 tỷ đồng (đã gồm VAT); lăn bánh tại Hà Nội tạm tính khoảng 7,24 tỷ đồng.',
+                        'Lexus GX 550 giá bao nhiêu?' => 'Bản cửa trời đơn 6,4 tỷ đồng, bản cửa trời toàn cảnh 6,45 tỷ đồng (đã gồm VAT); lăn bánh tại Hà Nội tạm tính khoảng 7,18 và 7,24 tỷ đồng.',
                         'LX 600 có mấy phiên bản?' => 'Ba: LX 600 Urban 7 chỗ 8,59 tỷ, LX 600 F SPORT 5 chỗ 8,84 tỷ, LX 600 VIP 4 chỗ 9,70 tỷ.',
                         'GX và LX có bản hybrid không?' => 'GX 550 và LX 600 đang bán dùng động cơ xăng V6 tăng áp kép, không có bản hybrid.',
                     ]),
@@ -858,23 +858,23 @@ class LexusSiteSeeder extends Seeder
             ],
             [
                 'slug'      => 'bang-gia-xe-lexus-2026-tai-ha-noi',
-                'title'     => 'Bảng giá xe Lexus 2026 tại Hà Nội: 6 dòng xe, 12 phiên bản',
-                'seo_title' => 'Bảng giá xe Lexus 2026 tại Hà Nội — từ 2,34 tỷ, 12 phiên bản',
+                'title'     => 'Bảng giá xe Lexus 2026 tại Hà Nội: 6 dòng xe, 13 phiên bản',
+                'seo_title' => 'Bảng giá xe Lexus 2026 tại Hà Nội — từ 2,34 tỷ, 13 phiên bản',
                 'category'  => 'bang-gia-mua-xe',
                 'cover'     => 'khu-trung-bay',
                 'keywords'  => 'bảng giá xe Lexus 2026, giá xe Lexus Hà Nội, giá Lexus ES 350h, giá Lexus RX, giá Lexus LX',
                 'excerpt'   => 'Giá xe Lexus 2026 tại Hà Nội từ 2,34 tỷ đồng (ES 350h Premium) đến 9,7 tỷ đồng (LX 600 VIP). '
-                    .'Bảng giá niêm yết 6 dòng xe, 12 phiên bản đang bán tại Lexus Thăng Long, Hà Nội.',
+                    .'Bảng giá niêm yết 6 dòng xe, 13 phiên bản đang bán tại Lexus Thăng Long, Hà Nội.',
                 'sections'  => [
                     $text('Trả lời nhanh', 'Xe Lexus 2026 giá bao nhiêu?',
                         '<p>Tại Hà Nội, <strong>xe Lexus 2026 có giá niêm yết từ 2,34 tỷ đồng (ES 350h Premium) đến 9,7 tỷ đồng (LX 600 VIP)</strong>. '
-                        .'Lexus Thăng Long đang bán 6 dòng xe với 12 phiên bản: sedan ES, LS; SUV RX, GX, LX và MPV LM.</p>'
+                        .'Lexus Thăng Long đang bán 6 dòng xe với 13 phiên bản: sedan ES, LS; SUV RX, GX, LX và MPV LM.</p>'
                         .'<p>Giá dưới đây là giá niêm yết đã gồm VAT, chưa gồm lệ phí trước bạ và phí đăng ký. '
                         .'Bảng giá luôn cập nhật theo đại lý có tại trang <a href="/bang-gia">Bảng giá xe Lexus</a>.</p>'),
                     $table('Giá khởi điểm', 'Giá từ của từng dòng xe', [
                         'Lexus ES (sedan)'          => 'từ 2.340.000.000 đ — ES 350h Premium, ES 350h Luxury và ES 500e thuần điện',
                         'Lexus RX (SUV cỡ trung)'   => 'từ 3.350.000.000 đ — 3 phiên bản',
-                        'Lexus GX (SUV khung rời)'  => '6.450.000.000 đ — GX 550',
+                        'Lexus GX (SUV khung rời)'  => 'từ 6.400.000.000 đ — 2 bản GX 550',
                         'Lexus LM (MPV)'            => '7.210.000.000 đ — LM 500h 6 chỗ',
                         'Lexus LS (sedan đầu bảng)' => '8.030.000.000 đ — LS 500h',
                         'Lexus LX (SUV đầu bảng)'   => 'từ 8.590.000.000 đ — 3 phiên bản',
@@ -886,7 +886,7 @@ class LexusSiteSeeder extends Seeder
                         .'chỉ hơn ES 350h Luxury khoảng 90 triệu đồng.</p>'
                         .'<h3>Từ 3 đến 5 tỷ đồng</h3><p>RX 350h Premium (3,35 tỷ), RX 350h Luxury (4,14 tỷ) và RX 500h F SPORT Performance (4,94 tỷ) '
                         .'cho gia đình cần SUV 5 chỗ rộng rãi.</p>'
-                        .'<h3>Trên 6 tỷ đồng</h3><p>GX 550 (6,45 tỷ) và LX 600 (từ 8,59 tỷ) cho nhu cầu SUV khung gầm rời, 7 chỗ; '
+                        .'<h3>Trên 6 tỷ đồng</h3><p>GX 550 (từ 6,4 tỷ) và LX 600 (từ 8,59 tỷ) cho nhu cầu SUV khung gầm rời, 7 chỗ; '
                         .'LM 500h 6 chỗ (7,21 tỷ) cho đưa đón đối tác và gia đình; LS 500h (8,03 tỷ) cho người thích sedan đầu bảng.</p>'),
                     $faq([
                         'Xe Lexus rẻ nhất năm 2026 là xe nào?' => 'Lexus ES 350h Premium, giá niêm yết 2,34 tỷ đồng (đã gồm VAT); lăn bánh Hà Nội tạm tính khoảng 2,63 tỷ đồng.',

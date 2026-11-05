@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Tình trạng xe của một phiên bản (admin → Dòng xe → Phiên bản):
- *   in_stock  — Có xe giao ngay
+ *   in_stock  — Có sẵn xe
  *   pre_order — Đặt trước (kèm ghi chú, vd "giao trong 2–4 tuần")
  *   contact   — Liên hệ để biết lịch xe
  * Để trống = không hiện nhãn. Dùng cho nhãn trên thẻ xe và schema.org Offer.
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 class Availability
 {
     public const OPTIONS = [
-        'in_stock' => 'Có xe giao ngay',
+        'in_stock' => 'Có sẵn xe',
         'pre_order' => 'Đặt trước',
         'contact' => 'Liên hệ để biết lịch xe',
     ];

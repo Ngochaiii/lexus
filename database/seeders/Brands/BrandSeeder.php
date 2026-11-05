@@ -120,6 +120,8 @@ abstract class BrandSeeder extends Seeder
                 'price' => $variant['price'] ?? null,
                 'price_original' => $variant['price_original'] ?? null,
                 'note' => $variant['note'] ?? null,
+                'availability' => $variant['availability'] ?? null,
+                'availability_note' => $variant['availability_note'] ?? null,
                 'is_default' => $variant['is_default'] ?? ($i === 0),
                 'sort' => $i + 1,
                 // Đặc thù xe điện — chỉ MauSeeder/hãng xe điện mới khai, xe
@@ -129,7 +131,7 @@ abstract class BrandSeeder extends Seeder
             ];
 
             $model = $existing->get($variant['name']);
-            $model ? $model->update($attrs) : $model = $product->variants()->create(['name' => $variant['name']] + $attrs);
+            $model ? $model->update($attrs) : $model = $product->variants()->create(array_filter(['name' => $variant['name'], 'slug' => $variant['slug'] ?? null]) + $attrs);
             $keep[] = $model->getKey();
         }
 
