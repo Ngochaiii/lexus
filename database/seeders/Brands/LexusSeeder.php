@@ -252,7 +252,7 @@ class LexusSeeder extends BrandSeeder
                 .'ô tô điện chạy pin 0% đến hết năm 2030) + phí cấp biển số (Hà Nội 14 triệu đồng từ 1/1/2026) '
                 .'+ phí đăng kiểm, phí bảo trì đường bộ và bảo hiểm '
                 .'trách nhiệm dân sự bắt buộc. Bảo hiểm vật chất là tùy chọn. Để nhận bảng tính chi tiết theo '
-                .'phiên bản và ưu đãi đang áp dụng, bấm "Nhận báo giá" — chuyên viên gửi riêng cho bạn.',
+                .'phiên bản, bấm "Nhận báo giá" — chuyên viên gửi riêng cho bạn.',
             "Mua {$name} ở đâu tại Hà Nội?" =>
                 'Showroom '.self::DEALER.' ở '.self::ADDRESS.'. Showroom trưng bày, '
                 .'có xe lái thử và xưởng dịch vụ ngay tại showroom. Đặt lịch lái thử trên website '

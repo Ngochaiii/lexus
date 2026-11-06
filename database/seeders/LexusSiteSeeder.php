@@ -356,7 +356,7 @@ class LexusSiteSeeder extends Seeder
                                 'value' => 'Được. Lexus Thăng Long làm việc với nhiều ngân hàng; khoản vay và thời hạn phụ thuộc hồ sơ của bạn. '
                                     .'Chuyên viên sẽ gửi phương án minh họa kèm báo giá.'],
                             ['label' => 'Giá xe có thay đổi không?',
-                                'value' => 'Giá do hãng công bố và có thể điều chỉnh theo thời điểm, cùng các chương trình ưu đãi riêng. '
+                                'value' => 'Giá do hãng công bố và có thể điều chỉnh theo thời điểm. '
                                     .'Bảng giá trên trang này được cập nhật theo đại lý; giá chốt là giá trên hợp đồng.'],
                         ],
                     ],
@@ -933,7 +933,7 @@ class LexusSiteSeeder extends Seeder
                         .'trước bạ 280.800.000 đ, biển số 14.000.000 đ, phí đường bộ 1.560.000 đ và bảo hiểm TNDS 480.700 đ. '
                         .'Riêng lệ phí trước bạ đã chiếm 12% giá xe — khoản lớn nhất cần tính khi chuẩn bị tài chính.</p>'
                         .'<p>Lệ phí trước bạ tính trên giá trong bảng giá tính lệ phí trước bạ của cơ quan thuế, có thể chênh nhẹ so với giá bán. '
-                        .'Các con số trên để tham khảo; bảng tính chính xác theo phiên bản và ưu đãi hiện hành, chuyên viên gửi riêng khi bạn '
+                        .'Các con số trên để tham khảo; bảng tính chính xác theo phiên bản, chuyên viên gửi riêng khi bạn '
                         .'<a href="/bao-gia">nhận báo giá</a>.</p>'),
                     $faq([
                         'Lệ phí trước bạ ô tô ở Hà Nội năm 2026 là bao nhiêu?' => '12% với ô tô con chạy xăng, dầu và hybrid. Ô tô điện chạy pin được áp mức 0% đến hết năm 2030.',
