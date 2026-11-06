@@ -12,6 +12,8 @@ use Illuminate\Http\Response;
  *   - call / zalo : khách bấm nút Gọi / Zalo trên trang nào, nút nằm ở đâu
  *                   (place) và sau bao nhiêu giây trên trang (secs) — tách
  *                   chạm nhầm ở thanh đáy khỏi khách đọc giá rồi mới bấm;
+ *   - call_stay, call_left, call_back (và zalo_…): sau khi bấm khách ở lại
+ *                   trang, rời trang, hay quay lại sau bao lâu (secs);
  *   - vital       : số đo tốc độ của khách thật (LCP, INP, CLS, FCP, TTFB).
  *
  * Không lưu IP, không cookie. Bot / Lighthouse / trình duyệt headless bị bỏ
@@ -22,7 +24,10 @@ class EventController extends Controller
     private const LIMITS = ['LCP' => 60000, 'INP' => 20000, 'FCP' => 60000, 'TTFB' => 60000, 'CLS' => 10];
 
     /** Vị trí nút insight.js gửi lên; giá trị khác bỏ trống. */
-    private const PLACES = ['bar', 'float', 'header', 'hero', 'table', 'sheet', 'thanks', 'advisor', 'strip', 'footer', 'content'];
+    private const PLACES = ['bar', 'float', 'header', 'hero', 'table', 'sheet', 'thanks', 'advisor', 'strip', 'call_sheet', 'footer', 'content'];
+
+    /** Kết quả sau khi bấm Gọi/Zalo. */
+    private const AFTER_TAP = ['call_stay', 'call_left', 'call_back', 'zalo_stay', 'zalo_left', 'zalo_back'];
 
     public function store(Request $request): Response
     {
@@ -44,7 +49,7 @@ class EventController extends Controller
             $path = is_string($event['path'] ?? null) && str_starts_with($event['path'], '/')
                 ? mb_substr(strtok($event['path'], '?#'), 0, 255) : null;
 
-            if (in_array($type, ['call', 'zalo'], true)) {
+            if (in_array($type, ['call', 'zalo', ...self::AFTER_TAP], true)) {
                 $place = $event['place'] ?? null;
                 $secs = $event['secs'] ?? null;
                 $rows[] = ['type' => $type, 'metric' => null, 'value' => null,

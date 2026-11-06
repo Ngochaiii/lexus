@@ -110,6 +110,36 @@ class Insights
             ->sortByDesc('total')->values()->take(20)->all();
     }
 
+    /** Quay lại trong ngần này giây gần như chắc khách chưa nói chuyện được với ai. */
+    public const QUICK_RETURN_SECS = 30;
+
+    /**
+     * Sau khi bấm Gọi/Zalo khách dừng ở đâu: stay (không rời trang), quick (quay
+     * lại ngay), long (đi lâu rồi quay lại), gone (rời trang, không thấy quay lại).
+     *
+     * @return array{call: array{stay:int, quick:int, long:int, gone:int}, zalo: array{stay:int, quick:int, long:int, gone:int}}
+     */
+    public function afterTap(): array
+    {
+        $events = SiteEvent::query()
+            ->whereIn('type', ['call_stay', 'call_left', 'call_back', 'zalo_stay', 'zalo_left', 'zalo_back'])
+            ->where('created_at', '>=', $this->since())->get(['type', 'secs']);
+
+        $report = [];
+        foreach (['call', 'zalo'] as $channel) {
+            $backs = $events->where('type', "{$channel}_back");
+            $quick = $backs->filter(fn ($e) => $e->secs !== null && $e->secs <= self::QUICK_RETURN_SECS)->count();
+            $report[$channel] = [
+                'stay' => $events->where('type', "{$channel}_stay")->count(),
+                'quick' => $quick,
+                'long' => $backs->count() - $quick,
+                'gone' => max(0, $events->where('type', "{$channel}_left")->count() - $backs->count()),
+            ];
+        }
+
+        return $report;
+    }
+
     /** Ngưỡng "tốt" / "cần cải thiện" của Google cho từng chỉ số. */
     public const VITAL_THRESHOLDS = ['LCP' => [2500, 4000], 'INP' => [200, 500], 'CLS' => [0.1, 0.25], 'FCP' => [1800, 3000], 'TTFB' => [800, 1800]];
 

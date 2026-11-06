@@ -111,6 +111,19 @@
         @endif
     </x-filament::section>
 
+    <x-filament::section heading="Sau khi bấm Gọi / Zalo" description="Khách dừng ở bước nào. Chỉ là dấu hiệu: web không biết cuộc gọi có nối máy hay tin Zalo có gửi không, số thật phải hỏi chị Hà. {{ $days }} ngày qua.">
+        <table class="rp-table">
+            <tr><th>Kênh</th><th class="num">Không rời trang</th><th class="num">Quay lại trong 30 giây</th><th class="num">Đi lâu rồi quay lại</th><th class="num">Không thấy quay lại</th></tr>
+            @foreach (['call' => 'Gọi', 'zalo' => 'Zalo'] as $channel => $label)
+                <tr><td>{{ $label }}</td>
+                    @foreach (['stay', 'quick', 'long', 'gone'] as $step)
+                        <td class="num">{{ $afterTap[$channel][$step] }}</td>
+                    @endforeach
+                </tr>
+            @endforeach
+        </table>
+    </x-filament::section>
+
     <x-filament::section heading="Tốc độ thật của khách (28 ngày)" description="Số đo từ trình duyệt của khách thật, p75 — cách Google chấm Core Web Vitals. Xanh = Tốt, cam = Cần cải thiện, đỏ = Kém.">
         <table class="rp-table">
             <tr><th>Chỉ số</th><th class="num">Tất cả</th><th class="num">Điện thoại</th><th class="num">Máy tính</th><th class="num">Số lượt đo</th></tr>

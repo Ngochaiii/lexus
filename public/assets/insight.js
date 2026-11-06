@@ -8,6 +8,8 @@
  *   2. Bấm Gọi / Zalo: mỗi lần bấm link tel: hoặc zalo.me gửi 1 sự kiện. Nút
  *      "Mở Zalo" trong khung Zalo dự phòng (data-zalo-again) và số trong khung
  *      sau nút Gọi (data-call-again) là bấm lại của cùng khách — không đếm thêm.
+ *      Sau khi bấm: khách ở lại trang (_stay), rời trang (_left), quay lại sau
+ *      bao lâu (_back). Chỉ là dấu hiệu, web không biết cuộc gọi có nối máy không.
  *   3. Tốc độ thật: LCP, INP, CLS, FCP, TTFB của khách — gửi khi rời trang.
  *
  * Gửi về /api/v1/events bằng sendBeacon (không làm chậm trang). Đồng thời báo
@@ -100,7 +102,7 @@
   // Nút nằm ở đâu + khách đã ở trang bao lâu: chạm thanh đáy sau 2 giây gần
   // như là chạm nhầm khi lướt; bấm trong bảng giá sau 40 giây là khách thật.
   const PLACES = [
-    ['.advisor-strip', 'strip'], ['.zalo-sheet', 'sheet'], ['.sales-bar', 'bar'], ['.contact-float', 'float'], ['.price-table', 'table'],
+    ['.advisor-strip', 'strip'], ['.call-sheet', 'call_sheet'], ['.zalo-sheet', 'sheet'], ['.sales-bar', 'bar'], ['.contact-float', 'float'], ['.price-table', 'table'],
     ['.lead-sent', 'thanks'], ['.advisor-card', 'advisor'], ['.hero, .model-hero', 'hero'],
     ['header, .site-header', 'header'], ['footer, .site-footer', 'footer'],
   ];
@@ -115,6 +117,53 @@
     track(type === 'call' ? 'click_call' : 'click_zalo', { page_path: location.pathname, place, secs });
     send([{ type, path: location.pathname, place, secs }]);
   }, true);
+
+  // Sau khi bấm khách có đi tiếp không. Lưu sessionStorage vì sang zalo.me cùng
+  // tab thì trang có thể tải lại khi khách quay về. Tính cả nút bấm lại trong
+  // khung dự phòng: lần thử sau mới là lần khách thật sự đi tiếp.
+  const TAP_KEY = 'ltl.tap';
+  const TAP_WAIT = 15000; // rời trang trong 15 giây mới tính là do lượt bấm
+  const tapStore = {
+    get: () => { try { return JSON.parse(sessionStorage.getItem(TAP_KEY) || 'null'); } catch (e) { return null; } },
+    set: (v) => { try { sessionStorage.setItem(TAP_KEY, JSON.stringify(v)); } catch (e) { /* bỏ qua */ } },
+    clear: () => { try { sessionStorage.removeItem(TAP_KEY); } catch (e) { /* bỏ qua */ } },
+  };
+  let tap = null;
+  let tapTimer = null;
+  const tapEvent = (t, step, secs) => send([{ type: `${t.ch}_${step}`, path: t.path, place: t.place, secs }]);
+
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[href^="tel:"], a[href*="zalo.me"]');
+    if (!a) return;
+    clearTimeout(tapTimer);
+    tap = { ch: a.getAttribute('href').startsWith('tel:') ? 'call' : 'zalo', place: placeOf(a), path: location.pathname, at: Date.now(), left: 0 };
+    tapStore.set(tap);
+    tapTimer = setTimeout(() => {
+      if (!tap || tap.left) return;
+      tapEvent(tap, 'stay');
+      tap = null;
+      tapStore.clear();
+    }, TAP_WAIT);
+  }, true);
+
+  const tapLeft = () => {
+    if (!tap || tap.left) return;
+    clearTimeout(tapTimer);
+    tap.left = Date.now();
+    tapStore.set(tap);
+    tapEvent(tap, 'left', Math.round((tap.left - tap.at) / 1000));
+  };
+  const tapBack = () => {
+    const t = tap || tapStore.get();
+    if (!t || !t.left) return;
+    tap = null;
+    tapStore.clear();
+    tapEvent(t, 'back', Math.round((Date.now() - t.left) / 1000));
+  };
+  document.addEventListener('visibilitychange', () => (document.visibilityState === 'hidden' ? tapLeft() : tapBack()), true);
+  window.addEventListener('pagehide', tapLeft, true);
+  window.addEventListener('pageshow', tapBack, true);
+  tapBack(); // trang tải lại khi khách quay về
 
   // Bấm sang kênh TikTok của chuyên viên — chỉ báo GA4 (không phải liên hệ trực tiếp).
   document.addEventListener('click', (e) => {

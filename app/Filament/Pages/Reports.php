@@ -53,6 +53,7 @@ class Reports extends Page
             'variants' => $insights->byVariant(),
             'lost' => $insights->lostReasons(),
             'clicks' => $insights->contactClicks(),
+            'afterTap' => $insights->afterTap(),
             'vitals' => $insights->vitals(),
             'slowest' => $insights->slowestPages(),
         ];
