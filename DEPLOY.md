@@ -137,6 +137,10 @@ Thiếu worker thì lead vẫn lưu, nhưng **không có mail báo**. Người n
 `.env` rồi chạy `php artisan db:seed --class="Database\Seeders\LexusSiteSeeder" --force`
 (lệnh này cũng đặt lại nội dung trang tĩnh/bài viết về bản gốc).
 
+Báo khách mới vào Slack: dán Incoming Webhook của kênh vào `LEAD_SLACK_WEBHOOK`
+trong `.env` rồi chạy `php artisan optimize && php artisan queue:restart` (đọc lúc
+chạy, không cần seed). Cũng đi qua queue nên cần worker như mail.
+
 `/etc/supervisor/conf.d/lexus-queue.conf`:
 
 ```ini

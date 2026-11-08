@@ -361,6 +361,10 @@ return [
         'notify_emails' => array_values(array_filter(array_map('trim',
             explode(',', (string) env('LEAD_NOTIFY_EMAILS', ''))))),
 
+        // Incoming Webhook của kênh Slack nhận báo khách mới (mỗi webhook gắn
+        // một kênh). Bỏ trống thì không gửi.
+        'slack_webhook' => env('LEAD_SLACK_WEBHOOK'),
+
         // Tên hành động chuyển đổi "Nhập → Lượt nhấp" trong Google Ads — file
         // "Xuất cho Google Ads" (Admin → Liên hệ) ghi đúng tên này, phải trùng
         // khớp từng ký tự. Không dấu để khỏi lệch khi mở CSV bằng Excel.
