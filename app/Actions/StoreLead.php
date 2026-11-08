@@ -73,7 +73,12 @@ class StoreLead
         $raw = Attribution::decode($request->input('attribution'));
         $touch = Attribution::classify($raw);
 
+        // Đáng ngờ thì vẫn nhận (khách thật lỡ bị nhầm không mất gì) nhưng để
+        // vào mục Spam: không tính chuyển đổi Ads, Slack không nhắc cả kênh.
+        $suspicion = $this->suspicion($request, Arr::get($data, 'phone'));
+
         $lead = $form->leads()->create([
+            ...($suspicion ? ['status' => 'spam', 'note' => 'Hệ thống: nghi spam — '.implode('; ', $suspicion).'. Nếu là khách thật, đổi lại trạng thái.'] : []),
             'data'       => $data,
             'source'       => $touch['source'],
             'medium'       => $touch['medium'],
@@ -118,6 +123,42 @@ class StoreLead
         }
 
         return $productId === null || $variant->product_id === $productId ? $variant : null;
+    }
+
+    /**
+     * Lý do nghi spam (rỗng = khách bình thường). Chỉ dựa vào dấu hiệu khách
+     * thật gần như không bao giờ có, và không bắt khách làm thêm gì:
+     *   - gửi chưa tới N giây sau khi trang hiện form (ô ẩn _rt = giờ máy chủ
+     *     dựng trang). Thiếu _rt (API, trang cũ) thì bỏ qua dấu hiệu này;
+     *   - cùng một IP đã gửi từ N số KHÁC nhau trong 24 giờ.
+     *
+     * @return list<string>
+     */
+    protected function suspicion(Request $request, ?string $phone): array
+    {
+        $reasons = [];
+
+        $rendered = $request->integer('_rt');
+        $minSeconds = (int) config('catalog.leads.min_seconds', 3);
+        if ($rendered > 0 && $minSeconds > 0 && time() - $rendered < $minSeconds) {
+            $reasons[] = 'gửi ngay sau khi mở trang ('.max(0, time() - $rendered).' giây)';
+        }
+
+        $maxPhones = (int) config('catalog.leads.ip_phones_per_day', 2);
+        if ($maxPhones > 0 && $request->ip()) {
+            $others = \App\Models\Lead::query()
+                ->where('ip', $request->ip())
+                ->where('created_at', '>=', now()->subDay())
+                ->when($phone, fn ($q) => $q->where('phone', '!=', $phone))
+                ->distinct()
+                ->count('phone');
+
+            if ($others >= $maxPhones) {
+                $reasons[] = "cùng một máy đã gửi {$others} số khác trong 24 giờ";
+            }
+        }
+
+        return $reasons;
     }
 
     /** Cùng form + cùng số trong cửa sổ ngắn thì trả lại lead cũ, không tạo mới. */

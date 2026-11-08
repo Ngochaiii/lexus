@@ -11,8 +11,13 @@ namespace App\Support;
  */
 class Phone
 {
-    /** 0 + 9 chữ số: di động (03x/05x/07x/08x/09x) và số bàn (02xx). */
-    public const PATTERN = '/^0\d{9}$/';
+    /**
+     * 0 + 9 chữ số, đúng đầu số đang có nhà mạng: di động 032–039, 052/055/
+     * 056/058/059, 070/076–079, 081–089, 09x; và số bàn 02xx. Đầu số 01x
+     * (đã bỏ năm 2018), 04x, 06x, 030… không gọi được — 08/11/2026 có số ảo
+     * lọt vào form. lead.js kiểm tra cùng luật này khi khách rời ô.
+     */
+    public const PATTERN = '/^0(?:2\d{8}|(?:3[2-9]|5[25689]|7[06-9]|8[1-9]|9\d)\d{7})$/';
 
     /** Gỡ dấu cách/chấm/gạch/ngoặc; "+84…" và "84…" đổi về "0…". Không đụng chuỗi rỗng. */
     public static function normalize(?string $raw): ?string

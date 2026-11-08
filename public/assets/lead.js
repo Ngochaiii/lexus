@@ -57,6 +57,18 @@
     panel.focus({ preventScroll: true });
     panel.scrollIntoView({ block: 'nearest' });
   };
+  // Số khách vừa gửi, dạng 0912 345 678 — hiện trong khung cảm ơn.
+  const sentPhone = (form, phone) => {
+    const slot = form.querySelector('[data-lead-sent-phone]');
+    if (!slot) return;
+    const p = normalizePhone(phone);
+    slot.hidden = !p;
+    if (!p) return;
+    slot.textContent = 'Số sẽ được gọi lại: ';
+    const b = document.createElement('strong');
+    b.textContent = /^\d{10}$/.test(p) ? `${p.slice(0, 4)} ${p.slice(4, 7)} ${p.slice(7)}` : p;
+    slot.appendChild(b);
+  };
   const resetSent = (form) => {
     const panel = form.querySelector('[data-lead-sent]');
     if (panel) panel.hidden = true;
@@ -67,7 +79,7 @@
     if (!again) return;
     const form = again.closest('[data-lead-form]');
     resetSent(form);
-    const first = form.querySelector('input[name="name"]');
+    const first = form.querySelector('input[name="name"]') || form.querySelector('input[name="phone"]');
     if (first) first.focus();
   });
 
@@ -87,6 +99,38 @@
     });
     if (first) first.focus();
   };
+
+  /* Số điện thoại: nhắc ngay khi khách rời ô (không đợi bấm Gửi), chỉ khi
+     chắc chắn sai. Cùng luật với App\Support\Phone::PATTERN — máy chủ vẫn
+     là nơi quyết định, đây chỉ để khách sửa sớm. */
+  const PHONE_OK = /^0(?:2\d{8}|(?:3[2-9]|5[25689]|7[06-9]|8[1-9]|9\d)\d{7})$/;
+  const PHONE_MSG = 'Số điện thoại chưa đúng. Bạn kiểm tra lại giúp: 10 số, ví dụ 0912 345 678.';
+  function normalizePhone(raw) {
+    let d = String(raw || '').trim().replace(/[\s.\-()]+/g, '');
+    if (d.startsWith('+84')) d = '0' + d.slice(3);
+    else if (d.startsWith('84') && d.length === 11) d = '0' + d.slice(2);
+    return d;
+  }
+  const checkPhone = (input, strict) => {
+    const form = input.closest('[data-lead-form]');
+    const slot = form && form.querySelector(`[data-error-for="${input.name}"]`);
+    const value = normalizePhone(input.value);
+    const bad = value !== '' && !PHONE_OK.test(value);
+    if (bad && strict) {
+      input.setAttribute('aria-invalid', 'true');
+      if (slot) { slot.textContent = PHONE_MSG; slot.hidden = false; }
+    } else if (!bad && input.getAttribute('aria-invalid')) {
+      input.removeAttribute('aria-invalid');
+      if (slot) { slot.hidden = true; slot.textContent = ''; }
+    }
+  };
+  // Rời ô: báo nếu sai. Đang gõ lại: chỉ gỡ lỗi khi đã đúng, không la giữa chừng.
+  document.addEventListener('focusout', (e) => {
+    if (e.target.matches && e.target.matches('[data-lead-form] input[type="tel"]')) checkPhone(e.target, true);
+  });
+  document.addEventListener('input', (e) => {
+    if (e.target.matches && e.target.matches('[data-lead-form] input[type="tel"]')) checkPhone(e.target, false);
+  });
 
   document.addEventListener('submit', async (event) => {
     const form = event.target.closest('[data-lead-form]');
@@ -108,7 +152,10 @@
       const data = await res.json().catch(() => ({}));
 
       if (res.ok) {
+        const phoneInput = form.querySelector('input[type="tel"]');
+        const phone = phoneInput ? phoneInput.value : '';
         form.reset();
+        sentPhone(form, phone);
         const chip = form.querySelector('[data-variant-chip]');
         if (chip && !form.querySelector('[data-variant-input]').value) chip.hidden = true;
         showSent(form, data.message || form.dataset.success || 'Đã nhận thông tin của bạn.');

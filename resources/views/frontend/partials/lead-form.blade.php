@@ -86,6 +86,8 @@
     <div class="lead-sent full" data-lead-sent tabindex="-1" hidden>
         <p class="lead-sent__title">Đã gửi thành công</p>
         <p class="lead-sent__message" data-lead-sent-message></p>
+        {{-- lead.js điền số khách vừa gửi: gõ nhầm một chữ số thì thấy ngay. --}}
+        <p class="lead-sent__phone" data-lead-sent-phone hidden></p>
         @if ($callTo || $zaloLink)
             <p class="lead-sent__hint">Muốn trao đổi ngay?</p>
             <div class="lead-sent__actions">
@@ -95,6 +97,9 @@
         @endif
         <button class="lead-sent__again" type="button" data-lead-again>Gửi yêu cầu khác</button>
     </div>
+
+    {{-- Giờ máy chủ dựng form: gửi chưa tới vài giây là bot (StoreLead::suspicion). --}}
+    <input type="hidden" name="_rt" value="{{ time() }}">
 
     {{-- Bẫy bot. `hidden` một mình không đủ vì .field có display:flex; class
          .honeypot trong style.css khoá lại bằng !important. --}}

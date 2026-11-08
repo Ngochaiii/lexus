@@ -36,7 +36,7 @@ class LeadPhoneValidationTest extends TestCase
     {
         $this->postJson('/gui-form/dang-ky', ['name' => 'Thu', 'phone' => '7365435505'])
             ->assertStatus(422)
-            ->assertJsonPath('errors.phone.0', 'Số điện thoại không đúng định dạng.');
+            ->assertJsonPath('errors.phone.0', \App\Rules\VietnamPhone::MESSAGE);
 
         $this->assertSame(0, Lead::count());
     }

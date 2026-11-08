@@ -28,11 +28,12 @@ class LeadController extends Controller
         $message = $form->success_message ?: 'Đã nhận thông tin, chúng tôi sẽ liên hệ sớm.';
 
         if ($request->expectsJson()) {
-            // Bot và lần gửi trùng vẫn 201 như khách thật, nhưng new=false để
+            // Bot, lần gửi trùng và lead nghi spam vẫn 201 như khách thật, nhưng new=false để
             // lead.js không bắn chuyển đổi (generate_lead GA4 → Google Ads).
             return response()->json([
                 'message' => $message,
-                'data' => ['id' => $lead?->id, 'new' => (bool) $lead?->wasRecentlyCreated],
+                // Lead nghi spam cũng new=false: không dạy Google Ads tìm thêm người như vậy.
+                'data' => ['id' => $lead?->id, 'new' => (bool) $lead?->wasRecentlyCreated && $lead->status !== 'spam'],
             ], 201);
         }
 

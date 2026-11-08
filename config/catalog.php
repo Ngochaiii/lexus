@@ -356,6 +356,12 @@ return [
         // không tạo lead mới. 0 = tắt.
         'dedupe_minutes' => 5,
 
+        // Nghi spam (vẫn nhận, để vào mục Spam, không tính chuyển đổi Ads):
+        // gửi chưa tới bấy nhiêu giây sau khi trang hiện form, hoặc một IP đã
+        // gửi từng ấy số KHÁC nhau trong 24 giờ. 0 = tắt. Xem StoreLead::suspicion.
+        'min_seconds' => 3,
+        'ip_phones_per_day' => 2,
+
         // Email nhận thông báo lead mới, ghi vào form lúc `db:seed`
         // (LexusSiteSeeder). Đọc qua config để vẫn chạy sau `php artisan optimize`.
         'notify_emails' => array_values(array_filter(array_map('trim',

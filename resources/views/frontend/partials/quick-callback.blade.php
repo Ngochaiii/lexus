@@ -39,6 +39,8 @@
             <p class="form-note field-error" data-error-for="consent" hidden></p>
         </div>
 
+        <input type="hidden" name="_rt" value="{{ time() }}">
+
         <div class="honeypot" hidden aria-hidden="true">
             <label for="{{ $idPrefix }}-{{ $honeypot }}">Để trống ô này</label>
             <input id="{{ $idPrefix }}-{{ $honeypot }}" name="{{ $honeypot }}" tabindex="-1" autocomplete="off">
@@ -48,6 +50,8 @@
         <div class="lead-sent" data-lead-sent tabindex="-1" hidden>
             <p class="lead-sent__title">Đã gửi thành công</p>
             <p class="lead-sent__message" data-lead-sent-message></p>
+            <p class="lead-sent__phone" data-lead-sent-phone hidden></p>
+            <button class="lead-sent__again" type="button" data-lead-again>Sai số? Nhập lại</button>
         </div>
     </form>
 @endif

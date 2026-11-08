@@ -45,10 +45,16 @@ class SendLeadToSlack implements ShouldQueue
 
         $car = trim(($lead->product?->name ?? '').' '.(($lead->data['variant'] ?? null) ? '· '.$lead->data['variant'] : ''));
 
-        $lines = [
+        // Nghi spam (StoreLead::suspicion): vẫn báo để chị Hà tự xem, nhưng không
+        // nhắc cả kênh cho điện thoại kêu.
+        $head = $lead->status === 'spam'
+            ? ':warning: *Nghi spam* (đã để vào mục Spam) — '.$e($lead->form?->name ?? 'Form')
             // <!channel>: thành viên nhận thông báo điện thoại cả khi kênh để
             // mặc định (chỉ báo khi được nhắc tên).
-            '<!channel> :bell: *Khách mới để lại số* — '.$e($lead->form?->name ?? 'Form'),
+            : '<!channel> :bell: *Khách mới để lại số* — '.$e($lead->form?->name ?? 'Form');
+
+        $lines = [
+            $head,
             '*Tên:* '.$e($lead->name ?: '(không ghi)'),
             '*Điện thoại:* '.$e($lead->phone ?: '(không ghi)'),
         ];
@@ -67,6 +73,9 @@ class SendLeadToSlack implements ShouldQueue
             $lines[] = '*'.$e($labels[$key] ?? $key).':* '.$e($value);
         }
 
+        if ($lead->status === 'spam' && $lead->note) {
+            $lines[] = '*Lý do:* '.$e($lead->note);
+        }
         $lines[] = '*Nguồn:* '.$e($this->source($lead));
         if ($lead->landing_page) {
             $lines[] = '*Trang vào:* '.$e($lead->landing_page);
