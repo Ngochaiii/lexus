@@ -20,7 +20,7 @@ class SendLeadToSlack implements ShouldQueue
     public array $backoff = [10, 60, 300];
 
     /** Ô đã hiện riêng ở đầu tin, không lặp lại trong phần "khách ghi". */
-    private const SHOWN = ['name', 'phone', 'email', 'variant', 'attribution'];
+    private const SHOWN = ['name', 'phone', 'email', 'variant', 'attribution', 'product_id', 'variant_id'];
 
     public function handle(LeadReceived $event): void
     {

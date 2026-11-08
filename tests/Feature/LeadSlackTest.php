@@ -31,6 +31,7 @@ class LeadSlackTest extends TestCase
             ['key' => 'name', 'label' => 'Họ tên', 'type' => 'text', 'rules' => ['required'], 'sort' => 1],
             ['key' => 'phone', 'label' => 'Điện thoại', 'type' => 'tel', 'rules' => ['required'], 'sort' => 2],
             ['key' => 'note', 'label' => 'Ghi chú', 'type' => 'text', 'rules' => [], 'sort' => 3],
+            ['key' => 'product_id', 'label' => 'Dòng xe quan tâm', 'type' => 'product', 'rules' => ['nullable'], 'sort' => 4],
         ]);
     }
 
@@ -66,7 +67,8 @@ class LeadSlackTest extends TestCase
                 && str_contains($text, 'Hỏi màu trắng')
                 && str_contains($text, 'Quảng cáo Google')
                 && str_contains($text, '/san-pham/rx')
-                && str_contains($text, '/admin/leads');
+                && str_contains($text, '/admin/leads')
+                && ! str_contains($text, 'Dòng xe quan tâm:');   // mã xe đã hiện thành tên ở "Xe quan tâm"
         });
     }
 
