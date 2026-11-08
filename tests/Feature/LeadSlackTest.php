@@ -60,6 +60,7 @@ class LeadSlackTest extends TestCase
             $text = $request['text'];
 
             return $request->url() === self::HOOK
+                && str_starts_with($text, '<!channel>')   // kênh mặc định chỉ báo điện thoại khi được nhắc tên
                 && str_contains($text, 'Khách mới để lại số')
                 && str_contains($text, '0987654321')
                 && str_contains($text, 'Anh &lt;Nam&gt; &amp; co')   // Slack mrkdwn phải escape

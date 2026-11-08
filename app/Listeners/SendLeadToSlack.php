@@ -46,7 +46,9 @@ class SendLeadToSlack implements ShouldQueue
         $car = trim(($lead->product?->name ?? '').' '.(($lead->data['variant'] ?? null) ? '· '.$lead->data['variant'] : ''));
 
         $lines = [
-            ':bell: *Khách mới để lại số* — '.$e($lead->form?->name ?? 'Form'),
+            // <!channel>: thành viên nhận thông báo điện thoại cả khi kênh để
+            // mặc định (chỉ báo khi được nhắc tên).
+            '<!channel> :bell: *Khách mới để lại số* — '.$e($lead->form?->name ?? 'Form'),
             '*Tên:* '.$e($lead->name ?: '(không ghi)'),
             '*Điện thoại:* '.$e($lead->phone ?: '(không ghi)'),
         ];
