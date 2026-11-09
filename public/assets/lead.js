@@ -168,6 +168,8 @@
       } else if (res.status === 422) {
         setStatus(form, 'Vui lòng kiểm tra lại các ô được đánh dấu.', 'error');
         showErrors(form, data.errors);
+        // insight.js ghi bước "gửi bị lỗi" của hành trình khách.
+        form.dispatchEvent(new CustomEvent('lead:invalid', { bubbles: true }));
       } else if (res.status === 429) {
         setStatus(form, 'Bạn gửi hơi nhanh. Vui lòng thử lại sau ít phút, hoặc gọi trực tiếp cho chuyên viên.', 'error');
       } else if (res.status === 419) {

@@ -140,6 +140,87 @@ class Insights
         return $report;
     }
 
+    /** Các bước hành trình, theo thứ tự khách đi (xem EventController::JOURNEY). */
+    public const JOURNEY_STEPS = ['view', 'see_price', 'see_form', 'form_start', 'form_error', 'lead', 'call', 'zalo'];
+
+    /**
+     * Khách đi tới đâu trên trang, tách khách quảng cáo (medium = cpc) khỏi
+     * khách khác. Đếm theo lượt xem trang, không theo người (web không lưu
+     * định danh). "lead" lấy từ bảng Liên hệ, bỏ lead Spam.
+     *
+     * @return array{ads: array{steps: array<string,int>, secs: ?int, scroll: ?int}, other: array{steps: array<string,int>, secs: ?int, scroll: ?int}}
+     */
+    public function journey(): array
+    {
+        $events = SiteEvent::query()
+            ->whereIn('type', ['view', 'see_price', 'see_form', 'form_start', 'form_error', 'leave', 'call', 'zalo'])
+            ->where('created_at', '>=', $this->since())
+            ->get(['type', 'medium', 'secs', 'value']);
+        $leads = $this->leads()->where('status', '!=', 'spam');
+
+        $report = [];
+        foreach (['ads' => true, 'other' => false] as $group => $isAd) {
+            $mine = $events->filter(fn ($e) => ($e->medium === 'cpc') === $isAd);
+            $steps = [];
+            foreach (self::JOURNEY_STEPS as $step) {
+                $steps[$step] = $step === 'lead'
+                    ? $leads->filter(fn ($l) => ($l->medium === 'cpc') === $isAd)->count()
+                    : $mine->where('type', $step)->count();
+            }
+            $leave = $mine->where('type', 'leave');
+            $report[$group] = [
+                'steps' => $steps,
+                'secs' => self::median($leave->pluck('secs')->filter(fn ($v) => $v !== null)),
+                'scroll' => self::median($leave->pluck('value')->filter(fn ($v) => $v !== null)),
+            ];
+        }
+
+        return $report;
+    }
+
+    /**
+     * Trang khách quảng cáo vào nhiều nhất: bao nhiêu lượt thấy form, bắt
+     * đầu điền, bấm Gọi/Zalo, ở lại bao lâu — trang nào giữ khách kém.
+     *
+     * @return list<array{path:string, view:int, see_price:int, see_form:int, form_start:int, contact:int, secs:?int, scroll:?int}>
+     */
+    public function adLandingPages(int $limit = 8): array
+    {
+        return SiteEvent::query()
+            ->whereIn('type', ['view', 'see_price', 'see_form', 'form_start', 'leave', 'call', 'zalo'])
+            ->where('medium', 'cpc')->whereNotNull('path')
+            ->where('created_at', '>=', $this->since())
+            ->get(['type', 'path', 'secs', 'value'])
+            ->groupBy('path')
+            ->map(function ($g, $path) {
+                $leave = $g->where('type', 'leave');
+
+                return [
+                    'path' => $path,
+                    'view' => $g->where('type', 'view')->count(),
+                    'see_price' => $g->where('type', 'see_price')->count(),
+                    'see_form' => $g->where('type', 'see_form')->count(),
+                    'form_start' => $g->where('type', 'form_start')->count(),
+                    'contact' => $g->whereIn('type', ['call', 'zalo'])->count(),
+                    'secs' => self::median($leave->pluck('secs')->filter(fn ($v) => $v !== null)),
+                    'scroll' => self::median($leave->pluck('value')->filter(fn ($v) => $v !== null)),
+                ];
+            })
+            ->sortByDesc('view')->take($limit)->values()->all();
+    }
+
+    /** Trung vị, làm tròn số nguyên; rỗng thì null. */
+    public static function median(Collection $values): ?int
+    {
+        $sorted = $values->map(fn ($v) => (float) $v)->sort()->values();
+        $n = $sorted->count();
+        if ($n === 0) {
+            return null;
+        }
+
+        return (int) round($n % 2 ? $sorted[intdiv($n, 2)] : ($sorted[$n / 2 - 1] + $sorted[$n / 2]) / 2);
+    }
+
     /** Ngưỡng "tốt" / "cần cải thiện" của Google cho từng chỉ số. */
     public const VITAL_THRESHOLDS = ['LCP' => [2500, 4000], 'INP' => [200, 500], 'CLS' => [0.1, 0.25], 'FCP' => [1800, 3000], 'TTFB' => [800, 1800]];
 

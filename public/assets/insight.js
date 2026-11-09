@@ -10,6 +10,8 @@
  *      sau nút Gọi (data-call-again) là bấm lại của cùng khách — không đếm thêm.
  *      Sau khi bấm: khách ở lại trang (_stay), rời trang (_left), quay lại sau
  *      bao lâu (_back). Chỉ là dấu hiệu, web không biết cuộc gọi có nối máy không.
+ *   2b. Hành trình: xem trang, thấy bảng giá, thấy form, bắt đầu điền, gửi
+ *      bị lỗi, rời trang (ở bao lâu, kéo tới đâu) — mỗi bước 1 lần/lượt xem.
  *   3. Tốc độ thật: LCP, INP, CLS, FCP, TTFB của khách — gửi khi rời trang.
  *
  * Gửi về /api/v1/events bằng sendBeacon (không làm chậm trang). Đồng thời báo
@@ -102,7 +104,7 @@
   // Nút nằm ở đâu + khách đã ở trang bao lâu: chạm thanh đáy sau 2 giây gần
   // như là chạm nhầm khi lướt; bấm trong bảng giá sau 40 giây là khách thật.
   const PLACES = [
-    ['.advisor-strip', 'strip'], ['.call-sheet', 'call_sheet'], ['.zalo-sheet', 'sheet'], ['.sales-bar', 'bar'], ['.contact-float', 'float'], ['.price-table', 'table'],
+    ['.advisor-strip', 'strip'], ['.call-sheet', 'call_sheet'], ['.zalo-sheet', 'sheet'], ['dialog', 'popup'], ['.sales-bar', 'bar'], ['.contact-float', 'float'], ['.price-table', 'table'],
     ['.lead-sent', 'thanks'], ['.advisor-card', 'advisor'], ['.hero, .model-hero', 'hero'],
     ['header, .site-header', 'header'], ['footer, .site-footer', 'footer'],
   ];
@@ -164,6 +166,51 @@
   window.addEventListener('pagehide', tapLeft, true);
   window.addEventListener('pageshow', tapBack, true);
   tapBack(); // trang tải lại khi khách quay về
+
+  /* ── 2b. Hành trình trên trang ─────────────────────────────────────── */
+
+  // Mỗi lượt xem trang: xem trang → thấy bảng giá → thấy form → bắt đầu điền
+  // → gửi bị lỗi (nếu có) → rời trang sau bao lâu, kéo tới đâu. Mỗi bước gửi
+  // tối đa 1 lần. Để biết khách quảng cáo dừng ở bước nào (09/11/2026).
+  const secsNow = () => Math.round(performance.now() / 1000);
+  const done = {};
+  const step = (type, extra) => {
+    if (done[type]) return;
+    done[type] = 1;
+    send([Object.assign({ type, path: location.pathname, secs: secsNow() }, extra || {})]);
+  };
+  step('view');
+
+  if ('IntersectionObserver' in window) {
+    const seen = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        const el = en.target;
+        if (el.matches('[data-lead-form]')) step('see_form', { place: placeOf(el) });
+        else step('see_price');
+        seen.unobserve(el);
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('.price-table, .variant-grid, .variant-prices, [data-lead-form]').forEach((el) => seen.observe(el));
+  }
+
+  document.addEventListener('focusin', (e) => {
+    const field = e.target.closest && e.target.closest('[data-lead-form] input:not([type="hidden"]), [data-lead-form] select, [data-lead-form] textarea');
+    if (field && !field.closest('.honeypot')) step('form_start', { place: placeOf(field) });
+  }, true);
+  // lead.js báo khi máy chủ trả lỗi ô (422): khách gõ sai số, quên tick đồng ý…
+  document.addEventListener('lead:invalid', (e) => step('form_error', { place: placeOf(e.target) }));
+
+  let maxScroll = 0;
+  const measure = () => {
+    const h = document.documentElement.scrollHeight;
+    if (h > 0) maxScroll = Math.max(maxScroll, Math.min(100, Math.round((window.scrollY + window.innerHeight) / h * 100)));
+  };
+  measure();
+  window.addEventListener('scroll', measure, { passive: true });
+  const leave = () => { measure(); step('leave', { scroll: maxScroll }); };
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') leave(); }, true);
+  window.addEventListener('pagehide', leave, true);
 
   // Bấm sang kênh TikTok của chuyên viên — chỉ báo GA4 (không phải liên hệ trực tiếp).
   document.addEventListener('click', (e) => {

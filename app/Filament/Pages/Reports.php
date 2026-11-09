@@ -54,6 +54,8 @@ class Reports extends Page
             'lost' => $insights->lostReasons(),
             'clicks' => $insights->contactClicks(),
             'afterTap' => $insights->afterTap(),
+            'journey' => $insights->journey(),
+            'adPages' => $insights->adLandingPages(),
             'vitals' => $insights->vitals(),
             'slowest' => $insights->slowestPages(),
         ];

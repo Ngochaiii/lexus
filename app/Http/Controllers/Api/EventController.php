@@ -14,7 +14,13 @@ use Illuminate\Http\Response;
  *                   chạm nhầm ở thanh đáy khỏi khách đọc giá rồi mới bấm;
  *   - call_stay, call_left, call_back (và zalo_…): sau khi bấm khách ở lại
  *                   trang, rời trang, hay quay lại sau bao lâu (secs);
+ *   - view, see_price, see_form, form_start, form_error, leave: hành trình
+ *                   một lượt xem trang — thấy bảng giá, thấy form, bắt đầu
+ *                   điền, gửi bị lỗi, rời trang sau bao lâu (secs) và kéo tới
+ *                   đâu (scroll %, lưu ở value). Mỗi bước tối đa 1 lần/lượt xem;
  *   - vital       : số đo tốc độ của khách thật (LCP, INP, CLS, FCP, TTFB).
+ *
+ * Mọi sự kiện ghi kèm source + medium (cpc = quảng cáo) để tách khách quảng cáo.
  *
  * Không lưu IP, không cookie. Bot / Lighthouse / trình duyệt headless bị bỏ
  * qua để số liệu chỉ là người thật. Luôn trả 204 — trình duyệt không chờ.
@@ -24,10 +30,13 @@ class EventController extends Controller
     private const LIMITS = ['LCP' => 60000, 'INP' => 20000, 'FCP' => 60000, 'TTFB' => 60000, 'CLS' => 10];
 
     /** Vị trí nút insight.js gửi lên; giá trị khác bỏ trống. */
-    private const PLACES = ['bar', 'float', 'header', 'hero', 'table', 'sheet', 'thanks', 'advisor', 'strip', 'call_sheet', 'footer', 'content'];
+    private const PLACES = ['bar', 'float', 'header', 'hero', 'table', 'sheet', 'thanks', 'advisor', 'strip', 'call_sheet', 'footer', 'content', 'popup'];
 
     /** Kết quả sau khi bấm Gọi/Zalo. */
     private const AFTER_TAP = ['call_stay', 'call_left', 'call_back', 'zalo_stay', 'zalo_left', 'zalo_back'];
+
+    /** Hành trình một lượt xem trang. */
+    public const JOURNEY = ['view', 'see_price', 'see_form', 'form_start', 'form_error', 'leave'];
 
     public function store(Request $request): Response
     {
@@ -49,10 +58,13 @@ class EventController extends Controller
             $path = is_string($event['path'] ?? null) && str_starts_with($event['path'], '/')
                 ? mb_substr(strtok($event['path'], '?#'), 0, 255) : null;
 
-            if (in_array($type, ['call', 'zalo', ...self::AFTER_TAP], true)) {
+            if (in_array($type, ['call', 'zalo', ...self::AFTER_TAP, ...self::JOURNEY], true)) {
                 $place = $event['place'] ?? null;
                 $secs = $event['secs'] ?? null;
-                $rows[] = ['type' => $type, 'metric' => null, 'value' => null,
+                $scroll = $event['scroll'] ?? null;
+                $rows[] = ['type' => $type, 'metric' => null,
+                    // Độ sâu kéo trang (%) của sự kiện rời trang.
+                    'value' => $type === 'leave' && is_numeric($scroll) && $scroll >= 0 && $scroll <= 100 ? (float) round($scroll) : null,
                     'place' => in_array($place, self::PLACES, true) ? $place : null,
                     'secs' => is_int($secs) && $secs >= 0 && $secs <= 86400 ? $secs : null];
             } elseif ($type === 'vital') {
@@ -68,7 +80,7 @@ class EventController extends Controller
             }
 
             $rows[array_key_last($rows)] += [
-                'path' => $path, 'device' => $device, 'source' => $touch['source'], 'created_at' => now(),
+                'path' => $path, 'device' => $device, 'source' => $touch['source'], 'medium' => $touch['medium'], 'created_at' => now(),
             ];
         }
 

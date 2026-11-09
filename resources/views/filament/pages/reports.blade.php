@@ -97,6 +97,37 @@
         </x-filament::section>
     </div>
 
+    @php
+        $stepLabels = ['view' => 'Xem trang', 'see_price' => 'Thấy bảng giá', 'see_form' => 'Thấy form', 'form_start' => 'Bắt đầu điền form',
+            'form_error' => 'Gửi bị báo lỗi', 'lead' => 'Gửi form (trừ Spam)', 'call' => 'Bấm Gọi', 'zalo' => 'Bấm Zalo'];
+        $pct = fn ($n, $of) => $of > 0 ? round($n / $of * 100).'%' : '—';
+        $secsText = fn ($s) => $s === null ? '—' : ($s >= 60 ? intdiv($s, 60).' phút '.($s % 60).' giây' : $s.' giây');
+    @endphp
+    <x-filament::section heading="Khách quảng cáo đi tới đâu trên trang" description="Mỗi lượt xem trang được ghi: thấy bảng giá, thấy form, bắt đầu điền, gửi, bấm Gọi/Zalo. Đếm theo lượt xem, không theo người. Tỷ lệ % so với số lượt xem. Ghi từ 09/11/2026. {{ $days }} ngày qua.">
+        <table class="rp-table">
+            <tr><th>Bước</th><th class="num">Khách quảng cáo</th><th class="num">%</th><th class="num">Khách khác</th><th class="num">%</th></tr>
+            @foreach ($stepLabels as $step => $label)
+                <tr><td>{{ $label }}</td>
+                    <td class="num">{{ $journey['ads']['steps'][$step] }}</td><td class="num">{{ $step === 'view' ? '' : $pct($journey['ads']['steps'][$step], $journey['ads']['steps']['view']) }}</td>
+                    <td class="num">{{ $journey['other']['steps'][$step] }}</td><td class="num">{{ $step === 'view' ? '' : $pct($journey['other']['steps'][$step], $journey['other']['steps']['view']) }}</td></tr>
+            @endforeach
+            <tr><td>Ở lại trang (trung vị)</td><td class="num" colspan="2">{{ $secsText($journey['ads']['secs']) }}</td><td class="num" colspan="2">{{ $secsText($journey['other']['secs']) }}</td></tr>
+            <tr><td>Kéo tới (trung vị, % chiều dài trang)</td><td class="num" colspan="2">{{ $journey['ads']['scroll'] === null ? '—' : $journey['ads']['scroll'].'%' }}</td><td class="num" colspan="2">{{ $journey['other']['scroll'] === null ? '—' : $journey['other']['scroll'].'%' }}</td></tr>
+        </table>
+        @if ($adPages)
+            <p class="rp-note" style="margin-top:16px">Trang khách quảng cáo vào nhiều nhất:</p>
+            <table class="rp-table">
+                <tr><th>Trang</th><th class="num">Xem</th><th class="num">Thấy giá</th><th class="num">Thấy form</th><th class="num">Bắt đầu điền</th><th class="num">Gọi/Zalo</th><th class="num">Ở lại</th><th class="num">Kéo tới</th></tr>
+                @foreach ($adPages as $row)
+                    <tr><td><a href="{{ url($row['path']) }}" target="_blank" style="text-decoration:underline">{{ $row['path'] }}</a></td>
+                        <td class="num">{{ $row['view'] }}</td><td class="num">{{ $row['see_price'] }}</td><td class="num">{{ $row['see_form'] }}</td>
+                        <td class="num">{{ $row['form_start'] }}</td><td class="num">{{ $row['contact'] }}</td>
+                        <td class="num">{{ $secsText($row['secs']) }}</td><td class="num">{{ $row['scroll'] === null ? '—' : $row['scroll'].'%' }}</td></tr>
+                @endforeach
+            </table>
+        @endif
+    </x-filament::section>
+
     <x-filament::section heading="Bấm Gọi / Zalo theo trang" description="Khách bấm nút gọi hoặc Zalo ở trang nào — kể cả khi họ gọi thẳng mà không để lại form. {{ $days }} ngày qua.">
         @if ($clicks)
             <table class="rp-table">
