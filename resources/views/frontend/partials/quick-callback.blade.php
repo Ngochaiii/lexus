@@ -40,6 +40,8 @@
         </div>
 
         <input type="hidden" name="_rt" value="{{ time() }}">
+        {{-- Đặt trên trang dòng xe: lead ghi luôn xe khách đang xem. --}}
+        @if (! empty($productId))<input type="hidden" name="product_id" value="{{ $productId }}">@endif
 
         <div class="honeypot" hidden aria-hidden="true">
             <label for="{{ $idPrefix }}-{{ $honeypot }}">Để trống ô này</label>
