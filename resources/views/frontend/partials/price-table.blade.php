@@ -48,9 +48,7 @@
             </p>
         </div>
 
-        @include('frontend.partials.advisor-strip', ['car' => null])
-
-        @include('frontend.partials.quick-callback')
+        @include('frontend.partials.advisor-strip', ['car' => null, 'callback' => true])
 
         <div class="table-wrap">
             <table class="data-table">

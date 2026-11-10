@@ -112,7 +112,10 @@ class LandingTrustTest extends TestCase
         Setting::put('advisor_zalo', '');
         Setting::put('zalo', '');
 
-        $this->assertStringContainsString('data-quote', $this->strip($this->get('/san-pham/rx')->getContent()));
+        // Có form gọi lại nhanh thì ô số nằm ngay trong khối; không thì mở form báo giá.
+        $strip = $this->strip($this->get('/san-pham/rx')->getContent());
+        $this->assertTrue(str_contains($strip, 'data-quote') || str_contains($strip, 'class="quick-callback"'));
+        $this->assertStringNotContainsString('zalo.me', $strip);
     }
 
     public function test_tat_nguoi_tu_van_thi_khong_hien(): void

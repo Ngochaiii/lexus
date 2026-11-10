@@ -24,7 +24,7 @@
         @csrf
 
         <div class="quick-callback__fields">
-            <label class="quick-callback__label" for="{{ $idPrefix }}-phone">
+            <label class="quick-callback__label{{ ! empty($labelHidden) ? ' sr-only' : '' }}" for="{{ $idPrefix }}-phone">
                 {{ $label }}</label>
             <div class="quick-callback__row">
                 <input id="{{ $idPrefix }}-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"

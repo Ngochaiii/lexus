@@ -88,7 +88,8 @@ class CallSheetTest extends TestCase
 
         $html = $this->get('/bang-gia')->assertOk()->getContent();
 
-        $this->assertStringContainsString('Cần giá lăn bánh chi tiết?', $html);
+        // Từ 10/11 ô này nằm trong khối người tư vấn (advisor-strip), cạnh ảnh chị Hà.
+        $this->assertStringContainsString('gọi lại báo giá lăn bánh theo nơi đăng ký xe của bạn.', $html);
         $this->assertLessThan(strpos($html, '<table'), strpos($html, 'class="quick-callback"'));
     }
 

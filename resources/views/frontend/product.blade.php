@@ -140,14 +140,9 @@
                         chưa gồm đăng kiểm, phí đường bộ, bảo hiểm (vài triệu đồng).
                     </p>
                 </div>
-                {{-- Ô để lại số ngay trên các thẻ phiên bản (10/11/2026): đo 09/11 chỉ
-                     17% khách quảng cáo thấy form, trung vị kéo tới 23% trang. --}}
-                @include('frontend.partials.quick-callback', [
-                    'idPrefix'  => 'xe',
-                    'productId' => $product->id,
-                    'label'     => 'Cần giá lăn bánh '.$product->name.' chi tiết? Để lại số, '.($advisor ?: 'chuyên viên').' gọi lại cho bạn.',
-                ])
-                @include('frontend.partials.advisor-strip', ['car' => $product])
+                {{-- Người tư vấn + ô để lại số ngay trên các thẻ phiên bản (10/11/2026):
+                     đo 09/11 chỉ 17% khách quảng cáo thấy form, trung vị kéo tới 23% trang. --}}
+                @include('frontend.partials.advisor-strip', ['car' => $product, 'callback' => true])
                 {{-- Ghi chú đầu bảng giá, sửa trong admin: bản đang bán, ưu đãi tháng (đã xác nhận). --}}
                 @if (filled($product->notice))
                     <p class="versions-notice">{{ $product->notice }}</p>
