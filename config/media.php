@@ -54,6 +54,7 @@ return [
         'catalog/posts' => 'image',
         'catalog/banners' => 'image',
         'catalog/settings' => 'image',
+        'catalog/brand' => 'image',
         'catalog/tai-lieu' => 'pdf',
     ],
 ];
