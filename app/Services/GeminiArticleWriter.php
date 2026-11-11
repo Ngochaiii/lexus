@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Media\MediaStore;
 use App\Support\ArticleContext;
+use App\Support\Media;
 use App\Support\RichText;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use RuntimeException;
@@ -27,7 +29,11 @@ class GeminiArticleWriter
         $result = $this->gemini->json($this->payload($title, $instructions, $image), 'bài viết');
 
         try {
-            return $this->normalize($result);
+            $article = $this->normalize($result);
+            // Mục thương hiệu cá nhân cuối bài: đoạn Gemini viết + 1 ảnh ngẫu nhiên.
+            $article['article_html'] .= $this->brandBlock($result['brand_intro'] ?? null);
+
+            return $article;
         } catch (RuntimeException $exception) {
             Log::warning('Gemini: '.$exception->getMessage(), ['keys' => array_keys($result)]);
 
@@ -54,6 +60,14 @@ class GeminiArticleWriter
         $extra = filled($instructions) ? trim((string) $instructions) : 'Không có yêu cầu bổ sung.';
         $useGoogleSearch = (bool) config('services.gemini.google_search', false);
         $facts = ArticleContext::build($title, $instructions);
+        $brand = trim((string) catalog_setting('advisor_brand'));
+        $brandStep = $brand !== ''
+            ? <<<BRAND
+            Viết brand_intro: 2–4 câu (50–90 từ), văn xuôi thuần (không HTML, không gạch đầu dòng), giới thiệu chuyên viên {$advisor} — thương hiệu cá nhân "{$brand}" — gắn với chủ đề bài (người đang đọc bài này được {$advisor} giúp gì: báo giá lăn bánh, chọn phiên bản, thủ tục…). Tên thương hiệu viết ĐÚNG nguyên văn "{$brand}", nhắc 1–2 lần, tự nhiên. Có thể mời xem kênh TikTok/Facebook hoặc nhắn Zalo nếu hồ sơ có.
+            Chỉ dùng thông tin có trong hồ sơ (kinh nghiệm, showroom, các kênh liên lạc): không bịa số khách đã tư vấn, số xe đã giao, giải thưởng, danh hiệu, câu chuyện khách hàng.
+            Website tự đặt đoạn này thành mục cuối bài kèm ảnh thật của chuyên viên — KHÔNG viết lại đoạn này trong article_html.
+            BRAND
+            : 'Chưa có thương hiệu cá nhân: để brand_intro là chuỗi rỗng "".';
 
         $research = $useGoogleSearch
             ? 'Dùng Google Search để xem các trang đang xếp hạng cho từ khoá chính tại Việt Nam: họ trả lời những ý nào, còn thiếu gì, người dùng hỏi thêm gì (mục "Mọi người cũng hỏi"). Bài của bạn phải trả lời đủ các ý đó và thêm giá trị họ không có. Nguồn ngoài CHỈ để hiểu nhu cầu tìm kiếm — mọi con số giá, phí, thông số vẫn lấy từ HỒ SƠ DỮ LIỆU.'
@@ -101,7 +115,10 @@ class GeminiArticleWriter
         4. Kinh nghiệm (E-E-A-T): chỉ chia sẻ dạng lời khuyên nghề nghiệp chung (khách thường hỏi gì, nên kiểm tra gì khi chọn bản) — không bịa trải nghiệm, câu chuyện khách hàng, số khách đã tư vấn, giải thưởng, chức danh.
         5. Câu khách hỏi AI (nếu có trong Yêu cầu thêm): trả lời đủ từng câu trong thân bài hoặc FAQ, bằng câu trả lời có con số cụ thể.
 
-        # BƯỚC 3 — THẺ SEO
+        # BƯỚC 3 — ĐOẠN THƯƠNG HIỆU (brand_intro)
+        {$brandStep}
+
+        # BƯỚC 4 — THẺ SEO
         - seo_title: tối đa 60 ký tự, BẮT ĐẦU bằng từ khoá chính, có yếu tố gợi nhấp (con số, năm, "chi tiết từng phiên bản"); không cần thêm tên website.
         - meta_description: 140–160 ký tự, có từ khoá chính + một con số cụ thể + lời mời hành động (vd "Nhận báo giá lăn bánh chi tiết"), không hứa ưu đãi.
         - excerpt: 2–3 câu, tối đa 300 ký tự, tóm đúng câu trả lời chính.
@@ -120,6 +137,7 @@ class GeminiArticleWriter
                 'slug' => ['type' => 'string', 'description' => 'Slug không dấu chứa từ khoá chính.'],
                 'excerpt' => ['type' => 'string', 'description' => 'Tối đa 300 ký tự.'],
                 'article_html' => ['type' => 'string', 'description' => 'Thân bài HTML sạch, không h1, không FAQ.'],
+                'brand_intro' => ['type' => 'string', 'description' => 'Đoạn giới thiệu thương hiệu cá nhân 2–4 câu, văn xuôi; rỗng nếu chưa có thương hiệu.'],
                 'faq' => [
                     'type' => 'array',
                     'minItems' => 3,
@@ -141,7 +159,7 @@ class GeminiArticleWriter
                     'maxItems' => 12,
                 ],
             ],
-            'required' => ['primary_keyword', 'search_intent', 'secondary_keywords', 'seo_title', 'meta_description', 'slug', 'excerpt', 'article_html', 'faq', 'keywords'],
+            'required' => ['primary_keyword', 'search_intent', 'secondary_keywords', 'seo_title', 'meta_description', 'slug', 'excerpt', 'article_html', 'brand_intro', 'faq', 'keywords'],
             'additionalProperties' => false,
         ];
 
@@ -178,6 +196,34 @@ class GeminiArticleWriter
         }
 
         return $payload;
+    }
+
+    /**
+     * Mục "Về <thương hiệu> – <chuyên viên>" cuối bài: một ảnh lấy ngẫu nhiên
+     * trong thư mục ảnh thương hiệu (Admin → Cài đặt) + đoạn Gemini viết. Chưa
+     * đặt tên thương hiệu hoặc Gemini để trống đoạn thì không thêm gì.
+     */
+    private function brandBlock(mixed $intro): string
+    {
+        $brand = trim((string) catalog_setting('advisor_brand'));
+        $intro = trim(preg_replace('/\s*[≈~]\s*/u', ' khoảng ', strip_tags((string) $intro)) ?? '');
+
+        if ($brand === '' || $intro === '') {
+            return '';
+        }
+
+        $advisor = trim((string) catalog_setting('advisor_name'));
+        $html = '<h2>'.e('Về '.$brand.($advisor !== '' ? ' – '.$advisor : '')).'</h2>';
+
+        $path = Arr::random(array_values(array_filter((array) catalog_setting('brand_photos'), 'filled')) ?: [null]);
+        if ($path && ($url = Media::url($path))) {
+            $size = @getimagesizefromstring((string) $this->media->read($path));
+            $alt = ($advisor !== '' ? $advisor.' – ' : '').$brand.', tư vấn Lexus tại Lexus Thăng Long';
+            $html .= '<p><img src="'.e($url).'" alt="'.e($alt).'"'
+                .(is_array($size) ? ' width="'.$size[0].'" height="'.$size[1].'"' : '').'></p>';
+        }
+
+        return RichText::clean($html.'<p>'.e($intro).'</p>');
     }
 
     /** @return array{mimeType:string,data:string} */

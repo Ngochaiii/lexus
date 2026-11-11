@@ -134,6 +134,12 @@ class ManageSettings extends Page
                     ->label($label)
                     ->image()
                     ->directory('catalog/settings'),
+                'images'   => NativeMediaUpload::make($key)
+                    ->label($label)
+                    ->image()
+                    ->multiple()
+                    ->reorderable()
+                    ->directory('catalog/brand'),
                 default    => TextInput::make($key)->label($label),
             };
         }

@@ -482,6 +482,8 @@ html:has(.quote-dialog[open]){overflow:hidden}
 .post-main .section{padding-block:0 48px}
 .post-main .text-section .section-heading:not(:has(.eyebrow,h2)){display:none}
 .post-main .article{max-width:none;padding:32px 0 0}
+/* Ảnh trong thân bài (vd ảnh thương hiệu dọc cuối bài Gemini viết): không cho ảnh dọc chiếm hết chiều cao màn hình. */
+.post-main .article p>img{width:auto;max-width:100%;max-height:min(560px,70vh);margin-inline:auto;object-fit:contain;background:none}
 .post-aside{min-width:0}
 .post-aside__sticky{position:sticky;top:24px;display:grid;gap:18px;max-height:calc(100vh - 48px);overflow-y:auto;scrollbar-width:thin}
 .aside-card{border:1px solid var(--line);padding:22px 24px;background:#fff}

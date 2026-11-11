@@ -74,6 +74,11 @@ class ArticleContext
             // phải nói bằng lời chuyên viên (xem AdvisorVoiceTest).
             'Đây là website tư vấn cá nhân của chuyên viên, KHÔNG phải website của đại lý: không xưng "chúng tôi" thay đại lý,'
                 .' không gọi số điện thoại là "hotline"/"tổng đài", không viết "showroom của chúng tôi"; nói "showroom Lexus Thăng Long", "chuyên viên '.($advisor ?: 'tư vấn').'".',
+            filled($exp = catalog_setting('advisor_experience')) ? 'Kinh nghiệm (đúng sự thật, chép nguyên văn): '.$exp : null,
+            filled($brand = catalog_setting('advisor_brand'))
+                ? 'Thương hiệu cá nhân của chuyên viên: "'.$brand.'" (viết đúng nguyên văn, đội ngũ TikTok/Facebook đang dùng tên này)' : null,
+            filled($tiktok = catalog_setting('tiktok')) ? 'TikTok của chuyên viên: '.$tiktok : null,
+            filled($facebook = catalog_setting('facebook')) ? 'Facebook: '.$facebook : null,
             'Giờ mở cửa: '.strtr(implode(', ', (array) config('catalog.seo.organization.opening_hours', [])), [
                 'Mo-Su' => 'Thứ Hai – Chủ nhật', 'Mo-Fr' => 'Thứ Hai – Thứ Sáu', 'Mo-Sa' => 'Thứ Hai – Thứ Bảy', '-' => ' – ',
             ]),

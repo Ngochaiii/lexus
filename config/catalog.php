@@ -228,6 +228,11 @@ return [
                 'advisor_quote' => ['label' => 'Tư vấn viên — câu trích dẫn', 'type' => 'textarea'],
                 'advisor_points' => ['label' => 'Tư vấn viên — 3 cam kết (mỗi dòng "Tiêu đề|Mô tả")', 'type' => 'textarea'],
                 'advisor_image' => ['label' => 'Tư vấn viên — ảnh chân dung (dọc)', 'type' => 'image'],
+                // Thương hiệu cá nhân (11/11/2026): bài Gemini viết có mục "Về
+                // <thương hiệu>" cuối bài kèm 1 ảnh ngẫu nhiên trong thư mục ảnh
+                // dưới đây. Bỏ trống tên thì bài không có mục này.
+                'advisor_brand' => ['label' => 'Tư vấn viên — tên thương hiệu cá nhân (VD "Chị Đại Lexus"), viết đúng như trên TikTok/Facebook', 'type' => 'text'],
+                'brand_photos' => ['label' => 'Ảnh thương hiệu cho bài viết (giao xe, tư vấn) — mỗi bài Gemini viết lấy ngẫu nhiên 1 ảnh. Chỉ dùng ảnh khách đã đồng ý cho đăng.', 'type' => 'images'],
 
                 // Ghé thăm showroom: 1 ảnh lớn + 2 ảnh nhỏ. Địa chỉ và link
                 // chỉ đường lấy từ tab Chung (address, map_url).
