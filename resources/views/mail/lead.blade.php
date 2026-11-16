@@ -1,29 +1,32 @@
 <x-mail::message>
-# Liên hệ mới
+# {{ $lead->status === 'spam' ? 'Nghi spam (đã để vào mục Spam)' : 'Khách mới để lại số' }}
 
-Có khách để lại thông tin qua form **{{ $lead->form?->name ?? '—' }}**.
-@if ($lead->product)
-Đang quan tâm: **{{ $lead->product->name }}**.
-@endif
+Web: **{{ $site ?: config('app.url') }}** · form **{{ $lead->form?->name ?? '—' }}**
 
 <x-mail::table>
 | | |
 | --- | --- |
-@if ($lead->name)| **Họ tên** | {{ $lead->name }} |@endif
-
-@if ($lead->phone)| **Điện thoại** | {{ $lead->phone }} |@endif
-
-@if ($lead->email)| **Email** | {{ $lead->email }} |@endif
-
+| **Họ tên** | {{ $lead->name ?: '(không ghi)' }} |
+| **Điện thoại** | @if ($lead->phone)[{{ $lead->phone }}](tel:{{ $lead->phone }})@else(không ghi)@endif |
+@if ($lead->email)| **Email** | {{ $lead->email }} |
+@endif
+@if ($lead->product)| **Xe quan tâm** | {{ $lead->product->name }}{{ $variant ? ' · '.$variant : '' }} |
+@endif
+@foreach ($extra as $label => $value)| **{{ $label }}** | {{ $value }} |
+@endforeach
+| **Nguồn** | {{ $lead->sourceSummary() }} |
+@if ($lead->landing_page)| **Trang vào** | {{ $lead->landing_page }} |
+@endif
+| **Lúc** | {{ $lead->created_at?->timezone('Asia/Ho_Chi_Minh')->format('H:i d/m/Y') }} |
 </x-mail::table>
 
-@if (filled($lead->utm))
+@if ($lead->status === 'spam' && $lead->note)
 <x-mail::subcopy>
-Nguồn: {{ collect($lead->utm)->map(fn ($v, $k) => "$k=$v")->implode(' · ') }}
+{{ $lead->note }}
 </x-mail::subcopy>
 @endif
 
-<x-mail::button :url="config('app.url').'/admin/leads'">
-Xem trong admin
+<x-mail::button :url="url('/admin/leads')">
+Xem trong Admin
 </x-mail::button>
 </x-mail::message>

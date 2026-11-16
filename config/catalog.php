@@ -367,10 +367,15 @@ return [
         'min_seconds' => 3,
         'ip_phones_per_day' => 2,
 
-        // Email nhận thông báo lead mới, ghi vào form lúc `db:seed`
-        // (LexusSiteSeeder). Đọc qua config để vẫn chạy sau `php artisan optimize`.
+        // Email nhận thông báo lead mới (cách nhau dấu phẩy). Luôn nhận mail của
+        // mọi form, cộng thêm notify_emails riêng của từng form (Admin → Form).
+        // Cũng ghi vào form lúc `db:seed` (LexusSiteSeeder).
         'notify_emails' => array_values(array_filter(array_map('trim',
             explode(',', (string) env('LEAD_NOTIFY_EMAILS', ''))))),
+
+        // Tên web ghi đầu tiêu đề mail "[…] Khách mới…" — nhiều web dùng chung
+        // một hộp thư thì nhìn tiêu đề biết ngay khách từ web nào.
+        'site_label' => env('LEAD_SITE_LABEL') ?: (parse_url((string) env('APP_URL'), PHP_URL_HOST) ?: env('APP_NAME')),
 
         // Incoming Webhook của kênh Slack nhận báo khách mới (mỗi webhook gắn
         // một kênh). Bỏ trống thì không gửi.

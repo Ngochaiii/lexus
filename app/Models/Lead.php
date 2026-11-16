@@ -84,6 +84,22 @@ class Lead extends Model
         return self::SOURCES[$source] ?? ($source ?: 'Chưa rõ');
     }
 
+    /** Nguồn khách dạng câu đọc được, dùng trong báo Slack và mail. */
+    public function sourceSummary(): string
+    {
+        if ($this->medium === 'cpc' && $this->source === 'google') {
+            return 'Quảng cáo Google';
+        }
+
+        $label = self::sourceLabel($this->source);
+
+        return match ($this->medium) {
+            'organic' => $label.' · tìm kiếm tự nhiên',
+            'cpc'     => $label.' · quảng cáo',
+            default   => $label,
+        };
+    }
+
     public function form(): BelongsTo
     {
         return $this->belongsTo(catalog_model('form'));

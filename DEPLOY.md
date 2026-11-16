@@ -133,9 +133,11 @@ worker (Supervisor numprocs=2) để mail báo lead không phải chờ bài vi�
 
 Mail thông báo khách để lại số và webhook chạy nền (`QUEUE_CONNECTION=database`).
 Thiếu worker thì lead vẫn lưu, nhưng **không có mail báo**. Người nhận mail khai ở
-`LEAD_NOTIFY_EMAILS` trong `.env` **trước khi** chạy `db:seed`; đổi về sau thì sửa
-`.env` rồi chạy `php artisan db:seed --class="Database\Seeders\LexusSiteSeeder" --force`
-(lệnh này cũng đặt lại nội dung trang tĩnh/bài viết về bản gốc).
+`LEAD_NOTIFY_EMAILS` trong `.env` (cách nhau dấu phẩy): đọc lúc chạy, luôn nhận mail
+của mọi form, cộng thêm email riêng từng form (Admin → Form). Đổi xong chạy
+`php artisan optimize && php artisan queue:restart`, **không cần seed**. Tiêu đề mail
+bắt đầu bằng `[LEAD_SITE_LABEL]` (mặc định là tên miền trong `APP_URL`) để nhiều web
+dùng chung một hộp thư vẫn phân biệt được.
 
 Báo khách mới vào Slack: dán Incoming Webhook của kênh vào `LEAD_SLACK_WEBHOOK`
 trong `.env` rồi chạy `php artisan optimize && php artisan queue:restart` (đọc lúc

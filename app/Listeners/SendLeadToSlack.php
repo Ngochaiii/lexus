@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\LeadReceived;
-use App\Models\Lead;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -76,7 +75,7 @@ class SendLeadToSlack implements ShouldQueue
         if ($lead->status === 'spam' && $lead->note) {
             $lines[] = '*Lý do:* '.$e($lead->note);
         }
-        $lines[] = '*Nguồn:* '.$e($this->source($lead));
+        $lines[] = '*Nguồn:* '.$e($lead->sourceSummary());
         if ($lead->landing_page) {
             $lines[] = '*Trang vào:* '.$e($lead->landing_page);
         }
@@ -84,20 +83,5 @@ class SendLeadToSlack implements ShouldQueue
         $lines[] = '<'.url('/admin/leads').'|Xem trong Admin>';
 
         return implode("\n", $lines);
-    }
-
-    private function source($lead): string
-    {
-        if ($lead->medium === 'cpc' && $lead->source === 'google') {
-            return 'Quảng cáo Google';
-        }
-
-        $label = Lead::sourceLabel($lead->source);
-
-        return match ($lead->medium) {
-            'organic' => $label.' · tìm kiếm tự nhiên',
-            'cpc'     => $label.' · quảng cáo',
-            default   => $label,
-        };
     }
 }
