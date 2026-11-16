@@ -189,6 +189,24 @@
 
   /* ── 4. Nút Zalo: chép sẵn lời nhắn + khung dự phòng ────────────────── */
 
+  // Máy tính (16/11/2026): không quay số được, Zalo thường không mở → bấm Gọi
+  // /Zalo thì CHẶN link, mở khung có mã QR Zalo (quét bằng điện thoại, khách
+  // nhắn bằng chính Zalo của mình) + số in rõ. Điện thoại giữ nguyên.
+  const deskQuery = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)');
+  const isDesk = () => !!(deskQuery && deskQuery.matches);
+
+  // "Hoặc để lại số" (máy tính): mở ô để lại số đang thu lại ngay sau nút.
+  document.addEventListener('click', (event) => {
+    const reveal = event.target.closest && event.target.closest('[data-desk-reveal]');
+    if (!reveal) return;
+    const box = reveal.nextElementSibling;
+    if (!box || !box.hasAttribute('data-desk-collapse')) return;
+    box.classList.add('is-open');
+    reveal.hidden = true;
+    const input = box.querySelector('input[type="tel"]');
+    if (input) input.focus();
+  });
+
   const zaloSheet = document.getElementById('zalo-sheet');
   if (zaloSheet && typeof zaloSheet.showModal === 'function') {
     const message = zaloSheet.querySelector('[data-zalo-message]');
@@ -228,6 +246,14 @@
       if (!link || link.hasAttribute('data-zalo-again')) return;
       if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
+      // Máy tính: không sang zalo.me (tab mới trống/hỏi đăng nhập), chỉ mở khung QR.
+      // Mở trong khung khác (popup báo giá) thì đóng khung đó trước.
+      if (isDesk()) {
+        event.preventDefault();
+        const host = link.closest('dialog[open]');
+        if (host && host !== zaloSheet) host.close();
+      }
+
       // data-zalo-tail: đuôi lời nhắn riêng (khối người tư vấn: chỗ điền nơi đăng ký xe).
       const text = `${zaloSheet.dataset.greeting} ${link.dataset.zaloCar || zaloSheet.dataset.car}${link.dataset.zaloTail || ' ạ.'}`;
       message.textContent = text;
@@ -262,9 +288,17 @@
       const link = event.target.closest && event.target.closest('a[href^="tel:"]');
       if (!link || link.hasAttribute('data-call-again')) return;
       if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      if (within(KEY_SENT, 1)) return; // vừa để lại số rồi, không hỏi lại
-
       const host = link.closest('dialog[open]'); // nút Gọi trong khung Zalo, popup báo giá
+
+      // Máy tính: link tel: không quay được số → chặn, mở ngay khung có mã QR
+      // Zalo + số in rõ (kể cả khi khách vừa để lại số: khung không hỏi lại form).
+      if (isDesk()) {
+        event.preventDefault();
+        if (host && host !== callSheet) host.close();
+        if (!callSheet.open) callSheet.showModal();
+        return;
+      }
+      if (within(KEY_SENT, 1)) return; // vừa để lại số rồi, không hỏi lại
       setTimeout(() => {
         if (host) host.close();
         if (!callSheet.open) callSheet.showModal();

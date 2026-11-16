@@ -68,7 +68,10 @@ class CallSheetTest extends TestCase
         preg_match('#const callSheet.*?/\* ── 2\. Popup#s', $js, $m);
         $this->assertNotEmpty($m, 'lead.js có khối khung Gọi trước mục popup');
         $this->assertStringContainsString('a[href^="tel:"]', $m[0]);
-        $this->assertStringNotContainsString('preventDefault', $m[0]);
+        // Điện thoại vẫn quay số; chỉ máy tính (không quay số được) mới chặn link
+        // để mở khung mã QR Zalo — DesktopZaloQrTest (16/11/2026).
+        $this->assertSame(1, substr_count($m[0], 'preventDefault'));
+        $this->assertMatchesRegularExpression('#if \(isDesk\(\)\) \{\s*event\.preventDefault\(\);#', $m[0]);
     }
 
     public function test_bang_gia_co_hai_form_de_lai_so_khong_trung_id(): void

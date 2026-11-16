@@ -39,6 +39,8 @@
         <env name="DB_DATABASE" value="catalog_lexus_test"/>
         <env name="DB_URL" value=""/>
         <env name="MAIL_MAILER" value="array"/>
+        <!-- Địa chỉ báo khách trong .env máy dev không được lọt vào test. -->
+        <env name="LEAD_NOTIFY_EMAILS" value="" force="true"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="PULSE_ENABLED" value="false"/>

@@ -32,25 +32,31 @@
 
         <h2 id="zalo-sheet-title">Nhắn Zalo {{ $advisor ?: 'chuyên viên' }}</h2>
 
+        {{-- Máy tính (16/11/2026): bấm Zalo không mở link mà mở khung này với mã QR
+             (lead.js) — quét bằng điện thoại là nhắn bằng chính Zalo của khách. --}}
+        @include('frontend.partials.zalo-qr', ['zaloUrl' => $zalo, 'qrName' => $advisor, 'qrPhone' => $phone])
+
         <p class="zalo-sheet__copied" data-zalo-copied hidden>✓ Đã chép sẵn lời nhắn:</p>
         <blockquote class="zalo-sheet__message" data-zalo-message></blockquote>
-        <p class="zalo-sheet__steps">Trong Zalo bấm <b>Nhắn tin</b> → giữ vào ô chat → <b>Dán</b> → <b>Gửi</b>.</p>
+        <p class="zalo-sheet__steps touch-only">Trong Zalo bấm <b>Nhắn tin</b> → giữ vào ô chat → <b>Dán</b> → <b>Gửi</b>.</p>
+        <p class="zalo-sheet__steps desk-only">Dùng Zalo trên máy tính? Lời nhắn đã chép sẵn, mở Zalo rồi <b>Dán</b> → <b>Gửi</b>.</p>
 
         <div class="zalo-sheet__actions">
-            <a class="button" href="{{ $zalo }}" rel="noopener" target="_blank" data-zalo-again>Mở Zalo</a>
-            <button type="button" class="button outline" data-copy-message>Chép lại lời nhắn</button>
+            <a class="button touch-only" href="{{ $zalo }}" rel="noopener" target="_blank" data-zalo-again>Mở Zalo</a>
+            <a class="button outline desk-only" href="{{ $zalo }}" rel="noopener" target="_blank" data-zalo-again data-zalo-pc>Mở Zalo trên máy tính</a>
+            <button type="button" class="button outline touch-only" data-copy-message>Chép lại lời nhắn</button>
         </div>
 
-        <p class="zalo-sheet__fallback">Zalo không mở?</p>
+        <p class="zalo-sheet__fallback touch-only">Zalo không mở?</p>
         <ul class="zalo-sheet__list">
             @if ($zaloFmt)
-                <li><button type="button" class="text-link" data-copy="{{ preg_replace('/\D/', '', $zaloFmt) }}">Chép số Zalo {{ $zaloFmt }}</button>
+                <li class="touch-only"><button type="button" class="text-link" data-copy="{{ preg_replace('/\D/', '', $zaloFmt) }}">Chép số Zalo {{ $zaloFmt }}</button>
                     <small>rồi tìm số trong Zalo</small></li>
             @endif
             @if ($phone)
-                <li><a class="text-link" href="tel:{{ $phone }}">Gọi {{ $advisor ?: 'chuyên viên' }} {{ \App\Support\Phone::format($phone) }}</a></li>
+                <li class="touch-only"><a class="text-link" href="tel:{{ $phone }}">Gọi {{ $advisor ?: 'chuyên viên' }} {{ \App\Support\Phone::format($phone) }}</a></li>
             @endif
-            <li><a class="text-link" href="{{ route('quote') }}" data-quote>Để lại số, {{ $advisor ?: 'chuyên viên' }} gọi lại</a></li>
+            <li class="zalo-sheet__quote"><a class="text-link" href="{{ route('quote') }}" data-quote>Để lại số, {{ $advisor ?: 'chuyên viên' }} gọi lại</a></li>
         </ul>
         <p class="zalo-sheet__status" data-copy-status role="status" hidden></p>
     </dialog>

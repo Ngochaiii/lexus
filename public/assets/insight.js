@@ -110,13 +110,25 @@
   ];
   const placeOf = (a) => (PLACES.find(([sel]) => a.closest(sel)) || [null, 'content'])[1];
 
+  // Máy tính (16/11/2026): bấm Gọi/Zalo không quay số/mở Zalo mà mở khung
+  // mã QR Zalo (lead.js) — mới là MỞ KHUNG, chưa phải liên hệ, nên báo GA4
+  // 'contact_open' (không phải chuyển đổi Ads), web vẫn ghi call/zalo (cột
+  // device cho biết máy tính). Khách bấm "Mở Zalo trên máy tính" trong khung
+  // (data-zalo-pc) mới là lần thử nhắn thật → click_zalo cho Ads.
+  const desk = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)');
   document.addEventListener('click', (e) => {
+    const pc = e.target.closest && e.target.closest('a[data-zalo-pc]');
+    if (pc) {
+      track('click_zalo', { page_path: location.pathname, place: 'sheet', secs: Math.round(performance.now() / 1000) });
+      return;
+    }
     const a = e.target.closest && e.target.closest('a[href^="tel:"]:not([data-call-again]), a[href*="zalo.me"]:not([data-zalo-again])');
     if (!a) return;
     const type = a.getAttribute('href').startsWith('tel:') ? 'call' : 'zalo';
     const place = placeOf(a);
     const secs = Math.round(performance.now() / 1000);
-    track(type === 'call' ? 'click_call' : 'click_zalo', { page_path: location.pathname, place, secs });
+    if (desk && desk.matches) track('contact_open', { page_path: location.pathname, place, secs, channel: type });
+    else track(type === 'call' ? 'click_call' : 'click_zalo', { page_path: location.pathname, place, secs });
     send([{ type, path: location.pathname, place, secs }]);
   }, true);
 
