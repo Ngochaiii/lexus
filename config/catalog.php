@@ -366,6 +366,8 @@ return [
         // gửi từng ấy số KHÁC nhau trong 24 giờ. 0 = tắt. Xem StoreLead::suspicion.
         'min_seconds' => 3,
         'ip_phones_per_day' => 2,
+        // Trình duyệt (mã ngẫu nhiên của insight.js) đã gửi một số khác trong N ngày → Spam.
+        'browser_phone_days' => 30,
 
         // Email nhận thông báo lead mới (cách nhau dấu phẩy). Luôn nhận mail của
         // mọi form, cộng thêm notify_emails riêng của từng form (Admin → Form).

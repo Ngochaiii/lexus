@@ -52,8 +52,10 @@ class DesktopZaloQrTest extends TestCase
         $this->assertNotSame($svg, ZaloQr::svg('https://zalo.me/0912345678'), 'mỗi số một mã');
     }
 
-    public function test_khoi_nguoi_tu_van_co_ma_qr_va_form_thu_lai_tren_may_tinh(): void
+    public function test_khoi_nguoi_tu_van_co_ma_qr_canh_form_khong_bat_bam_them(): void
     {
+        // 17/11: người dùng — đừng bắt khách thật bấm thêm để chặn kẻ phá.
+        // Máy tính hiện form NGAY cạnh mã QR: hai lựa chọn ngang nhau.
         $strip = $this->block($this->get('/san-pham/rx')->assertOk()->getContent(), 'aside', 'advisor-strip');
 
         $qr = $this->block($strip, 'div', 'zalo-qr desk-only');
@@ -61,8 +63,9 @@ class DesktopZaloQrTest extends TestCase
         $this->assertStringContainsString('Quét bằng camera điện thoại để nhắn Zalo Thu Hà', $qr);
         $this->assertStringContainsString('0977 573 366', $qr, 'số gọi in rõ cho ai muốn gọi từ điện thoại');
 
-        $this->assertMatchesRegularExpression('#<div class="desk-collapse" data-desk-collapse>.*id="xe-phone"#s', $strip, 'form vẫn còn, chỉ thu lại trên máy tính');
-        $this->assertStringContainsString('data-desk-reveal>Hoặc để lại số, Thu Hà gọi lại</button>', $strip);
+        $this->assertMatchesRegularExpression('#<div class="advisor-strip__contact">.*id="xe-phone".*class="zalo-qr desk-only"#s', $strip, 'form và mã QR cạnh nhau');
+        $this->assertStringNotContainsString('data-desk-collapse', $strip);
+        $this->assertStringNotContainsString('data-desk-reveal', $strip);
         $this->assertStringContainsString('class="text-link advisor-strip__zalo touch-only"', $strip, 'link Zalo chỉ cho điện thoại');
     }
 
@@ -83,7 +86,8 @@ class DesktopZaloQrTest extends TestCase
 
         $call = $this->block($html, 'dialog', 'call-sheet');
         $this->assertStringContainsString('class="zalo-qr desk-only"', $call);
-        $this->assertStringContainsString('data-desk-collapse', $call);
+        $this->assertStringContainsString('id="call-sheet-phone"', $call);
+        $this->assertStringNotContainsString('data-desk-collapse', $call, 'form hiện ngay, không thu lại');
     }
 
     public function test_chua_cai_zalo_thi_khong_co_ma_qr(): void
@@ -94,7 +98,7 @@ class DesktopZaloQrTest extends TestCase
         $html = $this->get('/san-pham/rx')->assertOk()->getContent();
 
         $this->assertStringNotContainsString('zalo-qr', $html);
-        $this->assertStringNotContainsString('data-desk-collapse', $html, 'không có QR thì form không thu lại');
+        $this->assertStringContainsString('id="xe-phone"', $html, 'form vẫn còn');
     }
 
     public function test_js_may_tinh_mo_khung_qr_va_khong_tinh_chuyen_doi_ads(): void
@@ -105,7 +109,6 @@ class DesktopZaloQrTest extends TestCase
 
         $this->assertStringContainsString('(hover: hover) and (pointer: fine)', $lead);
         $this->assertStringContainsString('preventDefault', $lead);
-        $this->assertStringContainsString('data-desk-reveal', $lead);
         // Mở khung QR chưa phải liên hệ: không báo click_call/click_zalo cho Ads.
         $this->assertStringContainsString("'contact_open'", $insight);
         $this->assertStringContainsString('@media (hover:hover) and (pointer:fine)', $css);

@@ -23,19 +23,15 @@
         <h2 id="call-sheet-title"><span @if ($callZalo) class="touch-only" @endif>Chưa gọi được?</span>@if ($callZalo)<span class="desk-only">Gọi hoặc nhắn Zalo {{ $callAdvisor }}</span>@endif</h2>
 
         {{-- Máy tính (16/11/2026): không quay số được → bấm Gọi mở khung này
-             (lead.js chặn link) với mã QR Zalo + số in rõ; form thu lại. --}}
+             (lead.js chặn link) với mã QR Zalo + số in rõ, form để lại số
+             ngay bên dưới (không thu lại — 17/11). --}}
         @if ($callZalo)
             @include('frontend.partials.zalo-qr', ['zaloUrl' => $callZalo, 'qrName' => $callAdvisor, 'qrPhone' => $callPhone])
-            <button type="button" class="text-link desk-only" data-desk-reveal>Hoặc để lại số, {{ $callAdvisor }} gọi lại</button>
-            <div class="desk-collapse" data-desk-collapse>
         @endif
         @include('frontend.partials.quick-callback', [
             'idPrefix' => 'call-sheet',
             'label'    => 'Để lại số, '.$callAdvisor.' gọi lại cho bạn.',
         ])
-        @if ($callZalo)
-            </div>
-        @endif
 
         <p class="call-sheet__again{{ $callZalo ? ' touch-only' : '' }}">Hoặc gọi lại:
             <a class="text-link" href="tel:{{ $callPhone }}" data-call-again>{{ \App\Support\Phone::format($callPhone) }}</a></p>

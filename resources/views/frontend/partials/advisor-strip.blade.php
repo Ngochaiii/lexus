@@ -13,10 +13,10 @@
           là một khối riêng nói cùng ý, hai khối chồng nhau đẩy giá xuống.
           Tắt khối người tư vấn thì ô để lại số vẫn hiện riêng.
 
-    Máy tính (16/11/2026): có Zalo thì hiện mã QR Zalo (partials/zalo-qr) làm
-    lối chính, ô để lại số thu lại sau nút "Hoặc để lại số" — cả 3 form từ
-    quảng cáo đều gửi từ máy tính và người nghe máy đều nói không gửi. Điện
-    thoại giữ nguyên (.touch-only / .desk-only, style.css).
+    Máy tính (16/11/2026): có Zalo thì thêm mã QR Zalo (partials/zalo-qr) NGAY
+    CẠNH ô để lại số — hai lựa chọn ngang nhau, không bắt bấm thêm (17/11:
+    không làm khó khách thật để chặn kẻ phá). Điện thoại giữ nguyên
+    (.touch-only / .desk-only, style.css).
 --}}
 @php
     $stripName = catalog_setting('advisor_name');
@@ -39,18 +39,16 @@
             <p class="advisor-strip__who"><strong>{{ $stripName }}</strong>
                 @if (filled($stripExp))<span>{{ $stripExp }}</span>@endif</p>
             @if ($stripCallback)
-                <p @if ($stripZalo) class="touch-only" @endif>Giá trên web tạm tính cho {{ config('catalog.on_road.region') }}. Để lại số, {{ $stripName }} gọi lại báo giá lăn bánh{{ $stripCar ? ' '.$stripCar->name : '' }} theo nơi đăng ký xe của bạn.</p>
+                <p>Giá trên web tạm tính cho {{ config('catalog.on_road.region') }}. Để lại số, {{ $stripName }} gọi lại báo giá lăn bánh{{ $stripCar ? ' '.$stripCar->name : '' }} theo nơi đăng ký xe của bạn.</p>
+                <div class="advisor-strip__contact">
+                    @include('frontend.partials.quick-callback', $stripCallbackArgs + [
+                        'label' => 'Số điện thoại để '.$stripName.' gọi lại', 'labelHidden' => true,
+                    ])
+                    @if ($stripZalo)
+                        @include('frontend.partials.zalo-qr', ['zaloUrl' => $stripZalo, 'qrName' => $stripName, 'qrPhone' => catalog_setting('advisor_phone') ?: catalog_setting('hotline')])
+                    @endif
+                </div>
                 @if ($stripZalo)
-                    <p class="desk-only">Giá trên web tạm tính cho {{ config('catalog.on_road.region') }}. Nhắn Zalo nơi đăng ký xe, {{ $stripName }} gửi giá lăn bánh{{ $stripCar ? ' '.$stripCar->name : '' }} đúng nơi của bạn.</p>
-                    @include('frontend.partials.zalo-qr', ['zaloUrl' => $stripZalo, 'qrName' => $stripName, 'qrPhone' => catalog_setting('advisor_phone') ?: catalog_setting('hotline')])
-                    <button type="button" class="text-link desk-only advisor-strip__reveal" data-desk-reveal>Hoặc để lại số, {{ $stripName }} gọi lại</button>
-                    <div class="desk-collapse" data-desk-collapse>
-                @endif
-                @include('frontend.partials.quick-callback', $stripCallbackArgs + [
-                    'label' => 'Số điện thoại để '.$stripName.' gọi lại', 'labelHidden' => true,
-                ])
-                @if ($stripZalo)
-                    </div>
                     <a class="text-link advisor-strip__zalo touch-only" href="{{ $stripZalo }}" rel="noopener" target="_blank" data-zalo-tail=", đăng ký xe ở ... ạ.">Hoặc nhắn Zalo hỏi giá</a>
                 @endif
             @else

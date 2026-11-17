@@ -129,4 +129,59 @@ class LeadSpamGuardTest extends TestCase
             && str_contains($request['text'], 'Nghi spam')
             && str_contains($request['text'], '0912345678'));
     }
+
+    // --- Cùng một trình duyệt gửi nhiều số khác nhau (17/11/2026) ---------
+    // 4 form liền (#7, #16, #17, #20) đều là máy tính Windows ở Hà Nội, đủ tên
+    // nhưng số của người khác, đổi mạng VNPT/Viettel nên luật cùng-IP không
+    // bắt được. insight.js gắn mã ngẫu nhiên của trình duyệt (_bid, không chứa
+    // thông tin cá nhân): trình duyệt đã gửi một số khác trong 30 ngày thì lead
+    // vào Spam — khách vẫn thấy gửi thành công, không thêm ô hay bước nào.
+
+    private const BID = 'k3v9q2m7x1z8w4r6t0y5u2i8';
+
+    public function test_cung_trinh_duyet_gui_so_khac_thi_vao_spam_du_doi_mang(): void
+    {
+        $this->send(['phone' => '0912345601', '_rt' => time() - 60, '_bid' => self::BID], '14.248.85.21');
+        $this->send(['phone' => '0938123579', '_rt' => time() - 60, '_bid' => self::BID], '2405:4802::1')
+            ->assertStatus(201)
+            ->assertJsonPath('data.new', false);
+
+        $this->assertSame(['new', 'spam'], Lead::orderBy('id')->pluck('status')->all());
+        $this->assertSame(self::BID, Lead::orderBy('id')->first()->browser_id);
+        $this->assertStringContainsString('trình duyệt này đã gửi số khác', Lead::orderBy('id')->skip(1)->first()->note);
+    }
+
+    public function test_khach_that_gui_lai_dung_so_minh_khong_bi_spam(): void
+    {
+        $form = Form::where('key', 'nhan-bao-gia')->first();
+        $form->leads()->create(['phone' => '0912345601', 'status' => 'new', 'browser_id' => self::BID, 'created_at' => now()->subDays(3)]);
+
+        $this->send(['phone' => '0912345601', '_rt' => time() - 60, '_bid' => self::BID])->assertJsonPath('data.new', true);
+
+        $this->assertSame('new', Lead::orderBy('id')->skip(1)->first()->status);
+    }
+
+    public function test_qua_30_ngay_hoac_khac_trinh_duyet_thi_binh_thuong(): void
+    {
+        $form = Form::where('key', 'nhan-bao-gia')->first();
+        $form->leads()->create(['phone' => '0912345601', 'status' => 'new', 'browser_id' => self::BID, 'created_at' => now()->subDays(31)]);
+
+        $this->send(['phone' => '0912345602', '_rt' => time() - 60, '_bid' => self::BID])->assertJsonPath('data.new', true);
+        $this->send(['phone' => '0912345603', '_rt' => time() - 60, '_bid' => 'a1b2c3d4e5f6g7h8i9j0k1l2'], '113.160.1.1')->assertJsonPath('data.new', true);
+    }
+
+    public function test_ma_trinh_duyet_rac_thi_bo_qua(): void
+    {
+        $this->send(['phone' => '0912345601', '_rt' => time() - 60, '_bid' => "x'; drop"]);
+
+        $this->assertNull(Lead::sole()->browser_id);
+    }
+
+    public function test_insight_gan_ma_trinh_duyet_vao_form(): void
+    {
+        $js = file_get_contents(public_path('assets/insight.js'));
+
+        $this->assertStringContainsString("'ltl.bid'", $js);
+        $this->assertStringContainsString("'_bid'", $js);
+    }
 }

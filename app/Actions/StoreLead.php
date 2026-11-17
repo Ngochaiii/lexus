@@ -98,6 +98,7 @@ class StoreLead
             ])->filter(fn ($v) => is_string($v))->map(fn ($v) => mb_substr($v, 0, 120))->all() ?: null),
             'referrer'   => $request->header('referer'),
             'ip'         => $request->ip(),
+            'browser_id' => $this->browserId($request),
         ]);
 
         // Mail cho notify_emails + bắn webhook_url do listener lo (queued).
@@ -130,7 +131,11 @@ class StoreLead
      * thật gần như không bao giờ có, và không bắt khách làm thêm gì:
      *   - gửi chưa tới N giây sau khi trang hiện form (ô ẩn _rt = giờ máy chủ
      *     dựng trang). Thiếu _rt (API, trang cũ) thì bỏ qua dấu hiệu này;
-     *   - cùng một IP đã gửi từ N số KHÁC nhau trong 24 giờ.
+     *   - cùng một IP đã gửi từ N số KHÁC nhau trong 24 giờ;
+     *   - cùng một trình duyệt (mã ngẫu nhiên _bid của insight.js) đã gửi một
+     *     số KHÁC trong N ngày — bắt người đổi mạng VNPT/Viettel (17/11/2026:
+     *     4 form liền đều là số của người khác). Khách gửi lại đúng số mình
+     *     thì không sao; xoá dữ liệu trình duyệt thì lọt, chấp nhận.
      *
      * @return list<string>
      */
@@ -158,7 +163,29 @@ class StoreLead
             }
         }
 
+        $days = (int) config('catalog.leads.browser_phone_days', 30);
+        if ($days > 0 && $phone && ($bid = $this->browserId($request))) {
+            $other = \App\Models\Lead::query()
+                ->where('browser_id', $bid)
+                ->where('created_at', '>=', now()->subDays($days))
+                ->where('phone', '!=', $phone)
+                ->latest('id')
+                ->value('phone');
+
+            if ($other) {
+                $reasons[] = "trình duyệt này đã gửi số khác ({$other}) trong {$days} ngày";
+            }
+        }
+
         return $reasons;
+    }
+
+    /** Mã trình duyệt hợp lệ (chữ thường + số, 16–40 ký tự) hoặc null. */
+    protected function browserId(Request $request): ?string
+    {
+        $bid = $request->input('_bid');
+
+        return is_string($bid) && preg_match('/^[a-z0-9]{16,40}$/', $bid) ? $bid : null;
     }
 
     /** Cùng form + cùng số trong cửa sổ ngắn thì trả lại lead cũ, không tạo mới. */

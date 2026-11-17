@@ -64,15 +64,34 @@
   }
   const touchJson = JSON.stringify(touch);
 
-  const attach = (form) => {
-    let input = form.querySelector('input[name="attribution"]');
+  // Mã ngẫu nhiên của trình duyệt (17/11/2026): không chứa thông tin cá
+  // nhân, chỉ để máy chủ nhận ra một trình duyệt gửi nhiều số KHÁC nhau (số
+  // của người khác) dù đổi mạng → lead vào Spam, khách vẫn thấy gửi thành công.
+  const BID_KEY = 'ltl.bid';
+  let bid = store.get(BID_KEY);
+  if (!bid || !/^[a-z0-9]{16,40}$/.test(bid)) {
+    bid = '';
+    try {
+      const bytes = new Uint8Array(12);
+      crypto.getRandomValues(bytes);
+      bid = Array.from(bytes, (b) => b.toString(36).padStart(2, '0')).join('');
+    } catch (e) { bid = (Date.now().toString(36) + Math.random().toString(36).slice(2)).slice(0, 24); }
+    store.set(BID_KEY, bid);
+  }
+
+  const hidden = (form, name, value) => {
+    let input = form.querySelector(`input[name="${name}"]`);
     if (!input) {
       input = document.createElement('input');
       input.type = 'hidden';
-      input.name = 'attribution';
+      input.name = name;
       form.appendChild(input);
     }
-    input.value = touchJson;
+    input.value = value;
+  };
+  const attach = (form) => {
+    hidden(form, 'attribution', touchJson);
+    if (bid) hidden(form, '_bid', bid);
   };
   document.querySelectorAll('[data-lead-form]').forEach(attach);
   // Form thêm vào sau (popup) — gắn ngay trước khi gửi.

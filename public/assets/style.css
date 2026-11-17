@@ -565,12 +565,11 @@ html:has(.quote-dialog[open]){overflow:hidden}
    Cả 3 form từ quảng cáo đều gửi từ máy tính, người nghe máy đều nói không gửi.
    Máy tính = chuột + rê được (hover:hover and pointer:fine); còn lại là điện
    thoại/máy tính bảng: giữ nguyên Gọi/Zalo làm nút chính.
-   .desk-only chỉ máy tính · .touch-only chỉ màn cảm ứng · .desk-collapse: ô
-   để lại số thu lại sau nút "Hoặc để lại số" trên máy tính. */
+   .desk-only chỉ máy tính · .touch-only chỉ màn cảm ứng. Mã QR đứng CẠNH ô
+   để lại số, không thay nó (17/11: không bắt khách thật bấm thêm). */
 @media (hover:none),(pointer:coarse),(pointer:none){.desk-only{display:none!important}}
 @media (hover:hover) and (pointer:fine){
   .touch-only{display:none!important}
-  .desk-collapse:not(.is-open){display:none}
 }
 .zalo-qr{display:flex;gap:16px;align-items:center;margin:12px 0 10px}
 .zalo-qr__code{flex:0 0 132px;width:132px;height:132px;border:1px solid var(--line);background:#fff}
@@ -580,10 +579,13 @@ html:has(.quote-dialog[open]){overflow:hidden}
 .zalo-sheet .zalo-qr,.call-sheet .zalo-qr{flex-direction:column;text-align:center;margin:4px 0 16px}
 .zalo-sheet .zalo-qr__code,.call-sheet .zalo-qr__code{flex-basis:auto;width:200px;height:200px}
 .zalo-sheet .zalo-qr__text span,.call-sheet .zalo-qr__text span{font-size:17px;color:var(--ink)}
-.advisor-strip .zalo-qr{margin:6px 0 8px}
-.advisor-strip .zalo-qr__text{font-size:16px}
-button.text-link[data-desk-reveal]{background:none;border-width:0 0 1px;border-radius:0;padding:0;color:inherit;cursor:pointer;font:inherit;font-size:16px}
-button.text-link[data-desk-reveal]:after{content:none}
-.call-sheet .desk-collapse.is-open,.advisor-strip .desk-collapse.is-open{margin-top:4px}
-[data-desk-reveal][hidden]{display:none!important}
+.advisor-strip__contact .quick-callback{margin-top:4px}
+@media (hover:hover) and (pointer:fine){
+  .advisor-strip__contact{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:24px;align-items:start}
+  .advisor-strip .zalo-qr{flex-direction:column;align-items:center;gap:8px;margin:4px 0 0;text-align:center}
+  .advisor-strip .zalo-qr__code{flex-basis:auto;width:120px;height:120px}
+  .advisor-strip .zalo-qr__text{font-size:13px;line-height:1.4}
+  .advisor-strip .zalo-qr__text span{font-size:13px}
+}
 @media (hover:hover) and (pointer:fine){.zalo-sheet__quote{margin-top:16px}}
+.call-sheet .quick-callback__row{flex-direction:column}.call-sheet .quick-callback__row .button{width:100%}

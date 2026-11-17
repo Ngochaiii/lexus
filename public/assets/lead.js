@@ -195,18 +195,6 @@
   const deskQuery = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)');
   const isDesk = () => !!(deskQuery && deskQuery.matches);
 
-  // "Hoặc để lại số" (máy tính): mở ô để lại số đang thu lại ngay sau nút.
-  document.addEventListener('click', (event) => {
-    const reveal = event.target.closest && event.target.closest('[data-desk-reveal]');
-    if (!reveal) return;
-    const box = reveal.nextElementSibling;
-    if (!box || !box.hasAttribute('data-desk-collapse')) return;
-    box.classList.add('is-open');
-    reveal.hidden = true;
-    const input = box.querySelector('input[type="tel"]');
-    if (input) input.focus();
-  });
-
   const zaloSheet = document.getElementById('zalo-sheet');
   if (zaloSheet && typeof zaloSheet.showModal === 'function') {
     const message = zaloSheet.querySelector('[data-zalo-message]');
