@@ -589,3 +589,11 @@ html:has(.quote-dialog[open]){overflow:hidden}
 }
 @media (hover:hover) and (pointer:fine){.zalo-sheet__quote{margin-top:16px}}
 .call-sheet .quick-callback__row{flex-direction:column}.call-sheet .quick-callback__row .button{width:100%}
+
+/* "<phiên bản> có sẵn, giao ngay" (18/11/2026) — lý do gọi ngay, đứng sát nút Gọi. */
+.hero p.hero-ready{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:6px 12px;max-width:none;background:#ffffffe6;color:#151617;font-size:17px;font-weight:600;line-height:1.4}
+.hero p.hero-ready:before{content:'';width:8px;height:8px;border-radius:50%;background:#1f7a3a;flex-shrink:0}
+.model-hero.is-studio p.hero-ready{background:#1516170d;color:var(--ink)}
+.hero p.hero-ready+.actions{margin-top:22px}
+.advisor-strip p.advisor-strip__ready{margin:0 0 6px;color:#1f5c31;font-weight:600}
+@media(max-width:600px){.hero p.hero-ready{font-size:16px}}

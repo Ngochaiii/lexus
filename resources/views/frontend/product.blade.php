@@ -90,6 +90,10 @@
                 @elseif ($variants->isNotEmpty())
                     <p>Giá đang cập nhật</p>
                 @endif
+                {{-- Lý do gọi ngay (18/11/2026): phiên bản admin ghi "giao ngay". --}}
+                @if ($readyNow = \App\Support\Availability::readyNow($variants))
+                    <p class="hero-ready">{{ implode(', ', $readyNow) }} có sẵn, giao ngay</p>
+                @endif
                 <div class="actions">
                     @if ($callTo)<a class="button light" href="tel:{{ $callTo }}">Gọi {{ $advisor ?: 'tư vấn' }}</a>@endif
                     @if ($zaloLink)<a class="button outline" href="{{ $zaloLink }}" target="_blank" rel="noopener">Nhắn Zalo</a>@endif

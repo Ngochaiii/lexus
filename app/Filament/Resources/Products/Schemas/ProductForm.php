@@ -245,6 +245,7 @@ class ProductForm
                         TextInput::make('availability_note')
                             ->label('Ghi chú tình trạng')
                             ->placeholder('vd: giao trong 2–4 tuần · còn 2 xe màu trắng')
+                            ->helperText('Có sẵn xe + ghi "giao ngay" → đầu trang dòng xe hiện "<phiên bản> có sẵn, giao ngay" ngay trên nút Gọi. Hết xe thì xoá chữ này.')
                             ->maxLength(120),
                         TextInput::make('slug')
                             ->label('Đường dẫn trang phiên bản')

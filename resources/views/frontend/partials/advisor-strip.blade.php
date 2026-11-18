@@ -26,6 +26,8 @@
     $stripPhoto = catalog_image(catalog_setting('advisor_image'));
     $stripCar  = $car ?? null;
     $stripCallback = ($callback ?? false) && once(fn () => \App\Support\Catalog::query('form')->where('key', 'goi-lai-nhanh')->exists());
+    // Phiên bản admin ghi "giao ngay" (18/11/2026): lý do gọi ngay, ngay cạnh ảnh người tư vấn.
+    $stripReady = $stripCar ? \App\Support\Availability::readyNow($stripCar->variants) : [];
     $stripCallbackArgs = [
         'idPrefix'  => $stripCar ? 'xe' : 'quick-callback',
         'productId' => $stripCar?->id,
@@ -38,6 +40,9 @@
         <div class="advisor-strip__body">
             <p class="advisor-strip__who"><strong>{{ $stripName }}</strong>
                 @if (filled($stripExp))<span>{{ $stripExp }}</span>@endif</p>
+            @if ($stripReady)
+                <p class="advisor-strip__ready">{{ implode(', ', $stripReady) }} có sẵn, giao ngay.</p>
+            @endif
             @if ($stripCallback)
                 <p>Giá trên web tạm tính cho {{ config('catalog.on_road.region') }}. Để lại số, {{ $stripName }} gọi lại báo giá lăn bánh{{ $stripCar ? ' '.$stripCar->name : '' }} theo nơi đăng ký xe của bạn.</p>
                 <div class="advisor-strip__contact">
