@@ -61,6 +61,43 @@ class Availability
         return $names;
     }
 
+    /**
+     * Chữ đứng trước "có sẵn, giao ngay" (23/11/2026). Mọi bản đều giao ngay
+     * (GX 550: 2 bản) → "Cả 2 bản Lexus GX" thay vì liệt kê dài trên điện
+     * thoại; chỉ một vài bản → tên các bản đó. null = không có bản giao ngay.
+     *
+     * @param  iterable<Model>  $variants
+     */
+    public static function readyLabel(iterable $variants, string $model): ?string
+    {
+        $all = collect($variants);
+        $ready = self::readyNow($all);
+        if (! $ready) {
+            return null;
+        }
+
+        return count($ready) > 1 && count($ready) === $all->count()
+            ? 'Cả '.count($ready).' bản '.$model
+            : implode(', ', $ready);
+    }
+
+    /**
+     * Xe trong lời nhắn Zalo "… hôm nay còn màu nào ạ?": tên dòng xe khi mọi
+     * bản giao ngay, không thì bản giao ngay đầu tiên.
+     *
+     * @param  iterable<Model>  $variants
+     */
+    public static function readySubject(iterable $variants, string $model): ?string
+    {
+        $all = collect($variants);
+        $ready = self::readyNow($all);
+        if (! $ready) {
+            return null;
+        }
+
+        return count($ready) > 1 && count($ready) === $all->count() ? $model : $ready[0];
+    }
+
     /** schema.org availability — trường admin thắng, không có thì đoán theo ghi chú "dự kiến". */
     public static function schema(Model $variant): string
     {

@@ -374,7 +374,7 @@ class LexusSeeder extends BrandSeeder
             ],
             'variants' => [
                 ['name' => 'RX 350h Premium', 'image' => 'phien-ban/premium', 'price' => 3_350_000_000, 'note' => 'Hybrid 2.5L · AWD E-Four',
-                    'availability' => 'in_stock', 'availability_note' => 'nhiều màu, thay đổi theo ngày'],
+                    'availability' => 'in_stock', 'availability_note' => 'giao ngay'],
                 ['name' => 'RX 350h Luxury', 'image' => 'phien-ban/luxury', 'price' => 4_140_000_000, 'note' => 'Hybrid 2.5L · trang bị Luxury',
                     'availability' => 'in_stock', 'availability_note' => 'nhiều màu, thay đổi theo ngày'],
                 ['name' => 'RX 500h F SPORT Performance', 'image' => 'phien-ban/fsport', 'price' => 4_940_000_000, 'note' => 'Hybrid tăng áp 2.4L · 371 HP · DIRECT4'],
@@ -897,9 +897,9 @@ class LexusSeeder extends BrandSeeder
             'variants' => [
                 // Bản toàn cảnh giữ slug gx-550 (migration 2026_11_05_100000).
                 ['name' => 'GX 550 cửa trời đơn', 'image' => 'phien-ban/luxury', 'price' => 6_400_000_000, 'note' => 'V6 3.5L tăng áp kép · 7 chỗ',
-                    'availability' => 'in_stock', 'availability_note' => 'nhiều màu, thay đổi theo ngày'],
+                    'availability' => 'in_stock', 'availability_note' => 'giao ngay'],
                 ['name' => 'GX 550 cửa trời toàn cảnh', 'slug' => 'gx-550', 'image' => 'phien-ban/luxury', 'price' => 6_450_000_000, 'note' => 'V6 3.5L tăng áp kép · 7 chỗ',
-                    'availability' => 'in_stock', 'availability_note' => 'nhiều màu, thay đổi theo ngày'],
+                    'availability' => 'in_stock', 'availability_note' => 'giao ngay'],
             ],
             'specs' => [
                 'Động cơ' => [

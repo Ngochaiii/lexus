@@ -118,4 +118,54 @@ class ReadyNowStockTest extends TestCase
 
         $this->assertSame(['B'], Availability::readyNow($variants));
     }
+
+    public function test_moi_ban_deu_giao_ngay_thi_ghi_gon_ca_n_ban(): void
+    {
+        $two = collect([
+            new ProductVariant(['name' => 'GX 550 cửa trời đơn', 'availability' => 'in_stock', 'availability_note' => 'giao ngay']),
+            new ProductVariant(['name' => 'GX 550 cửa trời toàn cảnh', 'availability' => 'in_stock', 'availability_note' => 'giao ngay']),
+        ]);
+        $this->assertSame('Cả 2 bản Lexus GX', Availability::readyLabel($two, 'Lexus GX'));
+        $this->assertSame('Lexus GX', Availability::readySubject($two, 'Lexus GX'));
+
+        $one = $this->rx->variants()->get();
+        $one->first()->availability_note = 'giao ngay';
+        $this->assertSame('RX 350h Premium', Availability::readyLabel($one, 'Lexus RX'), 'một trong hai bản: ghi tên bản');
+        $this->assertSame('RX 350h Premium', Availability::readySubject($one, 'Lexus RX'));
+        $this->assertNull(Availability::readyLabel(collect(), 'Lexus RX'));
+    }
+
+    public function test_gx_ca_hai_ban_giao_ngay(): void
+    {
+        // Chị Hà xác nhận 23/11/2026: GX có sẵn xe (tháng 11 tập trung RX 350h + GX 550).
+        $gx = Product::create(['name' => 'Lexus GX', 'slug' => 'gx', 'status' => 'published', 'published_at' => now(),
+            'price_from' => 6_400_000_000]);
+        $gx->variants()->create(['name' => 'GX 550 cửa trời đơn', 'slug' => 'gx-550-cua-troi-don', 'price' => 6_400_000_000, 'sort' => 1,
+            'availability' => 'in_stock', 'availability_note' => 'nhiều màu, thay đổi theo ngày']);
+        $gx->variants()->create(['name' => 'GX 550 cửa trời toàn cảnh', 'slug' => 'gx-550', 'price' => 6_450_000_000, 'sort' => 2,
+            'availability' => 'in_stock', 'availability_note' => 'nhiều màu, thay đổi theo ngày']);
+
+        $migration = require database_path('migrations/2026_11_23_100000_gx_550_ready_now.php');
+        $migration->up();
+        $migration->up();
+
+        $this->assertSame(['giao ngay', 'giao ngay'], ProductVariant::whereIn('slug', ['gx-550-cua-troi-don', 'gx-550'])->orderBy('sort')->pluck('availability_note')->all());
+        $this->assertSame('nhiều màu, thay đổi theo ngày', ProductVariant::where('slug', 'rx-350h-luxury')->sole()->availability_note, 'chỉ đổi GX');
+
+        $html = $this->get('/san-pham/gx')->assertOk()->getContent();
+        $this->assertStringContainsString('<p class="hero-ready">Cả 2 bản Lexus GX có sẵn, giao ngay</p>', $html);
+        $this->assertStringContainsString('<p class="advisor-strip__ready">Cả 2 bản Lexus GX có sẵn, giao ngay.</p>', $html);
+        $this->assertStringContainsString('data-zalo-text="Chào chị Hà, Lexus GX hôm nay còn màu nào ạ?">Hỏi màu còn xe</a>', $html);
+    }
+
+    public function test_migration_gx_khong_de_len_tinh_trang_admin_da_doi(): void
+    {
+        $gx = Product::create(['name' => 'Lexus GX', 'slug' => 'gx', 'status' => 'published', 'published_at' => now()]);
+        $gx->variants()->create(['name' => 'GX 550 cửa trời toàn cảnh', 'slug' => 'gx-550', 'price' => 6_450_000_000,
+            'availability' => 'pre_order', 'availability_note' => 'giao tháng 12']);
+
+        (require database_path('migrations/2026_11_23_100000_gx_550_ready_now.php'))->up();
+
+        $this->assertSame('giao tháng 12', ProductVariant::where('slug', 'gx-550')->sole()->availability_note);
+    }
 }

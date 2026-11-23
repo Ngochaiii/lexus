@@ -91,8 +91,8 @@
                     <p>Giá đang cập nhật</p>
                 @endif
                 {{-- Lý do gọi ngay (18/11/2026): phiên bản admin ghi "giao ngay". --}}
-                @if ($readyNow = \App\Support\Availability::readyNow($variants))
-                    <p class="hero-ready">{{ implode(', ', $readyNow) }} có sẵn, giao ngay</p>
+                @if ($readyNow = \App\Support\Availability::readyLabel($variants, $product->name))
+                    <p class="hero-ready">{{ $readyNow }} có sẵn, giao ngay</p>
                 @endif
                 <div class="actions">
                     @if ($callTo)<a class="button light" href="tel:{{ $callTo }}">Gọi {{ $advisor ?: 'tư vấn' }}</a>@endif
@@ -101,7 +101,7 @@
                          chỉ chị Hà biết → nút Zalo hỏi đúng câu đó (lead.js chép data-zalo-text). --}}
                     @if ($zaloLink && $readyNow)
                         <a class="button outline" href="{{ $zaloLink }}" target="_blank" rel="noopener"
-                           data-zalo-text="Chào {{ $advisor ? 'chị '.\Illuminate\Support\Str::afterLast(trim($advisor), ' ') : 'chị' }}, {{ $readyNow[0] }} hôm nay còn màu nào ạ?">Hỏi màu còn xe</a>
+                           data-zalo-text="Chào {{ $advisor ? 'chị '.\Illuminate\Support\Str::afterLast(trim($advisor), ' ') : 'chị' }}, {{ \App\Support\Availability::readySubject($variants, $product->name) }} hôm nay còn màu nào ạ?">Hỏi màu còn xe</a>
                     @elseif ($zaloLink)<a class="button outline" href="{{ $zaloLink }}" target="_blank" rel="noopener">Nhắn Zalo</a>@endif
                     @if ($variants->isNotEmpty())
                         <a class="text-link" href="#versions">Xem giá {{ $variants->count() }} phiên bản</a>
