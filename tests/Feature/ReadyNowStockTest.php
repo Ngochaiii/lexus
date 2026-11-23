@@ -81,12 +81,31 @@ class ReadyNowStockTest extends TestCase
         $this->assertStringNotContainsString('Luxury có sẵn, giao ngay', $html);
     }
 
+    public function test_nut_zalo_dau_trang_hoi_mau_con_xe_khi_co_ban_giao_ngay(): void
+    {
+        // 23/11/2026: quảng cáo + trang đã cho đủ giá niêm yết và lăn bánh tạm
+        // tính → "nhắn Zalo hỏi giá" không còn là lý do liên hệ. Màu nào còn xe
+        // hôm nay thì web không trả lời được, chỉ chị Hà biết.
+        $this->migrate();
+
+        $html = $this->get('/san-pham/rx')->assertOk()->getContent();
+        preg_match('#<div class="actions">.*?</div>#s', $html, $m);
+
+        $this->assertStringContainsString('data-zalo-text="Chào chị Hà, RX 350h Premium hôm nay còn màu nào ạ?"', $m[0] ?? '');
+        $this->assertStringContainsString('>Hỏi màu còn xe</a>', $m[0] ?? '');
+        $this->assertStringContainsString('href="https://zalo.me/0977573366"', $m[0] ?? '', 'vẫn là link Zalo: đo, khung QR máy tính giữ nguyên');
+        $this->assertStringContainsString('link.dataset.zaloText', file_get_contents(public_path('assets/lead.js')), 'lời nhắn chép sẵn lấy từ nút');
+    }
+
     public function test_khong_co_ban_giao_ngay_thi_khong_hien_gi(): void
     {
         $html = $this->get('/san-pham/rx')->assertOk()->getContent();
 
         $this->assertStringNotContainsString('hero-ready', $html);
         $this->assertStringNotContainsString('advisor-strip__ready', $html);
+        $this->assertStringNotContainsString('data-zalo-text', $html);
+        $this->assertStringNotContainsString('Hỏi màu còn xe', $html);
+        $this->assertStringContainsString('rel="noopener">Nhắn Zalo</a>', $html);
     }
 
     public function test_het_xe_hoac_dat_truoc_thi_khong_tinh_la_giao_ngay(): void

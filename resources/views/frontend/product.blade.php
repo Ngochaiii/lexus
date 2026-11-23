@@ -96,7 +96,13 @@
                 @endif
                 <div class="actions">
                     @if ($callTo)<a class="button light" href="tel:{{ $callTo }}">Gọi {{ $advisor ?: 'tư vấn' }}</a>@endif
-                    @if ($zaloLink)<a class="button outline" href="{{ $zaloLink }}" target="_blank" rel="noopener">Nhắn Zalo</a>@endif
+                    {{-- 23/11/2026: giá niêm yết + lăn bánh đã có sẵn trên quảng cáo và trang,
+                         nên "hỏi giá" không còn là lý do nhắn. Màu nào còn xe hôm nay thì
+                         chỉ chị Hà biết → nút Zalo hỏi đúng câu đó (lead.js chép data-zalo-text). --}}
+                    @if ($zaloLink && $readyNow)
+                        <a class="button outline" href="{{ $zaloLink }}" target="_blank" rel="noopener"
+                           data-zalo-text="Chào {{ $advisor ? 'chị '.\Illuminate\Support\Str::afterLast(trim($advisor), ' ') : 'chị' }}, {{ $readyNow[0] }} hôm nay còn màu nào ạ?">Hỏi màu còn xe</a>
+                    @elseif ($zaloLink)<a class="button outline" href="{{ $zaloLink }}" target="_blank" rel="noopener">Nhắn Zalo</a>@endif
                     @if ($variants->isNotEmpty())
                         <a class="text-link" href="#versions">Xem giá {{ $variants->count() }} phiên bản</a>
                     @elseif (! $callTo && ! $zaloLink)
