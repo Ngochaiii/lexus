@@ -101,7 +101,7 @@
                          chỉ chị Hà biết → nút Zalo hỏi đúng câu đó (lead.js chép data-zalo-text). --}}
                     @if ($zaloLink && $readyNow)
                         <a class="button outline" href="{{ $zaloLink }}" target="_blank" rel="noopener"
-                           data-zalo-text="Chào {{ $advisor ? 'chị '.\Illuminate\Support\Str::afterLast(trim($advisor), ' ') : 'chị' }}, {{ \App\Support\Availability::readySubject($variants, $product->name) }} hôm nay còn màu nào ạ?">Hỏi màu còn xe</a>
+                           data-zalo-text="Xin chào {{ $advisor ?: 'bạn' }}, tôi muốn hỏi {{ \App\Support\Availability::readySubject($variants, $product->name) }} hiện còn những màu nào.">Hỏi màu còn xe</a>
                     @elseif ($zaloLink)<a class="button outline" href="{{ $zaloLink }}" target="_blank" rel="noopener">Nhắn Zalo</a>@endif
                     @if ($variants->isNotEmpty())
                         <a class="text-link" href="#versions">Xem giá {{ $variants->count() }} phiên bản</a>

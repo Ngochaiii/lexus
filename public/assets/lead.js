@@ -245,7 +245,7 @@
       // data-zalo-tail: đuôi lời nhắn riêng (khối người tư vấn: chỗ điền nơi đăng ký xe).
       // data-zalo-text: cả câu riêng của nút (đầu trang dòng xe: hỏi màu còn xe hôm nay).
       const text = link.dataset.zaloText
-        || `${zaloSheet.dataset.greeting} ${link.dataset.zaloCar || zaloSheet.dataset.car}${link.dataset.zaloTail || ' ạ.'}`;
+        || `${zaloSheet.dataset.greeting} ${link.dataset.zaloCar || zaloSheet.dataset.car}${link.dataset.zaloTail || '.'}`;
       message.textContent = text;
       copied.hidden = true;
       say('');

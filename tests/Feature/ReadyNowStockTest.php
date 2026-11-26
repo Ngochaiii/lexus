@@ -91,7 +91,7 @@ class ReadyNowStockTest extends TestCase
         $html = $this->get('/san-pham/rx')->assertOk()->getContent();
         preg_match('#<div class="actions">.*?</div>#s', $html, $m);
 
-        $this->assertStringContainsString('data-zalo-text="Chào chị Hà, RX 350h Premium hôm nay còn màu nào ạ?"', $m[0] ?? '');
+        $this->assertStringContainsString('data-zalo-text="Xin chào Thu Hà, tôi muốn hỏi RX 350h Premium hiện còn những màu nào."', $m[0] ?? '');
         $this->assertStringContainsString('>Hỏi màu còn xe</a>', $m[0] ?? '');
         $this->assertStringContainsString('href="https://zalo.me/0977573366"', $m[0] ?? '', 'vẫn là link Zalo: đo, khung QR máy tính giữ nguyên');
         $this->assertStringContainsString('link.dataset.zaloText', file_get_contents(public_path('assets/lead.js')), 'lời nhắn chép sẵn lấy từ nút');
@@ -155,7 +155,7 @@ class ReadyNowStockTest extends TestCase
         $html = $this->get('/san-pham/gx')->assertOk()->getContent();
         $this->assertStringContainsString('<p class="hero-ready">Cả 2 bản Lexus GX có sẵn, giao ngay</p>', $html);
         $this->assertStringContainsString('<p class="advisor-strip__ready">Cả 2 bản Lexus GX có sẵn, giao ngay.</p>', $html);
-        $this->assertStringContainsString('data-zalo-text="Chào chị Hà, Lexus GX hôm nay còn màu nào ạ?">Hỏi màu còn xe</a>', $html);
+        $this->assertStringContainsString('data-zalo-text="Xin chào Thu Hà, tôi muốn hỏi Lexus GX hiện còn những màu nào.">Hỏi màu còn xe</a>', $html);
     }
 
     public function test_migration_gx_khong_de_len_tinh_trang_admin_da_doi(): void

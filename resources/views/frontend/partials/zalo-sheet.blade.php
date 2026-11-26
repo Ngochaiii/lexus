@@ -12,7 +12,7 @@
     Zalo, chép số Zalo, gọi, để lại số.
 
     Lời nhắn = data-greeting + tên xe (data-zalo-car của nút, hoặc data-car
-    của trang) + " ạ.". Không JS thì khung không bao giờ mở, link Zalo chạy
+    của trang) + ".". Không JS thì khung không bao giờ mở, link Zalo chạy
     như bình thường.
 --}}
 @php
@@ -21,13 +21,14 @@
     $zaloFmt = \App\Support\Phone::zalo($zaloRaw);
     $phone   = catalog_setting('advisor_phone') ?: catalog_setting('hotline');
     $advisor = catalog_setting('advisor_name');
-    // "Thu Hà" → "chị Hà": cách khách gọi chị trong tin nhắn đầu tiên.
-    $callee  = $advisor ? 'chị '.\Illuminate\Support\Str::afterLast(trim($advisor), ' ') : 'chị';
+    // 26/11/2026: câu trung tính cho mọi lứa tuổi — gọi tên "Thu Hà", xưng
+    // "tôi"; trước là "Chào chị Hà, em … ạ", chỉ hợp khách kém tuổi chị Hà.
+    $greeting = 'Xin chào '.($advisor ?: 'bạn').', tôi muốn hỏi giá lăn bánh';
     $car     = ($product ?? null) instanceof \App\Models\Product ? $product->name : 'xe Lexus';
 @endphp
 @if ($zalo)
     <dialog class="zalo-sheet" id="zalo-sheet" aria-labelledby="zalo-sheet-title"
-            data-greeting="Chào {{ $callee }}, em muốn hỏi giá lăn bánh" data-car="{{ $car }}">
+            data-greeting="{{ $greeting }}" data-car="{{ $car }}">
         <button type="button" class="quote-dialog__close" data-dialog-close aria-label="Đóng">×</button>
 
         <h2 id="zalo-sheet-title">Nhắn Zalo {{ $advisor ?: 'chuyên viên' }}</h2>

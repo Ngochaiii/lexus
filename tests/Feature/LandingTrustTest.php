@@ -103,7 +103,7 @@ class LandingTrustTest extends TestCase
 
         $this->assertStringContainsString('nơi đăng ký xe', $strip);
         $this->assertStringContainsString('href="https://zalo.me/0977573366"', $strip);
-        $this->assertStringContainsString('data-zalo-tail=', $strip);
+        $this->assertStringContainsString('data-zalo-tail=", đăng ký xe tại ..."', $strip, 'câu trung tính, không "ạ" (26/11/2026)');
         $this->assertStringContainsString('zaloTail', file_get_contents(public_path('assets/lead.js')));
     }
 

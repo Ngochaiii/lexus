@@ -52,8 +52,14 @@ class ZaloSheetTest extends TestCase
     {
         $sheet = $this->sheet('/');
 
-        $this->assertStringContainsString('data-greeting="Chào chị Hà, em muốn hỏi giá lăn bánh"', $sheet);
+        // 26/11/2026: "Chào chị Hà, em … ạ" chỉ hợp khách kém tuổi chị Hà. Câu
+        // trung tính cho mọi khách: gọi tên, xưng "tôi", không "em/ạ".
+        $this->assertStringContainsString('data-greeting="Xin chào Thu Hà, tôi muốn hỏi giá lăn bánh"', $sheet);
         $this->assertStringContainsString('data-car="xe Lexus"', $sheet);
+        $this->assertStringNotContainsString('em muốn', $sheet);
+
+        $lead = file_get_contents(public_path('assets/lead.js'));
+        $this->assertStringNotContainsString("' ạ.'", $lead, 'đuôi mặc định là dấu chấm');
     }
 
     public function test_trang_xe_dien_san_ten_xe_vao_loi_nhan(): void

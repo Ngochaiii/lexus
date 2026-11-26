@@ -54,12 +54,12 @@
                     @endif
                 </div>
                 @if ($stripZalo)
-                    <a class="text-link advisor-strip__zalo touch-only" href="{{ $stripZalo }}" rel="noopener" target="_blank" data-zalo-tail=", đăng ký xe ở ... ạ.">Hoặc nhắn Zalo hỏi giá</a>
+                    <a class="text-link advisor-strip__zalo touch-only" href="{{ $stripZalo }}" rel="noopener" target="_blank" data-zalo-tail=", đăng ký xe tại ...">Hoặc nhắn Zalo hỏi giá</a>
                 @endif
             @else
             <p>Giá trên web tạm tính cho {{ config('catalog.on_road.region') }}. Nhắn Zalo nơi đăng ký xe, {{ $stripName }} gửi giá lăn bánh đúng nơi của bạn.</p>
             @if ($stripZalo)
-                <a class="text-link" href="{{ $stripZalo }}" rel="noopener" target="_blank" data-zalo-tail=", đăng ký xe ở ... ạ.">Nhắn Zalo hỏi giá</a>
+                <a class="text-link" href="{{ $stripZalo }}" rel="noopener" target="_blank" data-zalo-tail=", đăng ký xe tại ...">Nhắn Zalo hỏi giá</a>
             @else
                 <a class="text-link" href="{{ route('quote', array_filter(['xe' => $stripCar?->slug])) }}" data-quote
                    @if ($stripCar) data-product="{{ $stripCar->id }}" @endif>Để lại số, {{ $stripName }} gọi lại</a>
